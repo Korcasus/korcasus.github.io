@@ -116,7 +116,8 @@ Hosting에도 제약이 없으며, CDN에도 문제없이 동작합니다.&lt;/p
 본인이 직접 테마를 만들것이 아니라면, 공개된 테마를 사용하는게 좋습니다.&lt;br&gt;
 다양한 테마가 존재하므로, &lt;a class=&#34;link&#34; href=&#34;https://themes.gohugo.io&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;문서&lt;/a&gt;에서 찾아보고 본인에 맞는 테마를 사용하도록 합니다.&lt;/p&gt;
-&lt;p&gt;저의 경우에는 Stack이 가장 이쁘고, 문서화가 잘 되어있다고 생각했습니다.&lt;br&gt;
+&lt;p&gt;저의 경우에는 &lt;a class=&#34;link&#34; href=&#34;https://stack.jimmycai.com&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Stack&lt;/a&gt;이 가장 이쁘고, 문서화가 잘 되어있다고 생각했습니다.&lt;br&gt;
 그래서 Stack을 기준으로 블로그 구현한 것을 설명하겠습니다.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
