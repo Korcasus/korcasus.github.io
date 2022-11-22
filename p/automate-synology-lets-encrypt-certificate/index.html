@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='시놀로지에서 개인 도메인에 대한 와일드카드 인증서를 발급 및 갱신하는 과정을 설명합니다'><title>Automate Synology Let&#39;s Encrypt Certificate</title>
+
+<link rel='canonical' href='https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/'>
+
+<link rel="stylesheet" href="/scss/style.min.18145888f21de6cb02d8cb0891be8240096206785da14eda35f6c23c239b966a.css"><meta property='og:title' content='Automate Synology Let&#39;s Encrypt Certificate'>
+<meta property='og:description' content='시놀로지에서 개인 도메인에 대한 와일드카드 인증서를 발급 및 갱신하는 과정을 설명합니다'>
+<meta property='og:url' content='https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/'>
+<meta property='og:site_name' content='Read Write'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Synology' /><meta property='article:tag' content='TLS' /><meta property='article:tag' content='CloudFlare' /><meta property='article:published_time' content='2022-11-21T22:23:00&#43;09:00'/><meta property='article:modified_time' content='2022-11-21T22:23:00&#43;09:00'/>
+<meta name="twitter:title" content="Automate Synology Let&#39;s Encrypt Certificate">
+<meta name="twitter:description" content="시놀로지에서 개인 도메인에 대한 와일드카드 인증서를 발급 및 갱신하는 과정을 설명합니다">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PSWKN88H77"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-PSWKN88H77', { 'anonymize_ip': false });
+}
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="메뉴 여닫기">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Read Write</a></h1>
+            <h2 class="site-description">잊지않기위해 기록합니다.</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Korcasus'
+                        target="_blank"
+                        title="GitHub"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.linkedin.com/in/seongdo-kim-34bab9148/'
+                        target="_blank"
+                        title="LinkedIn"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-linkedin" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="4" y="4" width="16" height="16" rx="2" />
+  <line x1="8" y1="11" x2="8" y2="16" />
+  <line x1="8" y1="8" x2="8" y2="8.01" />
+  <line x1="12" y1="16" x2="12" y2="11" />
+  <path d="M16 16v-3a2 2 0 0 0 -4 0" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:korcasus@gmail.com'
+                        target="_blank"
+                        title="Mail"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="3" y="5" width="18" height="14" rx="2" />
+  <polyline points="3 7 12 13 21 7" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>다크 모드</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/synology/" >
+                Synology
+            </a>
+        
+            <a href="/categories/tls/" >
+                TLS
+            </a>
+        
+            <a href="/categories/cloudflare/" >
+                CloudFlare
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/automate-synology-lets-encrypt-certificate/">Automate Synology Let&#39;s Encrypt Certificate</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            시놀로지에서 개인 도메인에 대한 와일드카드 인증서를 발급 및 갱신하는 과정을 설명합니다
+        </h3>
+        
+    </div>
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 21, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    5 분 정도
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="들어가기에-앞서">들어가기에 앞서</h2>
+<p>안녕하세요.<br>
+Synology DS220+ 구매한 뒤로 Bitwarden, WebDAV, &hellip; 다양한 용도로 사용하고있습니다.<br>
+이전까지는 DuckDNS와 함께 DSM 6.X 사용중이었습니다만, DSM 업데이트 이후로 만들어두었던 자동화 프로세스가 동작하지 않더라구요. <br>
+이번 기회에 갖고싶던 Domain을 CloudFlare에서 Domain 구매를 한 뒤, 새롭게 프로세스를 정리하였습니다.<br>
+<a class="link" href="https://github.com/acmesh-official/acme.sh/wiki/Synology-NAS-Guide"  target="_blank" rel="noopener"
+    >공식 가이드</a> 대로 진행했던 과정을 순차적으로 정리하려고 합니다.</p>
+<p>Domain 구입과 DDNS 설정에 대한 내용은 기회가 되면 작성하도록 하겠습니다.</p>
+<h3 id="사용한-환경">사용한 환경</h3>
+<ul>
+<li>DSM 7.X</li>
+<li>Synology DS220+</li>
+<li>Domain Provider : CloudFlare</li>
+</ul>
+<h3 id="lets-encrypt란">Let&rsquo;s Encrypt란?</h3>
+<p>HTTPS를 사용할 때는 CA(인증기관)에서 제공하는 인증서를 사용합니다.<br>
+원하는 도메인으로 인증서를 발급하고자 할때, 업체마다 다른 가격을 지불해야합니다.   <br>
+Let&rsquo;s Encrypt는 비영리 기관으로서 무료로 TLS인증서를 제공합니다.</p>
+<p>장점은 무료로 인증서를 제공받을 수 있지만,<br>
+단점으로는 타업체는 유효기간이 1년인데 비해 짧은 3개월이라는 점입니다.</p>
+<h3 id="acmesh-는-뭔가요">acme.sh 는 뭔가요?</h3>
+<p>Let&rsquo;s Encrypt는 ACME 프로토콜을 사용하여 도메인 소유자인지 확인한 뒤에 인증서를 발급합니다.   <br>
+인증서 발급을 위해서는 ACME 클라이언트 소프트웨어를 선택해야하는데요.</p>
+<p><code>CertBot</code> 사용을 권장하지만, 상황에 따라 다른 소프트웨어를 선택할 수 있습니다. <br>
+<code>acme.sh</code>는 bash를 사용해 인증서를 발급해 줄 수 있는 대체 소프트웨어입니다.<br>
+본인의 선호도에 따라 선택할 수 있습니다.<br>
+상세한 내용은 <a class="link" href="https://letsencrypt.org/ko/docs/client-options/"  target="_blank" rel="noopener"
+    >공식문서</a>를 참고해주세요.</p>
+<h2 id="cloudflare-api-token-발급">CloudFlare API Token 발급</h2>
+<p>인증서 발급 절차에 대해 정확하게 알지는 못해도, 파악한 흐름은 아래와 같습니다.</p>
+<ol>
+<li>원하는 Domain의 인증서 발급 요청 (to Let&rsquo;s Encrypt)</li>
+<li>해당 Domain의 소유자임을 증명하기 위해 TXT Record값을 응답값으로 받음</li>
+<li><a class="link" href="https://api.cloudflare.com/#dns-records-for-a-zone-create-dns-record"  target="_blank" rel="noopener"
+    >CloudFlare API</a>를 사용하여 TXT Record 값을 등록</li>
+<li>TXT Record값을 확인한 후, 인증서 발급</li>
+</ol>
+<p>위 과정에서 사용되는 CloudFlare API를 사용하기위해 Token 발급을 진행합니다.<br>
+Global Key로도 사용가능하지만, 필요이상의 권한을 가지고 있기때문에 진행하진 않습니다.</p>
+<p>token을 발급하고자 하는 Domain을 선택하면, 아래의 같은 Home 화면이 나타납니다.<br>
+빨간색 화살표를 클릭합니다.<br>
+<img src="/p/automate-synology-lets-encrypt-certificate/cloudflare_home.jpg"
+	width="2696"
+	height="2966"
+	srcset="/p/automate-synology-lets-encrypt-certificate/cloudflare_home_hud49da568400d9062178718c4e59fe2d3_651351_480x0_resize_q75_box.jpg 480w, /p/automate-synology-lets-encrypt-certificate/cloudflare_home_hud49da568400d9062178718c4e59fe2d3_651351_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="cloudflare_home"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="90"
+		data-flex-basis="218px"
+	
+></p>
+<p>API Token 생성 버튼을 누르면, 아래의 같은 페이지가 나타나게됩니다.<br>
+우리는 DNS 관련된 수정 권한을 Token을 발행해야하기 때문에, 빨간색 화살표의 버튼을 누릅니다.<br>
+<img src="/p/automate-synology-lets-encrypt-certificate/choose_template.jpg"
+	width="1406"
+	height="1748"
+	srcset="/p/automate-synology-lets-encrypt-certificate/choose_template_hud49da568400d9062178718c4e59fe2d3_271736_480x0_resize_q75_box.jpg 480w, /p/automate-synology-lets-encrypt-certificate/choose_template_hud49da568400d9062178718c4e59fe2d3_271736_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="choose_template"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="80"
+		data-flex-basis="193px"
+	
+></p>
+<p>아래의 이미지에서 1번에 권한이 필요한 Domain을 선택합니다.<br>
+그뒤에는 2번을 선택해 바로 생성하도록 합니다.<br>
+<img src="/p/automate-synology-lets-encrypt-certificate/api_token_create.jpg"
+	width="1708"
+	height="1892"
+	srcset="/p/automate-synology-lets-encrypt-certificate/api_token_create_hud49da568400d9062178718c4e59fe2d3_233114_480x0_resize_q75_box.jpg 480w, /p/automate-synology-lets-encrypt-certificate/api_token_create_hud49da568400d9062178718c4e59fe2d3_233114_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="api_token_create"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="90"
+		data-flex-basis="216px"
+	
+></p>
+<p>정상적으로 진행되었다면, Token값을 확인할 수 있습니다.<br>
+이 값은 더이상 볼 수 없기 때문에 잘 기억해주시기 바랍니다.</p>
+<h2 id="acme-설치-및-인증서-발급">ACME 설치 및 인증서 발급</h2>
+<p>인증서 발급을 진행해줄 Client를 설치하도록 하겠습니다.<br>
+아래의 명령어대로 설치를 진행하도록 합니다.</p>
+<blockquote>
+<p>계정은 root로 진행합니다.</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ sudo su
+</span></span><span class="line"><span class="cl">$ <span class="nb">cd</span> ~
+</span></span><span class="line"><span class="cl">$ wget https://github.com/acmesh-official/acme.sh/archive/master.tar.gz
+</span></span><span class="line"><span class="cl">$ tar xvf master.tar.gz
+</span></span><span class="line"><span class="cl">$ <span class="nb">cd</span> acme.sh-master/
+</span></span><span class="line"><span class="cl">$ ./acme.sh --install --nocron --home /usr/local/share/acme.sh --accountemail <span class="s2">&#34;email@gmailcom&#34;</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">source</span> ~/.profile
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>이제 인증서 생성을 진행해 볼텐데요.<br>
+아래의 환경 변수들을 만들어 줍니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 발급해둔 API Token</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">CF_Token</span><span class="o">=</span><span class="s2">&#34;MY_SECRET_TOKEN_SUCH_SECRET&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># CloudFlare Email</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">CF_Email</span><span class="o">=</span><span class="s2">&#34;myemail@example.com&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>아래의 명령어들을 실행해서 인증서를 생성해보겠습니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">cd</span> /usr/local/share/acme.sh
+</span></span><span class="line"><span class="cl"><span class="c1"># 여기에 사용할 Domain을 지정 해줍니다.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Ex) *.my-domain.com</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">export</span> <span class="nv">CERT_DOMAIN</span><span class="o">=</span><span class="s2">&#34;your-domain.tld&#34;</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">export</span> <span class="nv">CERT_DNS</span><span class="o">=</span><span class="s2">&#34;dns_cf&#34;</span>
+</span></span><span class="line"><span class="cl">$ /usr/local/share/acme.sh/acme.sh --issue --home . -d <span class="s2">&#34;</span><span class="nv">$CERT_DOMAIN</span><span class="s2">&#34;</span> --dns <span class="s2">&#34;</span><span class="nv">$CERT_DNS</span><span class="s2">&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>위의 마지막 명렁어를 실행했을때, 에러없이 마무리되었다면 정상적으로 된 것입니다.<br>
+만약 email을 update하라는 문구가 출력된다면 아래처럼 진행해주세요.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ /usr/local/share/acme.sh//usr/local/share/acme.sh/acme.sh --register-account -m 이메일 --issue --home . -d <span class="s1">&#39;*.도메인&#39;</span> --dns <span class="s2">&#34;</span><span class="nv">$CERT_DNS</span><span class="s2">&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>혹여나 문제가 생긴다면 댓글로 문의주세요.</p>
+<h2 id="기본-인증서-교체">기본 인증서 교체</h2>
+<p>신규로 생성한 인증서를 기본 인증서로 교체해보겠습니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">cd</span> /usr/local/share/acme.sh
+</span></span><span class="line"><span class="cl">$ <span class="nb">export</span> <span class="nv">SYNO_Username</span><span class="o">=</span><span class="s1">&#39;관리자 계정&#39;</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">export</span> <span class="nv">SYNO_Password</span><span class="o">=</span><span class="s1">&#39;관리자 비밀번호&#39;</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">export</span> <span class="nv">SYNO_Certificate</span><span class="o">=</span><span class="s2">&#34;인증서 설명&#34;</span>
+</span></span><span class="line"><span class="cl">$ /usr/local/share/acme.sh/acme.sh --deploy --home . -d <span class="s2">&#34;</span><span class="nv">$CERT_DOMAIN</span><span class="s2">&#34;</span> --deploy-hook synology_dsm
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/automate-synology-lets-encrypt-certificate/certificate_success.jpg"
+	width="2048"
+	height="1774"
+	srcset="/p/automate-synology-lets-encrypt-certificate/certificate_success_hud49da568400d9062178718c4e59fe2d3_402785_480x0_resize_q75_box.jpg 480w, /p/automate-synology-lets-encrypt-certificate/certificate_success_hud49da568400d9062178718c4e59fe2d3_402785_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="certificate_success"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="115"
+		data-flex-basis="277px"
+	
+>
+Success가 출력된다면, 정상적으로 마무리된 것입니다.<br>
+<code>시놀로지 제어판-&gt; 보안 -&gt; 인증서</code>로 들어가서 잘 등록되었는지 확인해봅니다.<br>
+또는 브라우저에서 DSM에 접속한 뒤 새로고침해서 인증서 정보를 확인해주세요.</p>
+<p>만약 OTP를 설정해두셨다면, 위 과정을 진행하면서 <code>SYNO_TOTP_SECRET</code> 값을 설정해주라는 출력과 함께 에러가 발생할 것입니다.<br>
+관리자 계정으로 로그인 할때, OTP 인증을 거치게 설정을 해두었기때문에 당연하다고 볼 수 있습니다.
+출력된 메시지대로 값을 지정해주는 것도 방법이겠지만, 중요한 정보이기 때문에 선뜻 작성하기엔 내키지 않습니다. (관리자 뚫리면 어차피 소용없지만, 괜히 그렇더라구요..;;)<br>
+이를 대체할 수 있는 값이 있는데, <code>SYNO_DID</code> 입니다.</p>
+<p>DeviceID값을 의미합니다. 이 값을 얻기위해서는 DSM에 로그인시 <code>Remember this device</code>에 체크한 후, 관리자 계정으로 로그인하면 Cookie로 저장됩니다.<br>
+개발자 모드로 들어가서 이 값을 복사한뒤, 환경변수로 지정해 줍니다.</p>
+<p>위의 설명한 방식은 http 프로토콜을 사용하여 localhost에 인증서 교체 요청을 합니다.<br>
+특별히 문제될건 없지만, 혹~~~~~시나 무조건 https 프로토콜을 사용해야한다!!! 라고 생각하시는 분이 계시다면<br>
+아래의 2개 환경변수를 지정해준뒤, <code>--insecure</code> argument를 추가한뒤 실행해주면 https 프로토콜을 사용하게 됩니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 앞서 지정한 환경변수도 필요로 합니다.</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">export</span> <span class="nv">SYNO_Scheme</span><span class="o">=</span><span class="s2">&#34;https&#34;</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">export</span> <span class="nv">SYNO_Port</span><span class="o">=</span><span class="s2">&#34;5001&#34;</span>
+</span></span><span class="line"><span class="cl">$ /usr/local/share/acme.sh/acme.sh --deploy --insecure --home . -d <span class="s2">&#34;</span><span class="nv">$CERT_DOMAIN</span><span class="s2">&#34;</span> --deploy-hook synology_dsm
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="인증서-갱신-스케줄러-설정">인증서 갱신 스케줄러 설정</h2>
+<p>인증서 유효기간이 3개월이기 때문에, 3개월마다 갱신작업을 해주어야합니다.<br>
+하지만 이 작업을 매번 수행하기엔&hellip; 놀랍도록 귀찮습니다.<br>
+만료일에 가까워지면 갱신해야되는 초조함은 덤 입니다.<br>
+이 번거로운 일에서 벗어나기 위해 자동화를 하겠습니다.</p>
+<p><code>제어한 -&gt; 서비스 -&gt; 작업 스케줄러 -&gt; 생성 -&gt; 예약된 작업 -&gt; 사용자 정의 스크립트</code>를 순서대로 선택합니다.<br>
+이미지로는 아래와 같습니다. 빨간원 숫자 순서대로 진행합니다.<br>
+<img src="/p/automate-synology-lets-encrypt-certificate/create_scheduler.jpg"
+	width="1962"
+	height="1310"
+	srcset="/p/automate-synology-lets-encrypt-certificate/create_scheduler_hud49da568400d9062178718c4e59fe2d3_179432_480x0_resize_q75_box.jpg 480w, /p/automate-synology-lets-encrypt-certificate/create_scheduler_hud49da568400d9062178718c4e59fe2d3_179432_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="create_scheduler"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="149"
+		data-flex-basis="359px"
+	
+></p>
+<p>하나의 팝업창 나타날텐데요.<br>
+이미지처럼 3가지 값을 확인해줍니다.<br>
+DSM6 버전까지는 <code>root</code>로 진행해야 인증서 교체가 가능했는데요.<br>
+7 버전에서 다른계정으로 실행해도 되는지 테스트 해보진 않았습니다.<br>
+<img src="/p/automate-synology-lets-encrypt-certificate/create_1.jpg"
+	width="932"
+	height="510"
+	srcset="/p/automate-synology-lets-encrypt-certificate/create_1_hud49da568400d9062178718c4e59fe2d3_53297_480x0_resize_q75_box.jpg 480w, /p/automate-synology-lets-encrypt-certificate/create_1_hud49da568400d9062178718c4e59fe2d3_53297_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="create_1"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="182"
+		data-flex-basis="438px"
+	
+></p>
+<p>다음으로는 언제실행할지 스케줄을 지정할 차례입니다.<br>
+이미지처럼 설정할 경우 매주 토요일 오전 1시에 갱신을 시도하려고 할겁니다.<br>
+선호하는 요일, 시간을 지정해주세요.</p>
+<p>매달 실행할 수 있게 변경 가능하지만, 갱신은 만료 1개월 전부터 가능합니다.<br>
+첫번째이자 마지막 갱신 시도하는 날에 모종의 이유로 실패할 경우, 위에서 진행하셨던걸 다시해주셔야합니다.<br>
+그래서 안전하게 매주 실행하도록 설정했습니다.
+<img src="/p/automate-synology-lets-encrypt-certificate/create_2.jpg"
+	width="874"
+	height="904"
+	srcset="/p/automate-synology-lets-encrypt-certificate/create_2_hucdd27cc99166e43e175b379001281f77_65336_480x0_resize_q75_box.jpg 480w, /p/automate-synology-lets-encrypt-certificate/create_2_hucdd27cc99166e43e175b379001281f77_65336_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="create_2"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="96"
+		data-flex-basis="232px"
+	
+></p>
+<p>다음으로는 실행할 스크립트를 지정하는 단계입니다.<br>
+알림 설정해두신 분이라면, <code>실행 상세정보를 이메일로 보내기</code>를 체크해주면 좋습니다.<br>
+잘 실행되는걸 메일 오는것으로 확인할 수 있을 테니까요.<br>
+저의경우에는 메일 대신에 텔레그램으로 메시지 오도록 변경했습니다. 이와 관련해서는 따로 포스트 하겠습니다.<br>
+사용자 정의 스크립트는 이미지처럼 인증서를 갱신하는 스크립트를 넣어줍니다.<br>
+<img src="/p/automate-synology-lets-encrypt-certificate/create_3.jpg"
+	width="884"
+	height="732"
+	srcset="/p/automate-synology-lets-encrypt-certificate/create_3_hucdd27cc99166e43e175b379001281f77_72087_480x0_resize_q75_box.jpg 480w, /p/automate-synology-lets-encrypt-certificate/create_3_hucdd27cc99166e43e175b379001281f77_72087_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="create_3"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="120"
+		data-flex-basis="289px"
+	
+></p>
+<p>간단합니다. 한줄의 커맨드만 입력해주면 됩니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/usr/local/share/acme.sh/acme.sh --cron --home /usr/local/share/acme.sh/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>이제 설정 완료하시면 아래의 같은 팝업이 출력됩니다.<br>
+<img src="/p/automate-synology-lets-encrypt-certificate/create_warn.jpg"
+	width="1264"
+	height="386"
+	srcset="/p/automate-synology-lets-encrypt-certificate/create_warn_hucdd27cc99166e43e175b379001281f77_60486_480x0_resize_q75_box.jpg 480w, /p/automate-synology-lets-encrypt-certificate/create_warn_hucdd27cc99166e43e175b379001281f77_60486_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="create_warn"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="327"
+		data-flex-basis="785px"
+	
+>
+사뿐히 확인버튼 눌러주시면 됩니다.</p>
+<p>알림 외에도 실행한 로그를 확인하고 싶으실수 있는데요.<br>
+아래 이미지처럼 로그 경로를 설정할 수 있습니다. <br>
+<img src="/p/automate-synology-lets-encrypt-certificate/scheduler_log.jpg"
+	width="1166"
+	height="636"
+	srcset="/p/automate-synology-lets-encrypt-certificate/scheduler_log_hud49da568400d9062178718c4e59fe2d3_73433_480x0_resize_q75_box.jpg 480w, /p/automate-synology-lets-encrypt-certificate/scheduler_log_hud49da568400d9062178718c4e59fe2d3_73433_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="scheduler_log"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="183"
+		data-flex-basis="440px"
+	
+>
+저의경우에 <code>log</code> 디렉토리로 지정했습니다.<br>
+이와같이 지정했을 경우 스케줄러 로그는 <code>/volume1/log/synoscheduler</code> 경로에 저장됩니다.<br>
+우리가 실행한 작업의 로그는 <code>/volume1/log/synoscheduler/${task_number}/${실행시간}</code> 경로에서 확인하실수 있습니다.<br>
+<code>task_number</code>는 스케줄러가 몇번째로 만들어졌는지 의미하는 값으로 보입니다.<br>
+<code>output.log</code>는 실행하며 출력된 결과이고, <code>script.log</code>는 실행한 스크립트를 볼 수 있습니다.</p>
+<h2 id="정리">정리</h2>
+<p>왜 이렇게 까지 해야되나 궁금해 하실수도 있습니다.<br>
+집에서만 사용하도록 하신경우라면 이 과정 전혀 필요없습니다. 왜냐하면 외부에서 접근이 불가능하니까요.</p>
+<p>하지만 외부에서 접근을 허용하는 경우라면 이야기가 달라집니다.<br>
+설정을 해두신 시점 이후로, 수시로 타국가에서 접근을 시도합니다. 보안 허점을 찾으려고 하는 거죠.
+http 통신은 보안상 문제가 있기 때문에, 이 상황에서 http를 사용해서 외부에서 접근하면&hellip; 더 이야기 안해도 아실거라 생각합니다.<br>
+이러한 이유로 https를 사용하게된거고, 최소한의 방어수단을 갖춘 셈입니다.</p>
+<p>여튼 여기까지 진행하셨다면, CloudFlare의 Domain에 TLS인증서 기반의 https를 사용할 수 있는 환경을 만드신 겁니다. <br>
+진행하느라 고생 많으셨습니다.👏👏</p>
+<blockquote>
+<p>저도 이번에 새롭게 설정하다보니, 자동 갱신이 잘 되는지는 확인하진 못했습니다.<br>
+2개월 뒤에 내용을 보충 하도록 하겠습니다.</p>
+</blockquote>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/synology/">Synology</a>
+        
+            <a href="/tags/tls/">TLS</a>
+        
+            <a href="/tags/cloudflare/">CloudFlare</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="Korcasus/blog-comments"
+        issue-term="title"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2022 Read Write
+    </section>
+    
+    <section class="powerby">
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>로 만듦 <br />
+        <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>의 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.14.0">Stack</a></b> 테마 사용 중
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">목차</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#들어가기에-앞서">들어가기에 앞서</a>
+      <ol>
+        <li><a href="#사용한-환경">사용한 환경</a></li>
+        <li><a href="#lets-encrypt란">Let&rsquo;s Encrypt란?</a></li>
+        <li><a href="#acmesh-는-뭔가요">acme.sh 는 뭔가요?</a></li>
+      </ol>
+    </li>
+    <li><a href="#cloudflare-api-token-발급">CloudFlare API Token 발급</a></li>
+    <li><a href="#acme-설치-및-인증서-발급">ACME 설치 및 인증서 발급</a></li>
+    <li><a href="#기본-인증서-교체">기본 인증서 교체</a></li>
+    <li><a href="#인증서-갱신-스케줄러-설정">인증서 갱신 스케줄러 설정</a></li>
+    <li><a href="#정리">정리</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -3,24 +3,45 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://korcasus.github.io/</loc>
-    <lastmod>2022-11-19T00:00:00+09:00</lastmod>
+    <lastmod>2022-11-21T22:23:00+09:00</lastmod>
   </url><url>
-    <loc>https://korcasus.github.io/categories/blog/</loc>
-    <lastmod>2022-11-15T20:23:45+09:00</lastmod>
+    <loc>https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/</loc>
+    <lastmod>2022-11-21T22:23:00+09:00</lastmod>
   </url><url>
     <loc>https://korcasus.github.io/categories/</loc>
+    <lastmod>2022-11-21T22:23:00+09:00</lastmod>
+  </url><url>
+    <loc>https://korcasus.github.io/tags/cloudflare/</loc>
+    <lastmod>2022-11-21T22:23:00+09:00</lastmod>
+  </url><url>
+    <loc>https://korcasus.github.io/categories/cloudflare/</loc>
+    <lastmod>2022-11-21T22:23:00+09:00</lastmod>
+  </url><url>
+    <loc>https://korcasus.github.io/post/</loc>
+    <lastmod>2022-11-21T22:23:00+09:00</lastmod>
+  </url><url>
+    <loc>https://korcasus.github.io/tags/synology/</loc>
+    <lastmod>2022-11-21T22:23:00+09:00</lastmod>
+  </url><url>
+    <loc>https://korcasus.github.io/categories/synology/</loc>
+    <lastmod>2022-11-21T22:23:00+09:00</lastmod>
+  </url><url>
+    <loc>https://korcasus.github.io/tags/</loc>
+    <lastmod>2022-11-21T22:23:00+09:00</lastmod>
+  </url><url>
+    <loc>https://korcasus.github.io/tags/tls/</loc>
+    <lastmod>2022-11-21T22:23:00+09:00</lastmod>
+  </url><url>
+    <loc>https://korcasus.github.io/categories/tls/</loc>
+    <lastmod>2022-11-21T22:23:00+09:00</lastmod>
+  </url><url>
+    <loc>https://korcasus.github.io/categories/blog/</loc>
     <lastmod>2022-11-15T20:23:45+09:00</lastmod>
   </url><url>
     <loc>https://korcasus.github.io/tags/hugo/</loc>
     <lastmod>2022-11-15T20:23:45+09:00</lastmod>
   </url><url>
     <loc>https://korcasus.github.io/p/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-2/</loc>
-    <lastmod>2022-11-15T20:23:45+09:00</lastmod>
-  </url><url>
-    <loc>https://korcasus.github.io/post/</loc>
-    <lastmod>2022-11-15T20:23:45+09:00</lastmod>
-  </url><url>
-    <loc>https://korcasus.github.io/tags/</loc>
     <lastmod>2022-11-15T20:23:45+09:00</lastmod>
   </url><url>
     <loc>https://korcasus.github.io/p/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-1/</loc>
