@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Hive에서 연동을 위한 설정을 진행합니다.'><title>Hive Kafka Integration 1</title>
+
+<link rel='canonical' href='https://korcasus.github.io/p/hive-kafka-integration-1/'>
+
+<link rel="stylesheet" href="/scss/style.min.18145888f21de6cb02d8cb0891be8240096206785da14eda35f6c23c239b966a.css"><meta property='og:title' content='Hive Kafka Integration 1'>
+<meta property='og:description' content='Hive에서 연동을 위한 설정을 진행합니다.'>
+<meta property='og:url' content='https://korcasus.github.io/p/hive-kafka-integration-1/'>
+<meta property='og:site_name' content='Read Write'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Hive' /><meta property='article:tag' content='Kafka' /><meta property='article:tag' content='ETL' /><meta property='article:published_time' content='2022-12-01T22:44:01&#43;09:00'/><meta property='article:modified_time' content='2022-12-01T22:44:01&#43;09:00'/>
+<meta name="twitter:title" content="Hive Kafka Integration 1">
+<meta name="twitter:description" content="Hive에서 연동을 위한 설정을 진행합니다.">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PSWKN88H77"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-PSWKN88H77', { 'anonymize_ip': false });
+}
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="메뉴 여닫기">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Read Write</a></h1>
+            <h2 class="site-description">잊지않기위해 기록합니다.</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Korcasus'
+                        target="_blank"
+                        title="GitHub"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.linkedin.com/in/seongdo-kim-34bab9148/'
+                        target="_blank"
+                        title="LinkedIn"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-linkedin" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="4" y="4" width="16" height="16" rx="2" />
+  <line x1="8" y1="11" x2="8" y2="16" />
+  <line x1="8" y1="8" x2="8" y2="8.01" />
+  <line x1="12" y1="16" x2="12" y2="11" />
+  <path d="M16 16v-3a2 2 0 0 0 -4 0" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:korcasus@gmail.com'
+                        target="_blank"
+                        title="Mail"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="3" y="5" width="18" height="14" rx="2" />
+  <polyline points="3 7 12 13 21 7" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>다크 모드</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/hive/" >
+                Hive
+            </a>
+        
+            <a href="/categories/kafka/" >
+                Kafka
+            </a>
+        
+            <a href="/categories/hadoop/" >
+                hadoop
+            </a>
+        
+            <a href="/categories/batch/" >
+                batch
+            </a>
+        
+            <a href="/categories/etl/" >
+                ETL
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/hive-kafka-integration-1/">Hive Kafka Integration 1</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            Hive에서 연동을 위한 설정을 진행합니다.
+        </h3>
+        
+    </div>
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Dec 01, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    4 분 정도
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="개요">개요</h2>
+<p>Hive는 Hadoop에 저장된 대용량의 데이터들을 SQL 문법으로 읽고 쓸수있게 해주는 data warehouse software입니다.<br>
+간단하게 Hadoop에서 동작하는 대용량 데이터 처리 Database라고 생각해 볼 수 있을것 같습니다.</p>
+<p>기본으로 HDFS를 지원하며, Hbase 또는 기타 DBMS에 접근할 수 있도록 개방적인 DataSourcing 기능을 제공하고 있습니다.
+Message Queue로 많이 활용되는 Kafka도 지원합니다. 이번 시리즈에서는 Hive와 Kafka 연동을 위한 설정부터 Message를 읽고 쓰는 과정까지 기록해보려고 합니다.</p>
+<p>이번 글에서는 사용할때 필요한 설정들과 알아야하는 정보들을 위주로 기록합니다.
+사용 예시가 궁금하시다면 다음 글을 읽어주세요.</p>
+<blockquote>
+<p><a class="link" href="https://github.com/apache/hive/blob/master/kafka-handler/README.md"  target="_blank" rel="noopener"
+    >공식문서</a>를 토대로 작성하였습니다.<br>
+문서에는 작성되어있지않으나, 사용하려면 추가로 알아야할 내용과 직접 테스트한 예제들을 상세히 기록하고자 합니다.</p>
+</blockquote>
+<blockquote>
+<p>Hive 3.x 버전에서 진행하였습니다.</p>
+</blockquote>
+<h2 id="설치">설치</h2>
+<p>사실 별도의 설치는 필요하지않습니다.<br>
+공식문서를 한번 살펴보셨다면 아시겠지만, Hive에 이미 내장 되어있습니다.<br>
+어떻게 할 지 상상이 안될수도 있지만, SQL을 사용하면 Kafka에 연동을 할 수 있습니다.</p>
+<h2 id="테이블-생성">테이블 생성</h2>
+<p>Hive와 Kafka를 연동해주기 위해서는 연결고리를 만들어주어야합니다.<br>
+Spring에서는 Binder와 Binding을 사용하면 손쉽게 연결고리를 만들 수 있듯이, Hive에서는 <code>StorageHandler</code>를 사용하여 만들 수 있습니다.<br>
+<code>StorageHandler</code>는 table을 정의할 때 함께 명시하면 됩니다. 이 외에도 설정을 추가하면 완벽하게 사용하실수 있습니다.</p>
+<p><img src="/p/hive-kafka-integration-1/easy.jpg"
+	width="420"
+	height="400"
+	srcset="/p/hive-kafka-integration-1/easy_huc8db540d4dfe2991afdf78060faa4427_62748_480x0_resize_q75_box.jpg 480w, /p/hive-kafka-integration-1/easy_huc8db540d4dfe2991afdf78060faa4427_62748_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="참쉽죠"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="105"
+		data-flex-basis="252px"
+	
+><br>
+다만 Hive에서 Kafka와 연동된 테이블을 만들기 위해서는 몇가지 주의해야하는 사항이 있습니다.</p>
+<p><code>첫번째</code>로는 <code>EXTERNAL</code> 테이블로 생성해야한다는 것입니다.<br>
+우리가 사용할 방식은 Hive에서 Kafka에 접근하여 저장된 데이터들을 사용하는 것이기 때문에, <code>EXTERNAL</code> 키워드를 추가해주어야합니다.</p>
+<p><code>두번째</code>로는 <strong>KafkaStorageHandler</strong> 를 명시해야합니다.<br>
+테이블을 정의할 때 <code>STORED BY 'org.apache.hadoop.hive.kafka.KafkaStorageHandler'</code> 가 함께 적혀있어야 합니다.<br>
+적혀 있어야만 Kafka를 연동하여 사용하실 수 있습니다.</p>
+<p><code>세번째</code>로는 테이블설정을 해주어야합니다.<br>
+<code>TBLPROPERTIES</code> 키워드 사용하면 테이블에 대한 Property를 설정할 수 있게됩니다.
+여기에 Kafka 연동에 필요한 Configuration을 작성해야 합니다.</p>
+<p>세가지를 모두 적용하여 DDL을 작성해보면, 아래의 예시처럼 만들어질 수 있습니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">EXTERNAL</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">kafka_table</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">`</span><span class="k">timestamp</span><span class="o">`</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">`</span><span class="n">page</span><span class="o">`</span><span class="w"> </span><span class="n">STRING</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">`</span><span class="n">newPage</span><span class="o">`</span><span class="w"> </span><span class="nb">BOOLEAN</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">`</span><span class="n">added</span><span class="o">`</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">`</span><span class="n">deleted</span><span class="o">`</span><span class="w"> </span><span class="nb">BIGINT</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">`</span><span class="n">delta</span><span class="o">`</span><span class="w"> </span><span class="n">DOUBLE</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">STORED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;org.apache.hadoop.hive.kafka.KafkaStorageHandler&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">TBLPROPERTIES</span><span class="w"> </span><span class="p">(</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.topic&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;test-topic&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.bootstrap.servers&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;localhost:9092&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="kafka-metadata">Kafka metadata</h2>
+<p>Kafka에 저장된 Message는 Payload 외에도 Key, Partition, Offset, Timestamp 4개의 metadata가 존재합니다.
+이 데이터들도 Hive에서 사용할 수 있습니다.<br>
+앞서 테이블을 정의할 때 사용하였던 <code>KafkaStorageHandler</code>가 자동으로 metadata들을 컬럼으로 등록해 줍니다.</p>
+<ul>
+<li>__key (byte array)</li>
+<li>__partition (int32)</li>
+<li>__offset (int64)</li>
+<li>__timestamp (int64)</li>
+</ul>
+<p>활용하는 방안은 실사용 예제를 작성한 다음글에서 자세히 설명드리도록 하겠습니다.</p>
+<h2 id="avro-포맷-사용시-주의사항">Avro 포맷 사용시 주의사항</h2>
+<p>만약 Confluent Connector를 통해 Avro포맷을 사용한다면, 메시지에서 5-bytes를 제거해주어야합니다.<br>
+이 5-bytes중 1-byte는 매직 byte, 4-byte는 schema registry의 schema id에 해당됩니다.<br>
+이는 <code>&quot;avro.serde.type&quot;=&quot;skip&quot;</code> 그리고 <code>&quot;avro.serde.skip.bytes&quot;=&quot;5&quot;</code>를 설정해주면 해결할 수 있습니다.<br>
+avro를 사용할 경우, 상세한 내용은 가이드를 꼭 참고하면 좋겠습니다.</p>
+<blockquote>
+<p>confluent avro format 지원은 Hive 4.0버전에 추가될 것으로 보입니다.
+3.x 버전을 사용하시는 분이라면, 주의해주시면 좋을것 같습니다. (제가 삽질했던거라서요&hellip;)</p>
+</blockquote>
+<h2 id="serdeserializer-deserializer">Serde(Serializer, Deserializer)</h2>
+<p>Application에서 Kafka로 데이터 전송을 해본 적 있다면, serializer, deserializer를 지정해보신 경험이 있으실 겁니다.<br>
+Hive에서도 마찬가지로 여러 serializer, deserializer를 제공하고있습니다.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Supported Serializers and Deserializers</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>org.apache.hadoop.hive.serde2.JsonSerDe</td>
+<td>JSON 포맷</td>
+</tr>
+<tr>
+<td>org.apache.hadoop.hive.serde2.OpenCSVSerde</td>
+<td>CSV 포맷</td>
+</tr>
+<tr>
+<td>org.apache.hadoop.hive.serde2.avro.AvroSerDe</td>
+<td>AVRO 포맷</td>
+</tr>
+<tr>
+<td>org.apache.hadoop.hive.serde2.lazybinary.LazyBinarySerDe</td>
+<td>binary..?</td>
+</tr>
+<tr>
+<td>org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe</td>
+<td>Plain Text</td>
+</tr>
+</tbody>
+</table></div>
+<p>지정하는 방법은 생각보다 매우 간단합니다.<br>
+TBLPROPERTIES에 추가하면 손쉽게 적용할 수 있습니다.<br>
+예를 들면 Kafka에서 읽어들일 데이터포맷이 JSON의 경우이거나, 전송할 데이터가 JSON으로 하고 싶다면 아래처럼 추가하면 됩니다.   <br>
+<code>&quot;kafka.serde.class&quot; = &quot;org.apache.hadoop.hive.serde2.JsonSerDe&quot;</code></p>
+<h2 id="인증">인증</h2>
+<p>Kafka에도 인증을 해야 데이터 읽고 쓸수 있는 권한을 주는 기능을 제공하고 있습니다.<br>
+Kafka 사용하는데 필요한 인증정보들 또한 Hive를 통해 제공할 수 있습니다.</p>
+<blockquote>
+<p>저의 경우에는 별도로 인증을 추가하지 않고 사용했다보니, 인증없이 사용한 경우로 기록하겠습니다.<br>
+인증을 사용해야하는 상황이라면, 공식 문서를 읽어보고 진행해 주세요.</p>
+</blockquote>
+<p>인증을 위한 TBLPROPERTIES 값을 추가하지 않은 상태라면, 연결을 시도했을때 에러가 발생합니다.<br>
+별도의 설정을 안해두었다면, 당연히 인증없이도 사용가능해야되는거 아닌가? 라고 생각할 수 있을텐데요. (제가 그랬습니다.)
+Hive는 기본값으로 id, password를 사용하여 인증을 시도하려 합니다.<br>
+따라서 인증을 사용하지않는 설정을 추가해주어야만 사용이 가능한데요.</p>
+<p>공식문서에 이 문제를 해결하기 위한 방법을 따로 제시하지않아 많이 어려움을 겪었던 부분이었습니다.   <br>
+결론부터 이야기하면 TBLPROPERTY를 추가하면 해결할 수 있습니다.</p>
+<ul>
+<li>producer일 경우 : <code>&quot;kafka.producer.security.protocol&quot; = &quot;PLAINTEXT&quot;</code></li>
+<li>consumer일 경우 : <code>&quot;kafka.consumer.security.protocol&quot; = &quot;PLAINTEXT&quot;</code></li>
+</ul>
+<p>인증에 상세히 알아보고 싶다면, <a class="link" href="https://kafka.apache.org/documentation/#producerconfigs_security.protocol"  target="_blank" rel="noopener"
+    >문서</a>를 참고하시면 좋을것 같습니다.<br>
+후에 서술하겠지만 설정할때 <code>kafka.</code>를 prefix로 지정해두면, kafka에 설정값이 전달할 수 있습니다.</p>
+<h2 id="key-serializer">Key Serializer</h2>
+<p>앞서 설명드렸던 Serializer들은 Value Serializer 였습니다.<br>
+예상하던것보다 많이 제공했지만 반대로 Key Serializer는 Byte Serializer밖에 지원하지 않습니다.<br>
+다른 Serializer로 변경해서 사용하고 싶더라도 변경할 수 없게 되어 있습니다.<br>
+왜 이렇게 구현한지는 모르겠지만, 자세한 내용은 코드를 보면 알 수 있습니다.<br>
+궁금하실 수 있을 것 같아, 링크도 첨부합니다.</p>
+<ul>
+<li><a class="link" href="https://github.com/apache/hive/blob/335749a33c02ec0dc7ebadb9eda101d174ad5faf/kafka-handler/src/java/org/apache/hadoop/hive/kafka/KafkaStorageHandler.java#L233"  target="_blank" rel="noopener"
+    >producer</a></li>
+<li><a class="link" href="https://github.com/apache/hive/blob/335749a33c02ec0dc7ebadb9eda101d174ad5faf/kafka-handler/src/java/org/apache/hadoop/hive/kafka/KafkaStorageHandler.java#L193"  target="_blank" rel="noopener"
+    >consumer</a></li>
+</ul>
+<h2 id="그외">그외</h2>
+<p>지금까지 작성한 내용들 이외에도 Kafka를 사용할때, 추가하고 싶은 설정이 더 있을 수 있습니다.<br>
+공식문서에서는 설명하진 않지만, Kafka에 사용할 설정값을 전달할 수 있습니다.</p>
+<ul>
+<li>producer로 사용할 경우 <code>“kafka.producer.{property}” = “{value}”</code></li>
+<li>consumer로 사용할 경우 <code>“kafka.consumer.{property}” = “{value}”</code>
+TBLPROPERTIES에 추가해주면, Kafka에 설정값들이 전달되며 원하는 설정을 적용할 수 있습니다.</li>
+</ul>
+<p>어떻게 설정값이 전달될 수 있는지, 구현된 코드가 궁금하다면 아래의 링크를 참고하시면 좋겠습니다.</p>
+<ul>
+<li><a class="link" href="https://github.com/apache/hive/blob/335749a33c02ec0dc7ebadb9eda101d174ad5faf/kafka-handler/src/java/org/apache/hadoop/hive/kafka/KafkaStorageHandler.java#L213"  target="_blank" rel="noopener"
+    >producer</a></li>
+<li><a class="link" href="https://github.com/apache/hive/blob/335749a33c02ec0dc7ebadb9eda101d174ad5faf/kafka-handler/src/java/org/apache/hadoop/hive/kafka/KafkaStorageHandler.java#L168"  target="_blank" rel="noopener"
+    >consumer</a></li>
+</ul>
+<h2 id="정리">정리</h2>
+<p>여기까지 Hive에서 Kafka를 Read, Write하기 위해서 필요한 설정들과, 도움이 되는 정보들에 대해 알아 보았습니다.<br>
+다음 글에서는 Kafka에 있는 Message들을 Hive에서 Read하는 과정을 기록해보겠습니다.<br>
+감사합니다.</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/hive/">Hive</a>
+        
+            <a href="/tags/kafka/">Kafka</a>
+        
+            <a href="/tags/etl/">ETL</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="Korcasus/blog-comments"
+        issue-term="title"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2022 Read Write
+    </section>
+    
+    <section class="powerby">
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>로 만듦 <br />
+        <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>의 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.14.0">Stack</a></b> 테마 사용 중
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">목차</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#개요">개요</a></li>
+    <li><a href="#설치">설치</a></li>
+    <li><a href="#테이블-생성">테이블 생성</a></li>
+    <li><a href="#kafka-metadata">Kafka metadata</a></li>
+    <li><a href="#avro-포맷-사용시-주의사항">Avro 포맷 사용시 주의사항</a></li>
+    <li><a href="#serdeserializer-deserializer">Serde(Serializer, Deserializer)</a></li>
+    <li><a href="#인증">인증</a></li>
+    <li><a href="#key-serializer">Key Serializer</a></li>
+    <li><a href="#그외">그외</a></li>
+    <li><a href="#정리">정리</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
