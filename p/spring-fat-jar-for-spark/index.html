@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Spark에서 Spring을 실행할 수 있게 Fat Jar빌드하는 방법에 대해 기술합니다.'><title>Spring Fat-jar for Spark</title>
+
+<link rel='canonical' href='https://korcasus.github.io/p/spring-fat-jar-for-spark/'>
+
+<link rel="stylesheet" href="/scss/style.min.18145888f21de6cb02d8cb0891be8240096206785da14eda35f6c23c239b966a.css"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4086051155158500"
+        crossorigin="anonymous"></script>
+<meta property='og:title' content='Spring Fat-jar for Spark'>
+<meta property='og:description' content='Spark에서 Spring을 실행할 수 있게 Fat Jar빌드하는 방법에 대해 기술합니다.'>
+<meta property='og:url' content='https://korcasus.github.io/p/spring-fat-jar-for-spark/'>
+<meta property='og:site_name' content='Read Write'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Spring' /><meta property='article:tag' content='Spark' /><meta property='article:tag' content='Fat-Jar' /><meta property='article:tag' content='Gradle' /><meta property='article:published_time' content='2023-02-20T23:16:51&#43;09:00'/><meta property='article:modified_time' content='2023-02-20T23:16:51&#43;09:00'/>
+<meta name="twitter:title" content="Spring Fat-jar for Spark">
+<meta name="twitter:description" content="Spark에서 Spring을 실행할 수 있게 Fat Jar빌드하는 방법에 대해 기술합니다.">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PSWKN88H77"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-PSWKN88H77', { 'anonymize_ip': false });
+}
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="메뉴 여닫기">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Read Write</a></h1>
+            <h2 class="site-description">잊지않기위해 기록합니다.</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Korcasus'
+                        target="_blank"
+                        title="GitHub"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.linkedin.com/in/seongdo-kim-34bab9148/'
+                        target="_blank"
+                        title="LinkedIn"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-linkedin" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="4" y="4" width="16" height="16" rx="2" />
+  <line x1="8" y1="11" x2="8" y2="16" />
+  <line x1="8" y1="8" x2="8" y2="8.01" />
+  <line x1="12" y1="16" x2="12" y2="11" />
+  <path d="M16 16v-3a2 2 0 0 0 -4 0" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:korcasus@gmail.com'
+                        target="_blank"
+                        title="Mail"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="3" y="5" width="18" height="14" rx="2" />
+  <polyline points="3 7 12 13 21 7" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>다크 모드</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/spring/" >
+                Spring
+            </a>
+        
+            <a href="/categories/spark/" >
+                Spark
+            </a>
+        
+            <a href="/categories/gradle/" >
+                Gradle
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/spring-fat-jar-for-spark/">Spring Fat-jar for Spark</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            Spark에서 Spring을 실행할 수 있게 Fat Jar빌드하는 방법에 대해 기술합니다.
+        </h3>
+        
+    </div>
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Feb 20, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 분 정도
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="how-to-build-fat-jar">How to Build Fat Jar</h2>
+<p>Build Tool을 어떤 종류를 사용하는지에 따라 방법이 달라집니다.<br>
+Maven은 <code>maven-assembly-plugin</code><br>
+Gradle <code>Shadow Plugin</code> 을 사용해야합니다.<br>
+대부분은 위의 2개 Plugin중 하나만 사용하면 해결되지만, Spring Boot는 구동방식이 달라서, 별도의 처리가 필요합니다.</p>
+<h2 id="boot-jar">Boot-Jar</h2>
+<p>Spring에서 공식적으로 권장하는 방법입니다.</p>
+<p>설명에 따르면 Java는 nested-jar파일을 load하는 방법을 제공하지않습니다. 이때문에 압축 풀지않고, 실행해야하는 환경이라면 문제가 될 수 있습니다.<br>
+이 때문에 Shaded Jar(Fat Jar)를 사용해야합니다. 모든 Jars파일로부터 모든 Class를 모아서 Pacakage하여 하나의 Jar파일로 만들어 줍니다.<br>
+실제로 Application에 존재하는 library를 보기에 힘들어지기때문에, Spring은 다른 방법을 제공합니다.</p>
+<p>어떤방식으로 구현되었는지가 궁금하다면 상세한 내용은 공식문서를 참고해주세요.</p>
+<h3 id="configuration">Configuration</h3>
+<h4 id="1-module-추가">1. Module 추가</h4>
+<p><code>implementation 'org.springframework.boot:spring-boot-loader'</code><br>
+위의 모듈은 Spring boot 를 Excutable Jar 또는 War로 만들수 있게 도와줍니다.</p>
+<h4 id="2-manifest-변경">2. Manifest 변경</h4>
+<p>JarLauncher를 통해 실행되어야하기 때문에, Manifest 변경이 필요합니다.<br>
+<code>META-INF/MANIFEST.MF</code> 에 내용이 존재하는데. Build하며 기록되어야 합니다.</p>
+<p>공식문서에는 아래와같이 가이드 하고 있습니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">Main</span><span class="o">-</span><span class="nl">Class:</span> <span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">.</span><span class="na">boot</span><span class="o">.</span><span class="na">loader</span><span class="o">.</span><span class="na">JarLauncher</span>
+</span></span><span class="line"><span class="cl"><span class="n">Start</span><span class="o">-</span><span class="nl">Class:</span> <span class="n">com</span><span class="o">.</span><span class="na">mycompany</span><span class="o">.</span><span class="na">project</span><span class="o">.</span><span class="na">MyApplication</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>저의 경우에는 아래와 같이 적용하였습니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">jar</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">manifest</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">attributes</span> <span class="s2">&#34;Main-Class&#34;</span><span class="o">:</span> <span class="s2">&#34;org.springframework.boot.loader.JarLauncher&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">attributes</span> <span class="s2">&#34;Start-Class&#34;</span><span class="o">:</span> <span class="s2">&#34;com.mycompany.team.batch.SparkSpringBatchClient&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="문제점">문제점</h3>
+<p><code>java -jar xxx.jar</code> 명령어로 실행할 경우, 정상동작합니다.<br>
+하지만 Spark에서 실행할 경우, 문제가 발생합니다.</p>
+<p>이유는 Dependency version 때문이었습니다.<br>
+재직중인 회사에서 운영중인 Spark는 2.4버전을 사용 중인데, 여기에 포함되어있는 gson 버전이 Application에서 사용해야할 버전보다 낮았습니다.
+이때문에 구버전의 Gson으로 사용되면서 Application구동 실패 하였습니다.</p>
+<p>강제로 최신버전의 Gson을 사용할 수 있는 방안을 찾아보았습니다.<br>
+첫번째로는 사용할 Dependency버전을 명시하는 방법이였습니다.<br>
+(참고로 이 방법을 사용하지않아도 비교적 최신 gson을 사용합니다.)
+하지만 spark에 내장되어있는 library를 우선으로 사용하기때문에 실패하였습니다.</p>
+<p>두번째 방법은 <a class="link" href="https://spark.apache.org/docs/latest/configuration.html#runtime-environment"  target="_blank" rel="noopener"
+    >Spark공식문서</a>에서 제공하는 방법입니다. (<a class="link" href="https://stackoverflow.com/questions/31150656/classpath-resolution-between-spark-uber-jar-and-spark-submit-jars-when-similar"  target="_blank" rel="noopener"
+    >참고</a>)<br>
+<code>spark.driver.userClassPathFirst</code><br>
+<code>spark.executor.userClassPathFirst</code><br>
+위의 2개 변수는 기본값이 False로 되어있습니다.</p>
+<p>문서에 따르면, 사용자가 옵션으로 추가한 <code>--jars</code> 를 우선시 사용한다고 되어있습니다.<br>
+시험 기능인 문제도 있고, 추가해야할 jar이 증가하면 관리할 포인트가 증가할 수 있습니다.
+의도한대로 동작하지도 않았고, 의도했던 바가 아니라 더이상 사용하지 않았습니다.</p>
+<p>이를 해결하려면 relocate(임의로 이름변경?)을 사용해야하는데, Shadow Plugin에서는 지원합니다.</p>
+<h2 id="shadow-plugin">Shadow Plugin</h2>
+<p>프로젝트 내에 있는 Dependency Classs와 Resource를 하나의 Jar로 만들어 줍니다.<br>
+이로 인해 얻을수 있는 장점은 2가지입니다.</p>
+<ol>
+<li>실행가능한 Jar배포를 만든다.</li>
+<li>Library에 있는 공통 Dependency를 bundling, relocating하여 classpath conflict를 회피한다.</li>
+</ol>
+<p><a class="link" href="https://wonyong-jang.github.io/spark/2021/07/08/Spark-override-dependency.html"  target="_blank" rel="noopener"
+    >장점을 좀더 잘 풀어쓴글</a>을 참고하면 좋겠습니다.</p>
+<h3 id="add-option-for-spring">Add Option For Spring</h3>
+<p>Shadow Plugin으로 Spring Application을 Build하려면 추가 옵션이 필요합니다.</p>
+<p>아래의 내용을 추가합니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.github.jengelman.gradle.plugins.shadow.transformers.*</span>
+</span></span><span class="line"><span class="cl"><span class="n">shadowJar</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Required for Spring
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">mergeServiceFiles</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">append</span> <span class="s1">&#39;META-INF/spring.handlers&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">append</span> <span class="s1">&#39;META-INF/spring.schemas&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">append</span> <span class="s1">&#39;META-INF/spring.tooling&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">transform</span><span class="o">(</span><span class="n">PropertiesFileTransformer</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">paths</span> <span class="o">=</span> <span class="o">[</span><span class="s1">&#39;META-INF/spring.factories&#39;</span> <span class="o">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mergeStrategy</span> <span class="o">=</span> <span class="s2">&#34;append&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>상세한 내용은 <a class="link" href="https://github.com/spring-projects/spring-boot/issues/1828#issuecomment-231104288"  target="_blank" rel="noopener"
+    >Git Issue</a>를 읽어보면 알 수 있습니다.</p>
+<h3 id="relocating-packages">Relocating Packages</h3>
+<p>Classpath에 동일한 Dependency가 존재하여, 의도하고자한 버전을 사용하지 못하는 상황일때 사용하는 기능입니다. Hadoop, Spark에서 빈번히 발생합니다.</p>
+<p>이 아이디어는 간단합니다. 충돌나는 Dependency를 Project에서 찾아낸뒤, 이름(경로)을 바꿔줍니다.
+다른 이름의 Dependency를 사용하기때문에 문제가 생기지 않습니다.</p>
+<p>구현방법은 간단합니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="c1">// Relocating a Package
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">shadowJar</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">   <span class="n">relocate</span> <span class="s1">&#39;junit.framework&#39;</span><span class="o">,</span> <span class="s1">&#39;shadow.junit&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>juni.framework</code>를  <code>shadow.junit</code> 으로 변경해 줍니다.<br>
+필요에 맞게 아래처럼 적용합니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">relocate</span> <span class="s1">&#39;com.google.gson&#39;</span><span class="o">,</span> <span class="s1">&#39;shadow.google.gson&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">relocate</span> <span class="s1">&#39;com.fasterxml.jackson&#39;</span><span class="o">,</span> <span class="s1">&#39;shadow.fasterxml.jackson&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Shadow Plugin에서 relocation을 살펴보고싶다면 <a class="link" href="https://imperceptiblethoughts.com/shadow/configuration/relocation/"  target="_blank" rel="noopener"
+    >링크</a>를 참고해주세요.</p>
+<h3 id="classpath-변경">Classpath 변경</h3>
+<p>사실 여기까지 진행하고 나서, 잘 실행하는것을 기대했습니다.<br>
+하지만 <code>java -jar project-all.jar</code> 로 실행해보면, 이상함을 느낄 수 있습니다. <br>
+<img src="/p/spring-fat-jar-for-spark/capture.jpg"
+	width="2556"
+	height="1130"
+	srcset="/p/spring-fat-jar-for-spark/capture_hu6b272fe632b935ee9dc6b0754ccf08d6_754278_480x0_resize_q75_box.jpg 480w, /p/spring-fat-jar-for-spark/capture_hu6b272fe632b935ee9dc6b0754ccf08d6_754278_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="캡처"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="226"
+		data-flex-basis="542px"
+	
+></p>
+<p>Spring자체는 실행되었지만, Main Application이 실행되지 않은 것을 확인 할 수 있습니다.<br>
+찾아보니, 원인을 알기 쉽지 않았습니다.</p>
+<p>다행히 try and error 거치며 알아냈는데, 아래의 링크와 관련있었습니다.
+<a class="link" href="https://imperceptiblethoughts.com/shadow/configuration/dependencies/"  target="_blank" rel="noopener"
+    >https://imperceptiblethoughts.com/shadow/configuration/dependencies/</a></p>
+<p>기본으로 runtimeClassPath만 포함되서 Build되었고, 아래처럼 compileClassPath를 포함하니 해결되었습니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">configurations</span> <span class="o">=</span> <span class="o">[</span><span class="n">project</span><span class="o">.</span><span class="na">configurations</span><span class="o">.</span><span class="na">compileClasspath</span><span class="o">,</span> <span class="n">project</span><span class="o">.</span><span class="na">configurations</span><span class="o">.</span><span class="na">productionRuntimeClasspath</span><span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>문제해결이 우선이라, 왜 compileClassPath도 포함해야만 정상동작하는지는 확인해보지 않았습니다.</p>
+</blockquote>
+<h2 id="conclusion">Conclusion</h2>
+<p>Spring을 사용할때, 어떻게 Fat Jar(Shaded Jar)을 빌드할 수 있는지 살펴보았습니다.<br>
+Boot-Jar은 스프링에서 권장하는 방법이고 간단하다는 장점이 있지만, Dependency 충돌하는 상황이라면 해결할기 어렵다는 문제가 있습니다.<br>
+이런경우는 하둡 클러스터를 사용하는경우에 해당됩니다.</p>
+<p>Shadow Plugin을 사용하는 방법은 일반적으로 많이 사용하는 방법입니다.<br>
+하지만 스프링에 적용하려면 스크립트를 추가로 작성해주어야 하지만, Boot-Jar에서 겪었던 문제를 회피할 수 있습니다.</p>
+<p>Spark나 하둡 클러스터를 사용해야하는 경우라면 Shadow Plugin을 사용하는 것을 권장합니다.<br>
+하지만 이와 같은 문제를 부딪힌 상황이 아니라면, 본인의 상황에 맞게 사용하는 것을 권장합니다.</p>
+<h2 id="reference">Reference</h2>
+<ul>
+<li>Spring Official Guide : <a class="link" href="https://docs.spring.io/spring-boot/docs/current/reference/html/executable-jar.html#appendix.executable-jar.alternatives"  target="_blank" rel="noopener"
+    >https://docs.spring.io/spring-boot/docs/current/reference/html/executable-jar.html#appendix.executable-jar.alternatives</a></li>
+<li>공식문서 번역 Article : <a class="link" href="https://wordbe.tistory.com/entry/Spring-Boot-2-Executable-JAR-%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B6%80%ED%8A%B8-%EC%8B%A4%ED%96%89"  target="_blank" rel="noopener"
+    >https://wordbe.tistory.com/entry/Spring-Boot-2-Executable-JAR-스프링-부트-실행</a></li>
+<li>Spring fat jar Git Issue for shadow plugin : <a class="link" href="https://github.com/spring-projects/spring-boot/issues/1828#issuecomment-231104288"  target="_blank" rel="noopener"
+    >https://github.com/spring-projects/spring-boot/issues/1828#issuecomment-231104288</a></li>
+<li>전반적인 이해에 도움을 주었던 StackOverflow : <a class="link" href="https://stackoverflow.com/questions/51206959/classnotfound-when-submit-a-spring-boot-fat-jar-to-spark"  target="_blank" rel="noopener"
+    >https://stackoverflow.com/questions/51206959/classnotfound-when-submit-a-spring-boot-fat-jar-to-spark</a></li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/spring/">Spring</a>
+        
+            <a href="/tags/spark/">Spark</a>
+        
+            <a href="/tags/fat-jar/">Fat-Jar</a>
+        
+            <a href="/tags/gradle/">Gradle</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="Korcasus/blog-comments"
+        issue-term="title"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2023 Read Write
+    </section>
+    
+    <section class="powerby">
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>로 만듦 <br />
+        <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>의 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.14.0">Stack</a></b> 테마 사용 중
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">목차</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#how-to-build-fat-jar">How to Build Fat Jar</a></li>
+    <li><a href="#boot-jar">Boot-Jar</a>
+      <ol>
+        <li><a href="#configuration">Configuration</a>
+          <ol>
+            <li><a href="#1-module-추가">1. Module 추가</a></li>
+            <li><a href="#2-manifest-변경">2. Manifest 변경</a></li>
+          </ol>
+        </li>
+        <li><a href="#문제점">문제점</a></li>
+      </ol>
+    </li>
+    <li><a href="#shadow-plugin">Shadow Plugin</a>
+      <ol>
+        <li><a href="#add-option-for-spring">Add Option For Spring</a></li>
+        <li><a href="#relocating-packages">Relocating Packages</a></li>
+        <li><a href="#classpath-변경">Classpath 변경</a></li>
+      </ol>
+    </li>
+    <li><a href="#conclusion">Conclusion</a></li>
+    <li><a href="#reference">Reference</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
