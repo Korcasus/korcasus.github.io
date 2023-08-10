@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="ko" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Spark에서 Spring을 실행할 수 있게 Fat Jar빌드하는 방법에 대해 기술합니다.'><title>Spring Fat-jar for Spark</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Spark에서 Spring을 실행할 수 있게 Fat Jar빌드하는 방법에 대해 기술합니다.'>
+<title>Spring Fat-jar for Spark</title>
 
 <link rel='canonical' href='https://korcasus.github.io/p/spring-fat-jar-for-spark/'>
 
-<link rel="stylesheet" href="/scss/style.min.18145888f21de6cb02d8cb0891be8240096206785da14eda35f6c23c239b966a.css"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4086051155158500"
+<link rel="stylesheet" href="/scss/style.min.ff300df33b80e2ac49809c825614392ed1c7b27591d65d3c4043602cd162e25f.css"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4086051155158500"
         crossorigin="anonymous"></script>
 <meta property='og:title' content='Spring Fat-jar for Spark'>
 <meta property='og:description' content='Spark에서 Spring을 실행할 수 있게 Fat Jar빌드하는 방법에 대해 기술합니다.'>
@@ -76,6 +77,7 @@ if (!doNotTrack) {
                         href='https://github.com/Korcasus'
                         target="_blank"
                         title="GitHub"
+                        rel="me"
                     >
                         
                         
@@ -95,6 +97,7 @@ if (!doNotTrack) {
                         href='https://www.linkedin.com/in/seongdo-kim-34bab9148/'
                         target="_blank"
                         title="LinkedIn"
+                        rel="me"
                     >
                         
                         
@@ -118,6 +121,7 @@ if (!doNotTrack) {
                         href='mailto:korcasus@gmail.com'
                         target="_blank"
                         title="Mail"
+                        rel="me"
                     >
                         
                         
@@ -137,7 +141,6 @@ if (!doNotTrack) {
         
         
         
-
         <li >
             <a href='/' >
                 
@@ -158,7 +161,6 @@ if (!doNotTrack) {
         </li>
         
         
-
         <li >
             <a href='/about/' >
                 
@@ -178,7 +180,6 @@ if (!doNotTrack) {
         </li>
         
         
-
         <li >
             <a href='/archives/' >
                 
@@ -199,7 +200,6 @@ if (!doNotTrack) {
         </li>
         
         
-
         <li >
             <a href='/search/' >
                 
@@ -245,7 +245,61 @@ if (!doNotTrack) {
         </div>
     </ol>
 </aside>
-<main class="main full-width">
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">목차</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#how-to-build-fat-jar">How to Build Fat Jar</a></li>
+    <li><a href="#boot-jar">Boot-Jar</a>
+      <ol>
+        <li><a href="#configuration">Configuration</a>
+          <ol>
+            <li><a href="#1-module-추가">1. Module 추가</a></li>
+            <li><a href="#2-manifest-변경">2. Manifest 변경</a></li>
+          </ol>
+        </li>
+        <li><a href="#문제점">문제점</a></li>
+      </ol>
+    </li>
+    <li><a href="#shadow-plugin">Shadow Plugin</a>
+      <ol>
+        <li><a href="#add-option-for-spring">Add Option For Spring</a></li>
+        <li><a href="#relocating-packages">Relocating Packages</a></li>
+        <li><a href="#classpath-변경">Classpath 변경</a></li>
+      </ol>
+    </li>
+    <li><a href="#conclusion">Conclusion</a></li>
+    <li><a href="#reference">Reference</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
     <article class="main-article">
     <header class="article-header">
 
@@ -280,6 +334,9 @@ if (!doNotTrack) {
         
     </div>
 
+    
+    
+    
     
     <footer class="article-time">
         
@@ -317,6 +374,7 @@ if (!doNotTrack) {
 
     
 </div>
+
 </header>
 
     <section class="article-content">
@@ -606,6 +664,8 @@ Boot-Jar은 스프링에서 권장하는 방법이고 간단하다는 장점이 
 </style>
 
 <script>
+    let utterancesLoaded = false;
+
     function setUtterancesTheme(theme) {
         let utterances = document.querySelector('.utterances iframe');
         if (utterances) {
@@ -621,10 +681,14 @@ Boot-Jar은 스프링에서 권장하는 방법이고 간단하다는 장점이 
 
     addEventListener('message', event => {
         if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
         setUtterancesTheme(document.documentElement.dataset.scheme)
     });
 
     window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
         setUtterancesTheme(e.detail)
     })
 </script>
@@ -643,7 +707,7 @@ Boot-Jar은 스프링에서 권장하는 방법이고 간단하다는 장점이 
     
     <section class="powerby">
         <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>로 만듦 <br />
-        <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>의 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.14.0">Stack</a></b> 테마 사용 중
+        <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>의 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.17.0">Stack</a></b> 테마 사용 중
     </section>
 </footer>
 
@@ -727,59 +791,6 @@ Boot-Jar은 스프링에서 권장하는 방법이고 간단하다는 장점이 
             >
 
             </main>
-    <aside class="sidebar right-sidebar sticky">
-        
-            
-                
-    <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <line x1="5" y1="9" x2="19" y2="9" />
-  <line x1="5" y1="15" x2="19" y2="15" />
-  <line x1="11" y1="4" x2="7" y2="20" />
-  <line x1="17" y1="4" x2="13" y2="20" />
-</svg>
-
-
-
-        </div>
-        <h2 class="widget-title section-title">목차</h2>
-        
-        <div class="widget--toc">
-            <nav id="TableOfContents">
-  <ol>
-    <li><a href="#how-to-build-fat-jar">How to Build Fat Jar</a></li>
-    <li><a href="#boot-jar">Boot-Jar</a>
-      <ol>
-        <li><a href="#configuration">Configuration</a>
-          <ol>
-            <li><a href="#1-module-추가">1. Module 추가</a></li>
-            <li><a href="#2-manifest-변경">2. Manifest 변경</a></li>
-          </ol>
-        </li>
-        <li><a href="#문제점">문제점</a></li>
-      </ol>
-    </li>
-    <li><a href="#shadow-plugin">Shadow Plugin</a>
-      <ol>
-        <li><a href="#add-option-for-spring">Add Option For Spring</a></li>
-        <li><a href="#relocating-packages">Relocating Packages</a></li>
-        <li><a href="#classpath-변경">Classpath 변경</a></li>
-      </ol>
-    </li>
-    <li><a href="#conclusion">Conclusion</a></li>
-    <li><a href="#reference">Reference</a></li>
-  </ol>
-</nav>
-        </div>
-    </section>
-
-            
-        
-    </aside>
-
-
         </div>
         <script 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"

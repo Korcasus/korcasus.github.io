@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="ko" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='시놀로지에서 개인 도메인에 대한 와일드카드 인증서를 발급 및 갱신하는 과정을 설명합니다'><title>Automate Synology Let&#39;s Encrypt Certificate</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='시놀로지에서 개인 도메인에 대한 와일드카드 인증서를 발급 및 갱신하는 과정을 설명합니다'>
+<title>Automate Synology Let&#39;s Encrypt Certificate</title>
 
 <link rel='canonical' href='https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/'>
 
-<link rel="stylesheet" href="/scss/style.min.18145888f21de6cb02d8cb0891be8240096206785da14eda35f6c23c239b966a.css"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4086051155158500"
+<link rel="stylesheet" href="/scss/style.min.ff300df33b80e2ac49809c825614392ed1c7b27591d65d3c4043602cd162e25f.css"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4086051155158500"
         crossorigin="anonymous"></script>
 <meta property='og:title' content='Automate Synology Let&#39;s Encrypt Certificate'>
 <meta property='og:description' content='시놀로지에서 개인 도메인에 대한 와일드카드 인증서를 발급 및 갱신하는 과정을 설명합니다'>
@@ -76,6 +77,7 @@ if (!doNotTrack) {
                         href='https://github.com/Korcasus'
                         target="_blank"
                         title="GitHub"
+                        rel="me"
                     >
                         
                         
@@ -95,6 +97,7 @@ if (!doNotTrack) {
                         href='https://www.linkedin.com/in/seongdo-kim-34bab9148/'
                         target="_blank"
                         title="LinkedIn"
+                        rel="me"
                     >
                         
                         
@@ -118,6 +121,7 @@ if (!doNotTrack) {
                         href='mailto:korcasus@gmail.com'
                         target="_blank"
                         title="Mail"
+                        rel="me"
                     >
                         
                         
@@ -137,7 +141,6 @@ if (!doNotTrack) {
         
         
         
-
         <li >
             <a href='/' >
                 
@@ -158,7 +161,6 @@ if (!doNotTrack) {
         </li>
         
         
-
         <li >
             <a href='/about/' >
                 
@@ -178,7 +180,6 @@ if (!doNotTrack) {
         </li>
         
         
-
         <li >
             <a href='/archives/' >
                 
@@ -199,7 +200,6 @@ if (!doNotTrack) {
         </li>
         
         
-
         <li >
             <a href='/search/' >
                 
@@ -245,7 +245,52 @@ if (!doNotTrack) {
         </div>
     </ol>
 </aside>
-<main class="main full-width">
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">목차</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#들어가기에-앞서">들어가기에 앞서</a>
+      <ol>
+        <li><a href="#사용한-환경">사용한 환경</a></li>
+        <li><a href="#lets-encrypt란">Let&rsquo;s Encrypt란?</a></li>
+        <li><a href="#acmesh-는-뭔가요">acme.sh 는 뭔가요?</a></li>
+      </ol>
+    </li>
+    <li><a href="#cloudflare-api-token-발급">CloudFlare API Token 발급</a></li>
+    <li><a href="#acme-설치-및-인증서-발급">ACME 설치 및 인증서 발급</a></li>
+    <li><a href="#기본-인증서-교체">기본 인증서 교체</a></li>
+    <li><a href="#인증서-갱신-스케줄러-설정">인증서 갱신 스케줄러 설정</a></li>
+    <li><a href="#정리">정리</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
     <article class="main-article">
     <header class="article-header">
 
@@ -280,6 +325,9 @@ if (!doNotTrack) {
         
     </div>
 
+    
+    
+    
     
     <footer class="article-time">
         
@@ -317,6 +365,7 @@ if (!doNotTrack) {
 
     
 </div>
+
 </header>
 
     <section class="article-content">
@@ -736,6 +785,8 @@ http 통신은 보안상 문제가 있기 때문에, 이 상황에서 http를 �
 </style>
 
 <script>
+    let utterancesLoaded = false;
+
     function setUtterancesTheme(theme) {
         let utterances = document.querySelector('.utterances iframe');
         if (utterances) {
@@ -751,10 +802,14 @@ http 통신은 보안상 문제가 있기 때문에, 이 상황에서 http를 �
 
     addEventListener('message', event => {
         if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
         setUtterancesTheme(document.documentElement.dataset.scheme)
     });
 
     window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
         setUtterancesTheme(e.detail)
     })
 </script>
@@ -773,7 +828,7 @@ http 통신은 보안상 문제가 있기 때문에, 이 상황에서 http를 �
     
     <section class="powerby">
         <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>로 만듦 <br />
-        <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>의 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.14.0">Stack</a></b> 테마 사용 중
+        <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>의 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.17.0">Stack</a></b> 테마 사용 중
     </section>
 </footer>
 
@@ -857,50 +912,6 @@ http 통신은 보안상 문제가 있기 때문에, 이 상황에서 http를 �
             >
 
             </main>
-    <aside class="sidebar right-sidebar sticky">
-        
-            
-                
-    <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <line x1="5" y1="9" x2="19" y2="9" />
-  <line x1="5" y1="15" x2="19" y2="15" />
-  <line x1="11" y1="4" x2="7" y2="20" />
-  <line x1="17" y1="4" x2="13" y2="20" />
-</svg>
-
-
-
-        </div>
-        <h2 class="widget-title section-title">목차</h2>
-        
-        <div class="widget--toc">
-            <nav id="TableOfContents">
-  <ol>
-    <li><a href="#들어가기에-앞서">들어가기에 앞서</a>
-      <ol>
-        <li><a href="#사용한-환경">사용한 환경</a></li>
-        <li><a href="#lets-encrypt란">Let&rsquo;s Encrypt란?</a></li>
-        <li><a href="#acmesh-는-뭔가요">acme.sh 는 뭔가요?</a></li>
-      </ol>
-    </li>
-    <li><a href="#cloudflare-api-token-발급">CloudFlare API Token 발급</a></li>
-    <li><a href="#acme-설치-및-인증서-발급">ACME 설치 및 인증서 발급</a></li>
-    <li><a href="#기본-인증서-교체">기본 인증서 교체</a></li>
-    <li><a href="#인증서-갱신-스케줄러-설정">인증서 갱신 스케줄러 설정</a></li>
-    <li><a href="#정리">정리</a></li>
-  </ol>
-</nav>
-        </div>
-    </section>
-
-            
-        
-    </aside>
-
-
         </div>
         <script 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"

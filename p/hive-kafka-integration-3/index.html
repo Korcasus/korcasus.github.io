@@ -7,11 +7,12 @@ Kafka 입장에서는 Hive가 Producer 역할을 수행하게 됩니다.
 하지만 일부 기능을 제공하지않는데, 그 중 하나가 Header입니다.
 Header도 만들어주어야 하는 상황이라면, Hive 말고 다른 Application을 사용하는 것을 권장합니다.
 KafkaWritable Kafka Record 공식문서 kafka metadata 주의사항 Producer에서 Kafka로 메시지를 전송할때는 메타 데이터들을 포함시켜 전송할 수 있습니다.
-포함시키지 않을 경우, Kafka에서 자동으로 생성해주는 것으로 알고 있습니다.'><title>Hive Kafka Integration 3</title>
+포함시키지 않을 경우, Kafka에서 자동으로 생성해주는 것으로 알고 있습니다.'>
+<title>Hive Kafka Integration 3</title>
 
 <link rel='canonical' href='https://korcasus.github.io/p/hive-kafka-integration-3/'>
 
-<link rel="stylesheet" href="/scss/style.min.18145888f21de6cb02d8cb0891be8240096206785da14eda35f6c23c239b966a.css"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4086051155158500"
+<link rel="stylesheet" href="/scss/style.min.ff300df33b80e2ac49809c825614392ed1c7b27591d65d3c4043602cd162e25f.css"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4086051155158500"
         crossorigin="anonymous"></script>
 <meta property='og:title' content='Hive Kafka Integration 3'>
 <meta property='og:description' content='개요 앞서 설명해왔던 내용과는 반대로 Hive에서 Kafka에 메시지를 전송하는 과정을 설명하겠습니다.
@@ -94,6 +95,7 @@ if (!doNotTrack) {
                         href='https://github.com/Korcasus'
                         target="_blank"
                         title="GitHub"
+                        rel="me"
                     >
                         
                         
@@ -113,6 +115,7 @@ if (!doNotTrack) {
                         href='https://www.linkedin.com/in/seongdo-kim-34bab9148/'
                         target="_blank"
                         title="LinkedIn"
+                        rel="me"
                     >
                         
                         
@@ -136,6 +139,7 @@ if (!doNotTrack) {
                         href='mailto:korcasus@gmail.com'
                         target="_blank"
                         title="Mail"
+                        rel="me"
                     >
                         
                         
@@ -155,7 +159,6 @@ if (!doNotTrack) {
         
         
         
-
         <li >
             <a href='/' >
                 
@@ -176,7 +179,6 @@ if (!doNotTrack) {
         </li>
         
         
-
         <li >
             <a href='/about/' >
                 
@@ -196,7 +198,6 @@ if (!doNotTrack) {
         </li>
         
         
-
         <li >
             <a href='/archives/' >
                 
@@ -217,7 +218,6 @@ if (!doNotTrack) {
         </li>
         
         
-
         <li >
             <a href='/search/' >
                 
@@ -263,7 +263,62 @@ if (!doNotTrack) {
         </div>
     </ol>
 </aside>
-<main class="main full-width">
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">목차</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#개요">개요</a>
+      <ol>
+        <li><a href="#단점">단점</a></li>
+        <li><a href="#kafka-metadata-주의사항">kafka metadata 주의사항</a></li>
+      </ol>
+    </li>
+    <li><a href="#json-테스트-케이스">JSON 테스트 케이스</a>
+      <ol>
+        <li><a href="#토픽-생성"><strong>토픽 생성</strong></a></li>
+        <li><a href="#테이블-생성"><strong>테이블 생성</strong></a></li>
+        <li><a href="#테스트-데이터-전송"><strong>테스트 데이터 전송</strong></a></li>
+      </ol>
+    </li>
+    <li><a href="#only-long-type-테스트-케이스">ONLY LONG TYPE 테스트 케이스</a>
+      <ol>
+        <li><a href="#토픽-생성-1"><strong>토픽 생성</strong></a></li>
+        <li><a href="#테이블-생성-1"><strong>테이블 생성</strong></a></li>
+        <li><a href="#테스트-데이터-전송-1"><strong>테스트 데이터 전송</strong></a></li>
+      </ol>
+    </li>
+    <li><a href="#동일한-key를-가진-메시지가-동일한-partition에-들어가는-테스트">동일한 key를 가진 메시지가 동일한 partition에 들어가는 테스트</a></li>
+    <li><a href="#정리">정리</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
     <article class="main-article">
     <header class="article-header">
 
@@ -298,6 +353,9 @@ if (!doNotTrack) {
         
     </div>
 
+    
+    
+    
     
     <footer class="article-time">
         
@@ -335,6 +393,7 @@ if (!doNotTrack) {
 
     
 </div>
+
 </header>
 
     <section class="article-content">
@@ -663,6 +722,8 @@ Default Partitioner를 사용하는것으로 생각하고 진행하셔야 합니
 </style>
 
 <script>
+    let utterancesLoaded = false;
+
     function setUtterancesTheme(theme) {
         let utterances = document.querySelector('.utterances iframe');
         if (utterances) {
@@ -678,10 +739,14 @@ Default Partitioner를 사용하는것으로 생각하고 진행하셔야 합니
 
     addEventListener('message', event => {
         if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
         setUtterancesTheme(document.documentElement.dataset.scheme)
     });
 
     window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
         setUtterancesTheme(e.detail)
     })
 </script>
@@ -700,7 +765,7 @@ Default Partitioner를 사용하는것으로 생각하고 진행하셔야 합니
     
     <section class="powerby">
         <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>로 만듦 <br />
-        <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>의 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.14.0">Stack</a></b> 테마 사용 중
+        <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>의 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.17.0">Stack</a></b> 테마 사용 중
     </section>
 </footer>
 
@@ -784,60 +849,6 @@ Default Partitioner를 사용하는것으로 생각하고 진행하셔야 합니
             >
 
             </main>
-    <aside class="sidebar right-sidebar sticky">
-        
-            
-                
-    <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <line x1="5" y1="9" x2="19" y2="9" />
-  <line x1="5" y1="15" x2="19" y2="15" />
-  <line x1="11" y1="4" x2="7" y2="20" />
-  <line x1="17" y1="4" x2="13" y2="20" />
-</svg>
-
-
-
-        </div>
-        <h2 class="widget-title section-title">목차</h2>
-        
-        <div class="widget--toc">
-            <nav id="TableOfContents">
-  <ol>
-    <li><a href="#개요">개요</a>
-      <ol>
-        <li><a href="#단점">단점</a></li>
-        <li><a href="#kafka-metadata-주의사항">kafka metadata 주의사항</a></li>
-      </ol>
-    </li>
-    <li><a href="#json-테스트-케이스">JSON 테스트 케이스</a>
-      <ol>
-        <li><a href="#토픽-생성"><strong>토픽 생성</strong></a></li>
-        <li><a href="#테이블-생성"><strong>테이블 생성</strong></a></li>
-        <li><a href="#테스트-데이터-전송"><strong>테스트 데이터 전송</strong></a></li>
-      </ol>
-    </li>
-    <li><a href="#only-long-type-테스트-케이스">ONLY LONG TYPE 테스트 케이스</a>
-      <ol>
-        <li><a href="#토픽-생성-1"><strong>토픽 생성</strong></a></li>
-        <li><a href="#테이블-생성-1"><strong>테이블 생성</strong></a></li>
-        <li><a href="#테스트-데이터-전송-1"><strong>테스트 데이터 전송</strong></a></li>
-      </ol>
-    </li>
-    <li><a href="#동일한-key를-가진-메시지가-동일한-partition에-들어가는-테스트">동일한 key를 가진 메시지가 동일한 partition에 들어가는 테스트</a></li>
-    <li><a href="#정리">정리</a></li>
-  </ol>
-</nav>
-        </div>
-    </section>
-
-            
-        
-    </aside>
-
-
         </div>
         <script 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
