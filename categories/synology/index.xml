@@ -6,7 +6,175 @@
         <description>Recent content in Synology on Read Write</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ko</language>
-        <lastBuildDate>Mon, 21 Nov 2022 22:23:00 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/categories/synology/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 14 Aug 2023 23:09:01 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/categories/synology/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Upgrade Vaultwarden 1.29.1</title>
+        <link>https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/</link>
+        <pubDate>Mon, 14 Aug 2023 23:09:01 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/</guid>
+        <description>&lt;h2 id=&#34;before-to-start&#34;&gt;Before to start&lt;/h2&gt;
+&lt;p&gt;맥을 사용하시는분이라면 Keychain에 익숙하실겁니다. 비밀번호를 저장하고 관리해주는 어플리케이션이죠.&lt;br&gt;
+요즘에는 크롬이나 엣지 브라우저에서도 제공하고있습니다.&lt;br&gt;
+저는 웹 뿐만이 아니라, 맥에서도 편하게 사용할수 있는것을 원했기 때문에 다른 툴을 사용하고있습니다.&lt;br&gt;
+더 자세히 이야기하면 길어지기 때문에, 짧게 이야기하면 Valutwarden이라는 Bitwarden의 Compact버전을 synology에 설치해서 사용하고있습니다.&lt;/p&gt;
+&lt;p&gt;이번에 Valutwarden이 1.29.0 버전으로 업그레이드 되면서 실시간 동기화가 가능해졌다는 소식에 업그레이드를 결심하였습니다.&lt;/p&gt;
+&lt;h2 id=&#34;objective&#34;&gt;Objective&lt;/h2&gt;
+&lt;p&gt;Valutwarden을 1.29.1로 업그레이드하면서, 필요한 설정(ex. 실시간 동기화)들을 추가한다.&lt;/p&gt;
+&lt;h2 id=&#34;upgrade&#34;&gt;Upgrade&lt;/h2&gt;
+&lt;h3 id=&#34;upgrade-guide-찾기&#34;&gt;Upgrade Guide 찾기&lt;/h3&gt;
+&lt;p&gt;업그레이드 하기전까지 사용하던 docker image를 latest를 사용했기 때문에, 몇버전을 사용하고 있었는지는 모르겠습니다. &lt;br&gt;
+하지만 최신버전이 1.29.x버전이기 때문에 minor 버전만 신경써주면 될것으로 생각했습니다.&lt;/p&gt;
+&lt;p&gt;공식 Github에 들어가보면 &lt;a class=&#34;link&#34; href=&#34;https://github.com/dani-garcia/vaultwarden/wiki/Updating-the-vaultwarden-image&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Updating valutwarden image&lt;/a&gt; Wiki가 존재합니다.
+살펴보니 컨테이너 환경에서 업그레이드를 하는 방법만 설명하였고, 버전이 바뀌면서 변경해야하는 설정에 대해서는 언급이 없습니다.&lt;br&gt;
+저의 경우에는 이럴때 &lt;a class=&#34;link&#34; href=&#34;https://github.com/dani-garcia/vaultwarden/releases&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Release Note&lt;/a&gt;를 살펴봅니다. 정석은 모든 변경사항을 읽어야하지만, 선 업그레이드 후 변경하기로 마음먹었습니다 😇&lt;/p&gt;
+&lt;p&gt;그래도 업그레이드 하는게 1.29.x이니 1.29.0으로 올라오면서 큰 변경이 어떤건지 보았습니다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;- WebSocket notifications now work via the default HTTP port. No need for `WEBSOCKET_ENABLED` and a separate port anymore.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;- The proxy examples still need to be updated for this. Support for the old websockets port 3012 will remain for the time being.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;- Mobile Client push notification support, see #3304 thanks @GeekCornerGH!
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;- Web-Vault updated to v2023.5.0 (v2023.5.1 does not add any improvements for us)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;- The latest Bitwarden Directory Connector can be used now (v2022.11.0)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;- Storing passkeys is supported, though the clients are not yet released. So, it might be we need to make some changes once they are released.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;- See: #3593, thanks @GeekCornerGH!
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;저한테는 3가지가 눈에 들어왔습니다.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;WebSocket notifications now work via the default HTTP port. No need for &lt;code&gt;WEBSOCKET_ENABLED&lt;/code&gt; and a separate port anymore.&lt;/li&gt;
+&lt;li&gt;Mobile Client push notification support, see #3304 thanks @GeekCornerGH!&lt;/li&gt;
+&lt;li&gt;Storing passkeys is supported, though the clients are not yet released. So, it might be we need to make some changes once they are released.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;1번&lt;/code&gt;의 경우에는 폰에서 사용중인 앱에서 변경사항이 발생시, valutwarden 서버에 반영하기 위해서 필수로 설정해야하는 기능입니다. (아니면 서버와 휴대폰앱이 별도의 데이터를 가지게 됩니다.) &lt;br&gt;
+이것 때문에 2개의 포트를 열어두고 사용하는게 필요했었는데, 이번 업데이트로 1개로 통합되었다고 하네요.&lt;br&gt;
+공유기에 개방해둔 포트를 줄일수 있을뿐더러, 신경써야되는 환경변수가 하나 줄었습니다.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;2번&lt;/code&gt;의 경우에는 실시간 동기화입니다. 이거는 나중에 자세히 보겠습니다.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;3번&lt;/code&gt;은 Passkey에 관한 내용입니다. 애플과 구글에서 지원하기 시작한 보안 방법중 하나인데, 고도화된 보안환경을 제공한다고 합니다. &lt;br&gt;
+저도 자세히 살펴보진 않아서,&amp;hellip; 설명은 넘어가겠습니다.&lt;br&gt;
+보안에 신경은 항상 써야하기때문에, 지원가능해지면 사용해보고싶네요.&lt;/p&gt;
+&lt;h3 id=&#34;추가할-configuration-보기&#34;&gt;추가할 Configuration 보기&lt;/h3&gt;
+&lt;p&gt;비밀번호 관리 프로그램을 개인 서버에 올려서 사용한다는건, 책임도 본인이 진다는 뜻입니다.&lt;br&gt;
+따라서 해킹당하지않도록 문제의 소지가 될수 있는 기능은 닫아두는게 좋습니다. (기본은 닫혀있을겁니다.) &lt;br&gt;
+그래서 사용하지 않을 기능과 사용할 기능들을 살펴보기 위해서 문서를 읽어보기 시작했습니다.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/dani-garcia/vaultwarden/wiki/Configuration-overview&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Github wiki&lt;/a&gt;를 읽어보면 자세하게 나와있습니다. &lt;br&gt;
+config.json보다는 환경변수를 사용하는 방법을 권고하네요.&lt;/p&gt;
+&lt;p&gt;리스트는 아래와 같습니다.&lt;br&gt;
+&lt;img src=&#34;https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/config.jpg&#34;
+	width=&#34;578&#34;
+	height=&#34;1122&#34;
+	srcset=&#34;https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/config_hucdd27cc99166e43e175b379001281f77_147088_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/config_hucdd27cc99166e43e175b379001281f77_147088_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;config&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;51&#34;
+		data-flex-basis=&#34;123px&#34;
+	
+&gt;&lt;br&gt;
+여러 관심가는 설정들이 많지만, 저는 2,3,4번 항목이 눈에 들어왔고 반영하기로 하였습니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;2번항목은 추가 사용자 가입금지&lt;/li&gt;
+&lt;li&gt;3번항목은 초대를 통한 사용자 가입금지&lt;/li&gt;
+&lt;li&gt;4번항목은 admin계정 운영
+&lt;ul&gt;
+&lt;li&gt;admin을 별도로 관리하고싶지않았기에, 기본값이 admin계정 비활성화인지 살펴봤습니다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;위에 나열한 내용들을 반영하기 위해서 아래와 같이 설정 해주었습니다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;SIGNUPS_ALLOWED : false
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;INVITATIONS_ALLOWED : false
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;그러고보니 실시간 동기화도 설정이 필요하네요.&lt;br&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://github.com/dani-garcia/vaultwarden/wiki/Enabling-Mobile-Client-push-notification&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;7번 항목&lt;/a&gt;에 등록되어있습니다.&lt;br&gt;
+문서를 살펴보면 아시겠지만, 3개 환경변수 설정을 요구합니다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;- PUSH_ENABLED=true
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;- PUSH_INSTALLATION_ID=
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;- PUSH_INSTALLATION_KEY=
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;ID와 KEY는 &lt;a class=&#34;link&#34; href=&#34;https://bitwarden.com/host/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Bitwarden 홈페이지&lt;/a&gt;에서 발급받으라고 합니다.&lt;br&gt;
+Self Hosting은 지원하지 않는건가? 싶었는데, 다행히 지원하네요.&lt;br&gt;
+&lt;img src=&#34;https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/auto-sync-request.jpg&#34;
+	width=&#34;1870&#34;
+	height=&#34;1154&#34;
+	srcset=&#34;https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/auto-sync-request_hucdd27cc99166e43e175b379001281f77_211109_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/auto-sync-request_hucdd27cc99166e43e175b379001281f77_211109_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;auto-sync-request&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;162&#34;
+		data-flex-basis=&#34;388px&#34;
+	
+&gt;&lt;br&gt;
+Self Hosting에서 이용중인 이메일과 Data Region을 설정해줍니다.&lt;br&gt;
+Data Region은 뭔가싶겠지만, Wiki에 US로 두고 쓰라고 적혀있네요. Europe은 안될수도있다고&amp;hellip;
+그리고 업그레이드 직후에 App에서 실시간 동기화가 안될경우 재설치하라고 가이드하고있습니다.&lt;br&gt;
+업그레이드 완료한 후에, 한번 실시간 동기화 해보시는걸 추천합니다. (저는 직후에 바로해봤는데 잘되더라구요)&lt;/p&gt;
+&lt;h3 id=&#34;upgrade-하기&#34;&gt;Upgrade 하기&lt;/h3&gt;
+&lt;p&gt;본인 Synology에 Valutwarden을 설치하신 분이라면, 업그레이드 하는 과정은 다 아실거라 판단해서 과정은 생략했습니다.&lt;br&gt;
+&lt;img src=&#34;https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/container.jpg&#34;
+	width=&#34;2342&#34;
+	height=&#34;1242&#34;
+	srcset=&#34;https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/container_hud49da568400d9062178718c4e59fe2d3_197488_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/container_hud49da568400d9062178718c4e59fe2d3_197488_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;container info&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;188&#34;
+		data-flex-basis=&#34;452px&#34;
+	
+&gt;&lt;br&gt;
+업그레이드 완료한 컨테이너 설정값인데, 이전과 큰 차이는 없습니다.&lt;/p&gt;
+&lt;p&gt;완료후, docker container log확인과 valutwarden web에 접속해보았습니다.&lt;br&gt;
+log에는 서버를 실행하는데 문제없었고, web에 접속해보니 에러페이지 뜨지않고 기존 데이터도 잘 있습니다.&lt;br&gt;
+실시간 동기화도 테스트해보았는데, 조금 이상하더라구요.
+Web에서 변경한 내용은 App에서 별도의 액션 없이 잘 반영되었는데, App에서 변경한 내용은 Web에서 새롭게 로딩해주어야 했습니다. &lt;br&gt;
+(새로고침했다가 다시 비밀번호 입력했습니다 -ㅅ-)&lt;br&gt;
+큰 이슈까진 아니기 때문에, 업그레이드 잘 되었다고 판단하였습니다.&lt;/p&gt;
+&lt;h2 id=&#34;후기&#34;&gt;후기&lt;/h2&gt;
+&lt;p&gt;Valutwarden은 Bitwarden의 Compact를 추구하는 만큼 꼭 필요한 기능들만 가지고 있습니다.
+이런 이유때문에 업그레이드 하더라도 많이 변경하지않아도 되는것이 좋게 느껴졌습니다.&lt;/p&gt;
+&lt;p&gt;별도로 운영되기 때문에 업그레이드를 하는데 개인의 노력이 필요할겁니다. 후원을 받긴하지만 오픈소스 환경에서 자발적으로 해주시는 분들에게 감사할 따름이네요.&lt;br&gt;
+저도 언젠가 필요한 기능을 추가하기 위해 Contribute하는 순간이 오겠죠?? 곧 올거라 믿습니다.&lt;/p&gt;
+&lt;p&gt;감사합니다.&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Automate Synology Let&#39;s Encrypt Certificate</title>
         <link>https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/</link>
         <pubDate>Mon, 21 Nov 2022 22:23:00 +0900</pubDate>
