@@ -6,7 +6,156 @@
         <description>Recent content in blog on Read Write</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ko</language>
-        <lastBuildDate>Tue, 15 Nov 2022 20:23:45 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/categories/blog/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 15 Aug 2023 15:03:02 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/categories/blog/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Hugo Exclude Pages</title>
+        <link>https://korcasus.github.io/p/hugo-exclude-pages/</link>
+        <pubDate>Tue, 15 Aug 2023 15:03:02 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/p/hugo-exclude-pages/</guid>
+        <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Hugo로 블로그를 만들어서 운영중인데요. 구글 서치콘솔에 sitemap.xml을 제출수 검색에 노출되게끔 설정해두었습니다.&lt;br&gt;
+그런데 몇달이 지난 지금도 색인된 페이지가 몇 개가 되지않습니다.&lt;br&gt;
+글이 적은걸 고려하더라도, 이해하기 어려운 수치여서 살펴보았습니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/p/hugo-exclude-pages/search_console_pages.jpg&#34;
+	width=&#34;1776&#34;
+	height=&#34;2090&#34;
+	srcset=&#34;https://korcasus.github.io/p/hugo-exclude-pages/search_console_pages_hucdd27cc99166e43e175b379001281f77_294883_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/hugo-exclude-pages/search_console_pages_hucdd27cc99166e43e175b379001281f77_294883_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;search_console_pages&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;84&#34;
+		data-flex-basis=&#34;203px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;색인되지 않은 페이지들은 대다수가 categories와 tags로 생성된 페이지 였습니다.&lt;br&gt;
+몇달째 이 상태가 유지된다는건, 색인 대상에서 제외(?) 되는거 아닐까 라는 생각이 들었습니다.&lt;br&gt;
+이러면 정상적인 글까지도 색인 되지않게 되는거라 추가 조치를 취하기로 마음 먹었습니다.&lt;/p&gt;
+&lt;h2 id=&#34;objective&#34;&gt;Objective&lt;/h2&gt;
+&lt;p&gt;구글에서 수집할 페이지들을 보는 페이지(sitemap.xml)에서 불필요한 글들을 대상에서 제외한다.&lt;/p&gt;
+&lt;h2 id=&#34;how&#34;&gt;How&lt;/h2&gt;
+&lt;p&gt;Hugo는 사용중인 설정파일에만 추가해주면, sitemap을 자동으로 생성해 줍니다.&lt;br&gt;
+(설정에 대한 가이드는 &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/templates/sitemap-template/#configuration&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;링크&lt;/a&gt;에서 확인하실수 있습니다.)&lt;/p&gt;
+&lt;p&gt;이 설정대로 사용할 경우, categories와 tags가 sitemap.xml에 포함되어 출력되기 떄문에 custom해 주어야 합니다.&lt;br&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/templates/sitemap-template/#configuration&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;override built-in template&lt;/a&gt;을 읽어보면, custom 하는 방법을 상세히 안내하고 있습니다. &lt;br&gt;
+정리하면 아래와 같이 2개 중 하나의 파일만 만들어주면 됩니다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;- layouts/sitemap.xml
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;- layouts/_default/sitemap.xml
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;저의 경우에는 default로 만드는 것에 왠지 모를 거부감(?)이 느껴져서 &lt;code&gt;layouts/sitemap.xml&lt;/code&gt;로 만들었습니다.&lt;br&gt;
+만든 sitemap.xml에서 어떻게 내용을 구성하면 되는지 작성해주면 되는데요. &lt;br&gt;
+Hugo가 Golang으로 만들어졌기 때문에, HTML을 만들기 위한 golang template language 문법에 맞게 sitemap.xml을 작성하면 됩니다.&lt;/p&gt;
+&lt;p&gt;번거로우니까 우선 결론부터 이야기하면 sitemap.xml은 아래의 내용처럼 추가해주시면 됩니다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;{{ printf &amp;#34;&lt;span class=&#34;cp&#34;&gt;&amp;lt;?xml version=\&amp;#34;1.0\&amp;#34; encoding=\&amp;#34;utf-8\&amp;#34; standalone=\&amp;#34;yes\&amp;#34;?&amp;gt;&lt;/span&gt;&amp;#34; | safeHTML }}
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;urlset&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;xmlns&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;http://www.sitemaps.org/schemas/sitemap/0.9&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;na&#34;&gt;xmlns:xhtml&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;http://www.w3.org/1999/xhtml&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    {{ range .Pages }}
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    {{ if not (in .Site.Params.taxonomiesExcludedFromSitemap .Data.Plural) }}
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;loc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;{{ .Permalink }}&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;loc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;{{ if not .Lastmod.IsZero }}
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;lastmod&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;{{ safeHTML ( .Lastmod.Format &amp;#34;2006-01-02T15:04:05-07:00&amp;#34; ) }}&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;lastmod&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;{{ end }}{{ with .Sitemap.ChangeFreq }}
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;changefreq&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;{{ . }}&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;changefreq&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;{{ end }}{{ if ge .Sitemap.Priority 0.0 }}
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;priority&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;{{ .Sitemap.Priority }}&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;priority&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;{{ end }}{{ if .IsTranslated }}{{ range .Translations }}
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;xhtml:link&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;na&#34;&gt;rel&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;alternate&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;na&#34;&gt;hreflang&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;{{ .Language.Lang }}&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;na&#34;&gt;href&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;{{ .Permalink }}&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;{{ end }}
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;xhtml:link&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;na&#34;&gt;rel&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;alternate&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;na&#34;&gt;hreflang&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;{{ .Language.Lang }}&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;na&#34;&gt;href&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;{{ .Permalink }}&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;{{ end }}
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    {{ end }}
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    {{ end }}
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;urlset&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;code&gt;{{ if not (in .Site.Params.taxonomiesExcludedFromSitemap .Data.Plural) }}&lt;/code&gt; 라는 부분이 노출제어하는 역할을 수행합니다.&lt;/p&gt;
+&lt;p&gt;첫번째 변수(.Site.Params.taxonomiesExcludedFromSitemap)는 Site Variable을 사용합니다. &lt;br&gt;
+Site Variable은 쉽게 생각하면 Global Variable 역할을 맡는다고 합니다.&lt;br&gt;
+여기서 Params라는 변수게 접근이 가능한데 관련된 내용은 &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/variables/site/#the-siteparams-variable&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;링크&lt;/a&gt;로 확인할 수 있습니다.&lt;br&gt;
+&lt;code&gt;.Site.Params&lt;/code&gt; 변수를 사용하면 config 파일에 &lt;code&gt;params&lt;/code&gt; 에 접근할 수 있습니다.&lt;br&gt;
+이 말은 &lt;code&gt;params&lt;/code&gt;에 있는 &lt;code&gt;taxonomiesExcludedFromSitemap&lt;/code&gt; 변수에 접근하겠다는 뜻이죠.&lt;/p&gt;
+&lt;p&gt;config.yaml에 추가한 적이 없기 때문에, 노출제어를 하기 위해서는 추가해주어야 합니다. &lt;br&gt;
+(config.yaml또는 config.toml에 아래 내용을 추가해주세요)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;taxonomiesExcludedFromSitemap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;- &lt;span class=&#34;s2&#34;&gt;&amp;#34;tags&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;- &lt;span class=&#34;s2&#34;&gt;&amp;#34;categories&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;두번째 변수는 Taxonomy Variable을 사용합니다.&lt;br&gt;
+이걸 찾아볼때 까지 Taxonomy가 무엇인지 몰랐습니다&amp;hellip; 간단히 정리하면 User가 정의하는 Grouping 방법입니다.&lt;br&gt;
+(자세히 알고싶은 분은 &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/content-management/taxonomies/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;링크&lt;/a&gt;를 한번 읽어보면 좋을것 같습니다.)&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/variables/taxonomy/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;변수 설명페이지&lt;/a&gt;를 보면 &lt;code&gt;.Data.Plural&lt;/code&gt;은 분류법의 복수 이름이라고 정의하고 있습니다.&lt;br&gt;
+노출제어하고 싶은 페이지들에 해당되는 변수임을 알 수 있습니다.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;yaml파일 수정과 sitemap.xml추가까지 했다면, 필요한 조치들은 모두 수행하였습니다. &lt;br&gt;
+local에서 sitemap이 의도한 대로 변경되었는지 확인하고 배포하시면 되겠습니다.&lt;/p&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;생각보다 어려운 작업은 아니었지만, Hugo의 설정 관련 문서들을 찾기가 조금 어려웠습니다.&lt;br&gt;
+아직은 Document 구성이 익숙하지 않아 그런것 같아, 앞으로 블로그를 운영해나가면서 익숙해져 나가야겠습니다.&lt;/p&gt;
+&lt;p&gt;감사합니다.&lt;/p&gt;
+&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://discourse.gohugo.io/t/exclude-taxonomy-kinds-from-sitemap-xml/29216/4&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Hugo Community article&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>Hugo Blog 만들기-2</title>
         <link>https://korcasus.github.io/p/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-2/</link>
         <pubDate>Tue, 15 Nov 2022 20:23:45 +0900</pubDate>
