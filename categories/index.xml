@@ -6,20 +6,36 @@
         <description>Recent content in Categories on Read Write</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ko</language>
-        <lastBuildDate>Tue, 15 Aug 2023 15:03:02 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>blog</title>
-        <link>https://korcasus.github.io/categories/blog/</link>
-        <pubDate>Tue, 15 Aug 2023 15:03:02 +0900</pubDate>
+        <lastBuildDate>Sat, 26 Aug 2023 22:30:49 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Docker</title>
+        <link>https://korcasus.github.io/categories/docker/</link>
+        <pubDate>Sat, 26 Aug 2023 22:30:49 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/categories/blog/</guid>
+        <guid>https://korcasus.github.io/categories/docker/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Jenkins</title>
+        <link>https://korcasus.github.io/categories/jenkins/</link>
+        <pubDate>Sat, 26 Aug 2023 22:30:49 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/categories/jenkins/</guid>
         <description></description>
         </item>
         <item>
         <title>Synology</title>
         <link>https://korcasus.github.io/categories/synology/</link>
-        <pubDate>Mon, 14 Aug 2023 23:09:01 +0900</pubDate>
+        <pubDate>Sat, 26 Aug 2023 22:30:49 +0900</pubDate>
         
         <guid>https://korcasus.github.io/categories/synology/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>blog</title>
+        <link>https://korcasus.github.io/categories/blog/</link>
+        <pubDate>Tue, 15 Aug 2023 15:03:02 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/categories/blog/</guid>
         <description></description>
         </item>
         <item>
