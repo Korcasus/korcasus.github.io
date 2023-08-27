@@ -156,11 +156,11 @@ local에서 sitemap이 의도한 대로 변경되었는지 확인하고 배포�
 </description>
         </item>
         <item>
-        <title>Hugo Blog 만들기-2</title>
-        <link>https://korcasus.github.io/p/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-2/</link>
+        <title>Hugo Blog Customize하기</title>
+        <link>https://korcasus.github.io/p/hugo-blog-customize/</link>
         <pubDate>Tue, 15 Nov 2022 20:23:45 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/p/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-2/</guid>
+        <guid>https://korcasus.github.io/p/hugo-blog-customize/</guid>
         <description>&lt;h1 id=&#34;hugo-blog-만들기-2&#34;&gt;Hugo Blog 만들기-2&lt;/h1&gt;
 &lt;h2 id=&#34;개요&#34;&gt;개요&lt;/h2&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://korcasus.github.io/p/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-1/&#34; &gt;지난번 글&lt;/a&gt;을 통해, Hugo로 Blog를 만들어 보았습니다.&lt;br&gt;
@@ -190,10 +190,10 @@ build를 할 경우 복사해온 파일을 사용하게 됩니다.&lt;br&gt;
     &gt;Google Search Console&lt;/a&gt; 요청할 수 있습니다.&lt;br&gt;
 홈페이지 형태에 따라 소유자임을 증명하는 방법이 달라집니다.&lt;/p&gt;
 &lt;p&gt;시작하기를 누르면 아래와 같은 페이지가 나타납니다.
-&lt;img src=&#34;https://korcasus.github.io/p/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-2/search_console_start.jpg&#34;
+&lt;img src=&#34;https://korcasus.github.io/p/hugo-blog-customize/search_console_start.jpg&#34;
 	width=&#34;1510&#34;
 	height=&#34;1194&#34;
-	srcset=&#34;https://korcasus.github.io/p/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-2/search_console_start_hucdd27cc99166e43e175b379001281f77_133233_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-2/search_console_start_hucdd27cc99166e43e175b379001281f77_133233_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/p/hugo-blog-customize/search_console_start_hucdd27cc99166e43e175b379001281f77_133233_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/hugo-blog-customize/search_console_start_hucdd27cc99166e43e175b379001281f77_133233_1024x0_resize_q75_box.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;search_console_start&#34;
@@ -207,10 +207,10 @@ build를 할 경우 복사해온 파일을 사용하게 됩니다.&lt;br&gt;
 &lt;p&gt;&lt;code&gt;URL 접두어&lt;/code&gt;에 Github blog 주소를 작성해줍니다.
 도메인을 만들어서 운영중이시라면 &lt;code&gt;도메인&lt;/code&gt;으로 생성해주세요.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;URL 접두어&lt;/code&gt;로 신청했다면, 해당 페이지의 소유자인지 확인해 주어야 합니다.
-&lt;img src=&#34;https://korcasus.github.io/p/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-2/search_console_owner.jpg&#34;
+&lt;img src=&#34;https://korcasus.github.io/p/hugo-blog-customize/search_console_owner.jpg&#34;
 	width=&#34;1244&#34;
 	height=&#34;1584&#34;
-	srcset=&#34;https://korcasus.github.io/p/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-2/search_console_owner_hucdd27cc99166e43e175b379001281f77_166857_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-2/search_console_owner_hucdd27cc99166e43e175b379001281f77_166857_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/p/hugo-blog-customize/search_console_owner_hucdd27cc99166e43e175b379001281f77_166857_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/hugo-blog-customize/search_console_owner_hucdd27cc99166e43e175b379001281f77_166857_1024x0_resize_q75_box.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;search_console_owner&#34;
@@ -243,10 +243,10 @@ HTML파일을 다운로드하여, static 디렉토리에 추가해줍니다. bui
 이제는 &lt;code&gt;analytics가 적용된 script&lt;/code&gt;와 &lt;code&gt;GA Tracking ID&lt;/code&gt;를 확인해 보겠습니다.&lt;/p&gt;
 &lt;p&gt;애널리틱스를 적용할 &lt;code&gt;속성 및 앱&lt;/code&gt;의 데이터스트림을 생성해 줍니다.&lt;br&gt;
 생성해준 뒤 웹 스트림 세부정보를 들어가면 아래와 같은 이미지를 보실 수 있습니다.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/p/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-2/analytics_detail_page.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/p/hugo-blog-customize/analytics_detail_page.jpg&#34;
 	width=&#34;2116&#34;
 	height=&#34;2072&#34;
-	srcset=&#34;https://korcasus.github.io/p/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-2/analytics_detail_page_hud49da568400d9062178718c4e59fe2d3_337990_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-2/analytics_detail_page_hud49da568400d9062178718c4e59fe2d3_337990_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/p/hugo-blog-customize/analytics_detail_page_hud49da568400d9062178718c4e59fe2d3_337990_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/hugo-blog-customize/analytics_detail_page_hud49da568400d9062178718c4e59fe2d3_337990_1024x0_resize_q75_box.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;analytics_detail_page&#34;
@@ -260,10 +260,10 @@ HTML파일을 다운로드하여, static 디렉토리에 추가해줍니다. bui
 &lt;p&gt;&lt;code&gt;측정 ID&lt;/code&gt; 아래에 적힌 값이 GA Tracking ID를 의미합니다.&lt;br&gt;
 script는 빨간색 화살표를 클릭해보면 확인할 수 있습니다.&lt;br&gt;
 클릭해보면 아래와 이미지의 섹션에서 확인할 수 있습니다.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/p/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-2/analytics_install.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/p/hugo-blog-customize/analytics_install.jpg&#34;
 	width=&#34;1986&#34;
 	height=&#34;1626&#34;
-	srcset=&#34;https://korcasus.github.io/p/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-2/analytics_install_hud49da568400d9062178718c4e59fe2d3_247744_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-2/analytics_install_hud49da568400d9062178718c4e59fe2d3_247744_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/p/hugo-blog-customize/analytics_install_hud49da568400d9062178718c4e59fe2d3_247744_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/hugo-blog-customize/analytics_install_hud49da568400d9062178718c4e59fe2d3_247744_1024x0_resize_q75_box.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;analytics_install&#34;
@@ -425,10 +425,10 @@ script를 복사하며 잘 살펴보셨다면 아시겠지만 head 태그에 추
 &lt;p&gt;&lt;code&gt;laygouts/partials/head/script.html&lt;/code&gt;을 만들어, 복사해둔 스크립트를 추가해주면 됩니다.&lt;/p&gt;
 &lt;h3 id=&#34;적용-확인&#34;&gt;적용 확인&lt;/h3&gt;
 &lt;p&gt;애널리틱스 홈 화면을 들어갑니다.&lt;br&gt;
-&lt;img src=&#34;https://korcasus.github.io/p/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-2/analytics_home.jpg&#34;
+&lt;img src=&#34;https://korcasus.github.io/p/hugo-blog-customize/analytics_home.jpg&#34;
 	width=&#34;2272&#34;
 	height=&#34;944&#34;
-	srcset=&#34;https://korcasus.github.io/p/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-2/analytics_home_hucdd27cc99166e43e175b379001281f77_135740_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-2/analytics_home_hucdd27cc99166e43e175b379001281f77_135740_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/p/hugo-blog-customize/analytics_home_hucdd27cc99166e43e175b379001281f77_135740_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/hugo-blog-customize/analytics_home_hucdd27cc99166e43e175b379001281f77_135740_1024x0_resize_q75_box.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;analytics_home&#34;

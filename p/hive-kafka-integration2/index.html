@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Kafka에 있는 데이터를 Hive로 읽어보는 예제입니다.'>
+<title>Read message from kafka using hive</title>
+
+
+
+<link rel="stylesheet" href="/scss/style.min.ff300df33b80e2ac49809c825614392ed1c7b27591d65d3c4043602cd162e25f.css"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4086051155158500"
+        crossorigin="anonymous"></script>
+<meta property='og:title' content='Read message from kafka using hive'>
+<meta property='og:description' content='Kafka에 있는 데이터를 Hive로 읽어보는 예제입니다.'>
+<meta property='og:url' content='https://korcasus.github.io/p/hive-kafka-integration2/'>
+<meta property='og:site_name' content='Read Write'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Hive' /><meta property='article:tag' content='Kafka' /><meta property='article:tag' content='ETL' /><meta property='article:published_time' content='2022-12-01T22:45:01&#43;09:00'/><meta property='article:modified_time' content='2022-12-01T22:45:01&#43;09:00'/>
+<meta name="twitter:title" content="Read message from kafka using hive">
+<meta name="twitter:description" content="Kafka에 있는 데이터를 Hive로 읽어보는 예제입니다.">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PSWKN88H77"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-PSWKN88H77', { 'anonymize_ip': false });
+}
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="메뉴 여닫기">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Read Write</a></h1>
+            <h2 class="site-description">잊지않기위해 기록합니다.</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Korcasus'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.linkedin.com/in/seongdo-kim-34bab9148/'
+                        target="_blank"
+                        title="LinkedIn"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-linkedin" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="4" y="4" width="16" height="16" rx="2" />
+  <line x1="8" y1="11" x2="8" y2="16" />
+  <line x1="8" y1="8" x2="8" y2="8.01" />
+  <line x1="12" y1="16" x2="12" y2="11" />
+  <path d="M16 16v-3a2 2 0 0 0 -4 0" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:korcasus@gmail.com'
+                        target="_blank"
+                        title="Mail"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="3" y="5" width="18" height="14" rx="2" />
+  <polyline points="3 7 12 13 21 7" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>다크 모드</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">목차</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#개요">개요</a></li>
+    <li><a href="#json">JSON</a>
+      <ol>
+        <li><a href="#sample-data">Sample data</a></li>
+        <li><a href="#테이블-정의">테이블 정의</a></li>
+        <li><a href="#read">READ</a></li>
+      </ol>
+    </li>
+    <li><a href="#text">TEXT</a>
+      <ol>
+        <li><a href="#sample-data-1">Sample data</a></li>
+        <li><a href="#테이블-정의-1">테이블 정의</a></li>
+        <li><a href="#read-1">READ</a></li>
+        <li><a href="#kafka-metadata-활용">Kafka Metadata 활용</a></li>
+      </ol>
+    </li>
+    <li><a href="#정리">정리</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/hive/" >
+                Hive
+            </a>
+        
+            <a href="/categories/kafka/" >
+                Kafka
+            </a>
+        
+            <a href="/categories/hadoop/" >
+                hadoop
+            </a>
+        
+            <a href="/categories/batch/" >
+                batch
+            </a>
+        
+            <a href="/categories/etl/" >
+                ETL
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/hive-kafka-integration2/">Read message from kafka using hive</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            Kafka에 있는 데이터를 Hive로 읽어보는 예제입니다.
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Dec 01, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    4 분 정도
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="개요">개요</h2>
+<p><a class="link" href="https://korcasus.github.io/p/hive-kafka-integration1/" >이전 글</a>에서 Kafka와 Hive 연동에 사용하는 설정들에 대해서 알아보았습니다.<br>
+이제부터는 Kafka에서 데이터를 읽어들이고, 쓰는 작업에 대해서 설명하려고 합니다.
+이번 글에서는 Kafka에 있는 데이터들을 읽어들이는 것부터 진행해보도록 하겠습니다.<br>
+Hive를 Kafka Consumer로 사용하는 방벙리라 생각하시면 이해하기 쉬우실 겁니다.<br>
+차이점이 있다면, 일반 Consumer와는 다르게 Consumer Group으로 지정되지 않습니다.</p>
+<h2 id="json">JSON</h2>
+<p>Kafka로부터 읽어들일 데이터들이 json format 일 경우를 가정하고, 진행하는 예제입니다.</p>
+<h3 id="sample-data">Sample data</h3>
+<p>아래와 같은 형태의 데이터를 예시를 기준으로 설명드리도록 하겠습니다.<br>
+필요에 따라 더 많은 필드들을 추가하실 수 있습니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">12345678</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;value:&#34;</span><span class="p">:</span> <span class="s2">&#34;hello&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="테이블-정의">테이블 정의</h3>
+<p>json 스키마와 동일한 구조를 가지는 테이블을 정의해보도록 하겠습니다.
+id 필드는 정수값을 가지고, value 필드는 문자열을 가지고 있습니다.
+Hive에서 정수값은 <strong>INT</strong> 또는 <strong>BIGINT</strong> Data Type으로 정의할 수 있습니다. 그리고 문자열은 <strong>STRING</strong>으로 정의합니다.</p>
+<p>이 정보들을 토대로 DDL쿼리를 만들어보면 아래와 같습니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">EXTERNAL</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">test_export_to_kafka</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="nb">BIGINT</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">`</span><span class="n">value</span><span class="o">`</span><span class="w"> </span><span class="n">STRING</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">STORED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;org.apache.hadoop.hive.kafka.KafkaStorageHandler&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">TBLPROPERTIES</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.serde.class&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;org.apache.hadoop.hive.serde2.JsonSerDe&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.topic&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;etl.hive.catalog.used&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.bootstrap.servers&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;{broker서버}&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.consumer.security.protocol&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;PLAINTEXT&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>test_export_to_kafka</code>은 테이블명으로, 원하는대로 사용할 수 있습니다.<br>
+테이블에서 사용하는 컬럼들은 읽어들일 json 구조대로 작성해주면 됩니다.<br>
+컬럼명은 json key와 동일하게 작성하고, 컬럼의 타입은 json value의 데이터 타입과 동일하게 맞춰주면 됩니다.<br>
+hive 데이터 타입은 json보다 다양하므로, <a class="link" href="https://cwiki.apache.org/confluence/display/hive/languagemanual&#43;types"  target="_blank" rel="noopener"
+    >문서</a>를 참고해 적절한 타입을 선택해서 사용하는 것을 권장합니다.  <br>
+<code>&quot;kafka.serde.class&quot; = &quot;org.apache.hadoop.hive.serde2.JsonSerDe&quot;</code>으로 지정해줌으로서, hive가 json데이터를 deserialize할 수 있게 되었습니다.<br>
+그 외에 특별히 TBLPROPERTIES에서 살펴봐야할 내용은 없습니다.<br>
+<code>kafka.topic</code>만 사용하고 싶은 kafka topic명으로 변경해주면 됩니다.</p>
+<h3 id="read">READ</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">test_export_to_kafka</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>정상적으로 설정되었다면, topic에 들어있는 메시지가 출력되는것을 확인하실 수 있습니다.<br>
+하지만 설정이 잘못되었다면 에러메시지가 출력되거나, 각 컬럼이 NULL로 출력 될 것입니다.<br>
+여기까지 설명했던 내용과 다르게 설정한 내용이 있지않은지 확인해주세요.</p>
+<h2 id="text">TEXT</h2>
+<p>JSON처럼 구조화된 데이터가 아니라, PLAIN TEXT를 읽어오는 예제입니다.</p>
+<h3 id="sample-data-1">Sample data</h3>
+<p>PLAIN TEXT라, 예제도 특별할 것은 없습니다.<br>
+단순히 숫자값을 예시로 사용해보도록 하겠습니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1234
+</span></span><span class="line"><span class="cl">5678
+</span></span><span class="line"><span class="cl">91011
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="테이블-정의-1">테이블 정의</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">EXTERNAL</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">test_export_to_kafka</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="nb">BIGINT</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">STORED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;org.apache.hadoop.hive.kafka.KafkaStorageHandler&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">TBLPROPERTIES</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.serde.class&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.topic&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;etl.hive.catalog.used&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.bootstrap.servers&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;{서버서버}&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.consumer.security.protocol&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;PLAINTEXT&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>앞서 설명했던 JSON 테스트 케이스와 유사합니다.<br>
+다른점이 있다면 Serde와 컬럼을 다르게 지정해준 것입니다.<br>
+Serde의 경우 <code>&quot;kafka.serde.class&quot; = &quot;org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe&quot;</code> 로 변경하면 됩니다.</p>
+<h3 id="read-1">READ</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">test_export_to_kafka</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>정상적으로 설정되었다면, topic에 들어있는 메시지가 출력되는것을 확인하실 수 있습니다.<br>
+하지만 설정이 잘못되었다면 에러메시지가 출력되거나, 각 컬럼이 NULL로 출력 될 것입니다.<br>
+여기까지 설명했던 내용과 다르게 설정한 내용이 있지않은지 확인해주세요.</p>
+<h3 id="kafka-metadata-활용">Kafka Metadata 활용</h3>
+<p>Kafka에는 메시지와 함께 메타 데이터들이 함께 기록됩니다.<br>
+테이블을 정의할때 메타 데이터들도 자동으로 컬럼으로 추가됩니다. Hive에서 메시지를 읽어올때, 메타 데이터도 함께 가져오게 됩니다.<br>
+메타 데이터가 컬럼으로 정의되다보니, SQL 조건문으로 활용할 수 있습니다.<br>
+예를 들면 특정 시간 이후로 유입된 데이터만 가져오던가, 특정 파티션에 있는 데이터만 가져올 수 있습니다.</p>
+<p><code>__partition</code>와 <code>__offset</code>의 경우에는 정수 타입을 사용하기 때문에 사용하기 편리합니다.</p>
+<ul>
+<li>ex1) <code>__partition = 0</code></li>
+<li>ex2) <code>__offset &gt; 5000</code></li>
+</ul>
+<p>하지만 <code>__timestamp</code>의 경우에는 unix_timestamp를 사용하기에 int64로 기록됩니다.<br>
+이는 일상에서 사용하는 시간 표기방식과 다르고, 변환이 필요하기에 사용하기 불편합니다. <br>
+편하게 조건문으로 활용하기 위해서는 아래처럼 변경해서 사용하는것을 추천합니다.<br>
+unix_timestamp라는 함수를 사용 하면 되는데 아래 예제를 보겠습니다.</p>
+<p><code>unix_timestamp('2022-03-08 00:00:00.000', 'yyyy-MM-dd HH:mm:ss.SSS') * 1000</code></p>
+<ul>
+<li>첫번째 인자는 변환하고 싶은 시간을 작성합니다.</li>
+<li>두번째 인자는 첫번째 인자에 입력한 시간포맷을 작성합니다.</li>
+</ul>
+<p>함수를 사용하여 특정 시간을 unix_timestamp로 변경 할 수 있게 되었고, <code>__timestamp</code> 비교 연산을 할 수 있게되었습니다. <br>
+하지만 hive로 통해 읽어들인 <code>__timestamp</code>는 마이크로초 단위이기 때문에 단위를 맞춰주는 추가연산이 필요합니다.<br>
+이때문에 1000을 곱하였습니다. 아래는 사용 예제입니다.</p>
+<p>ex) <code>unix_timestamp('2022-03-08 00:00:00.000', 'yyyy-MM-dd HH:mm:ss.SSS') * 1000 &lt; __timestamp</code></p>
+<p><strong>추가 예제</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- print to UTC timestamp
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">select</span><span class="w"> </span><span class="n">FROM_UTC_TIMESTAMP</span><span class="p">(</span><span class="o">`</span><span class="n">__timestamp</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;JST&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">test_kafka_product_received</span><span class="w"> </span><span class="k">limit</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- print timestamp, unixtime to timestamp
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">select</span><span class="w"> </span><span class="k">current_timestamp</span><span class="p">(),</span><span class="w"> </span><span class="n">from_unixtime</span><span class="p">(</span><span class="n">unix_timestamp</span><span class="p">(),</span><span class="w"> </span><span class="s1">&#39;yyyy-MM-dd HH:mm:ss.SSS&#39;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- print converted unixtime
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">select</span><span class="w"> </span><span class="n">unix_timestamp</span><span class="p">(</span><span class="s1">&#39;2022-03-07 14:00:00.000&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;yyyy-MM-dd HH:mm:ss.SSS&#39;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="n">unix_timestamp</span><span class="p">(</span><span class="s1">&#39;2022-03-07 06:11:41&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;yyyy-MM-dd HH:mm:ss&#39;</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="정리">정리</h2>
+<p>이번 글을 통해 Hive에서 Kafka에 저장된 JSON 또는 PLAIN-TEXT를 읽어서 사용할 수 있게 되었습니다.<br>
+metadata를 필터링 용도로 사용한다면, Kafka에 원하는 조건을 가진 메시지를 손쉽게 추출해 볼 수 있겠습니다.<br>
+아쉬운 점으로는 Hive에 저장되어있는 다른 테이블들과 join이 되지 않는다는 점입니다. (제가 시도했을때는 인증으로 인한 문제가 발생했습니다.)<br>
+이 때문에 사용용도가 많이 제약되었지만, 개선된다면 활용도가 높을 것으로 보입니다.</p>
+<p>다음 글에서는 Hive데이터들을 Kafka로 전송하는 과정을 기록해보겠습니다.<br>
+감사합니다.</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/hive/">Hive</a>
+        
+            <a href="/tags/kafka/">Kafka</a>
+        
+            <a href="/tags/etl/">ETL</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">관련 글</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/hive-kafka-integration1/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Hive Kafka Integration</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/hive-kafka-integration3/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Write message to kafka using hive</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/elasticsearch-spark/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Elasticsearch Spark</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="Korcasus/blog-comments"
+        issue-term="title"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2023 Read Write
+    </section>
+    
+    <section class="powerby">
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>로 만듦 <br />
+        <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>의 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.17.0">Stack</a></b> 테마 사용 중
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

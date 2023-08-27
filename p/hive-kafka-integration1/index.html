@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="ko" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Sitemap.xml에 컨텐츠가 없는 페이지는 제외하는 설정을 진행합니다.'>
-<title>Hugo Exclude Pages</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Hive에서 연동을 위한 설정을 진행합니다.'>
+<title>Hive Kafka Integration</title>
 
 
 
 <link rel="stylesheet" href="/scss/style.min.ff300df33b80e2ac49809c825614392ed1c7b27591d65d3c4043602cd162e25f.css"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4086051155158500"
         crossorigin="anonymous"></script>
-<meta property='og:title' content='Hugo Exclude Pages'>
-<meta property='og:description' content='Sitemap.xml에 컨텐츠가 없는 페이지는 제외하는 설정을 진행합니다.'>
-<meta property='og:url' content='https://korcasus.github.io/p/hugo-exclude-pages/'>
+<meta property='og:title' content='Hive Kafka Integration'>
+<meta property='og:description' content='Hive에서 연동을 위한 설정을 진행합니다.'>
+<meta property='og:url' content='https://korcasus.github.io/p/hive-kafka-integration1/'>
 <meta property='og:site_name' content='Read Write'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='hugo' /><meta property='article:published_time' content='2023-08-15T15:03:02&#43;09:00'/><meta property='article:modified_time' content='2023-08-15T15:03:02&#43;09:00'/>
-<meta name="twitter:title" content="Hugo Exclude Pages">
-<meta name="twitter:description" content="Sitemap.xml에 컨텐츠가 없는 페이지는 제외하는 설정을 진행합니다.">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Hive' /><meta property='article:tag' content='Kafka' /><meta property='article:tag' content='ETL' /><meta property='article:published_time' content='2022-12-01T22:44:01&#43;09:00'/><meta property='article:modified_time' content='2022-12-01T22:44:01&#43;09:00'/>
+<meta name="twitter:title" content="Hive Kafka Integration">
+<meta name="twitter:description" content="Hive에서 연동을 위한 설정을 진행합니다.">
     <link rel="shortcut icon" href="/favicon.ico" />
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSWKN88H77"></script>
@@ -268,11 +268,16 @@ if (!doNotTrack) {
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#introduction">Introduction</a></li>
-    <li><a href="#objective">Objective</a></li>
-    <li><a href="#how">How</a></li>
-    <li><a href="#conclusion">Conclusion</a></li>
-    <li><a href="#reference">Reference</a></li>
+    <li><a href="#개요">개요</a></li>
+    <li><a href="#설치">설치</a></li>
+    <li><a href="#테이블-생성">테이블 생성</a></li>
+    <li><a href="#kafka-metadata">Kafka metadata</a></li>
+    <li><a href="#avro-포맷-사용시-주의사항">Avro 포맷 사용시 주의사항</a></li>
+    <li><a href="#serdeserializer-deserializer">Serde(Serializer, Deserializer)</a></li>
+    <li><a href="#인증">인증</a></li>
+    <li><a href="#key-serializer">Key Serializer</a></li>
+    <li><a href="#그외">그외</a></li>
+    <li><a href="#정리">정리</a></li>
   </ol>
 </nav>
         </div>
@@ -291,8 +296,24 @@ if (!doNotTrack) {
     
     <header class="article-category">
         
-            <a href="/categories/blog/" >
-                blog
+            <a href="/categories/hive/" >
+                Hive
+            </a>
+        
+            <a href="/categories/kafka/" >
+                Kafka
+            </a>
+        
+            <a href="/categories/hadoop/" >
+                hadoop
+            </a>
+        
+            <a href="/categories/batch/" >
+                batch
+            </a>
+        
+            <a href="/categories/etl/" >
+                ETL
             </a>
         
     </header>
@@ -300,12 +321,12 @@ if (!doNotTrack) {
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/hugo-exclude-pages/">Hugo Exclude Pages</a>
+            <a href="/p/hive-kafka-integration1/">Hive Kafka Integration</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            Sitemap.xml에 컨텐츠가 없는 페이지는 제외하는 설정을 진행합니다.
+            Hive에서 연동을 위한 설정을 진행합니다.
         </h3>
         
     </div>
@@ -326,7 +347,7 @@ if (!doNotTrack) {
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Aug 15, 2023</time>
+                <time class="article-time--published">Dec 01, 2022</time>
             </div>
         
 
@@ -341,7 +362,7 @@ if (!doNotTrack) {
 
 
                 <time class="article-time--reading">
-                    3 분 정도
+                    4 분 정도
                 </time>
             </div>
         
@@ -356,51 +377,53 @@ if (!doNotTrack) {
     <section class="article-content">
     
     
-    <h2 id="introduction">Introduction</h2>
-<p>Hugo로 블로그를 만들어서 운영중인데요. 구글 서치콘솔에 sitemap.xml을 제출수 검색에 노출되게끔 설정해두었습니다.<br>
-그런데 몇달이 지난 지금도 색인된 페이지가 몇 개가 되지않습니다.<br>
-글이 적은걸 고려하더라도, 이해하기 어려운 수치여서 살펴보았습니다.</p>
-<p><img src="/p/hugo-exclude-pages/search_console_pages.jpg"
-	width="1776"
-	height="2090"
-	srcset="/p/hugo-exclude-pages/search_console_pages_hucdd27cc99166e43e175b379001281f77_294883_480x0_resize_q75_box.jpg 480w, /p/hugo-exclude-pages/search_console_pages_hucdd27cc99166e43e175b379001281f77_294883_1024x0_resize_q75_box.jpg 1024w"
+    <h2 id="개요">개요</h2>
+<p>Hive는 Hadoop에 저장된 대용량의 데이터들을 SQL 문법으로 읽고 쓸수있게 해주는 data warehouse software입니다.<br>
+간단하게 Hadoop에서 동작하는 대용량 데이터 처리 Database라고 생각해 볼 수 있을것 같습니다.</p>
+<p>기본으로 HDFS를 지원하며, Hbase 또는 기타 DBMS에 접근할 수 있도록 개방적인 DataSourcing 기능을 제공하고 있습니다.
+Message Queue로 많이 활용되는 Kafka도 지원합니다. 이번 시리즈에서는 Hive와 Kafka 연동을 위한 설정부터 Message를 읽고 쓰는 과정까지 기록해보려고 합니다.</p>
+<p>이번 글에서는 사용할때 필요한 설정들과 알아야하는 정보들을 위주로 기록합니다.
+사용 예시가 궁금하시다면 다음 글을 읽어주세요.</p>
+<blockquote>
+<p><a class="link" href="https://github.com/apache/hive/blob/master/kafka-handler/README.md"  target="_blank" rel="noopener"
+    >공식문서</a>를 토대로 작성하였습니다.<br>
+문서에는 작성되어있지않으나, 사용하려면 추가로 알아야할 내용과 직접 테스트한 예제들을 상세히 기록하고자 합니다.</p>
+</blockquote>
+<blockquote>
+<p>Hive 3.x 버전에서 진행하였습니다.</p>
+</blockquote>
+<h2 id="설치">설치</h2>
+<p>사실 별도의 설치는 필요하지않습니다.<br>
+공식문서를 한번 살펴보셨다면 아시겠지만, Hive에 이미 내장 되어있습니다.<br>
+어떻게 할 지 상상이 안될수도 있지만, SQL을 사용하면 Kafka에 연동을 할 수 있습니다.</p>
+<h2 id="테이블-생성">테이블 생성</h2>
+<p>Hive와 Kafka를 연동해주기 위해서는 연결고리를 만들어주어야합니다.<br>
+Spring에서는 Binder와 Binding을 사용하면 손쉽게 연결고리를 만들 수 있듯이, Hive에서는 <code>StorageHandler</code>를 사용하여 만들 수 있습니다.<br>
+<code>StorageHandler</code>는 table을 정의할 때 함께 명시하면 됩니다. 이 외에도 설정을 추가하면 완벽하게 사용하실수 있습니다.</p>
+<p><img src="/p/hive-kafka-integration1/easy.jpg"
+	width="420"
+	height="400"
+	srcset="/p/hive-kafka-integration1/easy_huc8db540d4dfe2991afdf78060faa4427_62748_480x0_resize_q75_box.jpg 480w, /p/hive-kafka-integration1/easy_huc8db540d4dfe2991afdf78060faa4427_62748_1024x0_resize_q75_box.jpg 1024w"
 	loading="lazy"
 	
-		alt="search_console_pages"
+		alt="참쉽죠"
 	
 	
 		class="gallery-image" 
-		data-flex-grow="84"
-		data-flex-basis="203px"
+		data-flex-grow="105"
+		data-flex-basis="252px"
 	
-></p>
-<p>색인되지 않은 페이지들은 대다수가 categories와 tags로 생성된 페이지 였습니다.<br>
-몇달째 이 상태가 유지된다는건, 색인 대상에서 제외(?) 되는거 아닐까 라는 생각이 들었습니다.<br>
-이러면 정상적인 글까지도 색인 되지않게 되는거라 추가 조치를 취하기로 마음 먹었습니다.</p>
-<h2 id="objective">Objective</h2>
-<p>구글에서 수집할 페이지들을 보는 페이지(sitemap.xml)에서 불필요한 글들을 대상에서 제외한다.</p>
-<h2 id="how">How</h2>
-<p>Hugo는 사용중인 설정파일에만 추가해주면, sitemap을 자동으로 생성해 줍니다.<br>
-(설정에 대한 가이드는 <a class="link" href="https://gohugo.io/templates/sitemap-template/#configuration"  target="_blank" rel="noopener"
-    >링크</a>에서 확인하실수 있습니다.)</p>
-<p>이 설정대로 사용할 경우, categories와 tags가 sitemap.xml에 포함되어 출력되기 떄문에 custom해 주어야 합니다.<br>
-<a class="link" href="https://gohugo.io/templates/sitemap-template/#configuration"  target="_blank" rel="noopener"
-    >override built-in template</a>을 읽어보면, custom 하는 방법을 상세히 안내하고 있습니다. <br>
-정리하면 아래와 같이 2개 중 하나의 파일만 만들어주면 됩니다.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">- layouts/sitemap.xml
-</span></span><span class="line"><span class="cl">- layouts/_default/sitemap.xml
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>저의 경우에는 default로 만드는 것에 왠지 모를 거부감(?)이 느껴져서 <code>layouts/sitemap.xml</code>로 만들었습니다.<br>
-만든 sitemap.xml에서 어떻게 내용을 구성하면 되는지 작성해주면 되는데요. <br>
-Hugo가 Golang으로 만들어졌기 때문에, HTML을 만들기 위한 golang template language 문법에 맞게 sitemap.xml을 작성하면 됩니다.</p>
-<p>번거로우니까 우선 결론부터 이야기하면 sitemap.xml은 아래의 내용처럼 추가해주시면 됩니다.</p>
+><br>
+다만 Hive에서 Kafka와 연동된 테이블을 만들기 위해서는 몇가지 주의해야하는 사항이 있습니다.</p>
+<p><code>첫번째</code>로는 <code>EXTERNAL</code> 테이블로 생성해야한다는 것입니다.<br>
+우리가 사용할 방식은 Hive에서 Kafka에 접근하여 저장된 데이터들을 사용하는 것이기 때문에, <code>EXTERNAL</code> 키워드를 추가해주어야합니다.</p>
+<p><code>두번째</code>로는 <strong>KafkaStorageHandler</strong> 를 명시해야합니다.<br>
+테이블을 정의할 때 <code>STORED BY 'org.apache.hadoop.hive.kafka.KafkaStorageHandler'</code> 가 함께 적혀있어야 합니다.<br>
+적혀 있어야만 Kafka를 연동하여 사용하실 수 있습니다.</p>
+<p><code>세번째</code>로는 테이블설정을 해주어야합니다.<br>
+<code>TBLPROPERTIES</code> 키워드 사용하면 테이블에 대한 Property를 설정할 수 있게됩니다.
+여기에 Kafka 연동에 필요한 Configuration을 작성해야 합니다.</p>
+<p>세가지를 모두 적용하여 DDL을 작성해보면, 아래의 예시처럼 만들어질 수 있습니다.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -416,87 +439,131 @@ Hugo가 Golang으로 만들어졌기 때문에, HTML을 만들기 위한 golang 
 </span><span class="lnt">11
 </span><span class="lnt">12
 </span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">{{ printf &#34;<span class="cp">&lt;?xml version=\&#34;1.0\&#34; encoding=\&#34;utf-8\&#34; standalone=\&#34;yes\&#34;?&gt;</span>&#34; | safeHTML }}
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">urlset</span> <span class="na">xmlns</span><span class="o">=</span><span class="s">&#34;http://www.sitemaps.org/schemas/sitemap/0.9&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="na">xmlns:xhtml</span><span class="o">=</span><span class="s">&#34;http://www.w3.org/1999/xhtml&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    {{ range .Pages }}
-</span></span><span class="line"><span class="cl">    {{ if not (in .Site.Params.taxonomiesExcludedFromSitemap .Data.Plural) }}
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">url</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">loc</span><span class="p">&gt;</span>{{ .Permalink }}<span class="p">&lt;/</span><span class="nt">loc</span><span class="p">&gt;</span>{{ if not .Lastmod.IsZero }}
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">lastmod</span><span class="p">&gt;</span>{{ safeHTML ( .Lastmod.Format &#34;2006-01-02T15:04:05-07:00&#34; ) }}<span class="p">&lt;/</span><span class="nt">lastmod</span><span class="p">&gt;</span>{{ end }}{{ with .Sitemap.ChangeFreq }}
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">changefreq</span><span class="p">&gt;</span>{{ . }}<span class="p">&lt;/</span><span class="nt">changefreq</span><span class="p">&gt;</span>{{ end }}{{ if ge .Sitemap.Priority 0.0 }}
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">priority</span><span class="p">&gt;</span>{{ .Sitemap.Priority }}<span class="p">&lt;/</span><span class="nt">priority</span><span class="p">&gt;</span>{{ end }}{{ if .IsTranslated }}{{ range .Translations }}
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">xhtml:link</span>
-</span></span><span class="line"><span class="cl">                <span class="na">rel</span><span class="o">=</span><span class="s">&#34;alternate&#34;</span>
-</span></span><span class="line"><span class="cl">                <span class="na">hreflang</span><span class="o">=</span><span class="s">&#34;{{ .Language.Lang }}&#34;</span>
-</span></span><span class="line"><span class="cl">                <span class="na">href</span><span class="o">=</span><span class="s">&#34;{{ .Permalink }}&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">/&gt;</span>{{ end }}
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">xhtml:link</span>
-</span></span><span class="line"><span class="cl">                <span class="na">rel</span><span class="o">=</span><span class="s">&#34;alternate&#34;</span>
-</span></span><span class="line"><span class="cl">                <span class="na">hreflang</span><span class="o">=</span><span class="s">&#34;{{ .Language.Lang }}&#34;</span>
-</span></span><span class="line"><span class="cl">                <span class="na">href</span><span class="o">=</span><span class="s">&#34;{{ .Permalink }}&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">/&gt;</span>{{ end }}
-</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">url</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    {{ end }}
-</span></span><span class="line"><span class="cl">    {{ end }}
-</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">urlset</span><span class="p">&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><code>{{ if not (in .Site.Params.taxonomiesExcludedFromSitemap .Data.Plural) }}</code> 라는 부분이 노출제어하는 역할을 수행합니다.</p>
-<p>첫번째 변수(.Site.Params.taxonomiesExcludedFromSitemap)는 Site Variable을 사용합니다. <br>
-Site Variable은 쉽게 생각하면 Global Variable 역할을 맡는다고 합니다.<br>
-여기서 Params라는 변수게 접근이 가능한데 관련된 내용은 <a class="link" href="https://gohugo.io/variables/site/#the-siteparams-variable"  target="_blank" rel="noopener"
-    >링크</a>로 확인할 수 있습니다.<br>
-<code>.Site.Params</code> 변수를 사용하면 config 파일에 <code>params</code> 에 접근할 수 있습니다.<br>
-이 말은 <code>params</code>에 있는 <code>taxonomiesExcludedFromSitemap</code> 변수에 접근하겠다는 뜻이죠.</p>
-<p>config.yaml에 추가한 적이 없기 때문에, 노출제어를 하기 위해서는 추가해주어야 합니다. <br>
-(config.yaml또는 config.toml에 아래 내용을 추가해주세요)</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">params</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">taxonomiesExcludedFromSitemap</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;tags&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;categories&#34;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">EXTERNAL</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">kafka_table</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">`</span><span class="k">timestamp</span><span class="o">`</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">`</span><span class="n">page</span><span class="o">`</span><span class="w"> </span><span class="n">STRING</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">`</span><span class="n">newPage</span><span class="o">`</span><span class="w"> </span><span class="nb">BOOLEAN</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">`</span><span class="n">added</span><span class="o">`</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">`</span><span class="n">deleted</span><span class="o">`</span><span class="w"> </span><span class="nb">BIGINT</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">`</span><span class="n">delta</span><span class="o">`</span><span class="w"> </span><span class="n">DOUBLE</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">STORED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;org.apache.hadoop.hive.kafka.KafkaStorageHandler&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">TBLPROPERTIES</span><span class="w"> </span><span class="p">(</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.topic&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;test-topic&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.bootstrap.servers&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;localhost:9092&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>두번째 변수는 Taxonomy Variable을 사용합니다.<br>
-이걸 찾아볼때 까지 Taxonomy가 무엇인지 몰랐습니다&hellip; 간단히 정리하면 User가 정의하는 Grouping 방법입니다.<br>
-(자세히 알고싶은 분은 <a class="link" href="https://gohugo.io/content-management/taxonomies/"  target="_blank" rel="noopener"
-    >링크</a>를 한번 읽어보면 좋을것 같습니다.)</p>
-<p><a class="link" href="https://gohugo.io/variables/taxonomy/"  target="_blank" rel="noopener"
-    >변수 설명페이지</a>를 보면 <code>.Data.Plural</code>은 분류법의 복수 이름이라고 정의하고 있습니다.<br>
-노출제어하고 싶은 페이지들에 해당되는 변수임을 알 수 있습니다.</p>
-<hr>
-<p>yaml파일 수정과 sitemap.xml추가까지 했다면, 필요한 조치들은 모두 수행하였습니다. <br>
-local에서 sitemap이 의도한 대로 변경되었는지 확인하고 배포하시면 되겠습니다.</p>
-<h2 id="conclusion">Conclusion</h2>
-<p>생각보다 어려운 작업은 아니었지만, Hugo의 설정 관련 문서들을 찾기가 조금 어려웠습니다.<br>
-아직은 Document 구성이 익숙하지 않아 그런것 같아, 앞으로 블로그를 운영해나가면서 익숙해져 나가야겠습니다.</p>
-<p>감사합니다.</p>
-<h2 id="reference">Reference</h2>
+</div><h2 id="kafka-metadata">Kafka metadata</h2>
+<p>Kafka에 저장된 Message는 Payload 외에도 Key, Partition, Offset, Timestamp 4개의 metadata가 존재합니다.
+이 데이터들도 Hive에서 사용할 수 있습니다.<br>
+앞서 테이블을 정의할 때 사용하였던 <code>KafkaStorageHandler</code>가 자동으로 metadata들을 컬럼으로 등록해 줍니다.</p>
 <ul>
-<li><a class="link" href="https://discourse.gohugo.io/t/exclude-taxonomy-kinds-from-sitemap-xml/29216/4"  target="_blank" rel="noopener"
-    >Hugo Community article</a></li>
+<li>__key (byte array)</li>
+<li>__partition (int32)</li>
+<li>__offset (int64)</li>
+<li>__timestamp (int64)</li>
 </ul>
+<p>활용하는 방안은 실사용 예제를 작성한 다음글에서 자세히 설명드리도록 하겠습니다.</p>
+<h2 id="avro-포맷-사용시-주의사항">Avro 포맷 사용시 주의사항</h2>
+<p>만약 Confluent Connector를 통해 Avro포맷을 사용한다면, 메시지에서 5-bytes를 제거해주어야합니다.<br>
+이 5-bytes중 1-byte는 매직 byte, 4-byte는 schema registry의 schema id에 해당됩니다.<br>
+이는 <code>&quot;avro.serde.type&quot;=&quot;skip&quot;</code> 그리고 <code>&quot;avro.serde.skip.bytes&quot;=&quot;5&quot;</code>를 설정해주면 해결할 수 있습니다.<br>
+avro를 사용할 경우, 상세한 내용은 가이드를 꼭 참고하면 좋겠습니다.</p>
+<blockquote>
+<p>confluent avro format 지원은 Hive 4.0버전에 추가될 것으로 보입니다.
+3.x 버전을 사용하시는 분이라면, 주의해주시면 좋을것 같습니다. (제가 삽질했던거라서요&hellip;)</p>
+</blockquote>
+<h2 id="serdeserializer-deserializer">Serde(Serializer, Deserializer)</h2>
+<p>Application에서 Kafka로 데이터 전송을 해본 적 있다면, serializer, deserializer를 지정해보신 경험이 있으실 겁니다.<br>
+Hive에서도 마찬가지로 여러 serializer, deserializer를 제공하고있습니다.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Supported Serializers and Deserializers</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>org.apache.hadoop.hive.serde2.JsonSerDe</td>
+<td>JSON 포맷</td>
+</tr>
+<tr>
+<td>org.apache.hadoop.hive.serde2.OpenCSVSerde</td>
+<td>CSV 포맷</td>
+</tr>
+<tr>
+<td>org.apache.hadoop.hive.serde2.avro.AvroSerDe</td>
+<td>AVRO 포맷</td>
+</tr>
+<tr>
+<td>org.apache.hadoop.hive.serde2.lazybinary.LazyBinarySerDe</td>
+<td>binary..?</td>
+</tr>
+<tr>
+<td>org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe</td>
+<td>Plain Text</td>
+</tr>
+</tbody>
+</table></div>
+<p>지정하는 방법은 생각보다 매우 간단합니다.<br>
+TBLPROPERTIES에 추가하면 손쉽게 적용할 수 있습니다.<br>
+예를 들면 Kafka에서 읽어들일 데이터포맷이 JSON의 경우이거나, 전송할 데이터가 JSON으로 하고 싶다면 아래처럼 추가하면 됩니다.   <br>
+<code>&quot;kafka.serde.class&quot; = &quot;org.apache.hadoop.hive.serde2.JsonSerDe&quot;</code></p>
+<h2 id="인증">인증</h2>
+<p>Kafka에도 인증을 해야 데이터 읽고 쓸수 있는 권한을 주는 기능을 제공하고 있습니다.<br>
+Kafka 사용하는데 필요한 인증정보들 또한 Hive를 통해 제공할 수 있습니다.</p>
+<blockquote>
+<p>저의 경우에는 별도로 인증을 추가하지 않고 사용했다보니, 인증없이 사용한 경우로 기록하겠습니다.<br>
+인증을 사용해야하는 상황이라면, 공식 문서를 읽어보고 진행해 주세요.</p>
+</blockquote>
+<p>인증을 위한 TBLPROPERTIES 값을 추가하지 않은 상태라면, 연결을 시도했을때 에러가 발생합니다.<br>
+별도의 설정을 안해두었다면, 당연히 인증없이도 사용가능해야되는거 아닌가? 라고 생각할 수 있을텐데요. (제가 그랬습니다.)
+Hive는 기본값으로 id, password를 사용하여 인증을 시도하려 합니다.<br>
+따라서 인증을 사용하지않는 설정을 추가해주어야만 사용이 가능한데요.</p>
+<p>공식문서에 이 문제를 해결하기 위한 방법을 따로 제시하지않아 많이 어려움을 겪었던 부분이었습니다.   <br>
+결론부터 이야기하면 TBLPROPERTY를 추가하면 해결할 수 있습니다.</p>
+<ul>
+<li>producer일 경우 : <code>&quot;kafka.producer.security.protocol&quot; = &quot;PLAINTEXT&quot;</code></li>
+<li>consumer일 경우 : <code>&quot;kafka.consumer.security.protocol&quot; = &quot;PLAINTEXT&quot;</code></li>
+</ul>
+<p>인증에 상세히 알아보고 싶다면, <a class="link" href="https://kafka.apache.org/documentation/#producerconfigs_security.protocol"  target="_blank" rel="noopener"
+    >문서</a>를 참고하시면 좋을것 같습니다.<br>
+후에 서술하겠지만 설정할때 <code>kafka.</code>를 prefix로 지정해두면, kafka에 설정값이 전달할 수 있습니다.</p>
+<h2 id="key-serializer">Key Serializer</h2>
+<p>앞서 설명드렸던 Serializer들은 Value Serializer 였습니다.<br>
+예상하던것보다 많이 제공했지만 반대로 Key Serializer는 Byte Serializer밖에 지원하지 않습니다.<br>
+다른 Serializer로 변경해서 사용하고 싶더라도 변경할 수 없게 되어 있습니다.<br>
+왜 이렇게 구현한지는 모르겠지만, 자세한 내용은 코드를 보면 알 수 있습니다.<br>
+궁금하실 수 있을 것 같아, 링크도 첨부합니다.</p>
+<ul>
+<li><a class="link" href="https://github.com/apache/hive/blob/335749a33c02ec0dc7ebadb9eda101d174ad5faf/kafka-handler/src/java/org/apache/hadoop/hive/kafka/KafkaStorageHandler.java#L233"  target="_blank" rel="noopener"
+    >producer</a></li>
+<li><a class="link" href="https://github.com/apache/hive/blob/335749a33c02ec0dc7ebadb9eda101d174ad5faf/kafka-handler/src/java/org/apache/hadoop/hive/kafka/KafkaStorageHandler.java#L193"  target="_blank" rel="noopener"
+    >consumer</a></li>
+</ul>
+<h2 id="그외">그외</h2>
+<p>지금까지 작성한 내용들 이외에도 Kafka를 사용할때, 추가하고 싶은 설정이 더 있을 수 있습니다.<br>
+공식문서에서는 설명하진 않지만, Kafka에 사용할 설정값을 전달할 수 있습니다.</p>
+<ul>
+<li>producer로 사용할 경우 <code>“kafka.producer.{property}” = “{value}”</code></li>
+<li>consumer로 사용할 경우 <code>“kafka.consumer.{property}” = “{value}”</code>
+TBLPROPERTIES에 추가해주면, Kafka에 설정값들이 전달되며 원하는 설정을 적용할 수 있습니다.</li>
+</ul>
+<p>어떻게 설정값이 전달될 수 있는지, 구현된 코드가 궁금하다면 아래의 링크를 참고하시면 좋겠습니다.</p>
+<ul>
+<li><a class="link" href="https://github.com/apache/hive/blob/335749a33c02ec0dc7ebadb9eda101d174ad5faf/kafka-handler/src/java/org/apache/hadoop/hive/kafka/KafkaStorageHandler.java#L213"  target="_blank" rel="noopener"
+    >producer</a></li>
+<li><a class="link" href="https://github.com/apache/hive/blob/335749a33c02ec0dc7ebadb9eda101d174ad5faf/kafka-handler/src/java/org/apache/hadoop/hive/kafka/KafkaStorageHandler.java#L168"  target="_blank" rel="noopener"
+    >consumer</a></li>
+</ul>
+<h2 id="정리">정리</h2>
+<p>여기까지 Hive에서 Kafka를 Read, Write하기 위해서 필요한 설정들과, 도움이 되는 정보들에 대해 알아 보았습니다.<br>
+다음 글에서는 Kafka에 있는 Message들을 Hive에서 Read하는 과정을 기록해보겠습니다.<br>
+감사합니다.</p>
 
 </section>
 
@@ -505,7 +572,11 @@ local에서 sitemap이 의도한 대로 변경되었는지 확인하고 배포�
     
     <section class="article-tags">
         
-            <a href="/tags/hugo/">hugo</a>
+            <a href="/tags/hive/">Hive</a>
+        
+            <a href="/tags/kafka/">Kafka</a>
+        
+            <a href="/tags/etl/">ETL</a>
         
     </section>
 
@@ -539,12 +610,12 @@ local에서 sitemap이 의도한 대로 변경되었는지 확인하고 배포�
             
                 
 <article class="">
-    <a href="/p/hugo-blog-customize/">
+    <a href="/p/hive-kafka-integration2/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Hugo Blog Customize하기</h2>
+            <h2 class="article-title">Read message from kafka using hive</h2>
         </div>
     </a>
 </article>
@@ -552,12 +623,25 @@ local에서 sitemap이 의도한 대로 변경되었는지 확인하고 배포�
             
                 
 <article class="">
-    <a href="/p/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-1/">
+    <a href="/p/hive-kafka-integration3/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Hugo Blog 만들기-1</h2>
+            <h2 class="article-title">Write message to kafka using hive</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/elasticsearch-spark/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Elasticsearch Spark</h2>
         </div>
     </a>
 </article>
