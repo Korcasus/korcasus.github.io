@@ -6,12 +6,36 @@
         <description>Recent content in Categories on Read Write</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ko</language>
-        <lastBuildDate>Sat, 26 Aug 2023 22:30:49 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 03 Sep 2023 21:42:24 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Docker</title>
         <link>https://korcasus.github.io/categories/docker/</link>
-        <pubDate>Sat, 26 Aug 2023 22:30:49 +0900</pubDate>
+        <pubDate>Sun, 03 Sep 2023 21:42:24 +0900</pubDate>
         
         <guid>https://korcasus.github.io/categories/docker/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Registry</title>
+        <link>https://korcasus.github.io/categories/registry/</link>
+        <pubDate>Sun, 03 Sep 2023 21:42:24 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/categories/registry/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Synology</title>
+        <link>https://korcasus.github.io/categories/synology/</link>
+        <pubDate>Sun, 03 Sep 2023 21:42:24 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/categories/synology/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>UI</title>
+        <link>https://korcasus.github.io/categories/ui/</link>
+        <pubDate>Sun, 03 Sep 2023 21:42:24 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/categories/ui/</guid>
         <description></description>
         </item>
         <item>
@@ -20,14 +44,6 @@
         <pubDate>Sat, 26 Aug 2023 22:30:49 +0900</pubDate>
         
         <guid>https://korcasus.github.io/categories/jenkins/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Synology</title>
-        <link>https://korcasus.github.io/categories/synology/</link>
-        <pubDate>Sat, 26 Aug 2023 22:30:49 +0900</pubDate>
-        
-        <guid>https://korcasus.github.io/categories/synology/</guid>
         <description></description>
         </item>
         <item>
