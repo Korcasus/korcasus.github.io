@@ -6,7 +6,39 @@
         <description>Recent content in Categories on Read Write</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ko</language>
-        <lastBuildDate>Sun, 03 Sep 2023 21:42:24 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 10 Sep 2023 16:46:32 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Argo-Event</title>
+        <link>https://korcasus.github.io/categories/argo-event/</link>
+        <pubDate>Sun, 10 Sep 2023 16:46:32 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/categories/argo-event/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Argo-workflow</title>
+        <link>https://korcasus.github.io/categories/argo-workflow/</link>
+        <pubDate>Sun, 10 Sep 2023 16:46:32 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/categories/argo-workflow/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Batch</title>
+        <link>https://korcasus.github.io/categories/batch/</link>
+        <pubDate>Sun, 10 Sep 2023 16:46:32 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/categories/batch/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>CD</title>
+        <link>https://korcasus.github.io/categories/cd/</link>
+        <pubDate>Sun, 10 Sep 2023 16:46:32 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/categories/cd/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Docker</title>
         <link>https://korcasus.github.io/categories/docker/</link>
         <pubDate>Sun, 03 Sep 2023 21:42:24 +0900</pubDate>
@@ -124,14 +156,6 @@
         <pubDate>Mon, 20 Feb 2023 23:16:51 +0900</pubDate>
         
         <guid>https://korcasus.github.io/categories/spring/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>batch</title>
-        <link>https://korcasus.github.io/categories/batch/</link>
-        <pubDate>Thu, 01 Dec 2022 22:45:04 +0900</pubDate>
-        
-        <guid>https://korcasus.github.io/categories/batch/</guid>
         <description></description>
         </item>
         <item>
