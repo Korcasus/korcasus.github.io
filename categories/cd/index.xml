@@ -6,7 +6,212 @@
         <description>Recent content in CD on Read Write</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ko</language>
-        <lastBuildDate>Sun, 10 Sep 2023 16:46:32 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/categories/cd/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 10 Sep 2023 17:02:01 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/categories/cd/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Operating Services with Argo Workflows: Essential Features Guide</title>
+        <link>https://korcasus.github.io/p/essential-feature-argo-workflow/</link>
+        <pubDate>Sun, 10 Sep 2023 17:02:01 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/p/essential-feature-argo-workflow/</guid>
+        <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Argo Workflow와 Argo Event를 PoC로 설치 및 테스트를 진행 했었습니다.&lt;br&gt;
+이번 글에서는 서비스에서 사용하기 위해서 필요한 기능들을 가지고있는지, 확인하고자 합니다.&lt;/p&gt;
+&lt;h2 id=&#34;install&#34;&gt;Install&lt;/h2&gt;
+&lt;p&gt;이전글에서는 yaml을 사용해서 설치하였지만, 편하게 관리하기 위해 Helm Chart를 사용하여 설치합니다.&lt;br&gt;
+공식 문서에서도 충분히 설명한 되어있어, 링크로 대체합니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Argo Workflow&lt;/li&gt;
+&lt;li&gt;Argo Event&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/argoproj/argo-helm&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Github&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;workflow-archive&#34;&gt;Workflow Archive&lt;/h2&gt;
+&lt;p&gt;Workflow를 통해 Job이나 CronJob을 실행할텐데요.&lt;br&gt;
+Workflow, Job, CronJob이 너무 많아질 경우, Kubernetes 동작에 문제를 일으킬 수 있습니다.&lt;br&gt;
+따라서 일정 시간이 지난 Workflow들을 삭제해 주어야합니다.&lt;/p&gt;
+&lt;p&gt;하지만 운영상의 이유로 Workflow가 언제 어떤 파라미터를 가지고서 사용되었는지 기록되어야 할 필요가 있습니다.&lt;br&gt;
+이걸 대비해서 실행 이력을 저장할 수 있는 기능을 지원하는데 Archive 라고 합니다.&lt;/p&gt;
+&lt;p&gt;Argo Workflow에서 Archive 기능을 사용하기위해서는 MySQL, PostgreSQL을 지원합니다.&lt;br&gt;
+이번 글에서는 MySQL로 설명드리도록 하겠습니다. PostgreSQL도 비슷합니다.&lt;br&gt;
+만들어진 MySQL Database를 사용하려면 2가지 작업이 필요합니다.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;계정 및 권한을 Kubernetes Secret으로 생성&lt;/li&gt;
+&lt;li&gt;Database Option설정&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;계정-및-권한을-kubernetes-secret으로-생성&#34;&gt;계정 및 권한을 Kubernetes Secret으로 생성&lt;/h3&gt;
+&lt;p&gt;계정설정은 아래의 예시를 참고해서 작성하면 됩니다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;apiVersion&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;v1&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;kind&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;Secret&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;metadata&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;labels&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;app&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;mysql&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;argo-mysql-config&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;namespace&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;argo&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;stringData&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;password&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;${비밀번호}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;username&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;${계정명}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;Opaque&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;database-option-설정&#34;&gt;Database Option 설정&lt;/h3&gt;
+&lt;p&gt;생성된 MySQL을 Argo Workflow에 사용해보면, SSL관련 에러가 발생해서 연결할 수 없었습니다.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;최근 버전(v3.3.x)에서는 해당 문제가 해결되었습니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;에러 내용으로 조금만 검색해보면 알겠지만, MySQL의 옵션을 추가해주면 손쉽게 조치가 가능합니다.&lt;br&gt;
+하지만 &lt;a class=&#34;link&#34; href=&#34;https://argoproj.github.io/argo-workflows/workflow-archive/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Argo Workflow 공식문서&lt;/a&gt;에는 이 내용이 적혀있진 않습니다.&lt;br&gt;
+그렇지만 Git Issue(&lt;a class=&#34;link&#34; href=&#34;https://github.com/argoproj/argo-workflows/pull/8157&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;PR&lt;/a&gt;)를 뒤져보면 관련된 내용이 이미 논의되었고 이미 해결되었습니다.&lt;/p&gt;
+&lt;p&gt;다음으로는 Argo Workflow를 Helm으로 설치하기 때문에, Helm Chart에서 이 기능 고려해서 template이 만들어졌는지 확인이 필요합니다.&lt;br&gt;
+Database 연결 정보를 ConfigMap으로 만들어서 Archive 기능을 사용할수 있게 만들어주는데, 이때 MySQL Options도 함께 ConfigMap에 포함될 수 있는지를 보면 알 수 있습니다.&lt;/p&gt;
+&lt;p&gt;다행히 &lt;a class=&#34;link&#34; href=&#34;https://github.com/argoproj/argo-helm/blob/57d64df5466f814754d2937fd2ab9af86d5cb717/charts/argo-workflows/templates/controller/workflow-controller-config-map.yaml#L119&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;링크&lt;/a&gt;를 보면 Options가 포함될 수 있음을 알 수 있습니다.&lt;/p&gt;
+&lt;h2 id=&#34;structure&#34;&gt;Structure&lt;/h2&gt;
+&lt;p&gt;Argo Event에서는 다양한 이벤트를 수신받아, 원하는 Job이나 Object를 Trigger할 수 있습니다.&lt;br&gt;
+Argo Workflow에서는 YAML파일로 정의된 대로 Workflow를 실행하는 역할을 수행합니다.&lt;br&gt;
+Calendar(Cron)과 Webhook EventSource를 사용하여 Event를 발생시키고, 발생된 Event를 사용하여 Workflow를 Trigger합니다.&lt;br&gt;
+여기까지의 설명을 그림으로 표현하면 아래의 Flow가 됩니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/p/essential-feature-argo-workflow/Event_Trigger_Flow.jpg&#34;
+	width=&#34;922&#34;
+	height=&#34;822&#34;
+	srcset=&#34;https://korcasus.github.io/p/essential-feature-argo-workflow/Event_Trigger_Flow_huc12b7da9c8754167b8a541ccb8077aef_99467_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/essential-feature-argo-workflow/Event_Trigger_Flow_huc12b7da9c8754167b8a541ccb8077aef_99467_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Event Trigger Flow.jpg&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;112&#34;
+		data-flex-basis=&#34;269px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;requirement&#34;&gt;Requirement&lt;/h2&gt;
+&lt;p&gt;기본적으로 제공하는 기능 외에도 필요한 필수 기능과 상세정보를 기록할 수 있는지 확인해야 했습니다.&lt;br&gt;
+아래의 항목들이 해당됩니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Webhook, Cron 사용 가능&lt;/li&gt;
+&lt;li&gt;History 관리
+&lt;ul&gt;
+&lt;li&gt;수동실행시, 실행한 사람 확인가능&lt;/li&gt;
+&lt;li&gt;자동실행시, 실행일자 확인 가능&lt;/li&gt;
+&lt;li&gt;실행시 사용한 파라미터 확인가능&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;UI 내에서 파라미터 수동설정 가능&lt;/li&gt;
+&lt;li&gt;template 화 가능, ArgoCD(helm)(GitOps)로 운영 가능&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;리소스 사용량과 Webhook, Cron 이용가능여부는 확인해보았으므로, 별도로 확인하진 않겠습니다.&lt;/p&gt;
+&lt;h3 id=&#34;history-관리&#34;&gt;History 관리&lt;/h3&gt;
+&lt;p&gt;아래의 3개에 항목에 대해서 확인할 수 있는 방법을 스크린샷으로 대체하였습니다.&lt;br&gt;
+이로서 실행주체와 실행시간, 실행옵션에 대해 상세히 기록으로 남길 수 있다는 것을 확인할 수 있었습니다.&lt;/p&gt;
+&lt;h4 id=&#34;수동실행시-실행한-사람-확인-가능-여부&#34;&gt;수동실행시, 실행한 사람 확인 가능 여부&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/p/essential-feature-argo-workflow/manual_processed.jpg&#34;
+	width=&#34;2412&#34;
+	height=&#34;2180&#34;
+	srcset=&#34;https://korcasus.github.io/p/essential-feature-argo-workflow/manual_processed_hu884d3c1319b2de082f0c2a4a6cfeda81_308919_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/essential-feature-argo-workflow/manual_processed_hu884d3c1319b2de082f0c2a4a6cfeda81_308919_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;manual&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;110&#34;
+		data-flex-basis=&#34;265px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h4 id=&#34;자동실행시-실행일자-확인-가능&#34;&gt;자동실행시, 실행일자 확인 가능&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/p/essential-feature-argo-workflow/auto_processed.png&#34;
+	width=&#34;2390&#34;
+	height=&#34;1638&#34;
+	srcset=&#34;https://korcasus.github.io/p/essential-feature-argo-workflow/auto_processed_hua249799ccdc4dce9955561ba66f7d7da_160635_480x0_resize_box_3.png 480w, https://korcasus.github.io/p/essential-feature-argo-workflow/auto_processed_hua249799ccdc4dce9955561ba66f7d7da_160635_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;auto&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;145&#34;
+		data-flex-basis=&#34;350px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h4 id=&#34;실행시-사용한-파라미터-확인-가능&#34;&gt;실행시 사용한 파라미터 확인 가능&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/p/essential-feature-argo-workflow/detail_processed.png&#34;
+	width=&#34;2310&#34;
+	height=&#34;1052&#34;
+	srcset=&#34;https://korcasus.github.io/p/essential-feature-argo-workflow/detail_processed_hu85f7b01ef0955eaee6b9d6be3a84625c_102611_480x0_resize_box_3.png 480w, https://korcasus.github.io/p/essential-feature-argo-workflow/detail_processed_hu85f7b01ef0955eaee6b9d6be3a84625c_102611_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;detail&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;219&#34;
+		data-flex-basis=&#34;526px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;template화-가능&#34;&gt;Template화 가능&lt;/h3&gt;
+&lt;p&gt;Argo Workflow를 사용하기위해는 Workflow Spec에 맞게 yaml을 작성해야 합니다.&lt;br&gt;
+하지만 각 사용자가 Workflow Spec을 참고하여 yaml 작성하기 쉽지않습니다.&lt;br&gt;
+Helm Chart로 만들어 Template을 작성한 후 Guide를 제공한다면, Workflow Spec과는 관계없이 Example로 제공한 values.yaml만 변경해도 사용할게 있게 됩니다.&lt;br&gt;
+복잡도를 낮추기위해 ArgoCD의 Helm의 기능들을 최대한 활용하였습니다.&lt;/p&gt;
+&lt;p&gt;아래의 그림은 예상한 모습에 대한 Diagram과 적용하였을때 보여지는 UI입니다.&lt;/p&gt;
+&lt;h4 id=&#34;예상한-diagram&#34;&gt;예상한 Diagram&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/p/essential-feature-argo-workflow/mutiple.png&#34;
+	width=&#34;3082&#34;
+	height=&#34;981&#34;
+	srcset=&#34;https://korcasus.github.io/p/essential-feature-argo-workflow/mutiple_hu29758a673e23c9941740dd6571691be3_298592_480x0_resize_box_3.png 480w, https://korcasus.github.io/p/essential-feature-argo-workflow/mutiple_hu29758a673e23c9941740dd6571691be3_298592_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;expected_diagram&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;314&#34;
+		data-flex-basis=&#34;754px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h4 id=&#34;argo-workflow-visualized&#34;&gt;Argo Workflow Visualized&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/p/essential-feature-argo-workflow/applied_processed.png&#34;
+	width=&#34;1990&#34;
+	height=&#34;2572&#34;
+	srcset=&#34;https://korcasus.github.io/p/essential-feature-argo-workflow/applied_processed_hu73f06fc512dd8ae4881ceed3bcb8b834_176283_480x0_resize_box_3.png 480w, https://korcasus.github.io/p/essential-feature-argo-workflow/applied_processed_hu73f06fc512dd8ae4881ceed3bcb8b834_176283_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;applied_diagram&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;77&#34;
+		data-flex-basis=&#34;185px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;workflow-variable&#34;&gt;Workflow Variable&lt;/h2&gt;
+&lt;p&gt;Template 화 했다고 하더라도, Spring Batch의 Parameter에서는 변수를 사용해야하는 경우도 존재합니다.&lt;br&gt;
+예를들면, 실행한 날의 date를 사용하는 경우가 있습니다.
+이런 상황에 대비해서, Argo Workflow에서 변수화 할 수 있도록 기능을 지원하고 있습니다.&lt;br&gt;
+Golang Template Language을 기반으로 만들어지고, 문법이 생소할 수 있고 테스트하기 어려울 수 있습니다.&lt;br&gt;
+상세한 내용은 다른 글에서 상세히 설명하겠습니다.&lt;/p&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Argo Workflow와 Argo Event를 통합해 사용하는데에는 큰 문제가 없었습니다.&lt;br&gt;
+여러 요구사항들이 있었는데, Argo Workflow가 이 기능들을 지원해서 사용하는데 문제가 없는것을 확인하였습니다.&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Argo Events Getting Start</title>
         <link>https://korcasus.github.io/p/argo-events-getting-start/</link>
         <pubDate>Sun, 10 Sep 2023 16:46:32 +0900</pubDate>

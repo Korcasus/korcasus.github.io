@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='서비스에서 Argo Workflow를 사용하기 위해 검토했던 내용들을 공유합니다.'>
+<title>Operating Services with Argo Workflows: Essential Features Guide</title>
+
+
+
+<link rel="stylesheet" href="/scss/style.min.ff300df33b80e2ac49809c825614392ed1c7b27591d65d3c4043602cd162e25f.css"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4086051155158500"
+        crossorigin="anonymous"></script>
+<meta property='og:title' content='Operating Services with Argo Workflows: Essential Features Guide'>
+<meta property='og:description' content='서비스에서 Argo Workflow를 사용하기 위해 검토했던 내용들을 공유합니다.'>
+<meta property='og:url' content='https://korcasus.github.io/p/essential-feature-argo-workflow/'>
+<meta property='og:site_name' content='Read Write'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Argo-Workflow' /><meta property='article:published_time' content='2023-09-10T17:02:01&#43;09:00'/><meta property='article:modified_time' content='2023-09-10T17:02:01&#43;09:00'/>
+<meta name="twitter:title" content="Operating Services with Argo Workflows: Essential Features Guide">
+<meta name="twitter:description" content="서비스에서 Argo Workflow를 사용하기 위해 검토했던 내용들을 공유합니다.">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PSWKN88H77"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-PSWKN88H77', { 'anonymize_ip': false });
+}
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="메뉴 여닫기">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Read Write</a></h1>
+            <h2 class="site-description">잊지않기위해 기록합니다.</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Korcasus'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.linkedin.com/in/seongdo-kim-34bab9148/'
+                        target="_blank"
+                        title="LinkedIn"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-linkedin" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="4" y="4" width="16" height="16" rx="2" />
+  <line x1="8" y1="11" x2="8" y2="16" />
+  <line x1="8" y1="8" x2="8" y2="8.01" />
+  <line x1="12" y1="16" x2="12" y2="11" />
+  <path d="M16 16v-3a2 2 0 0 0 -4 0" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:korcasus@gmail.com'
+                        target="_blank"
+                        title="Mail"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="3" y="5" width="18" height="14" rx="2" />
+  <polyline points="3 7 12 13 21 7" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>다크 모드</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">목차</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#install">Install</a></li>
+    <li><a href="#workflow-archive">Workflow Archive</a>
+      <ol>
+        <li><a href="#계정-및-권한을-kubernetes-secret으로-생성">계정 및 권한을 Kubernetes Secret으로 생성</a></li>
+        <li><a href="#database-option-설정">Database Option 설정</a></li>
+      </ol>
+    </li>
+    <li><a href="#structure">Structure</a></li>
+    <li><a href="#requirement">Requirement</a>
+      <ol>
+        <li><a href="#history-관리">History 관리</a>
+          <ol>
+            <li><a href="#수동실행시-실행한-사람-확인-가능-여부">수동실행시, 실행한 사람 확인 가능 여부</a></li>
+            <li><a href="#자동실행시-실행일자-확인-가능">자동실행시, 실행일자 확인 가능</a></li>
+            <li><a href="#실행시-사용한-파라미터-확인-가능">실행시 사용한 파라미터 확인 가능</a></li>
+          </ol>
+        </li>
+        <li><a href="#template화-가능">Template화 가능</a>
+          <ol>
+            <li><a href="#예상한-diagram">예상한 Diagram</a></li>
+            <li><a href="#argo-workflow-visualized">Argo Workflow Visualized</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#workflow-variable">Workflow Variable</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/argo-workflow/" >
+                Argo-workflow
+            </a>
+        
+            <a href="/categories/cd/" >
+                CD
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/essential-feature-argo-workflow/">Operating Services with Argo Workflows: Essential Features Guide</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            서비스에서 Argo Workflow를 사용하기 위해 검토했던 내용들을 공유합니다.
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Sep 10, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 분 정도
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="introduction">Introduction</h2>
+<p>Argo Workflow와 Argo Event를 PoC로 설치 및 테스트를 진행 했었습니다.<br>
+이번 글에서는 서비스에서 사용하기 위해서 필요한 기능들을 가지고있는지, 확인하고자 합니다.</p>
+<h2 id="install">Install</h2>
+<p>이전글에서는 yaml을 사용해서 설치하였지만, 편하게 관리하기 위해 Helm Chart를 사용하여 설치합니다.<br>
+공식 문서에서도 충분히 설명한 되어있어, 링크로 대체합니다.</p>
+<ul>
+<li>Argo Workflow</li>
+<li>Argo Event</li>
+<li><a class="link" href="https://github.com/argoproj/argo-helm"  target="_blank" rel="noopener"
+    >Github</a></li>
+</ul>
+<h2 id="workflow-archive">Workflow Archive</h2>
+<p>Workflow를 통해 Job이나 CronJob을 실행할텐데요.<br>
+Workflow, Job, CronJob이 너무 많아질 경우, Kubernetes 동작에 문제를 일으킬 수 있습니다.<br>
+따라서 일정 시간이 지난 Workflow들을 삭제해 주어야합니다.</p>
+<p>하지만 운영상의 이유로 Workflow가 언제 어떤 파라미터를 가지고서 사용되었는지 기록되어야 할 필요가 있습니다.<br>
+이걸 대비해서 실행 이력을 저장할 수 있는 기능을 지원하는데 Archive 라고 합니다.</p>
+<p>Argo Workflow에서 Archive 기능을 사용하기위해서는 MySQL, PostgreSQL을 지원합니다.<br>
+이번 글에서는 MySQL로 설명드리도록 하겠습니다. PostgreSQL도 비슷합니다.<br>
+만들어진 MySQL Database를 사용하려면 2가지 작업이 필요합니다.</p>
+<ol>
+<li>계정 및 권한을 Kubernetes Secret으로 생성</li>
+<li>Database Option설정</li>
+</ol>
+<h3 id="계정-및-권한을-kubernetes-secret으로-생성">계정 및 권한을 Kubernetes Secret으로 생성</h3>
+<p>계정설정은 아래의 예시를 참고해서 작성하면 됩니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Secret</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">mysql</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">argo-mysql-config</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">argo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">stringData</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l">${비밀번호}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l">${계정명}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">Opaque</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="database-option-설정">Database Option 설정</h3>
+<p>생성된 MySQL을 Argo Workflow에 사용해보면, SSL관련 에러가 발생해서 연결할 수 없었습니다.</p>
+<blockquote>
+<p>최근 버전(v3.3.x)에서는 해당 문제가 해결되었습니다.</p>
+</blockquote>
+<p>에러 내용으로 조금만 검색해보면 알겠지만, MySQL의 옵션을 추가해주면 손쉽게 조치가 가능합니다.<br>
+하지만 <a class="link" href="https://argoproj.github.io/argo-workflows/workflow-archive/"  target="_blank" rel="noopener"
+    >Argo Workflow 공식문서</a>에는 이 내용이 적혀있진 않습니다.<br>
+그렇지만 Git Issue(<a class="link" href="https://github.com/argoproj/argo-workflows/pull/8157"  target="_blank" rel="noopener"
+    >PR</a>)를 뒤져보면 관련된 내용이 이미 논의되었고 이미 해결되었습니다.</p>
+<p>다음으로는 Argo Workflow를 Helm으로 설치하기 때문에, Helm Chart에서 이 기능 고려해서 template이 만들어졌는지 확인이 필요합니다.<br>
+Database 연결 정보를 ConfigMap으로 만들어서 Archive 기능을 사용할수 있게 만들어주는데, 이때 MySQL Options도 함께 ConfigMap에 포함될 수 있는지를 보면 알 수 있습니다.</p>
+<p>다행히 <a class="link" href="https://github.com/argoproj/argo-helm/blob/57d64df5466f814754d2937fd2ab9af86d5cb717/charts/argo-workflows/templates/controller/workflow-controller-config-map.yaml#L119"  target="_blank" rel="noopener"
+    >링크</a>를 보면 Options가 포함될 수 있음을 알 수 있습니다.</p>
+<h2 id="structure">Structure</h2>
+<p>Argo Event에서는 다양한 이벤트를 수신받아, 원하는 Job이나 Object를 Trigger할 수 있습니다.<br>
+Argo Workflow에서는 YAML파일로 정의된 대로 Workflow를 실행하는 역할을 수행합니다.<br>
+Calendar(Cron)과 Webhook EventSource를 사용하여 Event를 발생시키고, 발생된 Event를 사용하여 Workflow를 Trigger합니다.<br>
+여기까지의 설명을 그림으로 표현하면 아래의 Flow가 됩니다.</p>
+<p><img src="/p/essential-feature-argo-workflow/Event_Trigger_Flow.jpg"
+	width="922"
+	height="822"
+	srcset="/p/essential-feature-argo-workflow/Event_Trigger_Flow_huc12b7da9c8754167b8a541ccb8077aef_99467_480x0_resize_q75_box.jpg 480w, /p/essential-feature-argo-workflow/Event_Trigger_Flow_huc12b7da9c8754167b8a541ccb8077aef_99467_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="Event Trigger Flow.jpg"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="112"
+		data-flex-basis="269px"
+	
+></p>
+<h2 id="requirement">Requirement</h2>
+<p>기본적으로 제공하는 기능 외에도 필요한 필수 기능과 상세정보를 기록할 수 있는지 확인해야 했습니다.<br>
+아래의 항목들이 해당됩니다.</p>
+<ul>
+<li>Webhook, Cron 사용 가능</li>
+<li>History 관리
+<ul>
+<li>수동실행시, 실행한 사람 확인가능</li>
+<li>자동실행시, 실행일자 확인 가능</li>
+<li>실행시 사용한 파라미터 확인가능</li>
+</ul>
+</li>
+<li>UI 내에서 파라미터 수동설정 가능</li>
+<li>template 화 가능, ArgoCD(helm)(GitOps)로 운영 가능</li>
+</ul>
+<p>리소스 사용량과 Webhook, Cron 이용가능여부는 확인해보았으므로, 별도로 확인하진 않겠습니다.</p>
+<h3 id="history-관리">History 관리</h3>
+<p>아래의 3개에 항목에 대해서 확인할 수 있는 방법을 스크린샷으로 대체하였습니다.<br>
+이로서 실행주체와 실행시간, 실행옵션에 대해 상세히 기록으로 남길 수 있다는 것을 확인할 수 있었습니다.</p>
+<h4 id="수동실행시-실행한-사람-확인-가능-여부">수동실행시, 실행한 사람 확인 가능 여부</h4>
+<p><img src="/p/essential-feature-argo-workflow/manual_processed.jpg"
+	width="2412"
+	height="2180"
+	srcset="/p/essential-feature-argo-workflow/manual_processed_hu884d3c1319b2de082f0c2a4a6cfeda81_308919_480x0_resize_q75_box.jpg 480w, /p/essential-feature-argo-workflow/manual_processed_hu884d3c1319b2de082f0c2a4a6cfeda81_308919_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="manual"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="110"
+		data-flex-basis="265px"
+	
+></p>
+<h4 id="자동실행시-실행일자-확인-가능">자동실행시, 실행일자 확인 가능</h4>
+<p><img src="/p/essential-feature-argo-workflow/auto_processed.png"
+	width="2390"
+	height="1638"
+	srcset="/p/essential-feature-argo-workflow/auto_processed_hua249799ccdc4dce9955561ba66f7d7da_160635_480x0_resize_box_3.png 480w, /p/essential-feature-argo-workflow/auto_processed_hua249799ccdc4dce9955561ba66f7d7da_160635_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="auto"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="145"
+		data-flex-basis="350px"
+	
+></p>
+<h4 id="실행시-사용한-파라미터-확인-가능">실행시 사용한 파라미터 확인 가능</h4>
+<p><img src="/p/essential-feature-argo-workflow/detail_processed.png"
+	width="2310"
+	height="1052"
+	srcset="/p/essential-feature-argo-workflow/detail_processed_hu85f7b01ef0955eaee6b9d6be3a84625c_102611_480x0_resize_box_3.png 480w, /p/essential-feature-argo-workflow/detail_processed_hu85f7b01ef0955eaee6b9d6be3a84625c_102611_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="detail"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="219"
+		data-flex-basis="526px"
+	
+></p>
+<h3 id="template화-가능">Template화 가능</h3>
+<p>Argo Workflow를 사용하기위해는 Workflow Spec에 맞게 yaml을 작성해야 합니다.<br>
+하지만 각 사용자가 Workflow Spec을 참고하여 yaml 작성하기 쉽지않습니다.<br>
+Helm Chart로 만들어 Template을 작성한 후 Guide를 제공한다면, Workflow Spec과는 관계없이 Example로 제공한 values.yaml만 변경해도 사용할게 있게 됩니다.<br>
+복잡도를 낮추기위해 ArgoCD의 Helm의 기능들을 최대한 활용하였습니다.</p>
+<p>아래의 그림은 예상한 모습에 대한 Diagram과 적용하였을때 보여지는 UI입니다.</p>
+<h4 id="예상한-diagram">예상한 Diagram</h4>
+<p><img src="/p/essential-feature-argo-workflow/mutiple.png"
+	width="3082"
+	height="981"
+	srcset="/p/essential-feature-argo-workflow/mutiple_hu29758a673e23c9941740dd6571691be3_298592_480x0_resize_box_3.png 480w, /p/essential-feature-argo-workflow/mutiple_hu29758a673e23c9941740dd6571691be3_298592_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="expected_diagram"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="314"
+		data-flex-basis="754px"
+	
+></p>
+<h4 id="argo-workflow-visualized">Argo Workflow Visualized</h4>
+<p><img src="/p/essential-feature-argo-workflow/applied_processed.png"
+	width="1990"
+	height="2572"
+	srcset="/p/essential-feature-argo-workflow/applied_processed_hu73f06fc512dd8ae4881ceed3bcb8b834_176283_480x0_resize_box_3.png 480w, /p/essential-feature-argo-workflow/applied_processed_hu73f06fc512dd8ae4881ceed3bcb8b834_176283_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="applied_diagram"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="77"
+		data-flex-basis="185px"
+	
+></p>
+<h2 id="workflow-variable">Workflow Variable</h2>
+<p>Template 화 했다고 하더라도, Spring Batch의 Parameter에서는 변수를 사용해야하는 경우도 존재합니다.<br>
+예를들면, 실행한 날의 date를 사용하는 경우가 있습니다.
+이런 상황에 대비해서, Argo Workflow에서 변수화 할 수 있도록 기능을 지원하고 있습니다.<br>
+Golang Template Language을 기반으로 만들어지고, 문법이 생소할 수 있고 테스트하기 어려울 수 있습니다.<br>
+상세한 내용은 다른 글에서 상세히 설명하겠습니다.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Argo Workflow와 Argo Event를 통합해 사용하는데에는 큰 문제가 없었습니다.<br>
+여러 요구사항들이 있었는데, Argo Workflow가 이 기능들을 지원해서 사용하는데 문제가 없는것을 확인하였습니다.</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/argo-workflow/">Argo-workflow</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">관련 글</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/argo-events-getting-start/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Argo Events Getting Start</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="Korcasus/blog-comments"
+        issue-term="title"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2023 Read Write
+    </section>
+    
+    <section class="powerby">
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>로 만듦 <br />
+        <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>의 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.17.0">Stack</a></b> 테마 사용 중
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
