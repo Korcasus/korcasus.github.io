@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="ko-KR" dir="ltr">
+<html lang="en-US" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Hive에서 Kafka로 데이터를 전송하는 예제입니다.'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='This is a demonstration of data migration from Hive to Kafka.'>
 <title>Write message to kafka using hive</title>
 
 
@@ -9,12 +9,12 @@
 <link rel="stylesheet" href="/scss/style.min.ff300df33b80e2ac49809c825614392ed1c7b27591d65d3c4043602cd162e25f.css"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4086051155158500"
         crossorigin="anonymous"></script>
 <meta property='og:title' content='Write message to kafka using hive'>
-<meta property='og:description' content='Hive에서 Kafka로 데이터를 전송하는 예제입니다.'>
-<meta property='og:url' content='https://korcasus.github.io/p/hive-kafka-integration3/'>
+<meta property='og:description' content='This is a demonstration of data migration from Hive to Kafka.'>
+<meta property='og:url' content='https://korcasus.github.io/en/p/hive-kafka-integration3/'>
 <meta property='og:site_name' content='Read Write'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Hive' /><meta property='article:tag' content='Kafka' /><meta property='article:published_time' content='2022-12-01T22:45:04&#43;09:00'/><meta property='article:modified_time' content='2022-12-01T22:45:04&#43;09:00'/>
 <meta name="twitter:title" content="Write message to kafka using hive">
-<meta name="twitter:description" content="Hive에서 Kafka로 데이터를 전송하는 예제입니다.">
+<meta name="twitter:description" content="This is a demonstration of data migration from Hive to Kafka.">
     <link rel="shortcut icon" href="/favicon.ico" />
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSWKN88H77"></script>
@@ -55,7 +55,7 @@ if (!doNotTrack) {
     })();
 </script>
 <div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
-    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="메뉴 여닫기">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
         <span class="hamburger-box">
             <span class="hamburger-inner"></span>
         </span>
@@ -63,12 +63,10 @@ if (!doNotTrack) {
 
     <header>
         
-            
-        
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">Read Write</a></h1>
-            <h2 class="site-description">잊지않기위해 기록합니다.</h2>
+            <h1 class="site-name"><a href="/en">Read Write</a></h1>
+            <h2 class="site-description">Preserving Knowledge: Documenting What I&#39;ve Learned</h2>
         </div>
     </header><ol class="social-menu">
             
@@ -142,7 +140,7 @@ if (!doNotTrack) {
         
         
         <li >
-            <a href='/about/' >
+            <a href='/en/about/' >
                 
                 
                 
@@ -161,7 +159,7 @@ if (!doNotTrack) {
         
         
         <li >
-            <a href='/archives/' >
+            <a href='/en/archives/' >
                 
                 
                 
@@ -181,7 +179,7 @@ if (!doNotTrack) {
         
         
         <li >
-            <a href='/search/' >
+            <a href='/en/search/' >
                 
                 
                 
@@ -214,9 +212,9 @@ if (!doNotTrack) {
 
                     <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
                         
-                            <option value="https://korcasus.github.io/en/" >English</option>
+                            <option value="https://korcasus.github.io/en/" selected>English</option>
                         
-                            <option value="https://korcasus.github.io/" selected>Korean</option>
+                            <option value="https://korcasus.github.io/" >Korean</option>
                         
                     </select>
                 </li>
@@ -240,7 +238,7 @@ if (!doNotTrack) {
 
 
 
-                    <span>다크 모드</span>
+                    <span>Dark Mode</span>
                 </li>
             
         </div>
@@ -264,33 +262,33 @@ if (!doNotTrack) {
 
 
         </div>
-        <h2 class="widget-title section-title">목차</h2>
+        <h2 class="widget-title section-title">Table of contents</h2>
         
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#개요">개요</a>
+    <li><a href="#overview">Overview</a>
       <ol>
-        <li><a href="#단점">단점</a></li>
-        <li><a href="#kafka-metadata-주의사항">kafka metadata 주의사항</a></li>
+        <li><a href="#drawback">Drawback</a></li>
+        <li><a href="#considerations-for-kafka-metadata">Considerations for Kafka metadata</a></li>
       </ol>
     </li>
-    <li><a href="#json-테스트-케이스">JSON 테스트 케이스</a>
+    <li><a href="#json-test-case">JSON test case</a>
       <ol>
-        <li><a href="#토픽-생성"><strong>토픽 생성</strong></a></li>
-        <li><a href="#테이블-생성"><strong>테이블 생성</strong></a></li>
-        <li><a href="#테스트-데이터-전송"><strong>테스트 데이터 전송</strong></a></li>
+        <li><a href="#creating-a-topic"><strong>Creating a topic</strong></a></li>
+        <li><a href="#creating-a-table"><strong>Creating a table</strong></a></li>
+        <li><a href="#sending-test-data"><strong>Sending test data</strong></a></li>
       </ol>
     </li>
-    <li><a href="#only-long-type-테스트-케이스">ONLY LONG TYPE 테스트 케이스</a>
+    <li><a href="#test-case-for-only-long-type">Test case for ONLY LONG TYPE</a>
       <ol>
-        <li><a href="#토픽-생성-1"><strong>토픽 생성</strong></a></li>
-        <li><a href="#테이블-생성-1"><strong>테이블 생성</strong></a></li>
-        <li><a href="#테스트-데이터-전송-1"><strong>테스트 데이터 전송</strong></a></li>
+        <li><a href="#creating-a-topic-1"><strong>Creating a topic</strong></a></li>
+        <li><a href="#creating-a-table-1"><strong>Creating a table</strong></a></li>
+        <li><a href="#sending-test-data-1"><strong>Sending test data</strong></a></li>
       </ol>
     </li>
-    <li><a href="#동일한-key를-가진-메시지가-동일한-partition에-들어가는-테스트">동일한 key를 가진 메시지가 동일한 partition에 들어가는 테스트</a></li>
-    <li><a href="#정리">정리</a></li>
+    <li><a href="#testing-messages-with-the-same-key-being-placed-in-the-same-partition">Testing messages with the same key being placed in the same partition</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
   </ol>
 </nav>
         </div>
@@ -309,20 +307,20 @@ if (!doNotTrack) {
     
     <header class="article-category">
         
-            <a href="/categories/hive/" >
+            <a href="/en/categories/hive/" >
                 Hive
             </a>
         
-            <a href="/categories/kafka/" >
+            <a href="/en/categories/kafka/" >
                 Kafka
             </a>
         
-            <a href="/categories/hadoop/" >
+            <a href="/en/categories/hadoop/" >
                 hadoop
             </a>
         
-            <a href="/categories/batch/" >
-                Batch
+            <a href="/en/categories/batch/" >
+                batch
             </a>
         
     </header>
@@ -330,12 +328,12 @@ if (!doNotTrack) {
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/hive-kafka-integration3/">Write message to kafka using hive</a>
+            <a href="/en/p/hive-kafka-integration3/">Write message to kafka using hive</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            Hive에서 Kafka로 데이터를 전송하는 예제입니다.
+            This is a demonstration of data migration from Hive to Kafka.
         </h3>
         
     </div>
@@ -371,7 +369,7 @@ if (!doNotTrack) {
 
 
                 <time class="article-time--reading">
-                    4 분 정도
+                    6 minute read
                 </time>
             </div>
         
@@ -393,7 +391,7 @@ if (!doNotTrack) {
 
             <div>
                 
-                    <a href="https://korcasus.github.io/en/p/hive-kafka-integration3/" class="link">English</a>
+                    <a href="https://korcasus.github.io/p/hive-kafka-integration3/" class="link">Korean</a>
                 
             </div>
         </footer>
@@ -405,47 +403,51 @@ if (!doNotTrack) {
     <section class="article-content">
     
     
-    <h2 id="개요">개요</h2>
-<p>앞서 설명해왔던 내용과는 반대로 Hive에서 Kafka에 메시지를 전송하는 과정을 설명하겠습니다.<br>
-Kafka 입장에서는 Hive가 Producer 역할을 수행하게 됩니다.</p>
-<h3 id="단점">단점</h3>
-<p>Hive에서 Kafka로 전송할때 필수적인 기능들은 제공하다보니, 일반적인 경우에는 사용하는데 문제 없습니다.<br>
-하지만 일부 기능을 제공하지않는데, 그 중 하나가 Header입니다.<br>
-Header도 만들어주어야 하는 상황이라면, Hive 말고 다른 Application을 사용하는 것을 권장합니다.</p>
+    <style type="text/css">.notice{--root-color:#444;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#c33;--warning-content:#fee;--info-title:#fb7;--info-content:#fec;--note-title:#6be;--note-content:#e7f2fa;--tip-title:#5a5;--tip-content:#efe}@media (prefers-color-scheme:dark){.notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}}body.dark .notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:var(--root-color);background:var(--root-background)}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}.notice.warning .notice-title{background:var(--warning-title)}.notice.warning{background:var(--warning-content)}.notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}.notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}.notice.tip .notice-title{background:var(--tip-title)}.notice.tip{background:var(--tip-content)}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}</style>
+<div><svg width="0" height="0" display="none" xmlns="http://www.w3.org/2000/svg"><symbol id="tip-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/></symbol><symbol id="note-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="warning-notice" viewBox="0 0 576 512" preserveAspectRatio="xMidYMid meet"><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="info-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/></symbol></svg></div><div class="notice info" >
+<p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#info-notice"></use></svg></span>Info</p><p>This article was originally written in Korean and has been translated using ChatGPT.</p></div>
+
+<h2 id="overview">Overview</h2>
+<p>In contrast to the previous discussions, I&rsquo;ll delve into the process of transmitting messages from Hive to Kafka.<br>
+Viewed from Kafka&rsquo;s standpoint, Hive takes on the role of a Producer.</p>
+<h3 id="drawback">Drawback</h3>
+<p>While transmitting from Hive to Kafka, core functionalities are catered for, making it suitable for most scenarios.<br>
+Yet, there are a few unsupported features, including the Header.<br>
+If the need arises to incorporate a Header, considering an alternative application over Hive is advised.</p>
 <ul>
 <li><a class="link" href="https://github.com/apache/hive/blob/7b3ecf617a6d46f48a3b6f77e0339fd4ad95a420/kafka-handler/src/java/org/apache/hadoop/hive/kafka/KafkaWritable.java"  target="_blank" rel="noopener"
     >KafkaWritable</a></li>
 <li><a class="link" href="https://kafka.apache.org/documentation/#record"  target="_blank" rel="noopener"
-    >Kafka Record 공식문서</a></li>
+    >Kafka Record official document</a></li>
 </ul>
-<h3 id="kafka-metadata-주의사항">kafka metadata 주의사항</h3>
-<p>Producer에서 Kafka로 메시지를 전송할때는 메타 데이터들을 포함시켜 전송할 수 있습니다.<br>
-포함시키지 않을 경우, Kafka에서 자동으로 생성해주는 것으로 알고 있습니다.<br>
-Hive에서도 마찬가지 입니다. <code>__timestamp</code>, <code>__partition</code>, <code>__offset</code>은 kafka에서 기록하는 정보이므로 아래처럼 작성하면 Kafka에서 자동으로 생성해 줄 수 있습니다.</p>
+<h3 id="considerations-for-kafka-metadata">Considerations for Kafka metadata</h3>
+<p>When transmitting a message from the Producer to Kafka, you can incorporate associated metadata.<br>
+If the metadata is omitted, Kafka is understood to generate it automatically.<br>
+This principle holds true for Hive as well. Since <code>__timestamp</code>, <code>__partition</code>, and <code>__offset</code> are attributes tracked by Kafka, writing in the mentioned manner allows Kafka to automatically populate these fields.</p>
 <ul>
 <li><code>__timestamp</code> : -1</li>
 <li><code>__partition</code> : null</li>
 <li><code>__offset</code> : -1</li>
 </ul>
-<p>하지만 <code>__key</code>는 사용할 수 있는 값의 범위는 한정적이다보니 선택지가 제한적이지만, 신중하게 설정해주는 것이 좋습니다.<br>
-Kafka는 <code>key</code>를 <code>partition</code>을 결정하는데 사용하므로 메시지 분산에 영향을 미칠수 있습니다. 그리고 <code>cleanup.policy</code> 설정값에 따라 <code>key</code> 활용여부가 결정됩니다.<br>
-Kafka에서 key값을 기준으로 동일한 partition에 넣어주는 역할을 수행하고 있으며 , <code>log.cleanup.policy = compact</code> 로 설정할경우 key를 활용하기 때문에 byte array로 넣어주는게 좋습니다.</p>
+<p>However, the available value range for <code>__key</code> is limited, making the choices restricted, but careful configuration is advised.<br>
+Kafka utilizes the <code>key</code> for determining the <code>partition</code>, which can impact message distribution. Additionally, the application of the <code>key</code> depends on the <code>cleanup.policy</code> configuration.<br>
+In Kafka, values are assigned to the same partition based on the key. Therefore, when configured as <code>log.cleanup.policy = compact</code>, it&rsquo;s advantageous to input the key as a byte array.</p>
 <ul>
 <li>Integer to byte array : cast(cast(1 AS STRING) AS BINARY)</li>
 <li>String to byte array :  cast(&lsquo;1&rsquo; AS BINARY)</li>
 </ul>
-<h2 id="json-테스트-케이스">JSON 테스트 케이스</h2>
-<p>JSON 포맷 메시지를 Kafka에 전송해보도록 하겠습니다.</p>
-<h3 id="토픽-생성"><strong>토픽 생성</strong></h3>
-<p>테스트 메시지를 저장해둘 토픽을 생성합니다.<br>
-아래의 예시는 Kafka 설치시 함께 제공되는 스크립트를 사용하여 topic을 만듭니다.<br>
-<code>./kafka-topics.sh --create --topic &quot;${토픽토픽}&quot; --replication-factor 1 --partitions 1 --bootstrap-server &quot;{서버서버}&quot;</code></p>
-<h3 id="테이블-생성"><strong>테이블 생성</strong></h3>
-<p>Kafka에 전송할 topic을 만들어보았으니, 이제는 실제 전송역할을 수행해줄 table을 생성해보겠습니다. <br>
-Kafka Handler를 사용할 수 있도록 <code>KafkaStorageHandler</code>를 지정해줍니다.<br>
-TBLPROPERTIES에는 앞서 설명드렸던 글과 비슷하게 진행합니다.<br>
-다만, 메시지 전송하는 역할이니 consumer가 아닌 producer로 지정해줍니다.<br>
-아래의 예시를 참고하면 좋겠습니다.</p>
+<h2 id="json-test-case">JSON test case</h2>
+<p>I&rsquo;ll proceed to transmit a message in JSON format to Kafka.</p>
+<h3 id="creating-a-topic"><strong>Creating a topic</strong></h3>
+<p>I&rsquo;m creating a topic to store test messages.<br>
+Below is an example that leverages a script bundled with the Kafka installation to establish a topic.<br>
+<code>./kafka-topics.sh --create --topic &quot;${토픽토픽}&quot; --replication-factor 1 --partitions 1 --bootstrap-server &quot;{servers}&quot;</code></p>
+<h3 id="creating-a-table"><strong>Creating a table</strong></h3>
+<p>Having set up a topic for transmission to Kafka, we&rsquo;ll now establish a table responsible for the actual transmission process.<br>
+Enable the Kafka Handler by designating the <code>KafkaStorageHandler</code>.<br>
+The configuration for TBLPROPERTIES aligns closely with the guidelines previously mentioned.<br>
+But, given its role in transmitting messages, set it as a producer instead of a consumer.<br>
+The example provided below can serve as a reference.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -469,26 +471,26 @@ TBLPROPERTIES에는 앞서 설명드렸던 글과 비슷하게 진행합니다.<
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">TBLPROPERTIES</span><span class="p">(</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.serde.class&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;org.apache.hadoop.hive.serde2.JsonSerDe&#34;</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.topic&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;${토픽토픽}&#34;</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.bootstrap.servers&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;${서버서버}&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.bootstrap.servers&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;${servers}&#34;</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.producer.security.protocol&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;PLAINTEXT&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="테스트-데이터-전송"><strong>테스트 데이터 전송</strong></h3>
-<p>만들어준 테이블에 데이터를 입력해보도록 하겠습니다. <br>
-테이블에 명시한 컬럼인 <code>id</code>, <code>value</code>에 대한 값을 필수로 추가합니다. <br>
-그 외에는 Kafka MetataData 이며 key, partition, offset, timestamp 순서대로 생각하고 넣어주시면 됩니다.<br>
+</div><h3 id="sending-test-data"><strong>Sending test data</strong></h3>
+<p>We will proceed to insert data into the table we created.<br>
+It&rsquo;s essential to provide values for the columns explicitly mentioned in the table, which are <code>id</code> and <code>value</code>.<br>
+Regarding Kafka Metadata, you can include them in the following order: key, partition, offset, and timestamp.<br>
 <code>insert into test_export_to_kafka values ('1', '1', null, null, -1, -1);</code></p>
-<h2 id="only-long-type-테스트-케이스">ONLY LONG TYPE 테스트 케이스</h2>
-<p>이번에는 JSON이 아닌 PLAIN TEXT Format으로 데이터를 전송해보도록하겠습니다.</p>
-<h3 id="토픽-생성-1"><strong>토픽 생성</strong></h3>
-<p>앞서 설명드렸던 JSON 테스트 케이스와 비슷합니다.<br>
-테스트 메시지를 저장해둘 토픽을 생성합니다.<br>
-아래의 예시는 Kafka 설치시 함께 제공되는 스크립트를 사용하여 topic을 만듭니다.<br>
-<code>./kafka-topics.sh --create --topic &quot;${토픽토픽}&quot; --replication-factor 1 --partitions 1 --bootstrap-server &quot;{서버서버}&quot;</code></p>
-<h3 id="테이블-생성-1"><strong>테이블 생성</strong></h3>
-<p>Kafka Handler와 TBLPROPERTIES는 앞서 설명드렸던 테스트 케이스와 동일하게 설정합니다.<br>
-다만 이번엔 PLAIN TEXT Format인 만큼, 컬럼은 하나만 만들어 주겠습니다.</p>
+<h2 id="test-case-for-only-long-type">Test case for ONLY LONG TYPE</h2>
+<p>This time, we will attempt to send data in PLAIN TEXT format, rather than JSON.</p>
+<h3 id="creating-a-topic-1"><strong>Creating a topic</strong></h3>
+<p>It is similar to the JSON test case I explained earlier.<br>
+We are creating a topic to store test messages.<br>
+The example below creates the topic using a script provided with Kafka installation.<br>
+<code>./kafka-topics.sh --create --topic &quot;${topic}&quot; --replication-factor 1 --partitions 1 --bootstrap-server &quot;{servers}&quot;</code></p>
+<h3 id="creating-a-table-1"><strong>Creating a table</strong></h3>
+<p>Kafka Handler and TBLPROPERTIES are configured in the same manner as previously described in the test case.<br>
+However, this time, as we are using the PLAIN TEXT format, we will create only one column.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -509,26 +511,26 @@ TBLPROPERTIES에는 앞서 설명드렸던 글과 비슷하게 진행합니다.<
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">STORED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;org.apache.hadoop.hive.kafka.KafkaStorageHandler&#39;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">TBLPROPERTIES</span><span class="p">(</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.serde.class&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe&#34;</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.topic&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;${토픽토픽}&#34;</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.bootstrap.servers&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;${서버서버}&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.topic&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;${topic}&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.bootstrap.servers&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;${servers}&#34;</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.producer.security.protocol&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;PLAINTEXT&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="테스트-데이터-전송-1"><strong>테스트 데이터 전송</strong></h3>
-<p>만들어둔 테이블에 데이터를 입력해보도록 하겠습니다.<br>
-테이블에 명시한 컬럼인 <code>id</code>에 대한 값을 필수로 추가합니다. <br>
-그 외에는 Kafka MetaData에 대한 정보로 이전과 동일하게 추가해줍니다. <br>
+</div><h3 id="sending-test-data-1"><strong>Sending test data</strong></h3>
+<p>We will proceed to insert data into the table we created.<br>
+It is mandatory to include a value for the id column, as specified in the table.<br>
+For the remaining columns, you can add Kafka Metadata information as done previously.<br>
 <code>insert into test_export_to_kafka_long values (1, null, null, -1, -1);</code></p>
-<h2 id="동일한-key를-가진-메시지가-동일한-partition에-들어가는-테스트">동일한 key를 가진 메시지가 동일한 partition에 들어가는 테스트</h2>
-<p>Producer로 사용할 Application을 만들때 보면, Kafka에 전송할 Message가 어떤 Partition에 저장될지 Partitioner를 지정할 수 있습니다.<br>
-하지만 Hive에서는 별도로 Partitioner를 지정할 수 없습니다.<br>
-Default Partitioner를 사용하는것으로 생각하고 진행하셔야 합니다.</p>
-<p>Message의 Key가 동일하다면, 동일한 Partition에 들어가야 합니다.<br>
-하지만 Hive를 통해 전송해보는 것은 처음이기 때문에 동일한 Partition에 전송되는지 확인이 필요하였습니다.<br>
-이를 확인하기 위해 테스트를 진행하였습니다.</p>
-<p>각기 다른 Key를 가진 여러개의 메시지를 전송한 뒤, 앞서 보낸 메시지와 동일한 Key를 가지지만 다른 내용으로 메시지를 전송합니다.<br>
-자세한 내용은 아래의 쿼리를 통해 확인할 수 있습니다.</p>
+<h2 id="testing-messages-with-the-same-key-being-placed-in-the-same-partition">Testing messages with the same key being placed in the same partition</h2>
+<p>When creating an application to be used as a Producer, you have the option to specify a Partitioner that determines the partition where Kafka will store the message.<br>
+However, in Hive, there is no separate provision to specify a Partitioner.<br>
+It should be assumed that the Default Partitioner is in use.</p>
+<p>If the message keys are identical, they should be placed in the same partition.<br>
+However, since this is the first attempt to transmit through Hive, it was necessary to verify whether they are indeed directed to the same partition.<br>
+Tests were conducted to ascertain this.</p>
+<p>Following the transmission of multiple messages with different keys, we proceed to send a message with the same key as the previous one but with different content.<br>
+You can access detailed information through the query provided below.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -578,12 +580,12 @@ Default Partitioner를 사용하는것으로 생각하고 진행하셔야 합니
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">STORED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;org.apache.hadoop.hive.kafka.KafkaStorageHandler&#39;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">TBLPROPERTIES</span><span class="p">(</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.serde.class&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;org.apache.hadoop.hive.serde2.JsonSerDe&#34;</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.topic&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;${토픽토픽}&#34;</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.bootstrap.servers&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;${서버서버}&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.topic&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;${topic}&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.bootstrap.servers&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;${servers}&#34;</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.producer.security.protocol&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;PLAINTEXT&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">.</span><span class="o">/</span><span class="n">kafka</span><span class="o">-</span><span class="n">topics</span><span class="p">.</span><span class="n">sh</span><span class="w"> </span><span class="c1">--create --topic ${토픽토픽} --bootstrap-server {서버서버} --config &#34;cleanup.policy=compact&#34; --partitions 4 --replication-factor 2
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">.</span><span class="o">/</span><span class="n">kafka</span><span class="o">-</span><span class="n">topics</span><span class="p">.</span><span class="n">sh</span><span class="w"> </span><span class="c1">--create --topic ${topic} --bootstrap-server {servers} --config &#34;cleanup.policy=compact&#34; --partitions 4 --replication-factor 2
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">test_export_to_kafka_partition</span><span class="w"> 
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">VALUES</span><span class="w">
@@ -611,19 +613,15 @@ Default Partitioner를 사용하는것으로 생각하고 진행하셔야 합니
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">test_partition</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>결과화면은 첨부하지 않았지만 테스트를 진행하니 <br>
-동일한 Key값을 가진경우, 동일한 Partition에 저장되는 것을 확인할 수 있었습니다.</p>
-<h2 id="정리">정리</h2>
-<p>이번 글을 통해 Hive Table 데이터를 Kafka로 전송가능하다는 것을 확인할 수 있었습니다.</p>
-<p>사실 이렇게 데이터를 전송하는게 유일한 방법도 아니고, 다른 좋은 방법들도 존재합니다.<br>
-(예를 들면 HiveServer2에 JDBC로 연결할 수도 있고, Spark를 사용할 수도 있습니다.)<br>
-설명한 내용들을 읽으셨다면 제약이 많다는 것을 느끼셨을 수 있습니다.<br>
-기능 설명에 작성하진 않았지만, 단순히 전송하는 경우라면 문제없지만 다른 테이블과 JOIN해서 바로 전송하게끔 쿼리를 실행한다면 에러가 발생할 수 있습니다.<br>
-이 문제를 회피하기위해서는 임시 테이블을 만들어 데이터를 저장한 뒤, 임시테이블을 사용해 데이터 전송하게끔 쿼리 작성해야합니다.<br>
-이 외에도 제가 파악하지 못한 제약이 있을수도 있습니다.<br>
-이처럼 많은 제약이 존재하지만, 별도로 Application을 만들 필요가 없다는게 큰 장점 입니다.</p>
-<p>이러한 방법도 여러 선택지중 하나로 사용할 수 있다는 것을 알게되는 계기가 되었으면 합니다.<br>
-여기까지 읽어주셔서 감사합니다.</p>
+</div><p>Even though you didn&rsquo;t provide a result screen, the test confirmed that data with the same key value is stored in the same partition.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>I have confirmed through this article that it is possible to transmit Hive Table data to Kafka.</p>
+<p>In fact, there are several methods to transfer data, and there are other good alternatives available. (For example, you can connect to HiveServer2 via JDBC or use Spark.)<br>
+While I didn&rsquo;t explicitly mention it in the feature description, you might have noticed that there are some limitations. If you execute queries that involve JOINs with other tables and attempt to send data immediately, errors may occur, as you pointed out. To overcome this issue, you should create temporary tables to store the data and then write queries that use these temporary tables for data transmission.<br>
+There may be other constraints that I haven&rsquo;t identified.<br>
+Despite these constraints, a significant advantage is that you don&rsquo;t need to create a separate application.</p>
+<p>I hope this information serves as an opportunity for you to realize that this method can be one of the choices.<br>
+Thank you for reading this far.</p>
 
 </section>
 
@@ -632,9 +630,9 @@ Default Partitioner를 사용하는것으로 생각하고 진행하셔야 합니
     
     <section class="article-tags">
         
-            <a href="/tags/hive/">Hive</a>
+            <a href="/en/tags/hive/">Hive</a>
         
-            <a href="/tags/kafka/">Kafka</a>
+            <a href="/en/tags/kafka/">Kafka</a>
         
     </section>
 
@@ -662,13 +660,13 @@ Default Partitioner를 사용하는것으로 생각하고 진행하셔야 합니
     
 
 <aside class="related-content--wrapper">
-    <h2 class="section-title">관련 글</h2>
+    <h2 class="section-title">Related content</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
             
                 
 <article class="">
-    <a href="/p/hive-kafka-integration2/">
+    <a href="/en/p/hive-kafka-integration2/">
         
         
 
@@ -681,25 +679,12 @@ Default Partitioner를 사용하는것으로 생각하고 진행하셔야 합니
             
                 
 <article class="">
-    <a href="/p/hive-kafka-integration1/">
+    <a href="/en/p/hive-kafka-integration1/">
         
         
 
         <div class="article-details">
             <h2 class="article-title">Hive Kafka Integration</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/elasticsearch-spark/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Elasticsearch Spark</h2>
         </div>
     </a>
 </article>
@@ -770,8 +755,8 @@ Default Partitioner를 사용하는것으로 생각하고 진행하셔야 합니
     </section>
     
     <section class="powerby">
-        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>로 만듦 <br />
-        <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>의 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.17.0">Stack</a></b> 테마 사용 중
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.17.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 

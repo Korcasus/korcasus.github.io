@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Proceed with the configuration in Hive for integration.'>
-<title>Hive Kafka Integration</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='This is a tutorial on how to read data from Kafka into Hive.'>
+<title>Read message from kafka using hive</title>
 
 
 
 <link rel="stylesheet" href="/scss/style.min.ff300df33b80e2ac49809c825614392ed1c7b27591d65d3c4043602cd162e25f.css"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4086051155158500"
         crossorigin="anonymous"></script>
-<meta property='og:title' content='Hive Kafka Integration'>
-<meta property='og:description' content='Proceed with the configuration in Hive for integration.'>
-<meta property='og:url' content='https://korcasus.github.io/en/p/hive-kafka-integration1/'>
+<meta property='og:title' content='Read message from kafka using hive'>
+<meta property='og:description' content='This is a tutorial on how to read data from Kafka into Hive.'>
+<meta property='og:url' content='https://korcasus.github.io/en/p/hive-kafka-integration2/'>
 <meta property='og:site_name' content='Read Write'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Hive' /><meta property='article:tag' content='Kafka' /><meta property='article:tag' content='ETL' /><meta property='article:published_time' content='2022-12-01T22:44:01&#43;09:00'/><meta property='article:modified_time' content='2022-12-01T22:44:01&#43;09:00'/>
-<meta name="twitter:title" content="Hive Kafka Integration">
-<meta name="twitter:description" content="Proceed with the configuration in Hive for integration.">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Hive' /><meta property='article:tag' content='Kafka' /><meta property='article:tag' content='ETL' /><meta property='article:published_time' content='2022-12-01T22:45:01&#43;09:00'/><meta property='article:modified_time' content='2022-12-01T22:45:01&#43;09:00'/>
+<meta name="twitter:title" content="Read message from kafka using hive">
+<meta name="twitter:description" content="This is a tutorial on how to read data from Kafka into Hive.">
     <link rel="shortcut icon" href="/favicon.ico" />
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSWKN88H77"></script>
@@ -268,15 +268,22 @@ if (!doNotTrack) {
             <nav id="TableOfContents">
   <ol>
     <li><a href="#overview">Overview</a></li>
-    <li><a href="#install">Install</a></li>
-    <li><a href="#create-table">Create Table</a></li>
-    <li><a href="#kafka-metadata">Kafka metadata</a></li>
-    <li><a href="#precautions-when-using-avro-format">Precautions When Using Avro Format</a></li>
-    <li><a href="#serdeserializer-deserializer">Serde(Serializer, Deserializer)</a></li>
-    <li><a href="#authentication">Authentication</a></li>
-    <li><a href="#key-serializer">Key Serializer</a></li>
-    <li><a href="#additionally">Additionally</a></li>
-    <li><a href="#summary">Summary</a></li>
+    <li><a href="#json">JSON</a>
+      <ol>
+        <li><a href="#sample-data">Sample data</a></li>
+        <li><a href="#table-definition">Table Definition</a></li>
+        <li><a href="#read">READ</a></li>
+      </ol>
+    </li>
+    <li><a href="#text">TEXT</a>
+      <ol>
+        <li><a href="#sample-data-1">Sample data</a></li>
+        <li><a href="#table-definition-1">Table Definition</a></li>
+        <li><a href="#read-1">READ</a></li>
+        <li><a href="#utilizing-kafka-metadata">Utilizing Kafka Metadata</a></li>
+      </ol>
+    </li>
+    <li><a href="#정리">정리</a></li>
   </ol>
 </nav>
         </div>
@@ -320,12 +327,12 @@ if (!doNotTrack) {
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/en/p/hive-kafka-integration1/">Hive Kafka Integration</a>
+            <a href="/en/p/hive-kafka-integration2/">Read message from kafka using hive</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            Proceed with the configuration in Hive for integration.
+            This is a tutorial on how to read data from Kafka into Hive.
         </h3>
         
     </div>
@@ -361,7 +368,7 @@ if (!doNotTrack) {
 
 
                 <time class="article-time--reading">
-                    6 minute read
+                    5 minute read
                 </time>
             </div>
         
@@ -383,7 +390,7 @@ if (!doNotTrack) {
 
             <div>
                 
-                    <a href="https://korcasus.github.io/p/hive-kafka-integration1/" class="link">Korean</a>
+                    <a href="https://korcasus.github.io/p/hive-kafka-integration2/" class="link">Korean</a>
                 
             </div>
         </footer>
@@ -400,37 +407,35 @@ if (!doNotTrack) {
 <p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#info-notice"></use></svg></span>Info</p><p>This article was originally written in Korean and has been translated using ChatGPT.</p></div>
 
 <h2 id="overview">Overview</h2>
-<p>Hive is a data warehouse software that allows for reading and writing large volumes of data stored in Hadoop using SQL syntax.<br>
-In simple terms, it can be thought of as a large-scale data processing database operating on Hadoop.</p>
-<p>By default, it supports HDFS and offers an open DataSourcing feature that allows access to Hbase or other DBMS. It also supports Kafka, which is widely used as a Message Queue. In this series, I will document the configuration for integrating Hive with Kafka, as well as the process of reading and writing messages.</p>
-<p>In this article, the focus is on the necessary configurations and essential information for use.<br>
-If you are interested in usage examples, please read the next article.</p>
-<blockquote>
-<p>This was written based on the <a class="link" href="https://github.com/apache/hive/blob/master/kafka-handler/README.md"  target="_blank" rel="noopener"
-    >official document</a><br>
-Although it is not stated in the document, I intend to detail additional information required for use and examples that I personally tested.</p>
-</blockquote>
-<blockquote>
-<p>This was done in Hive version 3.x.</p>
-</blockquote>
-<h2 id="install">Install</h2>
-<p>In fact, no separate installation is required.<br>
-As you may know if you&rsquo;ve looked at the official documentation, it&rsquo;s already built into Hive.<br>
-While it might be hard to imagine, you can integrate with Kafka using SQL.</p>
-<h2 id="create-table">Create Table</h2>
-<p>To integrate Hive and Kafka, a linkage must be created.<br>
-Just as in Spring, you can easily create a connection using Binder and Binding, in Hive, you can do this using <code>StorageHandler</code>.<br>
-You can specify <code>StorageHandler</code> when defining a table. Additionally, with some more configurations, you can use it seamlessly.</p>
-<p>However, there are a few things to be cautious of when creating a table in Hive that integrates with Kafka.</p>
-<p>The <code>first</code> thing is that you must create it as an <code>EXTERNAL</code> table.<br>
-Since the method we will be using involves Hive accessing and using the data stored in Kafka, you need to add the <code>EXTERNAL</code> keyword.</p>
-<p>The <code>second</code> thing is that you must specify the <strong>KafkaStorageHandler</strong>.<br>
-When defining the table, it should include <code>STORED BY 'org.apache.hadoop.hive.kafka.KafkaStorageHandler'</code>.<br>
-Only with this specified can you integrate and use Kafka.</p>
-<p>The <code>third</code> thing is that you need to configure the table.<br>
-Using the <code>TBLPROPERTIES</code> keyword, you can set the properties for the table.<br>
-Within this, you must write the configuration necessary for integrating with Kafka.</p>
-<p>By applying all three points and writing the DDL, it can be crafted as shown in the example below.</p>
+<p><a class="link" href="https://korcasus.github.io/en/p/hive-kafka-integration1/" >In our previous post</a>, we delved into the configurations necessary for integrating Kafka with Hive.<br>
+Moving forward, I&rsquo;ll elaborate on the processes of reading from and writing to Kafka.<br>
+In this piece, we&rsquo;ll kick off by pulling data from Kafka.<br>
+You can think of it as leveraging Hive in the role of a Kafka Consumer for better clarity.<br>
+One distinction to note is that it doesn&rsquo;t get assigned as a Consumer Group, unlike typical Consumers.</p>
+<h2 id="json">JSON</h2>
+<p>This tutorial proceeds under the assumption that the data being read from Kafka is formatted in JSON.</p>
+<h3 id="sample-data">Sample data</h3>
+<p>I&rsquo;ll walk you through using the following data structure as our reference example.
+Feel free to expand by adding more fields based on your requirements.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">12345678</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;value:&#34;</span><span class="p">:</span> <span class="s2">&#34;hello&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="table-definition">Table Definition</h3>
+<p>Let&rsquo;s define a table mirroring the structure of the JSON schema.<br>
+The &lsquo;id&rsquo; field carries an integer value, while the &lsquo;value&rsquo; field is a string.<br>
+Within Hive, integer values can be represented using the <strong>INT</strong> or <strong>BIGINT</strong> data types. Strings, on the other hand, are characterized as <strong>STRING</strong>.</p>
+<p>Drawing from the provided information, the DDL query can be constructed as follows.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -444,133 +449,158 @@ Within this, you must write the configuration necessary for integrating with Kaf
 </span><span class="lnt"> 9
 </span><span class="lnt">10
 </span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">EXTERNAL</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">kafka_table</span><span class="w"> </span><span class="p">(</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">`</span><span class="k">timestamp</span><span class="o">`</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">`</span><span class="n">page</span><span class="o">`</span><span class="w"> </span><span class="n">STRING</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">`</span><span class="n">newPage</span><span class="o">`</span><span class="w"> </span><span class="nb">BOOLEAN</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">`</span><span class="n">added</span><span class="o">`</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> 
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">`</span><span class="n">deleted</span><span class="o">`</span><span class="w"> </span><span class="nb">BIGINT</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">`</span><span class="n">delta</span><span class="o">`</span><span class="w"> </span><span class="n">DOUBLE</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">EXTERNAL</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">test_export_to_kafka</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="nb">BIGINT</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">`</span><span class="n">value</span><span class="o">`</span><span class="w"> </span><span class="n">STRING</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">STORED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;org.apache.hadoop.hive.kafka.KafkaStorageHandler&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">TBLPROPERTIES</span><span class="w"> </span><span class="p">(</span><span class="w"> 
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.topic&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;test-topic&#34;</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.bootstrap.servers&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;localhost:9092&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">TBLPROPERTIES</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.serde.class&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;org.apache.hadoop.hive.serde2.JsonSerDe&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.topic&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;etl.hive.catalog.used&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.bootstrap.servers&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;{broker servers}&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.consumer.security.protocol&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;PLAINTEXT&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="kafka-metadata">Kafka metadata</h2>
-<p>Messages stored in Kafka consist not only of the Payload but also have four pieces of metadata: Key, Partition, Offset, and Timestamp.<br>
-These data can also be used in Hive.<br>
-The previously mentioned <code>KafkaStorageHandler</code>, used when defining the table, automatically registers these metadata as columns.</p>
+</div><p>The table name, <code>test_export_to_kafka</code>, can be adjusted to your preference. <br>
+Columns within the table should be outlined in alignment with the JSON structure being ingested.<br>
+Ensure that column names mirror the JSON keys, and column data types are consistent with the corresponding JSON values.<br>
+Given that Hive offers a broader spectrum of data types compared to JSON, I&rsquo;d recommend referring to this <a class="link" href="https://cwiki.apache.org/confluence/display/hive/languagemanual&#43;types"  target="_blank" rel="noopener"
+    >documentation</a> to pick the most suitable type.<br>
+By assigning <code>&quot;kafka.serde.class&quot; = &quot;org.apache.hadoop.hive.serde2.JsonSerDe&quot;</code>, you&rsquo;re enabling Hive to deserialize JSON data.<br>
+No other particulars in TBLPROPERTIES demand attention.<br>
+Simply adjust <code>kafka.topic</code> to the desired Kafka topic name.</p>
+<h3 id="read">READ</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">test_export_to_kafka</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>If everything has been configured correctly, you should be able to view the messages within the topic.<br>
+On the other hand, if there&rsquo;s a misconfiguration, you might encounter error messages or see columns rendered as NULL.<br>
+Ensure that your setup doesn&rsquo;t deviate from the guidelines we&rsquo;ve discussed up to this point.</p>
+<h2 id="text">TEXT</h2>
+<p>This tutorial focuses on reading PLAIN TEXT, as opposed to structured data such as JSON.</p>
+<h3 id="sample-data-1">Sample data</h3>
+<p>Given it&rsquo;s PLAIN TEXT, the example is straightforward.<br>
+We&rsquo;ll utilize basic numerical values for demonstration purposes.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1234
+</span></span><span class="line"><span class="cl">5678
+</span></span><span class="line"><span class="cl">91011
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="table-definition-1">Table Definition</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">EXTERNAL</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">test_export_to_kafka</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="nb">BIGINT</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">STORED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;org.apache.hadoop.hive.kafka.KafkaStorageHandler&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">TBLPROPERTIES</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.serde.class&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.topic&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;etl.hive.catalog.used&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.bootstrap.servers&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;{servers}&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s2">&#34;kafka.consumer.security.protocol&#34;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;PLAINTEXT&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>This aligns closely with the JSON test case we touched on previously.<br>
+The distinctions lie in the distinct designations for Serde and the columns.<br>
+For the Serde configuration, switch to <code>&quot;kafka.serde.class&quot; = &quot;org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe&quot;</code>.</p>
+<h3 id="read-1">READ</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">test_export_to_kafka</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>If everything has been configured properly, you should be able to view the messages from the topic.<br>
+However, should there be a misconfiguration, you might either see error messages or columns displaying as NULL.<br>
+Please ensure your configurations align with the guidelines discussed up to now.</p>
+<h3 id="utilizing-kafka-metadata">Utilizing Kafka Metadata</h3>
+<p>In Kafka, alongside the primary messages, associated metadata is also stored.<br>
+When shaping a table, this metadata seamlessly gets incorporated as columns. Consequently, when Hive fetches a message, it concurrently retrieves this accompanying metadata.<br>
+Given that metadata is configured as columns, it opens up avenues for their application within SQL conditional statements.<br>
+For illustration, you might opt to pull data entered post a designated timestamp, or exclusively data residing in a particular partition.</p>
+<p>&ldquo;For fields like <code>__partition</code> and <code>__offset</code>, their employment of integer types makes them particularly user-friendly.</p>
 <ul>
-<li>__key (byte array)</li>
-<li>__partition (int32)</li>
-<li>__offset (int64)</li>
-<li>__timestamp (int64)</li>
+<li>ex1) <code>__partition = 0</code></li>
+<li>ex2) <code>__offset &gt; 5000</code></li>
 </ul>
-<p>I will elaborate on the usage methods in the next article where I&rsquo;ve written real-use examples.</p>
-<h2 id="precautions-when-using-avro-format">Precautions When Using Avro Format</h2>
-<p>If you are using the Avro format through the Confluent Connector, you need to remove 5 bytes from the message.<br>
-Of these 5 bytes, 1 byte is the magic byte, and 4 bytes correspond to the schema id of the schema registry.<br>
-This can be resolved by setting <code>&quot;avro.serde.type&quot;=&quot;skip&quot;</code> and <code>&quot;avro.serde.skip.bytes&quot;=&quot;5&quot;</code>.<br>
-If you are using avro, it would be beneficial to thoroughly refer to the guide for detailed information.</p>
-<blockquote>
-<p>Support for the confluent avro format seems to be added in Hive version 4.0.<br>
-If you are using version 3.x, it would be good to be cautious. (Because I had a hard time with it&hellip;)</p>
-</blockquote>
-<h2 id="serdeserializer-deserializer">Serde(Serializer, Deserializer)</h2>
-<p>If you&rsquo;ve ever sent data from an Application to Kafka, you&rsquo;ve probably had experience specifying a serializer and deserializer.<br>
-Similarly, Hive also offers various serializers and deserializers.</p>
-<div class="table-wrapper"><table>
-<thead>
-<tr>
-<th>Supported Serializers and Deserializers</th>
-<th>description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>org.apache.hadoop.hive.serde2.JsonSerDe</td>
-<td>JSON</td>
-</tr>
-<tr>
-<td>org.apache.hadoop.hive.serde2.OpenCSVSerde</td>
-<td>CSV</td>
-</tr>
-<tr>
-<td>org.apache.hadoop.hive.serde2.avro.AvroSerDe</td>
-<td>AVRO</td>
-</tr>
-<tr>
-<td>org.apache.hadoop.hive.serde2.lazybinary.LazyBinarySerDe</td>
-<td>binary</td>
-</tr>
-<tr>
-<td>org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe</td>
-<td>Plain Text</td>
-</tr>
-</tbody>
-</table></div>
-<p>The method of specification is simpler than you might think.<br>
-You can easily apply it by adding it to TBLPROPERTIES.<br>
-For instance, if the data format you wish to read from Kafka is JSON or if you want to send data in JSON format, you can add it as shown below.<br>
-<code>&quot;kafka.serde.class&quot; = &quot;org.apache.hadoop.hive.serde2.JsonSerDe&quot;</code></p>
-<h2 id="authentication">Authentication</h2>
-<p>Kafka also offers a feature that requires authentication to grant permissions to read and write data.<br>
-The authentication details needed for using Kafka can also be provided through Hive.</p>
-<blockquote>
-<p>In my case, I didn&rsquo;t add any authentication and used it, so I will document it as an instance without authentication.
-If you are in a situation where you need authentication, please refer to and proceed with the official documentation.</p>
-</blockquote>
-<p>If you haven&rsquo;t added the TBLPROPERTIES value for authentication, an error occurs when you attempt to connect.<br>
-You might think, &ldquo;If I haven&rsquo;t set it up, shouldn&rsquo;t it naturally be usable without authentication?&rdquo; (That&rsquo;s what I thought.)<br>
-By default, Hive tries to authenticate using an id and password.<br>
-Therefore, you have to add a configuration to use it without authentication.</p>
-<p>The official documentation didn&rsquo;t provide a specific solution for this problem, so it was a challenging aspect for me.<br>
-To get straight to the point, you can resolve this by adding TBLPROPERTY.</p>
+<p>Yet, with <code>__timestamp</code>, it&rsquo;s captured as int64 due to its reliance on the unix_timestamp.<br>
+This diverges from the typical time notation we&rsquo;re accustomed to, necessitating a conversion and resulting in a less-than-convenient experience.<br>
+For ease in deploying within conditions, it&rsquo;s advisable to modify and utilize it as illustrated below.<br>
+The function to employ here would be unix_timestamp, as demonstrated in the subsequent example.</p>
+<p><code>unix_timestamp('2022-03-08 00:00:00.000', 'yyyy-MM-dd HH:mm:ss.SSS') * 1000</code></p>
 <ul>
-<li>In the case of a producer : <code>&quot;kafka.producer.security.protocol&quot; = &quot;PLAINTEXT&quot;</code></li>
-<li>In the case of a consumer : <code>&quot;kafka.consumer.security.protocol&quot; = &quot;PLAINTEXT&quot;</code></li>
+<li>For the first parameter, specify the time you intend to transform.</li>
+<li>For the second parameter, indicate the time format corresponding to what you specified in the first.</li>
 </ul>
-<p>If you want to delve deeper into authentication, it would be helpful to refer to this <a class="link" href="https://kafka.apache.org/documentation/#producerconfigs_security.protocol"  target="_blank" rel="noopener"
-    >document</a>.<br>
-As I&rsquo;ll mention later, if you set <code>kafka.</code> as a prefix when configuring, you can pass the configuration value to Kafka.</p>
-<h2 id="key-serializer">Key Serializer</h2>
-<p>The Serializers I explained earlier were Value Serializers.<br>
-Though more are provided than you might expect, conversely, only the Byte Serializer is supported for Key Serializer.<br>
-Even if you want to change and use a different Serializer, it&rsquo;s not possible to do so.<br>
-I&rsquo;m not sure why it was implemented this way, but you can understand the details by looking at the code.<br>
-As you might be curious, I&rsquo;m also providing a link.</p>
-<ul>
-<li><a class="link" href="https://github.com/apache/hive/blob/335749a33c02ec0dc7ebadb9eda101d174ad5faf/kafka-handler/src/java/org/apache/hadoop/hive/kafka/KafkaStorageHandler.java#L233"  target="_blank" rel="noopener"
-    >producer</a></li>
-<li><a class="link" href="https://github.com/apache/hive/blob/335749a33c02ec0dc7ebadb9eda101d174ad5faf/kafka-handler/src/java/org/apache/hadoop/hive/kafka/KafkaStorageHandler.java#L193"  target="_blank" rel="noopener"
-    >consumer</a></li>
-</ul>
-<h2 id="additionally">Additionally</h2>
-<p>Beyond what has been written so far, there may be additional configurations you&rsquo;d like to add when using Kafka.<br>
-Although it&rsquo;s not described in the official documentation, you can pass configuration values to be used in Kafka.</p>
-<ul>
-<li>In the case of a producer <code>“kafka.producer.{property}” = “{value}”</code></li>
-<li>In the case of a consumer <code>“kafka.consumer.{property}” = “{value}”</code>
-By adding to TBLPROPERTIES, the configuration values are passed to Kafka, allowing you to apply your desired settings.</li>
-</ul>
-<p>If you&rsquo;re curious about how the configuration values are passed or the implemented code, it would be helpful to refer to the link below.</p>
-<ul>
-<li><a class="link" href="https://github.com/apache/hive/blob/335749a33c02ec0dc7ebadb9eda101d174ad5faf/kafka-handler/src/java/org/apache/hadoop/hive/kafka/KafkaStorageHandler.java#L213"  target="_blank" rel="noopener"
-    >producer</a></li>
-<li><a class="link" href="https://github.com/apache/hive/blob/335749a33c02ec0dc7ebadb9eda101d174ad5faf/kafka-handler/src/java/org/apache/hadoop/hive/kafka/KafkaStorageHandler.java#L168"  target="_blank" rel="noopener"
-    >consumer</a></li>
-</ul>
-<h2 id="summary">Summary</h2>
-<p>Until now, we&rsquo;ve looked into the necessary configurations and helpful information for reading and writing to Kafka from Hive.<br>
-In the next article, I will document the process of reading messages from Kafka in Hive.<br>
-Thank you.</p>
+<p>With the function in place, it&rsquo;s possible to transform a specific time into unix_timestamp, paving the way for comparison activities involving <code>__timestamp</code>.<br>
+Yet, bear in mind that the <code>__timestamp</code> fetched via Hive operates on a microsecond scale. As a result, some additional computations are required to align the units, which is why a multiplication by 1000 was executed. Here&rsquo;s an illustrative example.</p>
+<p>ex) <code>unix_timestamp('2022-03-08 00:00:00.000', 'yyyy-MM-dd HH:mm:ss.SSS') * 1000 &lt; __timestamp</code></p>
+<p><strong>Supplementary Example</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- print to UTC timestamp
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">select</span><span class="w"> </span><span class="n">FROM_UTC_TIMESTAMP</span><span class="p">(</span><span class="o">`</span><span class="n">__timestamp</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;JST&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">test_kafka_product_received</span><span class="w"> </span><span class="k">limit</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- print timestamp, unixtime to timestamp
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">select</span><span class="w"> </span><span class="k">current_timestamp</span><span class="p">(),</span><span class="w"> </span><span class="n">from_unixtime</span><span class="p">(</span><span class="n">unix_timestamp</span><span class="p">(),</span><span class="w"> </span><span class="s1">&#39;yyyy-MM-dd HH:mm:ss.SSS&#39;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- print converted unixtime
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">select</span><span class="w"> </span><span class="n">unix_timestamp</span><span class="p">(</span><span class="s1">&#39;2022-03-07 14:00:00.000&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;yyyy-MM-dd HH:mm:ss.SSS&#39;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="n">unix_timestamp</span><span class="p">(</span><span class="s1">&#39;2022-03-07 06:11:41&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;yyyy-MM-dd HH:mm:ss&#39;</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="정리">정리</h2>
+<p>With the insights from this piece, you&rsquo;re now equipped to fetch JSON or PLAIN-TEXT data from Kafka utilizing Hive.<br>
+Leveraging metadata for filtering can enable effortless extraction of Kafka messages that align with specific criteria.<br>
+A noted limitation is the inability to join this with other tables housed within Hive (I faced authentication-related challenges during my attempts).<br>
+Such constraints might curtail its full potential, but with further enhancements, its utility could significantly rise.</p>
+<p>In the subsequent post, I&rsquo;ll delve into the procedure of transmitting data from Hive to Kafka.<br>
+Many thanks.</p>
 
 </section>
 
@@ -617,12 +647,12 @@ Thank you.</p>
             
                 
 <article class="">
-    <a href="/en/p/hive-kafka-integration2/">
+    <a href="/en/p/hive-kafka-integration1/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Read message from kafka using hive</h2>
+            <h2 class="article-title">Hive Kafka Integration</h2>
         </div>
     </a>
 </article>
