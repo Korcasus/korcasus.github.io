@@ -12,15 +12,9 @@
     
     
     
-    
-    
-    
-    
-    
-    
     <url>
         <loc>https://korcasus.github.io/en/post/</loc>
-        <lastmod>2022-12-01T22:45:04+09:00</lastmod>
+        <lastmod>2023-02-20T23:16:51+09:00</lastmod>
         <xhtml:link
                 rel="alternate"
                 hreflang="ko"
@@ -37,7 +31,7 @@
     
     <url>
         <loc>https://korcasus.github.io/en/</loc>
-        <lastmod>2022-12-01T22:45:04+09:00</lastmod>
+        <lastmod>2023-02-20T23:16:51+09:00</lastmod>
         <xhtml:link
                 rel="alternate"
                 hreflang="ko"
@@ -49,6 +43,43 @@
                 href="https://korcasus.github.io/en/"
         />
     </url>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <url>
+        <loc>https://korcasus.github.io/en/p/spring-fat-jar-for-spark/</loc>
+        <lastmod>2023-02-20T23:16:51+09:00</lastmod>
+        <xhtml:link
+                rel="alternate"
+                hreflang="ko"
+                href="https://korcasus.github.io/p/spring-fat-jar-for-spark/"
+        />
+        <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://korcasus.github.io/en/p/spring-fat-jar-for-spark/"
+        />
+    </url>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
