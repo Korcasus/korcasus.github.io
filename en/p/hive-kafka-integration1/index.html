@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="ko-KR" dir="ltr">
+<html lang="en-US" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Hive에서 연동을 위한 설정을 진행합니다.'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Proceed with the configuration in Hive for integration.'>
 <title>Hive Kafka Integration</title>
 
 
@@ -9,12 +9,12 @@
 <link rel="stylesheet" href="/scss/style.min.ff300df33b80e2ac49809c825614392ed1c7b27591d65d3c4043602cd162e25f.css"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4086051155158500"
         crossorigin="anonymous"></script>
 <meta property='og:title' content='Hive Kafka Integration'>
-<meta property='og:description' content='Hive에서 연동을 위한 설정을 진행합니다.'>
-<meta property='og:url' content='https://korcasus.github.io/p/hive-kafka-integration1/'>
+<meta property='og:description' content='Proceed with the configuration in Hive for integration.'>
+<meta property='og:url' content='https://korcasus.github.io/en/p/hive-kafka-integration1/'>
 <meta property='og:site_name' content='Read Write'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Hive' /><meta property='article:tag' content='Kafka' /><meta property='article:tag' content='ETL' /><meta property='article:published_time' content='2022-12-01T22:44:01&#43;09:00'/><meta property='article:modified_time' content='2022-12-01T22:44:01&#43;09:00'/>
 <meta name="twitter:title" content="Hive Kafka Integration">
-<meta name="twitter:description" content="Hive에서 연동을 위한 설정을 진행합니다.">
+<meta name="twitter:description" content="Proceed with the configuration in Hive for integration.">
     <link rel="shortcut icon" href="/favicon.ico" />
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSWKN88H77"></script>
@@ -55,7 +55,7 @@ if (!doNotTrack) {
     })();
 </script>
 <div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
-    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="메뉴 여닫기">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
         <span class="hamburger-box">
             <span class="hamburger-inner"></span>
         </span>
@@ -63,12 +63,10 @@ if (!doNotTrack) {
 
     <header>
         
-            
-        
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">Read Write</a></h1>
-            <h2 class="site-description">잊지않기위해 기록합니다.</h2>
+            <h1 class="site-name"><a href="/en">Read Write</a></h1>
+            <h2 class="site-description">Preserving Knowledge: Documenting What I&#39;ve Learned</h2>
         </div>
     </header><ol class="social-menu">
             
@@ -142,7 +140,7 @@ if (!doNotTrack) {
         
         
         <li >
-            <a href='/about/' >
+            <a href='/en/about/' >
                 
                 
                 
@@ -161,7 +159,7 @@ if (!doNotTrack) {
         
         
         <li >
-            <a href='/archives/' >
+            <a href='/en/archives/' >
                 
                 
                 
@@ -181,7 +179,7 @@ if (!doNotTrack) {
         
         
         <li >
-            <a href='/search/' >
+            <a href='/en/search/' >
                 
                 
                 
@@ -214,9 +212,9 @@ if (!doNotTrack) {
 
                     <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
                         
-                            <option value="https://korcasus.github.io/en/" >English</option>
+                            <option value="https://korcasus.github.io/en/" selected>English</option>
                         
-                            <option value="https://korcasus.github.io/" selected>Korean</option>
+                            <option value="https://korcasus.github.io/" >Korean</option>
                         
                     </select>
                 </li>
@@ -240,7 +238,7 @@ if (!doNotTrack) {
 
 
 
-                    <span>다크 모드</span>
+                    <span>Dark Mode</span>
                 </li>
             
         </div>
@@ -264,21 +262,21 @@ if (!doNotTrack) {
 
 
         </div>
-        <h2 class="widget-title section-title">목차</h2>
+        <h2 class="widget-title section-title">Table of contents</h2>
         
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#개요">개요</a></li>
-    <li><a href="#설치">설치</a></li>
-    <li><a href="#테이블-생성">테이블 생성</a></li>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#install">Install</a></li>
+    <li><a href="#create-table">Create Table</a></li>
     <li><a href="#kafka-metadata">Kafka metadata</a></li>
-    <li><a href="#avro-포맷-사용시-주의사항">Avro 포맷 사용시 주의사항</a></li>
+    <li><a href="#precautions-when-using-avro-format">Precautions When Using Avro Format</a></li>
     <li><a href="#serdeserializer-deserializer">Serde(Serializer, Deserializer)</a></li>
-    <li><a href="#인증">인증</a></li>
+    <li><a href="#authentication">Authentication</a></li>
     <li><a href="#key-serializer">Key Serializer</a></li>
-    <li><a href="#그외">그외</a></li>
-    <li><a href="#정리">정리</a></li>
+    <li><a href="#additionally">Additionally</a></li>
+    <li><a href="#summary">Summary</a></li>
   </ol>
 </nav>
         </div>
@@ -297,23 +295,23 @@ if (!doNotTrack) {
     
     <header class="article-category">
         
-            <a href="/categories/hive/" >
+            <a href="/en/categories/hive/" >
                 Hive
             </a>
         
-            <a href="/categories/kafka/" >
+            <a href="/en/categories/kafka/" >
                 Kafka
             </a>
         
-            <a href="/categories/hadoop/" >
+            <a href="/en/categories/hadoop/" >
                 hadoop
             </a>
         
-            <a href="/categories/batch/" >
-                Batch
+            <a href="/en/categories/batch/" >
+                batch
             </a>
         
-            <a href="/categories/etl/" >
+            <a href="/en/categories/etl/" >
                 ETL
             </a>
         
@@ -322,12 +320,12 @@ if (!doNotTrack) {
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/hive-kafka-integration1/">Hive Kafka Integration</a>
+            <a href="/en/p/hive-kafka-integration1/">Hive Kafka Integration</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            Hive에서 연동을 위한 설정을 진행합니다.
+            Proceed with the configuration in Hive for integration.
         </h3>
         
     </div>
@@ -363,7 +361,7 @@ if (!doNotTrack) {
 
 
                 <time class="article-time--reading">
-                    4 분 정도
+                    6 minute read
                 </time>
             </div>
         
@@ -385,7 +383,7 @@ if (!doNotTrack) {
 
             <div>
                 
-                    <a href="https://korcasus.github.io/en/p/hive-kafka-integration1/" class="link">English</a>
+                    <a href="https://korcasus.github.io/p/hive-kafka-integration1/" class="link">Korean</a>
                 
             </div>
         </footer>
@@ -397,53 +395,42 @@ if (!doNotTrack) {
     <section class="article-content">
     
     
-    <h2 id="개요">개요</h2>
-<p>Hive는 Hadoop에 저장된 대용량의 데이터들을 SQL 문법으로 읽고 쓸수있게 해주는 data warehouse software입니다.<br>
-간단하게 Hadoop에서 동작하는 대용량 데이터 처리 Database라고 생각해 볼 수 있을것 같습니다.</p>
-<p>기본으로 HDFS를 지원하며, Hbase 또는 기타 DBMS에 접근할 수 있도록 개방적인 DataSourcing 기능을 제공하고 있습니다.
-Message Queue로 많이 활용되는 Kafka도 지원합니다. 이번 시리즈에서는 Hive와 Kafka 연동을 위한 설정부터 Message를 읽고 쓰는 과정까지 기록해보려고 합니다.</p>
-<p>이번 글에서는 사용할때 필요한 설정들과 알아야하는 정보들을 위주로 기록합니다.
-사용 예시가 궁금하시다면 다음 글을 읽어주세요.</p>
+    <style type="text/css">.notice{--root-color:#444;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#c33;--warning-content:#fee;--info-title:#fb7;--info-content:#fec;--note-title:#6be;--note-content:#e7f2fa;--tip-title:#5a5;--tip-content:#efe}@media (prefers-color-scheme:dark){.notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}}body.dark .notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:var(--root-color);background:var(--root-background)}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}.notice.warning .notice-title{background:var(--warning-title)}.notice.warning{background:var(--warning-content)}.notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}.notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}.notice.tip .notice-title{background:var(--tip-title)}.notice.tip{background:var(--tip-content)}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}</style>
+<div><svg width="0" height="0" display="none" xmlns="http://www.w3.org/2000/svg"><symbol id="tip-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/></symbol><symbol id="note-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="warning-notice" viewBox="0 0 576 512" preserveAspectRatio="xMidYMid meet"><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="info-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/></symbol></svg></div><div class="notice info" >
+<p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#info-notice"></use></svg></span>Info</p><p>This article was originally written in Korean and has been translated using ChatGPT.</p></div>
+
+<h2 id="overview">Overview</h2>
+<p>Hive is a data warehouse software that allows for reading and writing large volumes of data stored in Hadoop using SQL syntax.<br>
+In simple terms, it can be thought of as a large-scale data processing database operating on Hadoop.</p>
+<p>By default, it supports HDFS and offers an open DataSourcing feature that allows access to Hbase or other DBMS. It also supports Kafka, which is widely used as a Message Queue. In this series, I will document the configuration for integrating Hive with Kafka, as well as the process of reading and writing messages.</p>
+<p>In this article, the focus is on the necessary configurations and essential information for use.<br>
+If you are interested in usage examples, please read the next article.</p>
 <blockquote>
-<p><a class="link" href="https://github.com/apache/hive/blob/master/kafka-handler/README.md"  target="_blank" rel="noopener"
-    >공식문서</a>를 토대로 작성하였습니다.<br>
-문서에는 작성되어있지않으나, 사용하려면 추가로 알아야할 내용과 직접 테스트한 예제들을 상세히 기록하고자 합니다.</p>
+<p>This was written based on the <a class="link" href="https://github.com/apache/hive/blob/master/kafka-handler/README.md"  target="_blank" rel="noopener"
+    >official document</a><br>
+Although it is not stated in the document, I intend to detail additional information required for use and examples that I personally tested.</p>
 </blockquote>
 <blockquote>
-<p>Hive 3.x 버전에서 진행하였습니다.</p>
+<p>This was done in Hive version 3.x.</p>
 </blockquote>
-<h2 id="설치">설치</h2>
-<p>사실 별도의 설치는 필요하지않습니다.<br>
-공식문서를 한번 살펴보셨다면 아시겠지만, Hive에 이미 내장 되어있습니다.<br>
-어떻게 할 지 상상이 안될수도 있지만, SQL을 사용하면 Kafka에 연동을 할 수 있습니다.</p>
-<h2 id="테이블-생성">테이블 생성</h2>
-<p>Hive와 Kafka를 연동해주기 위해서는 연결고리를 만들어주어야합니다.<br>
-Spring에서는 Binder와 Binding을 사용하면 손쉽게 연결고리를 만들 수 있듯이, Hive에서는 <code>StorageHandler</code>를 사용하여 만들 수 있습니다.<br>
-<code>StorageHandler</code>는 table을 정의할 때 함께 명시하면 됩니다. 이 외에도 설정을 추가하면 완벽하게 사용하실수 있습니다.</p>
-<p><img src="/p/hive-kafka-integration1/easy.jpg"
-	width="420"
-	height="400"
-	srcset="/p/hive-kafka-integration1/easy_huc8db540d4dfe2991afdf78060faa4427_62748_480x0_resize_q75_box.jpg 480w, /p/hive-kafka-integration1/easy_huc8db540d4dfe2991afdf78060faa4427_62748_1024x0_resize_q75_box.jpg 1024w"
-	loading="lazy"
-	
-		alt="참쉽죠"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="105"
-		data-flex-basis="252px"
-	
-><br>
-다만 Hive에서 Kafka와 연동된 테이블을 만들기 위해서는 몇가지 주의해야하는 사항이 있습니다.</p>
-<p><code>첫번째</code>로는 <code>EXTERNAL</code> 테이블로 생성해야한다는 것입니다.<br>
-우리가 사용할 방식은 Hive에서 Kafka에 접근하여 저장된 데이터들을 사용하는 것이기 때문에, <code>EXTERNAL</code> 키워드를 추가해주어야합니다.</p>
-<p><code>두번째</code>로는 <strong>KafkaStorageHandler</strong> 를 명시해야합니다.<br>
-테이블을 정의할 때 <code>STORED BY 'org.apache.hadoop.hive.kafka.KafkaStorageHandler'</code> 가 함께 적혀있어야 합니다.<br>
-적혀 있어야만 Kafka를 연동하여 사용하실 수 있습니다.</p>
-<p><code>세번째</code>로는 테이블설정을 해주어야합니다.<br>
-<code>TBLPROPERTIES</code> 키워드 사용하면 테이블에 대한 Property를 설정할 수 있게됩니다.
-여기에 Kafka 연동에 필요한 Configuration을 작성해야 합니다.</p>
-<p>세가지를 모두 적용하여 DDL을 작성해보면, 아래의 예시처럼 만들어질 수 있습니다.</p>
+<h2 id="install">Install</h2>
+<p>In fact, no separate installation is required.<br>
+As you may know if you&rsquo;ve looked at the official documentation, it&rsquo;s already built into Hive.<br>
+While it might be hard to imagine, you can integrate with Kafka using SQL.</p>
+<h2 id="create-table">Create Table</h2>
+<p>To integrate Hive and Kafka, a linkage must be created.<br>
+Just as in Spring, you can easily create a connection using Binder and Binding, in Hive, you can do this using <code>StorageHandler</code>.<br>
+You can specify <code>StorageHandler</code> when defining a table. Additionally, with some more configurations, you can use it seamlessly.</p>
+<p>However, there are a few things to be cautious of when creating a table in Hive that integrates with Kafka.</p>
+<p>The <code>first</code> thing is that you must create it as an <code>EXTERNAL</code> table.<br>
+Since the method we will be using involves Hive accessing and using the data stored in Kafka, you need to add the <code>EXTERNAL</code> keyword.</p>
+<p>The <code>second</code> thing is that you must specify the <strong>KafkaStorageHandler</strong>.<br>
+When defining the table, it should include <code>STORED BY 'org.apache.hadoop.hive.kafka.KafkaStorageHandler'</code>.<br>
+Only with this specified can you integrate and use Kafka.</p>
+<p>The <code>third</code> thing is that you need to configure the table.<br>
+Using the <code>TBLPROPERTIES</code> keyword, you can set the properties for the table.<br>
+Within this, you must write the configuration necessary for integrating with Kafka.</p>
+<p>By applying all three points and writing the DDL, it can be crafted as shown in the example below.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -477,28 +464,28 @@ Spring에서는 Binder와 Binding을 사용하면 손쉽게 연결고리를 만�
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="kafka-metadata">Kafka metadata</h2>
-<p>Kafka에 저장된 Message는 Payload 외에도 Key, Partition, Offset, Timestamp 4개의 metadata가 존재합니다.
-이 데이터들도 Hive에서 사용할 수 있습니다.<br>
-앞서 테이블을 정의할 때 사용하였던 <code>KafkaStorageHandler</code>가 자동으로 metadata들을 컬럼으로 등록해 줍니다.</p>
+<p>Messages stored in Kafka consist not only of the Payload but also have four pieces of metadata: Key, Partition, Offset, and Timestamp.<br>
+These data can also be used in Hive.<br>
+The previously mentioned <code>KafkaStorageHandler</code>, used when defining the table, automatically registers these metadata as columns.</p>
 <ul>
 <li>__key (byte array)</li>
 <li>__partition (int32)</li>
 <li>__offset (int64)</li>
 <li>__timestamp (int64)</li>
 </ul>
-<p>활용하는 방안은 실사용 예제를 작성한 다음글에서 자세히 설명드리도록 하겠습니다.</p>
-<h2 id="avro-포맷-사용시-주의사항">Avro 포맷 사용시 주의사항</h2>
-<p>만약 Confluent Connector를 통해 Avro포맷을 사용한다면, 메시지에서 5-bytes를 제거해주어야합니다.<br>
-이 5-bytes중 1-byte는 매직 byte, 4-byte는 schema registry의 schema id에 해당됩니다.<br>
-이는 <code>&quot;avro.serde.type&quot;=&quot;skip&quot;</code> 그리고 <code>&quot;avro.serde.skip.bytes&quot;=&quot;5&quot;</code>를 설정해주면 해결할 수 있습니다.<br>
-avro를 사용할 경우, 상세한 내용은 가이드를 꼭 참고하면 좋겠습니다.</p>
+<p>I will elaborate on the usage methods in the next article where I&rsquo;ve written real-use examples.</p>
+<h2 id="precautions-when-using-avro-format">Precautions When Using Avro Format</h2>
+<p>If you are using the Avro format through the Confluent Connector, you need to remove 5 bytes from the message.<br>
+Of these 5 bytes, 1 byte is the magic byte, and 4 bytes correspond to the schema id of the schema registry.<br>
+This can be resolved by setting <code>&quot;avro.serde.type&quot;=&quot;skip&quot;</code> and <code>&quot;avro.serde.skip.bytes&quot;=&quot;5&quot;</code>.<br>
+If you are using avro, it would be beneficial to thoroughly refer to the guide for detailed information.</p>
 <blockquote>
-<p>confluent avro format 지원은 Hive 4.0버전에 추가될 것으로 보입니다.
-3.x 버전을 사용하시는 분이라면, 주의해주시면 좋을것 같습니다. (제가 삽질했던거라서요&hellip;)</p>
+<p>Support for the confluent avro format seems to be added in Hive version 4.0.<br>
+If you are using version 3.x, it would be good to be cautious. (Because I had a hard time with it&hellip;)</p>
 </blockquote>
 <h2 id="serdeserializer-deserializer">Serde(Serializer, Deserializer)</h2>
-<p>Application에서 Kafka로 데이터 전송을 해본 적 있다면, serializer, deserializer를 지정해보신 경험이 있으실 겁니다.<br>
-Hive에서도 마찬가지로 여러 serializer, deserializer를 제공하고있습니다.</p>
+<p>If you&rsquo;ve ever sent data from an Application to Kafka, you&rsquo;ve probably had experience specifying a serializer and deserializer.<br>
+Similarly, Hive also offers various serializers and deserializers.</p>
 <div class="table-wrapper"><table>
 <thead>
 <tr>
@@ -509,19 +496,19 @@ Hive에서도 마찬가지로 여러 serializer, deserializer를 제공하고있
 <tbody>
 <tr>
 <td>org.apache.hadoop.hive.serde2.JsonSerDe</td>
-<td>JSON 포맷</td>
+<td>JSON</td>
 </tr>
 <tr>
 <td>org.apache.hadoop.hive.serde2.OpenCSVSerde</td>
-<td>CSV 포맷</td>
+<td>CSV</td>
 </tr>
 <tr>
 <td>org.apache.hadoop.hive.serde2.avro.AvroSerDe</td>
-<td>AVRO 포맷</td>
+<td>AVRO</td>
 </tr>
 <tr>
 <td>org.apache.hadoop.hive.serde2.lazybinary.LazyBinarySerDe</td>
-<td>binary..?</td>
+<td>binary</td>
 </tr>
 <tr>
 <td>org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe</td>
@@ -529,61 +516,61 @@ Hive에서도 마찬가지로 여러 serializer, deserializer를 제공하고있
 </tr>
 </tbody>
 </table></div>
-<p>지정하는 방법은 생각보다 매우 간단합니다.<br>
-TBLPROPERTIES에 추가하면 손쉽게 적용할 수 있습니다.<br>
-예를 들면 Kafka에서 읽어들일 데이터포맷이 JSON의 경우이거나, 전송할 데이터가 JSON으로 하고 싶다면 아래처럼 추가하면 됩니다.   <br>
+<p>The method of specification is simpler than you might think.<br>
+You can easily apply it by adding it to TBLPROPERTIES.<br>
+For instance, if the data format you wish to read from Kafka is JSON or if you want to send data in JSON format, you can add it as shown below.<br>
 <code>&quot;kafka.serde.class&quot; = &quot;org.apache.hadoop.hive.serde2.JsonSerDe&quot;</code></p>
-<h2 id="인증">인증</h2>
-<p>Kafka에도 인증을 해야 데이터 읽고 쓸수 있는 권한을 주는 기능을 제공하고 있습니다.<br>
-Kafka 사용하는데 필요한 인증정보들 또한 Hive를 통해 제공할 수 있습니다.</p>
+<h2 id="authentication">Authentication</h2>
+<p>Kafka also offers a feature that requires authentication to grant permissions to read and write data.<br>
+The authentication details needed for using Kafka can also be provided through Hive.</p>
 <blockquote>
-<p>저의 경우에는 별도로 인증을 추가하지 않고 사용했다보니, 인증없이 사용한 경우로 기록하겠습니다.<br>
-인증을 사용해야하는 상황이라면, 공식 문서를 읽어보고 진행해 주세요.</p>
+<p>In my case, I didn&rsquo;t add any authentication and used it, so I will document it as an instance without authentication.
+If you are in a situation where you need authentication, please refer to and proceed with the official documentation.</p>
 </blockquote>
-<p>인증을 위한 TBLPROPERTIES 값을 추가하지 않은 상태라면, 연결을 시도했을때 에러가 발생합니다.<br>
-별도의 설정을 안해두었다면, 당연히 인증없이도 사용가능해야되는거 아닌가? 라고 생각할 수 있을텐데요. (제가 그랬습니다.)
-Hive는 기본값으로 id, password를 사용하여 인증을 시도하려 합니다.<br>
-따라서 인증을 사용하지않는 설정을 추가해주어야만 사용이 가능한데요.</p>
-<p>공식문서에 이 문제를 해결하기 위한 방법을 따로 제시하지않아 많이 어려움을 겪었던 부분이었습니다.   <br>
-결론부터 이야기하면 TBLPROPERTY를 추가하면 해결할 수 있습니다.</p>
+<p>If you haven&rsquo;t added the TBLPROPERTIES value for authentication, an error occurs when you attempt to connect.<br>
+You might think, &ldquo;If I haven&rsquo;t set it up, shouldn&rsquo;t it naturally be usable without authentication?&rdquo; (That&rsquo;s what I thought.)<br>
+By default, Hive tries to authenticate using an id and password.<br>
+Therefore, you have to add a configuration to use it without authentication.</p>
+<p>The official documentation didn&rsquo;t provide a specific solution for this problem, so it was a challenging aspect for me.<br>
+To get straight to the point, you can resolve this by adding TBLPROPERTY.</p>
 <ul>
-<li>producer일 경우 : <code>&quot;kafka.producer.security.protocol&quot; = &quot;PLAINTEXT&quot;</code></li>
-<li>consumer일 경우 : <code>&quot;kafka.consumer.security.protocol&quot; = &quot;PLAINTEXT&quot;</code></li>
+<li>In the case of a producer : <code>&quot;kafka.producer.security.protocol&quot; = &quot;PLAINTEXT&quot;</code></li>
+<li>In the case of a consumer : <code>&quot;kafka.consumer.security.protocol&quot; = &quot;PLAINTEXT&quot;</code></li>
 </ul>
-<p>인증에 상세히 알아보고 싶다면, <a class="link" href="https://kafka.apache.org/documentation/#producerconfigs_security.protocol"  target="_blank" rel="noopener"
-    >문서</a>를 참고하시면 좋을것 같습니다.<br>
-후에 서술하겠지만 설정할때 <code>kafka.</code>를 prefix로 지정해두면, kafka에 설정값이 전달할 수 있습니다.</p>
+<p>If you want to delve deeper into authentication, it would be helpful to refer to this <a class="link" href="https://kafka.apache.org/documentation/#producerconfigs_security.protocol"  target="_blank" rel="noopener"
+    >document</a>.<br>
+As I&rsquo;ll mention later, if you set <code>kafka.</code> as a prefix when configuring, you can pass the configuration value to Kafka.</p>
 <h2 id="key-serializer">Key Serializer</h2>
-<p>앞서 설명드렸던 Serializer들은 Value Serializer 였습니다.<br>
-예상하던것보다 많이 제공했지만 반대로 Key Serializer는 Byte Serializer밖에 지원하지 않습니다.<br>
-다른 Serializer로 변경해서 사용하고 싶더라도 변경할 수 없게 되어 있습니다.<br>
-왜 이렇게 구현한지는 모르겠지만, 자세한 내용은 코드를 보면 알 수 있습니다.<br>
-궁금하실 수 있을 것 같아, 링크도 첨부합니다.</p>
+<p>The Serializers I explained earlier were Value Serializers.<br>
+Though more are provided than you might expect, conversely, only the Byte Serializer is supported for Key Serializer.<br>
+Even if you want to change and use a different Serializer, it&rsquo;s not possible to do so.<br>
+I&rsquo;m not sure why it was implemented this way, but you can understand the details by looking at the code.<br>
+As you might be curious, I&rsquo;m also providing a link.</p>
 <ul>
 <li><a class="link" href="https://github.com/apache/hive/blob/335749a33c02ec0dc7ebadb9eda101d174ad5faf/kafka-handler/src/java/org/apache/hadoop/hive/kafka/KafkaStorageHandler.java#L233"  target="_blank" rel="noopener"
     >producer</a></li>
 <li><a class="link" href="https://github.com/apache/hive/blob/335749a33c02ec0dc7ebadb9eda101d174ad5faf/kafka-handler/src/java/org/apache/hadoop/hive/kafka/KafkaStorageHandler.java#L193"  target="_blank" rel="noopener"
     >consumer</a></li>
 </ul>
-<h2 id="그외">그외</h2>
-<p>지금까지 작성한 내용들 이외에도 Kafka를 사용할때, 추가하고 싶은 설정이 더 있을 수 있습니다.<br>
-공식문서에서는 설명하진 않지만, Kafka에 사용할 설정값을 전달할 수 있습니다.</p>
+<h2 id="additionally">Additionally</h2>
+<p>Beyond what has been written so far, there may be additional configurations you&rsquo;d like to add when using Kafka.<br>
+Although it&rsquo;s not described in the official documentation, you can pass configuration values to be used in Kafka.</p>
 <ul>
-<li>producer로 사용할 경우 <code>“kafka.producer.{property}” = “{value}”</code></li>
-<li>consumer로 사용할 경우 <code>“kafka.consumer.{property}” = “{value}”</code>
-TBLPROPERTIES에 추가해주면, Kafka에 설정값들이 전달되며 원하는 설정을 적용할 수 있습니다.</li>
+<li>In the case of a producer <code>“kafka.producer.{property}” = “{value}”</code></li>
+<li>In the case of a consumer <code>“kafka.consumer.{property}” = “{value}”</code>
+By adding to TBLPROPERTIES, the configuration values are passed to Kafka, allowing you to apply your desired settings.</li>
 </ul>
-<p>어떻게 설정값이 전달될 수 있는지, 구현된 코드가 궁금하다면 아래의 링크를 참고하시면 좋겠습니다.</p>
+<p>If you&rsquo;re curious about how the configuration values are passed or the implemented code, it would be helpful to refer to the link below.</p>
 <ul>
 <li><a class="link" href="https://github.com/apache/hive/blob/335749a33c02ec0dc7ebadb9eda101d174ad5faf/kafka-handler/src/java/org/apache/hadoop/hive/kafka/KafkaStorageHandler.java#L213"  target="_blank" rel="noopener"
     >producer</a></li>
 <li><a class="link" href="https://github.com/apache/hive/blob/335749a33c02ec0dc7ebadb9eda101d174ad5faf/kafka-handler/src/java/org/apache/hadoop/hive/kafka/KafkaStorageHandler.java#L168"  target="_blank" rel="noopener"
     >consumer</a></li>
 </ul>
-<h2 id="정리">정리</h2>
-<p>여기까지 Hive에서 Kafka를 Read, Write하기 위해서 필요한 설정들과, 도움이 되는 정보들에 대해 알아 보았습니다.<br>
-다음 글에서는 Kafka에 있는 Message들을 Hive에서 Read하는 과정을 기록해보겠습니다.<br>
-감사합니다.</p>
+<h2 id="summary">Summary</h2>
+<p>Until now, we&rsquo;ve looked into the necessary configurations and helpful information for reading and writing to Kafka from Hive.<br>
+In the next article, I will document the process of reading messages from Kafka in Hive.<br>
+Thank you.</p>
 
 </section>
 
@@ -592,11 +579,11 @@ TBLPROPERTIES에 추가해주면, Kafka에 설정값들이 전달되며 원하�
     
     <section class="article-tags">
         
-            <a href="/tags/hive/">Hive</a>
+            <a href="/en/tags/hive/">Hive</a>
         
-            <a href="/tags/kafka/">Kafka</a>
+            <a href="/en/tags/kafka/">Kafka</a>
         
-            <a href="/tags/etl/">ETL</a>
+            <a href="/en/tags/etl/">ETL</a>
         
     </section>
 
@@ -622,54 +609,6 @@ TBLPROPERTIES에 추가해주면, Kafka에 설정값들이 전달되며 원하�
     
 
     
-
-<aside class="related-content--wrapper">
-    <h2 class="section-title">관련 글</h2>
-    <div class="related-content">
-        <div class="flex article-list--tile">
-            
-                
-<article class="">
-    <a href="/p/hive-kafka-integration2/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Read message from kafka using hive</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/hive-kafka-integration3/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Write message to kafka using hive</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/elasticsearch-spark/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Elasticsearch Spark</h2>
-        </div>
-    </a>
-</article>
-
-            
-        </div>
-    </div>
-</aside>
 
      
     
@@ -732,8 +671,8 @@ TBLPROPERTIES에 추가해주면, Kafka에 설정값들이 전달되며 원하�
     </section>
     
     <section class="powerby">
-        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>로 만듦 <br />
-        <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>의 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.17.0">Stack</a></b> 테마 사용 중
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.17.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 

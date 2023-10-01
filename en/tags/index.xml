@@ -5,6 +5,31 @@
         <link>https://korcasus.github.io/en/tags/</link>
         <description>Recent content in Tags on Read Write</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>en-US</language><atom:link href="https://korcasus.github.io/en/tags/index.xml" rel="self" type="application/rss+xml" />
+        <language>en-US</language>
+        <lastBuildDate>Thu, 01 Dec 2022 22:44:01 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/en/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>ETL</title>
+        <link>https://korcasus.github.io/en/tags/etl/</link>
+        <pubDate>Thu, 01 Dec 2022 22:44:01 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/en/tags/etl/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Hive</title>
+        <link>https://korcasus.github.io/en/tags/hive/</link>
+        <pubDate>Thu, 01 Dec 2022 22:44:01 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/en/tags/hive/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Kafka</title>
+        <link>https://korcasus.github.io/en/tags/kafka/</link>
+        <pubDate>Thu, 01 Dec 2022 22:44:01 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/en/tags/kafka/</guid>
+        <description></description>
+        </item>
+        
     </channel>
 </rss>

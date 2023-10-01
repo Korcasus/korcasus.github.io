@@ -22,6 +22,16 @@
     <url>
         <loc>https://korcasus.github.io/post/</loc>
         <lastmod>2023-09-10T17:02:01+09:00</lastmod>
+        <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://korcasus.github.io/en/post/"
+        />
+        <xhtml:link
+                rel="alternate"
+                hreflang="ko"
+                href="https://korcasus.github.io/post/"
+        />
     </url>
     
     
@@ -192,6 +202,16 @@
     <url>
         <loc>https://korcasus.github.io/p/hive-kafka-integration1/</loc>
         <lastmod>2022-12-01T22:44:01+09:00</lastmod>
+        <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://korcasus.github.io/en/p/hive-kafka-integration1/"
+        />
+        <xhtml:link
+                rel="alternate"
+                hreflang="ko"
+                href="https://korcasus.github.io/p/hive-kafka-integration1/"
+        />
     </url>
     
     

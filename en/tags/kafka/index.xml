@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Read Write</title>
-        <link>https://korcasus.github.io/en/</link>
-        <description>Recent content on Read Write</description>
+        <title>Kafka on Read Write</title>
+        <link>https://korcasus.github.io/en/tags/kafka/</link>
+        <description>Recent content in Kafka on Read Write</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-US</language>
-        <lastBuildDate>Thu, 01 Dec 2022 22:44:01 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/en/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 01 Dec 2022 22:44:01 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/en/tags/kafka/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Hive Kafka Integration</title>
         <link>https://korcasus.github.io/en/p/hive-kafka-integration1/</link>
         <pubDate>Thu, 01 Dec 2022 22:44:01 +0900</pubDate>
@@ -189,37 +189,6 @@ By adding to TBLPROPERTIES, the configuration values are passed to Kafka, allowi
 In the next article, I will document the process of reading messages from Kafka in Hive.&lt;br&gt;
 Thank you.&lt;/p&gt;
 </description>
-        </item>
-        <item>
-        <title>About</title>
-        <link>https://korcasus.github.io/en/about/</link>
-        <pubDate>Sun, 13 Nov 2022 00:00:00 +0900</pubDate>
-        
-        <guid>https://korcasus.github.io/en/about/</guid>
-        <description>&lt;p&gt;Hello,&lt;/p&gt;
-&lt;p&gt;I am a developer specializing in Backend positions.&lt;br&gt;
-I have a primary interest in DevOps and Big Data, but I&amp;rsquo;m also open to learning about other fields without hesitation.&lt;br&gt;
-I make an effort to record what I learn since it&amp;rsquo;s not always easy to remember everything I&amp;rsquo;ve studied.&lt;/p&gt;
-&lt;p&gt;If you notice any inaccuracies or have any questions, please feel free to leave a comment anytime.&lt;br&gt;
-If you need to reach me personally, you can click on the email icon on the left.&lt;/p&gt;
-&lt;p&gt;Thank you.&lt;/p&gt;
-</description>
-        </item>
-        <item>
-        <title>Archives</title>
-        <link>https://korcasus.github.io/en/archives/</link>
-        <pubDate>Sun, 13 Nov 2022 00:00:00 +0900</pubDate>
-        
-        <guid>https://korcasus.github.io/en/archives/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Search</title>
-        <link>https://korcasus.github.io/en/search/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-        
-        <guid>https://korcasus.github.io/en/search/</guid>
-        <description></description>
         </item>
         
     </channel>
