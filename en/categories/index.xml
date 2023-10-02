@@ -6,20 +6,44 @@
         <description>Recent content in Categories on Read Write</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-US</language>
-        <lastBuildDate>Mon, 20 Feb 2023 23:16:51 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/en/categories/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Gradle</title>
-        <link>https://korcasus.github.io/en/categories/gradle/</link>
-        <pubDate>Mon, 20 Feb 2023 23:16:51 +0900</pubDate>
+        <lastBuildDate>Fri, 11 Aug 2023 00:09:54 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/en/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>ElasticSearch</title>
+        <link>https://korcasus.github.io/en/categories/elasticsearch/</link>
+        <pubDate>Fri, 11 Aug 2023 00:09:54 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/categories/gradle/</guid>
+        <guid>https://korcasus.github.io/en/categories/elasticsearch/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>ETL</title>
+        <link>https://korcasus.github.io/en/categories/etl/</link>
+        <pubDate>Fri, 11 Aug 2023 00:09:54 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/en/categories/etl/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Hive</title>
+        <link>https://korcasus.github.io/en/categories/hive/</link>
+        <pubDate>Fri, 11 Aug 2023 00:09:54 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/en/categories/hive/</guid>
         <description></description>
         </item>
         <item>
         <title>Spark</title>
         <link>https://korcasus.github.io/en/categories/spark/</link>
-        <pubDate>Mon, 20 Feb 2023 23:16:51 +0900</pubDate>
+        <pubDate>Fri, 11 Aug 2023 00:09:54 +0900</pubDate>
         
         <guid>https://korcasus.github.io/en/categories/spark/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Gradle</title>
+        <link>https://korcasus.github.io/en/categories/gradle/</link>
+        <pubDate>Mon, 20 Feb 2023 23:16:51 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/en/categories/gradle/</guid>
         <description></description>
         </item>
         <item>
@@ -47,27 +71,11 @@
         <description></description>
         </item>
         <item>
-        <title>Hive</title>
-        <link>https://korcasus.github.io/en/categories/hive/</link>
-        <pubDate>Thu, 01 Dec 2022 22:45:04 +0900</pubDate>
-        
-        <guid>https://korcasus.github.io/en/categories/hive/</guid>
-        <description></description>
-        </item>
-        <item>
         <title>Kafka</title>
         <link>https://korcasus.github.io/en/categories/kafka/</link>
         <pubDate>Thu, 01 Dec 2022 22:45:04 +0900</pubDate>
         
         <guid>https://korcasus.github.io/en/categories/kafka/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>ETL</title>
-        <link>https://korcasus.github.io/en/categories/etl/</link>
-        <pubDate>Thu, 01 Dec 2022 22:45:01 +0900</pubDate>
-        
-        <guid>https://korcasus.github.io/en/categories/etl/</guid>
         <description></description>
         </item>
         <item>

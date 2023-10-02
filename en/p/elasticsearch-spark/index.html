@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="ko-KR" dir="ltr">
+<html lang="en-US" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Elastic Search Index데이터를 Spark를 사용해 Hive에 저장하는 과정을 설명합니다.'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='The process of transferring Elastic Search Index data to Hive using Spark is detailed.'>
 <title>Elasticsearch Spark</title>
 
 
@@ -9,12 +9,12 @@
 <link rel="stylesheet" href="/scss/style.min.ff300df33b80e2ac49809c825614392ed1c7b27591d65d3c4043602cd162e25f.css"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4086051155158500"
         crossorigin="anonymous"></script>
 <meta property='og:title' content='Elasticsearch Spark'>
-<meta property='og:description' content='Elastic Search Index데이터를 Spark를 사용해 Hive에 저장하는 과정을 설명합니다.'>
-<meta property='og:url' content='https://korcasus.github.io/p/elasticsearch-spark/'>
+<meta property='og:description' content='The process of transferring Elastic Search Index data to Hive using Spark is detailed.'>
+<meta property='og:url' content='https://korcasus.github.io/en/p/elasticsearch-spark/'>
 <meta property='og:site_name' content='Read Write'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Spark' /><meta property='article:tag' content='Hive' /><meta property='article:tag' content='ElasticSearch' /><meta property='article:published_time' content='2023-08-11T00:09:54&#43;09:00'/><meta property='article:modified_time' content='2023-08-11T00:09:54&#43;09:00'/>
 <meta name="twitter:title" content="Elasticsearch Spark">
-<meta name="twitter:description" content="Elastic Search Index데이터를 Spark를 사용해 Hive에 저장하는 과정을 설명합니다.">
+<meta name="twitter:description" content="The process of transferring Elastic Search Index data to Hive using Spark is detailed.">
     <link rel="shortcut icon" href="/favicon.ico" />
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSWKN88H77"></script>
@@ -55,7 +55,7 @@ if (!doNotTrack) {
     })();
 </script>
 <div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
-    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="메뉴 여닫기">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
         <span class="hamburger-box">
             <span class="hamburger-inner"></span>
         </span>
@@ -63,12 +63,10 @@ if (!doNotTrack) {
 
     <header>
         
-            
-        
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">Read Write</a></h1>
-            <h2 class="site-description">잊지않기위해 기록합니다.</h2>
+            <h1 class="site-name"><a href="/en">Read Write</a></h1>
+            <h2 class="site-description">Preserving Knowledge: Documenting What I&#39;ve Learned</h2>
         </div>
     </header><ol class="social-menu">
             
@@ -142,7 +140,7 @@ if (!doNotTrack) {
         
         
         <li >
-            <a href='/about/' >
+            <a href='/en/about/' >
                 
                 
                 
@@ -161,7 +159,7 @@ if (!doNotTrack) {
         
         
         <li >
-            <a href='/archives/' >
+            <a href='/en/archives/' >
                 
                 
                 
@@ -181,7 +179,7 @@ if (!doNotTrack) {
         
         
         <li >
-            <a href='/search/' >
+            <a href='/en/search/' >
                 
                 
                 
@@ -214,9 +212,9 @@ if (!doNotTrack) {
 
                     <select name="language" onchange="window.location.href = this.selectedOptions[0].value">
                         
-                            <option value="https://korcasus.github.io/en/" >English</option>
+                            <option value="https://korcasus.github.io/en/" selected>English</option>
                         
-                            <option value="https://korcasus.github.io/" selected>Korean</option>
+                            <option value="https://korcasus.github.io/" >Korean</option>
                         
                     </select>
                 </li>
@@ -240,7 +238,7 @@ if (!doNotTrack) {
 
 
 
-                    <span>다크 모드</span>
+                    <span>Dark Mode</span>
                 </li>
             
         </div>
@@ -264,7 +262,7 @@ if (!doNotTrack) {
 
 
         </div>
-        <h2 class="widget-title section-title">목차</h2>
+        <h2 class="widget-title section-title">Table of contents</h2>
         
         <div class="widget--toc">
             <nav id="TableOfContents">
@@ -304,19 +302,19 @@ if (!doNotTrack) {
     
     <header class="article-category">
         
-            <a href="/categories/spark/" >
+            <a href="/en/categories/spark/" >
                 Spark
             </a>
         
-            <a href="/categories/hive/" >
+            <a href="/en/categories/hive/" >
                 Hive
             </a>
         
-            <a href="/categories/elasticsearch/" >
+            <a href="/en/categories/elasticsearch/" >
                 ElasticSearch
             </a>
         
-            <a href="/categories/etl/" >
+            <a href="/en/categories/etl/" >
                 ETL
             </a>
         
@@ -325,12 +323,12 @@ if (!doNotTrack) {
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/elasticsearch-spark/">Elasticsearch Spark</a>
+            <a href="/en/p/elasticsearch-spark/">Elasticsearch Spark</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            Elastic Search Index데이터를 Spark를 사용해 Hive에 저장하는 과정을 설명합니다.
+            The process of transferring Elastic Search Index data to Hive using Spark is detailed.
         </h3>
         
     </div>
@@ -366,7 +364,7 @@ if (!doNotTrack) {
 
 
                 <time class="article-time--reading">
-                    5 분 정도
+                    8 minute read
                 </time>
             </div>
         
@@ -388,7 +386,7 @@ if (!doNotTrack) {
 
             <div>
                 
-                    <a href="https://korcasus.github.io/en/p/elasticsearch-spark/" class="link">English</a>
+                    <a href="https://korcasus.github.io/p/elasticsearch-spark/" class="link">Korean</a>
                 
             </div>
         </footer>
@@ -400,22 +398,26 @@ if (!doNotTrack) {
     <section class="article-content">
     
     
-    <h2 id="introduction">Introduction</h2>
-<p>ES가 검색엔진이다보니, 설정한 조건에 맞는 데이터를 빠르게 찾아낼 수 있습니다.<br>
-하지만 조건으로 설정하기 위해서는 색인하는 과정이 필요하고, 색인을 하기위해서는 많은 리소스가 필요로 합니다.<br>
-이러한 제약조건으로 인해, 많은 양의 데이터 속에서 조건에 맞는 데이터를 찾아 효율적으로 추출하기는 어렵습니다.</p>
-<p>따라서 다른 방법으로 데이터를 조회해야할텐데, 이러한 상황이라면 대부분의 경우 Hadoop을 사용을 검토합니다.<br>
-만약 Elasticsearch에 저장할 데이터를 전송하는 역할을 팀원 또는 본인이라면, 적절한 방법으로 HDFS에 기록할 수 있습니다.<br>
-하지만 데이터 전송에 대한 제어권이 없고, Elasticsearch만 사용이 가능하다면 어떻게 해야할까요?</p>
-<p>당연히 Elasticsearch에서 데이터 추출을 검토해야할 것입니다.<br>
-이러한 상황에 사용하기 적합한 방법을 설명하고자 합니다.<br>
-Spark에서 library를 사용해, Elasticsearch 데이터를 ETL하는 과정을 Getting Started 정도의 내용으로 설명합니다.</p>
+    <style type="text/css">.notice{--root-color:#444;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#c33;--warning-content:#fee;--info-title:#fb7;--info-content:#fec;--note-title:#6be;--note-content:#e7f2fa;--tip-title:#5a5;--tip-content:#efe}@media (prefers-color-scheme:dark){.notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}}body.dark .notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:var(--root-color);background:var(--root-background)}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}.notice.warning .notice-title{background:var(--warning-title)}.notice.warning{background:var(--warning-content)}.notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}.notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}.notice.tip .notice-title{background:var(--tip-title)}.notice.tip{background:var(--tip-content)}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}</style>
+<div><svg width="0" height="0" display="none" xmlns="http://www.w3.org/2000/svg"><symbol id="tip-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/></symbol><symbol id="note-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="warning-notice" viewBox="0 0 576 512" preserveAspectRatio="xMidYMid meet"><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="info-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/></symbol></svg></div><div class="notice info" >
+<p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#info-notice"></use></svg></span>Info</p><p>This article was originally written in Korean and has been translated using ChatGPT.</p></div>
+
+<h2 id="introduction">Introduction</h2>
+<p>Given that ES operates as a search engine, it excels in swiftly locating data fitting specific conditions.<br>
+But, the preconditioning for such capabilities demands an indexing stage, which in turn, consumes significant resources.<br>
+Owing to these limitations, extracting pertinent data from vast datasets becomes challenging.</p>
+<p>In light of this, alternative data retrieval methods become necessary, with Hadoop often emerging as a primary consideration.<br>
+If the task of transmitting data to Elasticsearch falls on you or a team member, it&rsquo;s feasible to efficiently store it in HDFS.<br>
+However, faced with the constraint of exclusive Elasticsearch usage without control over data transfer, what steps should be taken?</p>
+<p>Clearly, the initial step would be to contemplate data extraction from Elasticsearch.<br>
+In addressing this scenario, I intend to highlight an apt methodology.<br>
+The procedure for ETLing data from Elasticsearch via a library in Spark will be detailed at an introductory &lsquo;Getting Started&rsquo; level.</p>
 <h2 id="objective">Objective</h2>
-<p>ES에 색인되어있는 특정 index를 Hive로 ETL한다.</p>
+<p>Perform ETL on a specific index from ES to Hive.</p>
 <h2 id="required">Required</h2>
 <ul>
-<li>Spark에 조금의 지식이 필요합니다.</li>
-<li>Elasticsearch에 조금의 지식이 필요합니다.</li>
+<li>Basic knowledge of Spark is essential.</li>
+<li>Basic knowledge of Elasticsearch is essential.</li>
 </ul>
 <h3 id="environment">Environment</h3>
 <ul>
@@ -430,42 +432,42 @@ Spark에서 library를 사용해, Elasticsearch 데이터를 ETL하는 과정을
 <li><code>elasticsearch-spark-30_2.12</code></li>
 <li><code>calcite-core</code></li>
 </ul>
-<p>ElasticSearch 8버전으로 사용한다면, Release Note를 보고 적절한 버전을 찾는것을 권장합니다.<br>
-elastic-* 라이브러리는 7.17.0 버전 이상을 사용하는게 좋습니다.<br>
-7.17.0 버전에서 중요한 패치가 이루어졌기 때문입니다.</p>
-<p>calcite-core는 deserialize할때 사용했던것으로 기억합니다.<br>
-추가하지않으면, Dataframe을 생성하는 과정에 문제가 발생합니다.</p>
+<p>If deploying ElasticSearch version 8, consulting the Release Note for the most suitable version is advised.<br>
+For the elastic-* library, utilizing version 7.17.0 or above is preferable.<br>
+An essential patch was incorporated in the 7.17.0 release, warranting this recommendation.</p>
+<p>I remember utilizing the calcite-core during the deserialization process.<br>
+Omitting it can lead to complications when forming a Dataframe.</p>
 <h2 id="getting-started">Getting Started</h2>
 <h3 id="connect">Connect</h3>
-<p><a class="link" href="https://www.elastic.co/guide/en/elasticsearch/hadoop/7.17/spark.html#spark-sql"  target="_blank" rel="noopener"
-    >가이드</a>대로 하면 Spark SQL을 사용할 수있습니다.
-하지만 Spark SQL은 구조화된 데이터이므로, 동일한 데이터구조를 가지지않을경우 문제가 생길수있습니다.</p>
-<p>구버전은(Spark version &lt; 3.x) 설명하진 않겠습니다.</p>
-<p>Spark3버전부터는 SparkSession을 생성해 사용하게 됩니다.<br>
-Session을 생성하면서, 연결하고자 하는 es의 정보들을 입력해주어야합니다.</p>
-<p><a class="link" href="https://www.elastic.co/guide/en/elasticsearch/hadoop/7.17/configuration.html#_essential_settings"  target="_blank" rel="noopener"
-    >Configuration</a>을 읽으면 상세한 내용을 확인할 수 있습니다.<br>
-ES에 연결하기위해서는 아래의 2개는 필수적으로 작성해주어야 합니다.</p>
+<p>If you adhere to the <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/hadoop/7.17/spark.html#spark-sql"  target="_blank" rel="noopener"
+    >guide</a>, you can leverage Spark SQL.<br>
+But, as Spark SQL deals with structured data, discrepancies in data structures can pose challenges.</p>
+<p>I won&rsquo;t delve into the earlier versions (Spark version &lt; 3.x).</p>
+<p>Starting with Spark version 3, the use of SparkSession becomes the norm.<br>
+During the session creation, it&rsquo;s imperative to provide the details of the desired Elasticsearch connection.</p>
+<p>For a comprehensive understanding, refer to the <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/hadoop/7.17/configuration.html#_essential_settings"  target="_blank" rel="noopener"
+    >Configuration</a> documentation.<br>
+To establish a connection with ES, these two entries are mandatory.</p>
 <ul>
 <li>es.nodes</li>
 <li>es.port</li>
 </ul>
-<p>인증이 필요하거나, https연결이 필요하지않을 경우 아래와 같은 설정을 입력해줍니다.</p>
+<p>When authentication is deemed necessary or if an HTTPS connection isn&rsquo;t mandated, apply the settings below.</p>
 <ul>
 <li>es.net.http.auth.user</li>
 <li>es.net.http.auth.pass</li>
 <li>es.net.ssl</li>
 </ul>
-<p>인증과 관련된 내용은 <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/hadoop/7.17/configuration.html#_secure_settings"  target="_blank" rel="noopener"
-    >링크</a>를 확인해주세요.
-제한된 환경인 WAN환경에 구축된 ES를 사용해야하는 경우 추가해주어야하는 파라미터가 있습니다.
-이 파라미터를 추가할 경우, <code>es.nodes</code> 에 명시된 nodes만 사용합니다. 다른 node는 탐색하지 않습니다.</p>
+<p>For authentication specifics, refer to the provided <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/hadoop/7.17/configuration.html#_secure_settings"  target="_blank" rel="noopener"
+    >link</a>.<br>
+Should you operate ES within constrained settings like a WAN environment, there are essential parameters to incorporate.<br>
+Once this parameter is integrated, it exclusively employs the nodes delineated in es.nodes, bypassing all others.</p>
 <ul>
 <li>es.nodes.wan.only</li>
 </ul>
-<p>상세 내용은 <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/hadoop/7.17/configuration.html#_input"  target="_blank" rel="noopener"
-    >링크</a>에서 보실수 있습니다.
-위와같은 설정 정보들을 모두 사용하면 아래와 같습니다.</p>
+<p>For in-depth details, please refer to the <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/hadoop/7.17/configuration.html#_input"  target="_blank" rel="noopener"
+    >link</a>.<br>
+When incorporating all the aforementioned configuration details, the resultant setting appears as below.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -490,22 +492,22 @@ ES에 연결하기위해서는 아래의 2개는 필수적으로 작성해주어
 </span></span><span class="line"><span class="cl">                           <span class="o">.</span><span class="na">config</span><span class="o">(</span><span class="s">&#34;spark.es.net.ssl&#34;</span><span class="o">,</span> <span class="kc">true</span><span class="o">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>ElasticSearch hadoop은 Spark가 접근해올 수 있는 방법을 4가지 제공하고있습니다.</p>
+</div><p>ElasticSearch Hadoop offers four distinct avenues for Spark integration.</p>
 <ul>
 <li>Native RDD</li>
 <li>Spark Streaming</li>
 <li>Spark SQL</li>
 <li>Spark Structured Streaming</li>
 </ul>
-<p>위 4가지를 성격에 따라 나누어 보았습니다.</p>
+<p>I&rsquo;ve categorized the aforementioned four based on their nature.</p>
 <ul>
 <li>Structured vs Unstructured</li>
 <li>Streaming vs Non-Streaming(Batch)</li>
 </ul>
-<p>Streaming을 고려해야한다면, Spark Streaming이나 Spark Structured Streaming을 검토해볼수있습니다.<br>
-그게아니라면 Native RDD나 Spark SQL을 고려해볼 수 있습니다.
-ES데이터를 Hive에서 사용할 목적으로 진행하는 프로젝트이므로, Structure 형태를 가질수 있는 Spark SQL로 진행하였습니다.
-1.5 이상부터는 아래처럼 Dataframe을 생성할 수 있습니다. (1.5 이전 버전은 가이드 문서를 통해 확인해 주세요.)</p>
+<p>If streaming is on the agenda, deliberation on Spark Streaming or Spark Structured Streaming might be apt.<br>
+In other instances, Native RDD or Spark SQL emerges as viable options.<br>
+Given the project&rsquo;s objective to utilize ES data within Hive, we opted for Spark SQL, capable of embracing a structured format.<br>
+From version 1.5 onwards, the Dataframe can be instantiated as depicted below. (For guidance on versions preceding 1.5, consult the respective documentation.)</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -514,8 +516,8 @@ ES데이터를 Hive에서 사용할 목적으로 진행하는 프로젝트이므
 <pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">df</span> <span class="k">=</span> <span class="n">sql</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">format</span><span class="o">(</span><span class="s">&#34;es&#34;</span><span class="o">).</span><span class="n">load</span><span class="o">(</span><span class="s">&#34;spark/index&#34;</span><span class="o">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>예시는 Java도 있긴하지만, Scala로 위주로 설명하는게 대다수입니다.<br>
-유지 보수를 위해 Java Project로 진행해야했기때문에, 사용 예시는 앞으로 Java로 보여드리겠습니다.</p>
+</div><p>Although Java examples exist, the lion&rsquo;s share of the explanations leans towards Scala.<br>
+Given our commitment to maintenance, we opted for a Java Project. Consequently, forthcoming examples will be showcased in Java.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -528,8 +530,8 @@ ES데이터를 Hive에서 사용할 목적으로 진행하는 프로젝트이므
 </span></span><span class="line"><span class="cl">                              <span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="s">&#34;template_data&#34;</span><span class="o">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>위와같은 방법으로 DataFrame 객체를 생성할 수 있습니다.<br>
-만약에 Java DataFrame 객체를 생성해야 한다면, 아래와 같이 할 수 있습니다.</p>
+</div><p>You have the capability to instantiate a DataFrame object using the aforementioned method.<br>
+Should the need arise to craft a Java DataFrame object, the procedure can be executed as delineated below.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -539,16 +541,16 @@ ES데이터를 Hive에서 사용할 목적으로 진행하는 프로젝트이므
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">cfg</span> <span class="o">=</span> <span class="n">Maps</span><span class="o">.</span><span class="na">newHashMap</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl"><span class="c1">// cfg는 configuration을 추가하기위한 객체입니다.
+</span></span><span class="line"><span class="cl"><span class="c1">// cfg serves as an object designated for incorporating configuration.
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">cfg</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;es.read.metadata&#34;</span><span class="o">,</span> <span class="s">&#34;true&#34;</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl"><span class="n">Dataset</span><span class="o">&lt;</span><span class="n">Row</span><span class="o">&gt;</span> <span class="n">df</span> <span class="o">=</span> <span class="n">JavaEsSparkSQL</span><span class="o">.</span><span class="na">esDF</span><span class="o">(</span><span class="n">sparkSession</span><span class="o">,</span> <span class="s">&#34;template_data&#34;</span><span class="o">,</span> <span class="n">cfg</span><span class="o">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="read-from-es">Read from ES</h3>
-<p>지금까지 설명드린 방법을 통해 DataFrame에 접근할 수 있게 되었습니다.<br>
-이제는 데이터를 읽어와서 사용해보도록 하겠습니다.<br>
-우선은 DataFrame에 어떤 데이터들이 있는지 확인해보겠습니다.<br>
-아래와 같이 printSchema()함수를 사용하면, DataFrame이 어떤 구조를 갖추었는지 알 수 있습니다.</p>
+<p>Through the methodologies outlined thus far, you&rsquo;ve gained access to the DataFrame.<br>
+It&rsquo;s time to fetch and utilize the data contained within.<br>
+Initially, we&rsquo;ll ascertain the kind of data stored in the DataFrame.<br>
+Employing the printSchema() function, as demonstrated below, reveals the inherent structure of the DataFrame.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -569,10 +571,10 @@ ES데이터를 Hive에서 사용할 목적으로 진행하는 프로젝트이므
 </span></span><span class="line"><span class="cl"><span class="o">...</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>index에 설정된 mapping정보를 토대로 DataFrame의 Schema를 구성합니다.<br>
-여기까지 직접 진행해보시면 아시겠지만, document id와 같은 metadata가 없습니다.
-이부분은 좀 의아하긴 하지만, <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/hadoop/7.17/configuration.html#_metadata_when_reading_from_elasticsearch"  target="_blank" rel="noopener"
-    >설정값</a>을 추가하면 쉽게 해결할 수 있습니다.</p>
+</div><p>The DataFrame&rsquo;s schema is formulated using the mapping specifications designated within the index.<br>
+If you&rsquo;ve walked through this process firsthand, you&rsquo;d discern the absence of metadata, such as the document id.<br>
+While this aspect may appear perplexing, it can be readily addressed by integrating the specified <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/hadoop/7.17/configuration.html#_metadata_when_reading_from_elasticsearch"  target="_blank" rel="noopener"
+    >configuration value</a>.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -609,14 +611,14 @@ ES데이터를 Hive에서 사용할 목적으로 진행하는 프로젝트이므
 </span></span><span class="line"><span class="cl"> <span class="o">|</span>    <span class="o">|--</span> <span class="n">value</span><span class="o">:</span> <span class="n">string</span> <span class="o">(</span><span class="n">valueContainsNull</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>또 한가지 의아한 점이 있을 겁니다. array 필드는 어떻게 되는거지? 🤔<br>
-mapping에는 array 타입을 지정해줄 수 없기 때문입니다.<br>
-<a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/7.17/array.html"  target="_blank" rel="noopener"
-    >가이드</a> 문서를 살펴봐도 element에 사용되는 데이터 타입을 명시하도록 안내하고 있습니다.<br>
-DataFrame Schema가 잘못 지정되서, 파싱 에러가 발생할 수 있지 않을까? 질문으로 이어집니다.<br>
-이 부분도 마찬가지로 설정으로 해결가능하게끔 만들어져 있습니다.<br>
-저도 이 문제를 겪었다보니, <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/hadoop/7.17/configuration.html#cfg-field-info"  target="_blank" rel="noopener"
-    >설정</a>으로 해결하였습니다.</p>
+</div><p>There might be another lingering query on your mind: how are array fields addressed? 🤔<br>
+The crux lies in the inability to designate an array type within the mapping.<br>
+As evident from the <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/reference/7.17/array.html"  target="_blank" rel="noopener"
+    >guide</a>, it emphasizes declaring the data type associated with the element.<br>
+Could there be potential parsing issues due to misconfiguration of the DataFrame Schema? This question naturally ensues.<br>
+This hurdle is surmountable through appropriate configuration.<br>
+I, too, encountered this challenge and turned to this specific <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/hadoop/7.17/configuration.html#cfg-field-info"  target="_blank" rel="noopener"
+    >configuration</a> for resolution.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -633,11 +635,11 @@ DataFrame Schema가 잘못 지정되서, 파싱 에러가 발생할 수 있지 �
 </span></span><span class="line"><span class="cl">                                      <span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="s">&#34;template_data&#34;</span><span class="o">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>어떤 필드를 array 로 파싱해야하는지 명시하였습니다.<br>
-이것과 반대로 array로 파싱하면 안되는 필드를 명시할 수도 있습니다.<br>
-<code>es.read.field.as.array.exclude</code> 값을 설정해주면 됩니다.<br>
-ES에 저장된 데이터들과 mapping의 데이터 타입이 불일치 하지않는 이상, 여기까지 진행했다면 ES데이터를 파싱하는데 문제가 발생하지 않습니다.<br>
-DataFrame을 직접 Handling할 수도 있지만, 임시적으로 사용할 View를 생성해주면 아래처럼 SQL을 사용할 수도있습니다.</p>
+</div><p>I&rsquo;ve delineated which fields warrant parsing as arrays.<br>
+On the flip side, fields that should abstain from array parsing can also be identified.<br>
+This is facilitated by adjusting the <code>es.read.field.as.array.exclude</code> parameter.<br>
+Given that the data types between ES stored data and mapping harmonize, no discrepancies will arise during the ES data parsing phase.<br>
+Though direct DataFrame manipulation is feasible, establishing a temporary view empowers you to employ SQL, as exemplified below.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -649,25 +651,25 @@ DataFrame을 직접 Handling할 수도 있지만, 임시적으로 사용할 View
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="customize-field">Customize Field</h3>
-<p>ES에 있는 데이터를 그대로 사용하는것이 아니라, 변환을 거쳐 사용해야할 수도 있습니다.<br>
-예를들면 Serialized Json String이 필드로 존재한다면, Deserialize한 후에 Map으로 사용하는 경우가 있습니다.<br>
-물론 예시는 저의 사례입니다. ㅎ<br>
-Processing을 하기에 앞서 Spark가 어떻게 실행되는지 간단히 이야기해보겠습니다.</p>
-<p>우리가 작성한 프로그램은 Spark에서 Driver라고 불리며, 다수의 워커 관리 및 운영프로그램의 실행관리 및 모니터링과 같은 역할을 수행합니다.<br>
-데이터 조회와 분산처리의 경우에는 Worker(Executor)가 할당되어 처리하게됩니다. 다수의 Worker가 처리하기 때문에 큰 규모의 데이터를 처리하더라도 빠른시간안에 처리가 가능합니다.<br>
-물론 Worker에서 처리한 데이터를 Driver에서 처리하게 할수는 있지만, 상당히 느려질 것입니다.<br>
-Spark SQL로 만든 DataFrame은 Spark의 Worker에 분산되어 저장되어있습니다.<br>
-따라서 필드의 Processing을 위해서는 다수의 Worker에서 함수를 실행할 수 있어야합니다.</p>
-<p>이를 위해서는 Serializable Interface로 구현해주면 됩니다.<br>
-하지만 이미 만들어진 Class를 Serializable로 변경하는 작업은 쉽지않을 겁니다.<br>
-대안으로 static function으로 만들어서 해결할 수 있습니다.</p>
-<p>예시로 말씀드렸던 Deserialize한 후 컬럼으로 등록하는 과정을 나열하면 아래와 순서대로 되겠습니다.</p>
+<p>It&rsquo;s not always a straightforward approach to utilize data from ES in its original form; transformations might be imperative at times.<br>
+Consider a scenario where a field comprises a serialized Json string; deserialization may precede its utilization as a Map.<br>
+Indeed, this illustration stems from my personal encounters. 😄<br>
+Prior to embarking on the processing aspect, let&rsquo;s touch upon the fundamental workings of Spark.</p>
+<p>Our crafted program is termed a &lsquo;Driver&rsquo; within Spark&rsquo;s context, assuming responsibilities such as supervising a myriad of workers, orchestrating the operational program executions, and monitoring tasks.<br>
+Data fetching and distributed tasks are designated to Workers (or Executors). With the collaborative efforts of numerous Workers, even voluminous datasets can be tackled efficiently in a truncated timeframe.<br>
+While it&rsquo;s feasible for the Driver to manage the data churned out by Workers, this approach would undeniably decelerate operations.<br>
+The DataFrames sculpted via Spark SQL reside in a distributed fashion amongst Spark&rsquo;s Workers.<br>
+Thus, for adept field processing, it&rsquo;s imperative to facilitate function executions across an array of Workers.</p>
+<p>For this purpose, implementation through the Serializable Interface is recommended.<br>
+Yet, retrofitting an existing Class to adopt the Serializable trait may pose challenges.<br>
+A viable alternative is formulating a static function to address this.</p>
+<p>When outlining the process of registering a column post-Deserialize, the sequence would be as follows.</p>
 <ul>
-<li>필드를 가공할 수 있는 UDF(User Defined Function)을 static function으로 만든다.</li>
-<li>SparkSession에 UDF 등록</li>
-<li>DataFrame의 컬럼으로 추가</li>
+<li>Develop a UDF (User Defined Function) as a static function for field manipulation.</li>
+<li>Register this UDF with SparkSession.</li>
+<li>Incorporate it as a new column in the DataFrame.</li>
 </ul>
-<p>위의 3가지 과정을 코드로 작성하면 아래와 같습니다.</p>
+<p>If you translate the aforementioned three steps into code, it would look like the following.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -700,19 +702,19 @@ Spark SQL로 만든 DataFrame은 Spark의 Worker에 분산되어 저장되어있
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>이렇게 UDF 함수를 각 Worker에서 호출할 수 있게 됨으로서, 분산저장된 DataFrame을 병렬로 Processing할 수 있습니다.</p>
+</div><p>With the ability to invoke the UDF function on each Worker, distributed DataFrames can be processed in parallel.</p>
 <h2 id="conclusion">Conclusion</h2>
-<p>여기까지 Spark를 사용해 Elasticsearch 데이터를 Hive에 연동하는 과정까지 진행해보았습니다.
-4가지 방식중 저의 니즈에 맞는 Spark-SQL만 설명드렸지만, 사용하는 방법은 나머지도 비슷비슷합니다.
-상황에 맞는 적절한 방식을 선택해서 진행하시면 되겠습니다.</p>
-<p>Guide 문서만 보고 시작을 헀는데, 실력이 부족해서 그런지 삽질 좀 했었습니다. 🫠<br>
-이와 비슷한 일을 하셔야하는 분들에게 도움이 되었으면 해서 기록으로 남겨봅니다.<br>
-감사합니다.</p>
+<p>So far, we&rsquo;ve explored the process of integrating Elasticsearch data into Hive using Spark.<br>
+While I&rsquo;ve detailed only the Spark-SQL approach tailored to my requirements among the four available strategies, the methods for the others are fairly analogous.<br>
+I recommend selecting the method that aligns best with your specific context.</p>
+<p>I embarked on this journey solely based on the guide documentation, and perhaps due to my limited expertise, I faced some challenges. 🫠<br>
+I hope this documentation serves as a helpful reference for those undertaking similar tasks.<br>
+Appreciate your understanding.</p>
 <h2 id="reference">Reference</h2>
 <ul>
-<li>Spark-SQL 연동 공식문서 : <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/hadoop/7.17/spark.html#spark-sql"  target="_blank" rel="noopener"
+<li>Official Documentation for Spark-SQL Integration : <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/hadoop/7.17/spark.html#spark-sql"  target="_blank" rel="noopener"
     >https://www.elastic.co/guide/en/elasticsearch/hadoop/7.17/spark.html#spark-sql</a></li>
-<li>Configuration 공식문서 : <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/hadoop/7.17/configuration.html"  target="_blank" rel="noopener"
+<li>Official Documentation for Configuration : <a class="link" href="https://www.elastic.co/guide/en/elasticsearch/hadoop/7.17/configuration.html"  target="_blank" rel="noopener"
     >https://www.elastic.co/guide/en/elasticsearch/hadoop/7.17/configuration.html</a></li>
 <li>Dependency
 <ul>
@@ -731,11 +733,11 @@ Spark SQL로 만든 DataFrame은 Spark의 Worker에 분산되어 저장되어있
     
     <section class="article-tags">
         
-            <a href="/tags/spark/">Spark</a>
+            <a href="/en/tags/spark/">Spark</a>
         
-            <a href="/tags/hive/">Hive</a>
+            <a href="/en/tags/hive/">Hive</a>
         
-            <a href="/tags/elasticsearch/">ElasticSearch</a>
+            <a href="/en/tags/elasticsearch/">ElasticSearch</a>
         
     </section>
 
@@ -763,13 +765,13 @@ Spark SQL로 만든 DataFrame은 Spark의 Worker에 분산되어 저장되어있
     
 
 <aside class="related-content--wrapper">
-    <h2 class="section-title">관련 글</h2>
+    <h2 class="section-title">Related content</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
             
                 
 <article class="">
-    <a href="/p/hive-kafka-integration2/">
+    <a href="/en/p/hive-kafka-integration2/">
         
         
 
@@ -782,7 +784,7 @@ Spark SQL로 만든 DataFrame은 Spark의 Worker에 분산되어 저장되어있
             
                 
 <article class="">
-    <a href="/p/hive-kafka-integration1/">
+    <a href="/en/p/hive-kafka-integration1/">
         
         
 
@@ -795,7 +797,7 @@ Spark SQL로 만든 DataFrame은 Spark의 Worker에 분산되어 저장되어있
             
                 
 <article class="">
-    <a href="/p/spring-fat-jar-for-spark/">
+    <a href="/en/p/spring-fat-jar-for-spark/">
         
         
 
@@ -808,7 +810,7 @@ Spark SQL로 만든 DataFrame은 Spark의 Worker에 분산되어 저장되어있
             
                 
 <article class="">
-    <a href="/p/hive-kafka-integration3/">
+    <a href="/en/p/hive-kafka-integration3/">
         
         
 
@@ -884,8 +886,8 @@ Spark SQL로 만든 DataFrame은 Spark의 Worker에 분산되어 저장되어있
     </section>
     
     <section class="powerby">
-        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>로 만듦 <br />
-        <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>의 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.17.0">Stack</a></b> 테마 사용 중
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.17.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
