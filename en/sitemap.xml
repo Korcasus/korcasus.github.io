@@ -1,276 +1,82 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <url>
         <loc>https://korcasus.github.io/en/p/essential-feature-argo-workflow/</loc>
         <lastmod>2023-09-10T17:02:01+09:00</lastmod>
-        <xhtml:link
-                rel="alternate"
-                hreflang="ko"
-                href="https://korcasus.github.io/p/essential-feature-argo-workflow/"
-        />
-        <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://korcasus.github.io/en/p/essential-feature-argo-workflow/"
-        />
+        <changefreq>daily</changefreq>
+        <priority>0.5</priority>
     </url>
-    
-    
-    
     <url>
         <loc>https://korcasus.github.io/en/post/</loc>
         <lastmod>2023-09-10T17:02:01+09:00</lastmod>
-        <xhtml:link
-                rel="alternate"
-                hreflang="ko"
-                href="https://korcasus.github.io/post/"
-        />
-        <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://korcasus.github.io/en/post/"
-        />
+        <changefreq>daily</changefreq>
+        <priority>0.5</priority>
     </url>
-    
-    
-    
     <url>
         <loc>https://korcasus.github.io/en/</loc>
         <lastmod>2023-09-10T17:02:01+09:00</lastmod>
-        <xhtml:link
-                rel="alternate"
-                hreflang="ko"
-                href="https://korcasus.github.io/"
-        />
-        <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://korcasus.github.io/en/"
-        />
+        <changefreq>daily</changefreq>
+        <priority>0.5</priority>
     </url>
-    
-    
-    
-    
-    
     <url>
         <loc>https://korcasus.github.io/en/p/argo-events-getting-start/</loc>
         <lastmod>2023-09-10T16:46:32+09:00</lastmod>
-        <xhtml:link
-                rel="alternate"
-                hreflang="ko"
-                href="https://korcasus.github.io/p/argo-events-getting-start/"
-        />
-        <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://korcasus.github.io/en/p/argo-events-getting-start/"
-        />
+        <changefreq>daily</changefreq>
+        <priority>0.5</priority>
     </url>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <url>
         <loc>https://korcasus.github.io/en/p/elasticsearch-spark/</loc>
         <lastmod>2023-08-11T00:09:54+09:00</lastmod>
-        <xhtml:link
-                rel="alternate"
-                hreflang="ko"
-                href="https://korcasus.github.io/p/elasticsearch-spark/"
-        />
-        <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://korcasus.github.io/en/p/elasticsearch-spark/"
-        />
+        <changefreq>daily</changefreq>
+        <priority>0.5</priority>
     </url>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <url>
         <loc>https://korcasus.github.io/en/p/spring-fat-jar-for-spark/</loc>
         <lastmod>2023-02-20T23:16:51+09:00</lastmod>
-        <xhtml:link
-                rel="alternate"
-                hreflang="ko"
-                href="https://korcasus.github.io/p/spring-fat-jar-for-spark/"
-        />
-        <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://korcasus.github.io/en/p/spring-fat-jar-for-spark/"
-        />
+        <changefreq>daily</changefreq>
+        <priority>0.5</priority>
     </url>
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <url>
         <loc>https://korcasus.github.io/en/p/hive-kafka-integration3/</loc>
         <lastmod>2022-12-01T22:45:04+09:00</lastmod>
-        <xhtml:link
-                rel="alternate"
-                hreflang="ko"
-                href="https://korcasus.github.io/p/hive-kafka-integration3/"
-        />
-        <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://korcasus.github.io/en/p/hive-kafka-integration3/"
-        />
+        <changefreq>daily</changefreq>
+        <priority>0.5</priority>
     </url>
-    
-    
-    
-    
-    
     <url>
         <loc>https://korcasus.github.io/en/p/hive-kafka-integration2/</loc>
         <lastmod>2022-12-01T22:45:01+09:00</lastmod>
-        <xhtml:link
-                rel="alternate"
-                hreflang="ko"
-                href="https://korcasus.github.io/p/hive-kafka-integration2/"
-        />
-        <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://korcasus.github.io/en/p/hive-kafka-integration2/"
-        />
+        <changefreq>daily</changefreq>
+        <priority>0.5</priority>
     </url>
-    
-    
-    
     <url>
         <loc>https://korcasus.github.io/en/p/hive-kafka-integration1/</loc>
         <lastmod>2022-12-01T22:44:01+09:00</lastmod>
-        <xhtml:link
-                rel="alternate"
-                hreflang="ko"
-                href="https://korcasus.github.io/p/hive-kafka-integration1/"
-        />
-        <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://korcasus.github.io/en/p/hive-kafka-integration1/"
-        />
+        <changefreq>daily</changefreq>
+        <priority>0.5</priority>
     </url>
-    
-    
-    
     <url>
         <loc>https://korcasus.github.io/en/about/</loc>
         <lastmod>2022-11-19T00:00:00+09:00</lastmod>
-        <xhtml:link
-                rel="alternate"
-                hreflang="ko"
-                href="https://korcasus.github.io/about/"
-        />
-        <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://korcasus.github.io/en/about/"
-        />
+        <changefreq>daily</changefreq>
+        <priority>0.5</priority>
     </url>
-    
-    
-    
     <url>
         <loc>https://korcasus.github.io/en/archives/</loc>
         <lastmod>2022-11-13T00:00:00+09:00</lastmod>
-        <xhtml:link
-                rel="alternate"
-                hreflang="ko"
-                href="https://korcasus.github.io/archives/"
-        />
-        <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://korcasus.github.io/en/archives/"
-        />
+        <changefreq>daily</changefreq>
+        <priority>0.5</priority>
     </url>
-    
-    
-    
     <url>
         <loc>https://korcasus.github.io/en/page/</loc>
         <lastmod>2022-11-19T00:00:00+09:00</lastmod>
-        <xhtml:link
-                rel="alternate"
-                hreflang="ko"
-                href="https://korcasus.github.io/page/"
-        />
-        <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://korcasus.github.io/en/page/"
-        />
+        <changefreq>daily</changefreq>
+        <priority>0.5</priority>
     </url>
-    
-    
-    
     <url>
         <loc>https://korcasus.github.io/en/search/</loc>
-        <xhtml:link
-                rel="alternate"
-                hreflang="ko"
-                href="https://korcasus.github.io/search/"
-        />
-        <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://korcasus.github.io/en/search/"
-        />
+        <changefreq>daily</changefreq>
+        <priority>0.5</priority>
     </url>
-    
-    
-    
-    
 </urlset>
+        
