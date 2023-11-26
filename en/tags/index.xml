@@ -6,7 +6,47 @@
         <description>Recent content in Tags on Read Write</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-US</language>
-        <lastBuildDate>Sun, 10 Sep 2023 17:02:01 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/en/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 26 Nov 2023 22:26:53 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/en/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>MongoDB</title>
+        <link>https://korcasus.github.io/en/tags/mongodb/</link>
+        <pubDate>Sun, 26 Nov 2023 22:26:53 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/en/tags/mongodb/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>MongoDB ETL</title>
+        <link>https://korcasus.github.io/en/tags/mongodb-etl/</link>
+        <pubDate>Sun, 26 Nov 2023 22:26:53 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/en/tags/mongodb-etl/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>MongoDB Hadoop Connector</title>
+        <link>https://korcasus.github.io/en/tags/mongodb-hadoop-connector/</link>
+        <pubDate>Sun, 26 Nov 2023 22:26:53 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/en/tags/mongodb-hadoop-connector/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>MongoDB Spark Connector</title>
+        <link>https://korcasus.github.io/en/tags/mongodb-spark-connector/</link>
+        <pubDate>Sun, 26 Nov 2023 22:26:53 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/en/tags/mongodb-spark-connector/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>MongoDB Sqoop</title>
+        <link>https://korcasus.github.io/en/tags/mongodb-sqoop/</link>
+        <pubDate>Sun, 26 Nov 2023 22:26:53 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/en/tags/mongodb-sqoop/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Argo-workflow</title>
         <link>https://korcasus.github.io/en/tags/argo-workflow/</link>
         <pubDate>Sun, 10 Sep 2023 17:02:01 +0900</pubDate>

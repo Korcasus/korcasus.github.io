@@ -6,7 +6,27 @@
         <description>Recent content in ETL on Read Write</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ko-KR</language>
-        <lastBuildDate>Fri, 11 Aug 2023 00:09:54 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/categories/etl/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 26 Nov 2023 22:26:53 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/categories/etl/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Mongo Hadoop Connector의 지원종료, Mongo Spark Connector의 시작</title>
+        <link>https://korcasus.github.io/p/mongodb-spark-connector/</link>
+        <pubDate>Sun, 26 Nov 2023 22:26:53 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/p/mongodb-spark-connector/</guid>
+        <description>&lt;p&gt;DB의 정보를 Hadoop으로 ETL하기위해서 Sqoop을 많이 사용하는데요.&lt;br&gt;
+Sqoop에서 DB에 연결하려면 Connector가 필요합니다.&lt;br&gt;
+MongoDB에서 사용하기 위해 Connector를 찾았습니다. 하지만 &lt;a class=&#34;link&#34; href=&#34;https://github.com/mongodb/mongo-hadoop&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Github&lt;/a&gt;에 들어가보면, EOL된 상태입니다.&lt;/p&gt;
+&lt;p&gt;그렇다고 MongoDB에서는 앞으로 ETL을 지원하지 않을거야! 는 아니기 때문에, 다른 방법이 존재하는지 찾아보았습니다.&lt;br&gt;
+해답은 MongoDB Community에서 찾을 수 있었는데요.&lt;br&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://www.mongodb.com/community/forums/t/mongo-hadoop-connector/114577&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;페이지&lt;/a&gt;를 읽어보면 Spark Connector로 지원한다고 합니다.&lt;/p&gt;
+&lt;p&gt;요약하자면, hadoop에 대한 관심도보다 spark에 대한 관심도가 높아졌기 때문에 spark connector로 대신한다고 합니다.&lt;br&gt;
+상세한 내용은 한번 읽어보시길 추천합니다.&lt;/p&gt;
+&lt;p&gt;MongoDB Spark Connector에 대한 정보는 &lt;a class=&#34;link&#34; href=&#34;https://www.mongodb.com/docs/spark-connector/current/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;링크&lt;/a&gt;를 살펴보면 됩니다.&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Elasticsearch Spark</title>
         <link>https://korcasus.github.io/p/elasticsearch-spark/</link>
         <pubDate>Fri, 11 Aug 2023 00:09:54 +0900</pubDate>

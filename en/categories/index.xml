@@ -6,7 +6,31 @@
         <description>Recent content in Categories on Read Write</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-US</language>
-        <lastBuildDate>Sun, 10 Sep 2023 17:02:01 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/en/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 26 Nov 2023 22:26:53 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/en/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>ETL</title>
+        <link>https://korcasus.github.io/en/categories/etl/</link>
+        <pubDate>Sun, 26 Nov 2023 22:26:53 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/en/categories/etl/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>hadoop</title>
+        <link>https://korcasus.github.io/en/categories/hadoop/</link>
+        <pubDate>Sun, 26 Nov 2023 22:26:53 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/en/categories/hadoop/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>MongoDB</title>
+        <link>https://korcasus.github.io/en/categories/mongodb/</link>
+        <pubDate>Sun, 26 Nov 2023 22:26:53 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/en/categories/mongodb/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Argo-workflow</title>
         <link>https://korcasus.github.io/en/categories/argo-workflow/</link>
         <pubDate>Sun, 10 Sep 2023 17:02:01 +0900</pubDate>
@@ -47,14 +71,6 @@
         <description></description>
         </item>
         <item>
-        <title>ETL</title>
-        <link>https://korcasus.github.io/en/categories/etl/</link>
-        <pubDate>Fri, 11 Aug 2023 00:09:54 +0900</pubDate>
-        
-        <guid>https://korcasus.github.io/en/categories/etl/</guid>
-        <description></description>
-        </item>
-        <item>
         <title>Hive</title>
         <link>https://korcasus.github.io/en/categories/hive/</link>
         <pubDate>Fri, 11 Aug 2023 00:09:54 +0900</pubDate>
@@ -84,14 +100,6 @@
         <pubDate>Mon, 20 Feb 2023 23:16:51 +0900</pubDate>
         
         <guid>https://korcasus.github.io/en/categories/spring/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>hadoop</title>
-        <link>https://korcasus.github.io/en/categories/hadoop/</link>
-        <pubDate>Thu, 01 Dec 2022 22:45:04 +0900</pubDate>
-        
-        <guid>https://korcasus.github.io/en/categories/hadoop/</guid>
         <description></description>
         </item>
         <item>
