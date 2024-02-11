@@ -6,7 +6,15 @@
         <description>Recent content in Tags on Read Write</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ko-KR</language>
-        <lastBuildDate>Sat, 02 Dec 2023 15:48:24 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 12 Feb 2024 01:57:21 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Docker</title>
+        <link>https://korcasus.github.io/tags/docker/</link>
+        <pubDate>Mon, 12 Feb 2024 01:57:21 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/tags/docker/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Git</title>
         <link>https://korcasus.github.io/tags/git/</link>
         <pubDate>Sat, 02 Dec 2023 15:48:24 +0900</pubDate>
@@ -68,14 +76,6 @@
         <pubDate>Sun, 10 Sep 2023 16:46:32 +0900</pubDate>
         
         <guid>https://korcasus.github.io/tags/argo-event/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Docker</title>
-        <link>https://korcasus.github.io/tags/docker/</link>
-        <pubDate>Sun, 03 Sep 2023 21:42:24 +0900</pubDate>
-        
-        <guid>https://korcasus.github.io/tags/docker/</guid>
         <description></description>
         </item>
         <item>
