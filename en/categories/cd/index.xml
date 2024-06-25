@@ -90,7 +90,7 @@ The connection information for the Database is structured into a ConfigMap to fa
 Argo Workflow, on the other hand, is tasked with executing Workflows as delineated within the YAML file.&lt;br&gt;
 Utilizing Calendar(Cron) and Webhook EventSource, events are generated. These spawned events then act as triggers for the Workflow.&lt;br&gt;
 The ensuing diagram encapsulates the flow derived from the aforementioned narrative.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/ko/post/essential-feature-argo-workflow/Event_Trigger_Flow.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/../../../ko/post/essential-feature-argo-workflow/Event_Trigger_Flow.jpg&#34;
 	
 	
 	
