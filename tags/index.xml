@@ -6,7 +6,23 @@
         <description>Recent content in Tags on Read Write</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ko-KR</language>
-        <lastBuildDate>Thu, 26 Dec 2024 12:59:23 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 26 Dec 2024 16:27:19 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>MongoDB</title>
+        <link>https://korcasus.github.io/tags/mongodb/</link>
+        <pubDate>Thu, 26 Dec 2024 16:27:19 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/tags/mongodb/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Sharding</title>
+        <link>https://korcasus.github.io/tags/sharding/</link>
+        <pubDate>Thu, 26 Dec 2024 16:27:19 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/tags/sharding/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Certificate</title>
         <link>https://korcasus.github.io/tags/certificate/</link>
         <pubDate>Thu, 26 Dec 2024 12:59:23 +0900</pubDate>
@@ -44,14 +60,6 @@
         <pubDate>Sat, 02 Dec 2023 15:48:24 +0900</pubDate>
         
         <guid>https://korcasus.github.io/tags/git/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>MongoDB</title>
-        <link>https://korcasus.github.io/tags/mongodb/</link>
-        <pubDate>Sun, 26 Nov 2023 22:26:53 +0900</pubDate>
-        
-        <guid>https://korcasus.github.io/tags/mongodb/</guid>
         <description></description>
         </item>
         <item>
