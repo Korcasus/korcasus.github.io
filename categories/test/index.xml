@@ -2,9 +2,9 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Test on Read Write</title>
-        <link>https://korcasus.github.io/categories/test/</link>
+        <link>http://localhost:1313/categories/test/</link>
         <description>Recent content in Test on Read Write</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>ko-KR</language><atom:link href="https://korcasus.github.io/categories/test/index.xml" rel="self" type="application/rss+xml" />
+        <language>ko-KR</language><atom:link href="http://localhost:1313/categories/test/index.xml" rel="self" type="application/rss+xml" />
     </channel>
 </rss>

@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Proceed with the configuration in Hive for integration.">
+<title>Hive Kafka Integration</title>
+
+<link rel='canonical' href='https://korcasus.github.io/post/hive/hive-kafka-integration1/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4086051155158500"
+        crossorigin="anonymous"></script>
+<meta property='og:title' content="Hive Kafka Integration">
+<meta property='og:description' content="Proceed with the configuration in Hive for integration.">
+<meta property='og:url' content='https://korcasus.github.io/post/hive/hive-kafka-integration1/'>
+<meta property='og:site_name' content='Read Write'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Hive' /><meta property='article:tag' content='Kafka' /><meta property='article:tag' content='ETL' /><meta property='article:published_time' content='2022-12-01T22:44:01&#43;09:00'/><meta property='article:modified_time' content='2022-12-01T22:44:01&#43;09:00'/>
+<meta name="twitter:title" content="Hive Kafka Integration">
+<meta name="twitter:description" content="Proceed with the configuration in Hive for integration.">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSWKN88H77"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-PSWKN88H77');
+        }
+      </script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Read Write</a></h1>
+            <h2 class="site-description">Preserving Knowledge: Documenting What I&#39;ve Learned</h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/en/post/argo/' >
+                
+                
+                
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-cube-send"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16 12.5l-5 -3l5 -3l5 3v5.5l-5 3z" /><path d="M11 9.5v5.5l5 3" /><path d="M16 12.545l5 -3.03" /><path d="M7 9h-5" /><path d="M7 12h-3" /><path d="M7 15h-1" /></svg>
+                
+                <span>Argo</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/ko/post/blog/' >
+                
+                
+                
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-blogger"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 21h8a5 5 0 0 0 5 -5v-3a3 3 0 0 0 -3 -3h-1v-2a5 5 0 0 0 -5 -5h-4a5 5 0 0 0 -5 5v8a5 5 0 0 0 5 5z" /><path d="M7 7m0 1.5a1.5 1.5 0 0 1 1.5 -1.5h3a1.5 1.5 0 0 1 1.5 1.5v0a1.5 1.5 0 0 1 -1.5 1.5h-3a1.5 1.5 0 0 1 -1.5 -1.5z" /><path d="M7 14m0 1.5a1.5 1.5 0 0 1 1.5 -1.5h7a1.5 1.5 0 0 1 1.5 1.5v0a1.5 1.5 0 0 1 -1.5 1.5h-7a1.5 1.5 0 0 1 -1.5 -1.5z" /></svg>
+                
+                <span>Blog</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/ko/post/database/' >
+                
+                
+                
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-database-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 6c0 1.657 3.582 3 8 3s8 -1.343 8 -3s-3.582 -3 -8 -3s-8 1.343 -8 3" /><path d="M4 6v6c0 1.657 3.582 3 8 3c.478 0 .947 -.016 1.402 -.046" /><path d="M20 12v-6" /><path d="M4 12v6c0 1.526 3.04 2.786 6.972 2.975" /><path d="M18.42 15.61a2.1 2.1 0 0 1 2.97 2.97l-3.39 3.42h-3v-3l3.42 -3.39z" /></svg>
+                
+                <span>Database</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/en/post/hive/' >
+                
+                
+                
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-cloud"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6.657 18c-2.572 0 -4.657 -2.007 -4.657 -4.483c0 -2.475 2.085 -4.482 4.657 -4.482c.393 -1.762 1.794 -3.2 3.675 -3.773c1.88 -.572 3.956 -.193 5.444 1c1.488 1.19 2.162 3.007 1.77 4.769h.99c1.913 0 3.464 1.56 3.464 3.486c0 1.927 -1.551 3.487 -3.465 3.487h-11.878" /></svg>
+                
+                <span>Hive</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/en/post/spark/' >
+                
+                
+                
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-carambola"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17.286 21.09q -1.69 .001 -5.288 -2.615q -3.596 2.617 -5.288 2.616q -2.726 0 -.495 -6.8q -9.389 -6.775 2.135 -6.775h.076q 1.785 -5.516 3.574 -5.516q 1.785 0 3.574 5.516h.076q 11.525 0 2.133 6.774q 2.23 6.802 -.497 6.8" /></svg>
+                
+                <span>Spark</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/ko/post/synology/' >
+                
+                
+                
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-devices-pc"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 5h6v14h-6z" /><path d="M12 9h10v7h-10z" /><path d="M14 19h6" /><path d="M17 16v3" /><path d="M6 13v.01" /><path d="M6 16v.01" /></svg>
+                
+                <span>Synology</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/en/post/others/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                
+                <span>Others</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://korcasus.github.io/" selected>English</option>
+                                
+                                    <option value="https://korcasus.github.io/ko/" >Korean</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#install">Install</a></li>
+    <li><a href="#create-table">Create Table</a></li>
+    <li><a href="#kafka-metadata">Kafka metadata</a></li>
+    <li><a href="#precautions-when-using-avro-format">Precautions When Using Avro Format</a></li>
+    <li><a href="#serdeserializer-deserializer">Serde(Serializer, Deserializer)</a></li>
+    <li><a href="#authentication">Authentication</a></li>
+    <li><a href="#key-serializer">Key Serializer</a></li>
+    <li><a href="#additionally">Additionally</a></li>
+    <li><a href="#summary">Summary</a></li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/hive/" >
+                Hive
+            </a>
+        
+            <a href="/categories/kafka/" >
+                Kafka
+            </a>
+        
+            <a href="/categories/hadoop/" >
+                Hadoop
+            </a>
+        
+            <a href="/categories/batch/" >
+                Batch
+            </a>
+        
+            <a href="/categories/etl/" >
+                ETL
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/hive/hive-kafka-integration1/">Hive Kafka Integration</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            Proceed with the configuration in Hive for integration.
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Dec 01, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    6 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+        <footer class="article-translations">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+            <div>
+                
+                    <a href="https://korcasus.github.io/ko/post/hive/hive-kafka-integration1/" class="link">Korean</a>
+                
+            </div>
+        </footer>
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <style type="text/css">.notice{--root-color:#444;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#c33;--warning-content:#fee;--info-title:#fb7;--info-content:#fec;--note-title:#6be;--note-content:#e7f2fa;--tip-title:#5a5;--tip-content:#efe}@media (prefers-color-scheme:dark){.notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}}body.dark .notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:var(--root-color);background:var(--root-background)}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}.notice.warning .notice-title{background:var(--warning-title)}.notice.warning{background:var(--warning-content)}.notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}.notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}.notice.tip .notice-title{background:var(--tip-title)}.notice.tip{background:var(--tip-content)}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}</style>
+<div><svg width="0" height="0" display="none" xmlns="http://www.w3.org/2000/svg"><symbol id="tip-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/></symbol><symbol id="note-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="warning-notice" viewBox="0 0 576 512" preserveAspectRatio="xMidYMid meet"><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="info-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/></symbol></svg></div><div class="notice info" >
+<p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#info-notice"></use></svg></span>Info</p><p>This article was originally written in Korean and has been translated using ChatGPT.</p></div>
+
+<h2 id="overview">Overview
+</h2><p>Hive is a data warehouse software that allows for reading and writing large volumes of data stored in Hadoop using SQL syntax.<br>
+In simple terms, it can be thought of as a large-scale data processing database operating on Hadoop.</p>
+<p>By default, it supports HDFS and offers an open DataSourcing feature that allows access to Hbase or other DBMS. It also supports Kafka, which is widely used as a Message Queue. In this series, I will document the configuration for integrating Hive with Kafka, as well as the process of reading and writing messages.</p>
+<p>In this article, the focus is on the necessary configurations and essential information for use.<br>
+If you are interested in usage examples, please read the next article.</p>
+<blockquote>
+<p>This was written based on the <a class="link" href="https://github.com/apache/hive/blob/master/kafka-handler/README.md"  target="_blank" rel="noopener"
+    >official document</a><br>
+Although it is not stated in the document, I intend to detail additional information required for use and examples that I personally tested.</p></blockquote>
+<blockquote>
+<p>This was done in Hive version 3.x.</p></blockquote>
+<h2 id="install">Install
+</h2><p>In fact, no separate installation is required.<br>
+As you may know if you&rsquo;ve looked at the official documentation, it&rsquo;s already built into Hive.<br>
+While it might be hard to imagine, you can integrate with Kafka using SQL.</p>
+<h2 id="create-table">Create Table
+</h2><p>To integrate Hive and Kafka, a linkage must be created.<br>
+Just as in Spring, you can easily create a connection using Binder and Binding, in Hive, you can do this using <code>StorageHandler</code>.<br>
+You can specify <code>StorageHandler</code> when defining a table. Additionally, with some more configurations, you can use it seamlessly.</p>
+<p>However, there are a few things to be cautious of when creating a table in Hive that integrates with Kafka.</p>
+<p>The <code>first</code> thing is that you must create it as an <code>EXTERNAL</code> table.<br>
+Since the method we will be using involves Hive accessing and using the data stored in Kafka, you need to add the <code>EXTERNAL</code> keyword.</p>
+<p>The <code>second</code> thing is that you must specify the <strong>KafkaStorageHandler</strong>.<br>
+When defining the table, it should include <code>STORED BY 'org.apache.hadoop.hive.kafka.KafkaStorageHandler'</code>.<br>
+Only with this specified can you integrate and use Kafka.</p>
+<p>The <code>third</code> thing is that you need to configure the table.<br>
+Using the <code>TBLPROPERTIES</code> keyword, you can set the properties for the table.<br>
+Within this, you must write the configuration necessary for integrating with Kafka.</p>
+<p>By applying all three points and writing the DDL, it can be crafted as shown in the example below.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">EXTERNAL</span> <span style="color:#66d9ef">TABLE</span> kafka_table (
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">`</span><span style="color:#66d9ef">timestamp</span><span style="color:#f92672">`</span> <span style="color:#66d9ef">TIMESTAMP</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">`</span>page<span style="color:#f92672">`</span> STRING,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">`</span>newPage<span style="color:#f92672">`</span> BOOLEAN,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">`</span>added<span style="color:#f92672">`</span> INT, 
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">`</span>deleted<span style="color:#f92672">`</span> BIGINT,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">`</span>delta<span style="color:#f92672">`</span> DOUBLE
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>STORED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;org.apache.hadoop.hive.kafka.KafkaStorageHandler&#39;</span>
+</span></span><span style="display:flex;"><span>TBLPROPERTIES ( 
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;kafka.topic&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;test-topic&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;kafka.bootstrap.servers&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;localhost:9092&#34;</span>
+</span></span><span style="display:flex;"><span>);
+</span></span></code></pre></div><h2 id="kafka-metadata">Kafka metadata
+</h2><p>Messages stored in Kafka consist not only of the Payload but also have four pieces of metadata: Key, Partition, Offset, and Timestamp.<br>
+These data can also be used in Hive.<br>
+The previously mentioned <code>KafkaStorageHandler</code>, used when defining the table, automatically registers these metadata as columns.</p>
+<ul>
+<li>__key (byte array)</li>
+<li>__partition (int32)</li>
+<li>__offset (int64)</li>
+<li>__timestamp (int64)</li>
+</ul>
+<p>I will elaborate on the usage methods in the next article where I&rsquo;ve written real-use examples.</p>
+<h2 id="precautions-when-using-avro-format">Precautions When Using Avro Format
+</h2><p>If you are using the Avro format through the Confluent Connector, you need to remove 5 bytes from the message.<br>
+Of these 5 bytes, 1 byte is the magic byte, and 4 bytes correspond to the schema id of the schema registry.<br>
+This can be resolved by setting <code>&quot;avro.serde.type&quot;=&quot;skip&quot;</code> and <code>&quot;avro.serde.skip.bytes&quot;=&quot;5&quot;</code>.<br>
+If you are using avro, it would be beneficial to thoroughly refer to the guide for detailed information.</p>
+<blockquote>
+<p>Support for the confluent avro format seems to be added in Hive version 4.0.<br>
+If you are using version 3.x, it would be good to be cautious. (Because I had a hard time with it&hellip;)</p></blockquote>
+<h2 id="serdeserializer-deserializer">Serde(Serializer, Deserializer)
+</h2><p>If you&rsquo;ve ever sent data from an Application to Kafka, you&rsquo;ve probably had experience specifying a serializer and deserializer.<br>
+Similarly, Hive also offers various serializers and deserializers.</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>Supported Serializers and Deserializers</th>
+          <th>description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>org.apache.hadoop.hive.serde2.JsonSerDe</td>
+          <td>JSON</td>
+      </tr>
+      <tr>
+          <td>org.apache.hadoop.hive.serde2.OpenCSVSerde</td>
+          <td>CSV</td>
+      </tr>
+      <tr>
+          <td>org.apache.hadoop.hive.serde2.avro.AvroSerDe</td>
+          <td>AVRO</td>
+      </tr>
+      <tr>
+          <td>org.apache.hadoop.hive.serde2.lazybinary.LazyBinarySerDe</td>
+          <td>binary</td>
+      </tr>
+      <tr>
+          <td>org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe</td>
+          <td>Plain Text</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>The method of specification is simpler than you might think.<br>
+You can easily apply it by adding it to TBLPROPERTIES.<br>
+For instance, if the data format you wish to read from Kafka is JSON or if you want to send data in JSON format, you can add it as shown below.<br>
+<code>&quot;kafka.serde.class&quot; = &quot;org.apache.hadoop.hive.serde2.JsonSerDe&quot;</code></p>
+<h2 id="authentication">Authentication
+</h2><p>Kafka also offers a feature that requires authentication to grant permissions to read and write data.<br>
+The authentication details needed for using Kafka can also be provided through Hive.</p>
+<blockquote>
+<p>In my case, I didn&rsquo;t add any authentication and used it, so I will document it as an instance without authentication.
+If you are in a situation where you need authentication, please refer to and proceed with the official documentation.</p></blockquote>
+<p>If you haven&rsquo;t added the TBLPROPERTIES value for authentication, an error occurs when you attempt to connect.<br>
+You might think, &ldquo;If I haven&rsquo;t set it up, shouldn&rsquo;t it naturally be usable without authentication?&rdquo; (That&rsquo;s what I thought.)<br>
+By default, Hive tries to authenticate using an id and password.<br>
+Therefore, you have to add a configuration to use it without authentication.</p>
+<p>The official documentation didn&rsquo;t provide a specific solution for this problem, so it was a challenging aspect for me.<br>
+To get straight to the point, you can resolve this by adding TBLPROPERTY.</p>
+<ul>
+<li>In the case of a producer : <code>&quot;kafka.producer.security.protocol&quot; = &quot;PLAINTEXT&quot;</code></li>
+<li>In the case of a consumer : <code>&quot;kafka.consumer.security.protocol&quot; = &quot;PLAINTEXT&quot;</code></li>
+</ul>
+<p>If you want to delve deeper into authentication, it would be helpful to refer to this <a class="link" href="https://kafka.apache.org/documentation/#producerconfigs_security.protocol"  target="_blank" rel="noopener"
+    >document</a>.<br>
+As I&rsquo;ll mention later, if you set <code>kafka.</code> as a prefix when configuring, you can pass the configuration value to Kafka.</p>
+<h2 id="key-serializer">Key Serializer
+</h2><p>The Serializers I explained earlier were Value Serializers.<br>
+Though more are provided than you might expect, conversely, only the Byte Serializer is supported for Key Serializer.<br>
+Even if you want to change and use a different Serializer, it&rsquo;s not possible to do so.<br>
+I&rsquo;m not sure why it was implemented this way, but you can understand the details by looking at the code.<br>
+As you might be curious, I&rsquo;m also providing a link.</p>
+<ul>
+<li><a class="link" href="https://github.com/apache/hive/blob/335749a33c02ec0dc7ebadb9eda101d174ad5faf/kafka-handler/src/java/org/apache/hadoop/hive/kafka/KafkaStorageHandler.java#L233"  target="_blank" rel="noopener"
+    >producer</a></li>
+<li><a class="link" href="https://github.com/apache/hive/blob/335749a33c02ec0dc7ebadb9eda101d174ad5faf/kafka-handler/src/java/org/apache/hadoop/hive/kafka/KafkaStorageHandler.java#L193"  target="_blank" rel="noopener"
+    >consumer</a></li>
+</ul>
+<h2 id="additionally">Additionally
+</h2><p>Beyond what has been written so far, there may be additional configurations you&rsquo;d like to add when using Kafka.<br>
+Although it&rsquo;s not described in the official documentation, you can pass configuration values to be used in Kafka.</p>
+<ul>
+<li>In the case of a producer <code>“kafka.producer.{property}” = “{value}”</code></li>
+<li>In the case of a consumer <code>“kafka.consumer.{property}” = “{value}”</code>
+By adding to TBLPROPERTIES, the configuration values are passed to Kafka, allowing you to apply your desired settings.</li>
+</ul>
+<p>If you&rsquo;re curious about how the configuration values are passed or the implemented code, it would be helpful to refer to the link below.</p>
+<ul>
+<li><a class="link" href="https://github.com/apache/hive/blob/335749a33c02ec0dc7ebadb9eda101d174ad5faf/kafka-handler/src/java/org/apache/hadoop/hive/kafka/KafkaStorageHandler.java#L213"  target="_blank" rel="noopener"
+    >producer</a></li>
+<li><a class="link" href="https://github.com/apache/hive/blob/335749a33c02ec0dc7ebadb9eda101d174ad5faf/kafka-handler/src/java/org/apache/hadoop/hive/kafka/KafkaStorageHandler.java#L168"  target="_blank" rel="noopener"
+    >consumer</a></li>
+</ul>
+<h2 id="summary">Summary
+</h2><p>Until now, we&rsquo;ve looked into the necessary configurations and helpful information for reading and writing to Kafka from Hive.<br>
+In the next article, I will document the process of reading messages from Kafka in Hive.<br>
+Thank you.</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/hive/">Hive</a>
+        
+            <a href="/tags/kafka/">Kafka</a>
+        
+            <a href="/tags/etl/">ETL</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/en/post/hive/hive-kafka-integration1/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Hive Kafka Integration</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/ko/post/hive/hive-kafka-integration1/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Hive Kafka Integration</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="Korcasus/blog-comments"
+        issue-term="title"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 Read Write
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,1092 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Others on Read Write</title>
+        <link>http://localhost:1313/ko/others/</link>
+        <description>Recent content in Others on Read Write</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ko-KR</language>
+        <lastBuildDate>Mon, 12 Feb 2024 01:57:21 +0900</lastBuildDate><atom:link href="http://localhost:1313/ko/others/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Switching from Docker Desktop to Rancher Desktop</title>
+        <link>http://localhost:1313/ko/others/switching-docker-rancher/</link>
+        <pubDate>Mon, 12 Feb 2024 01:57:21 +0900</pubDate>
+        
+        <guid>http://localhost:1313/ko/others/switching-docker-rancher/</guid>
+        <description>&lt;style type=&#34;text/css&#34;&gt;.notice{--root-color:#444;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#c33;--warning-content:#fee;--info-title:#fb7;--info-content:#fec;--note-title:#6be;--note-content:#e7f2fa;--tip-title:#5a5;--tip-content:#efe}@media (prefers-color-scheme:dark){.notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}}body.dark .notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:var(--root-color);background:var(--root-background)}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}.notice.warning .notice-title{background:var(--warning-title)}.notice.warning{background:var(--warning-content)}.notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}.notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}.notice.tip .notice-title{background:var(--tip-title)}.notice.tip{background:var(--tip-content)}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}&lt;/style&gt;
+&lt;div&gt;&lt;svg width=&#34;0&#34; height=&#34;0&#34; display=&#34;none&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;&lt;symbol id=&#34;tip-notice&#34; viewBox=&#34;0 0 512 512&#34; preserveAspectRatio=&#34;xMidYMid meet&#34;&gt;&lt;path d=&#34;M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z&#34;/&gt;&lt;/symbol&gt;&lt;symbol id=&#34;note-notice&#34; viewBox=&#34;0 0 512 512&#34; preserveAspectRatio=&#34;xMidYMid meet&#34;&gt;&lt;path d=&#34;M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z&#34;/&gt;&lt;/symbol&gt;&lt;symbol id=&#34;warning-notice&#34; viewBox=&#34;0 0 576 512&#34; preserveAspectRatio=&#34;xMidYMid meet&#34;&gt;&lt;path d=&#34;M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z&#34;/&gt;&lt;/symbol&gt;&lt;symbol id=&#34;info-notice&#34; viewBox=&#34;0 0 512 512&#34; preserveAspectRatio=&#34;xMidYMid meet&#34;&gt;&lt;path d=&#34;M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z&#34;/&gt;&lt;/symbol&gt;&lt;/svg&gt;&lt;/div&gt;&lt;div class=&#34;notice info&#34; &gt;
+&lt;p class=&#34;first notice-title&#34;&gt;&lt;span class=&#34;icon-notice baseline&#34;&gt;&lt;svg&gt;&lt;use href=&#34;#info-notice&#34;&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/span&gt;알림&lt;/p&gt;&lt;p&gt;Mac 기준으로 설명합니다.&lt;/p&gt;&lt;/div&gt;
+
+&lt;h2 id=&#34;uninstall-docker-desktop-and-install-rancher-desktop&#34;&gt;Uninstall Docker Desktop And Install Rancher Desktop
+&lt;/h2&gt;&lt;p&gt;Docker Desktop사용하다가 Rancher Desktop을 사용전환해야 하는 상황이었습니다.&lt;br&gt;
+Docker Desktop을 제거한뒤, Rancher Desktop을 설치한뒤 Docker의 기본기능들을 실행해 보았는데 아래와 같은 문제가 발생했습니다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Error: Permission denied @ apply2files - /usr/local/lib/docker/cli-plugins
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;존재하지 않는 심볼릭 링크로 인해 발생하는 문제인데요. 이거는 아래와 같은 명령어를 통해 손쉽게 해결할 수 있습니다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mkdir -p /Applications/Docker.app/Contents/Resources/cli-plugins
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;troubleshooting-dive&#34;&gt;Troubleshooting dive
+&lt;/h2&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/wagoodman/dive&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;dive&lt;/a&gt;는 Docker Image가 잘 만들어졌는지, 분석을 도와주는 tool인데요.&lt;br&gt;
+unix:///var/run/docker.sock 를 연결할수 없다는 문제가 출력되며, 에러가 발생합니다.&lt;/p&gt;
+&lt;p&gt;비슷한 문제가 발생한 사례가 있는지 issue를 살펴보았습니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/wagoodman/dive/issues/416&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/wagoodman/dive/issues/416&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;위 링크를 보면, &lt;code&gt;DOCKER_HOST&lt;/code&gt; 환경변수를 변경해줌으로 &lt;code&gt;DOCKER ENTRY POINT&lt;/code&gt;를 변경하면 된다고 합니다.&lt;br&gt;
+매번 환경변수를 변경해주기는 번거롭기 때문에 더 좋은 해결 방법이 없을지 찾아보았습니다.&lt;br&gt;
+다행히도 issue에서 좋은 방법을 제시해되었는데요. shell profile에 자동으로 환경변수를 로딩할수 있는 스크립트를 공유해주셨습니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/wagoodman/dive/issues/408#issuecomment-1328143138&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/wagoodman/dive/issues/408#issuecomment-1328143138&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;export DOCKER_HOST&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;docker context inspect --format&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;{{.Endpoints.docker.Host}}&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;위의 스크립트를 profile에 추가하면, dive 사용하는데 환경변수를 변경하지않고 사용할 수 있습니다.&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Git Flow 정리</title>
+        <link>http://localhost:1313/ko/others/git-flow/</link>
+        <pubDate>Sat, 02 Dec 2023 15:48:24 +0900</pubDate>
+        
+        <guid>http://localhost:1313/ko/others/git-flow/</guid>
+        <description>&lt;h2 id=&#34;prerequsite&#34;&gt;Prerequsite
+&lt;/h2&gt;&lt;h3 id=&#34;git-설치&#34;&gt;Git 설치
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;설치 확인 명령어 : git&lt;/li&gt;
+&lt;li&gt;os에 맞게 git 설치 : &lt;a class=&#34;link&#34; href=&#34;https://git-scm.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://git-scm.com/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;git-flow-설치&#34;&gt;Git flow 설치
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;git flow는 git의 브랜치 전략을 도와주는 툴&lt;/li&gt;
+&lt;li&gt;설치 확인 명령어 : git flow&lt;/li&gt;
+&lt;li&gt;설치 방법 : &lt;a class=&#34;link&#34; href=&#34;https://github.com/petervanderdoes/gitflow-avh/wiki/Installation&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/petervanderdoes/gitflow-avh/wiki/Installation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;mac은&amp;hellip; &lt;code&gt;brew install git-flow-avh&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;github-ssh-설정&#34;&gt;Github ssh 설정
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;github은 https와 ssh 프로토콜 모두 지원&lt;/li&gt;
+&lt;li&gt;각 장단점이 존재 : &lt;a class=&#34;link&#34; href=&#34;https://git-scm.com/book/ko/v2/Git-%EC%84%9C%EB%B2%84-%ED%94%84%EB%A1%9C%ED%86%A0%EC%BD%9C&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://git-scm.com/book/ko/v2/Git-서버-프로토콜&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;아래의 명령어를 실행하여 github에 등록&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# ssh key 생성(이미 키가 있으면 생략)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mkdir ~/.ssh
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ssh-keygen -t rsa -C &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;github_id&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;@github.com&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# ssh publick key 복사&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cat ~/.ssh/id_rsa.pub
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 복사한 키를 https://github.com/settings/ssh 에 등록한다.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;github ssh 포트가 다르면 추가 설정이 필요&lt;/li&gt;
+&lt;li&gt;~/.ssh/config 파일에 아래 내용을 추가한다. (없으면 파일 생성)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Host github.com
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    User git
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Hostname github.com
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    IdentityFile ~/.ssh/id_rsa
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Port 20022
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;git-flow-전략&#34;&gt;Git flow 전략
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/ko/others/git-flow/gitflow.png&#34;
+	width=&#34;1150&#34;
+	height=&#34;1524&#34;
+	srcset=&#34;http://localhost:1313/ko/others/git-flow/gitflow_hu_fe54e8d714e3a751.png 480w, http://localhost:1313/ko/others/git-flow/gitflow_hu_b6574526a817a11f.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;gitflow&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;75&#34;
+		data-flex-basis=&#34;181px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;branch별-요약&#34;&gt;Branch별 요약
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;master branch : &lt;strong&gt;배포&lt;/strong&gt;되었거나 배포될 소스가 저장되는 브랜치&lt;/li&gt;
+&lt;li&gt;develop branch : 다음 배포를 위해서 &lt;strong&gt;개발&lt;/strong&gt;을 진행하는 브랜치
+&lt;ul&gt;
+&lt;li&gt;여러명의 개발자가 공유하며 개발을 진행하는 브랜치&lt;/li&gt;
+&lt;li&gt;로컬 브랜치에서 개발이 완료되면 완료된 소스를 develop 브랜치에 푸시하거나 PR을 보내 리뷰후 merge 하는것으로 개발이 진행된다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;feature branch : 각 개발자에 의해 &lt;strong&gt;기능 단위 개발&lt;/strong&gt;이 진행되는 브랜치
+&lt;ul&gt;
+&lt;li&gt;로컬에서 개발을 진행하는 브랜치&lt;/li&gt;
+&lt;li&gt;develop 브랜치에 merge된다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;hotfixs branch : 배포 버전에 생긴 문제로 &lt;strong&gt;긴급한 트러블슈팅&lt;/strong&gt;이 필요할 때 개발이 진행되는 브랜치
+&lt;ul&gt;
+&lt;li&gt;master 브랜치에서 생성&lt;/li&gt;
+&lt;li&gt;master 브랜치로 직접 merge&lt;/li&gt;
+&lt;li&gt;develop 브랜치에도 적용 필요&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;release branch : &lt;strong&gt;내부적으로 배포할 준비&lt;/strong&gt;가 되었다고 생각되는 소스가 저장되는 브랜치
+&lt;ul&gt;
+&lt;li&gt;QA에서 테스트를 진행할 브랜치&lt;/li&gt;
+&lt;li&gt;QA중 버그발생시, 바로 적용. develop 브랜치에도 적용 필요&lt;/li&gt;
+&lt;li&gt;추가 기능개발을 위해 develop 브랜치로 넘어가서는 안된다. 추가기능은 다음 release에 적용필요&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;start-project&#34;&gt;Start Project
+&lt;/h2&gt;&lt;h3 id=&#34;clone-project-from-github&#34;&gt;Clone Project from github
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;소스코드 Git Clone&lt;/li&gt;
+&lt;li&gt;프로젝트 디렉토리로 이동&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;git-flow-init&#34;&gt;git flow init
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;로컬에 master 브랜치와 develop 브랜치가 생성된 상태에서 진행한다.&lt;/li&gt;
+&lt;li&gt;git flow init 명령어를 실행하면 아래와 같이 설정을 확인하는 대화 모드로 진입한다.&lt;/li&gt;
+&lt;li&gt;모든 설정을 default로 사용한다.(feature, release, hotfix, &amp;hellip;)&lt;/li&gt;
+&lt;li&gt;bugfix, support branch는 최근 git flow에 추가된 브랜치이며 git flow edition/version에 따라 없을수도 있고 실험적인 기능이므로 사용하지 않음.&lt;/li&gt;
+&lt;li&gt;Mac에서는 &lt;code&gt;Cmd&lt;/code&gt; + &lt;code&gt;Option&lt;/code&gt; + &lt;code&gt;f&lt;/code&gt; 로 팝업창 생성&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ git flow init
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Which branch should be used &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; bringing forth production releases?
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   - master
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Branch name &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; production releases: &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;master&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Branch name &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;next release&amp;#34;&lt;/span&gt; development: &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;develop&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;How to name your supporting branch prefixes?
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Feature branches? &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;feature/&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Bugfix branches? &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;bugfix/&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Release branches? &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;release/&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Hotfix branches? &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;hotfix/&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Support branches? &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;support/&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Version tag prefix? &lt;span style=&#34;color:#f92672&#34;&gt;[]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;git-flow-명령어&#34;&gt;Git flow 명령어
+&lt;/h2&gt;&lt;style type=&#34;text/css&#34;&gt;.notice{--root-color:#444;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#c33;--warning-content:#fee;--info-title:#fb7;--info-content:#fec;--note-title:#6be;--note-content:#e7f2fa;--tip-title:#5a5;--tip-content:#efe}@media (prefers-color-scheme:dark){.notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}}body.dark .notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:var(--root-color);background:var(--root-background)}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}.notice.warning .notice-title{background:var(--warning-title)}.notice.warning{background:var(--warning-content)}.notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}.notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}.notice.tip .notice-title{background:var(--tip-title)}.notice.tip{background:var(--tip-content)}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}&lt;/style&gt;
+&lt;div&gt;&lt;svg width=&#34;0&#34; height=&#34;0&#34; display=&#34;none&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;&lt;symbol id=&#34;tip-notice&#34; viewBox=&#34;0 0 512 512&#34; preserveAspectRatio=&#34;xMidYMid meet&#34;&gt;&lt;path d=&#34;M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z&#34;/&gt;&lt;/symbol&gt;&lt;symbol id=&#34;note-notice&#34; viewBox=&#34;0 0 512 512&#34; preserveAspectRatio=&#34;xMidYMid meet&#34;&gt;&lt;path d=&#34;M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z&#34;/&gt;&lt;/symbol&gt;&lt;symbol id=&#34;warning-notice&#34; viewBox=&#34;0 0 576 512&#34; preserveAspectRatio=&#34;xMidYMid meet&#34;&gt;&lt;path d=&#34;M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z&#34;/&gt;&lt;/symbol&gt;&lt;symbol id=&#34;info-notice&#34; viewBox=&#34;0 0 512 512&#34; preserveAspectRatio=&#34;xMidYMid meet&#34;&gt;&lt;path d=&#34;M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z&#34;/&gt;&lt;/symbol&gt;&lt;/svg&gt;&lt;/div&gt;&lt;div class=&#34;notice info&#34; &gt;
+&lt;p class=&#34;first notice-title&#34;&gt;&lt;span class=&#34;icon-notice baseline&#34;&gt;&lt;svg&gt;&lt;use href=&#34;#info-notice&#34;&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/span&gt;알림&lt;/p&gt;&lt;p&gt;MYFEATURE과 RELEASE를 branch이름&lt;br&gt;
+ex) feature/test123 → FEATURE = test123&lt;/p&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;새 기능(feature) 시작하기 : &lt;code&gt;git flow feature start MYFEATURE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;기능 완료 : &lt;code&gt;git flow feature finish MYFEATURE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;기능을 게시(publish) : &lt;code&gt;git flow feature publish MYFEATURE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;게시된 기능 가져오기 : &lt;code&gt;git flow feature pull origin MYFEATURE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;릴리즈 시작 : &lt;code&gt;git flow release start RELEASE [BASE]&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;릴리즈 완료 : &lt;code&gt;git flow release finish RELEASE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;핫픽스 시작 : &lt;code&gt;git flow hotfix start VERSION [BASENAME]&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;핫픽스 완료 : &lt;code&gt;git flow hotfix finish VERSION&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;reference&#34;&gt;Reference
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://jeong-pro.tistory.com/196&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://jeong-pro.tistory.com/196&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://danielkummer.github.io/git-flow-cheatsheet/index.ko_KR.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://danielkummer.github.io/git-flow-cheatsheet/index.ko_KR.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>Consumer lag을 연동해서 Kubernetes HPA 하기</title>
+        <link>http://localhost:1313/ko/others/k8s-hpa-using-consumer-lag/</link>
+        <pubDate>Tue, 15 Aug 2023 21:16:35 +0900</pubDate>
+        
+        <guid>http://localhost:1313/ko/others/k8s-hpa-using-consumer-lag/</guid>
+        <description>&lt;h2 id=&#34;required&#34;&gt;Required
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Kubernetes&lt;/li&gt;
+&lt;li&gt;Kafka&lt;/li&gt;
+&lt;li&gt;Burrow, Burrow Exporter&lt;/li&gt;
+&lt;li&gt;Prometheus&lt;/li&gt;
+&lt;li&gt;Helm&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;objective&#34;&gt;Objective
+&lt;/h2&gt;&lt;p&gt;Kafka Consumer lag 값을 연동한 Kubernetes HPA(Horizontal Pod Autoscaling)를 사용하여, Auto Scaling을 하는 것이 목표입니다.
+auto scaling이 가능해지면 아래 2가지 목표를 달성할 수 있습니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Consumer lag이 증가하면 Pod을 추가해 처리속도를 늘립니다.&lt;/li&gt;
+&lt;li&gt;Consumer lag이 감소하면 Pod을 줄여 여유 리소스를 확보합니다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;1-kafka-consumer-lag이란&#34;&gt;1. Kafka Consumer Lag이란?
+&lt;/h3&gt;&lt;p&gt;producer offset과 consumer offset의 차이가 consumer lag 입니다.&lt;/p&gt;
+&lt;p&gt;Producer가 partition에 데이터를 기록하면 offset이 증가합니다.
+Consumer가 partition의 데이터를 처리하면 offset이 증가합니다.
+Producer offset과 Consumer offset의 차이가 커지면, 데이터를 소비하는데 지연이 있다는 의미로 볼 수 있습니다.
+두개의 offset 차이가 적어지면, Producing하는 message가 적다는 것을 의미하거나 Consumer가 필요이상으로 존재한다는 의미로 볼 수 있습니다.&lt;/p&gt;
+&lt;h2 id=&#34;architecture&#34;&gt;Architecture
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/ko/others/k8s-hpa-using-consumer-lag/consumer-hpa-diagram.jpeg&#34;
+	width=&#34;681&#34;
+	height=&#34;676&#34;
+	srcset=&#34;http://localhost:1313/ko/others/k8s-hpa-using-consumer-lag/consumer-hpa-diagram_hu_426ae91b37c9db86.jpeg 480w, http://localhost:1313/ko/others/k8s-hpa-using-consumer-lag/consumer-hpa-diagram_hu_7fa7dc69c3e14141.jpeg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;consumer-hpa-diagram&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;100&#34;
+		data-flex-basis=&#34;241px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;in-progress&#34;&gt;In Progress
+&lt;/h2&gt;&lt;h3 id=&#34;prometheus-adapter&#34;&gt;Prometheus Adapter
+&lt;/h3&gt;&lt;h3 id=&#34;&#34;&gt;
+&lt;/h3&gt;&lt;p&gt;===========================================================================================================================================&lt;/p&gt;
+&lt;h3 id=&#34;2-kafka-metric값을-어떻게-추출방안&#34;&gt;2. Kafka Metric값을 어떻게 추출방안
+&lt;/h3&gt;&lt;p&gt;Kubernetes에서 활용하기 위해서는 Kafka에서 Metric을 추출하는 작업이 선행되어야한다.&lt;/p&gt;
+&lt;p&gt;Kafka는 이미 많이 활용되고 있으므로, 목적에 맞는 open source tool이 있을것이라 생각하여 조사를 진행하였다.&lt;/p&gt;
+&lt;p&gt;→ 유명(?)한 &lt;a class=&#34;link&#34; href=&#34;https://github.com/danielqsj/kafka_exporter&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;kafka exporter&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;→ max lag가 일반적인 지표인듯? &lt;strong&gt;확인필요&lt;/strong&gt;. (&lt;a class=&#34;link&#34; href=&#34;https://blog.voidmainvoid.net/243&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;ref&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;→ &lt;a class=&#34;link&#34; href=&#34;https://github.com/linkedin/Burrow&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;kafka burrow&lt;/a&gt;를 사용하면 partition당 lag값을 matric으로 저장한다.&lt;/p&gt;
+&lt;p&gt;→ 사용중인 prometheus를 보니, burrow에서 추출된 지표를 저장하고 있다.&lt;/p&gt;
+&lt;h3 id=&#34;3-추출한-metric-값을-어떻게-kubernetes에-연동할-것인가&#34;&gt;3. 추출한 Metric 값을 어떻게 Kubernetes에 연동할 것인가?
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;도움은 안될거같지만 참고하면 좋을듯 : &lt;a class=&#34;link&#34; href=&#34;https://medium.com/google-cloud/kubernetes-hpa-autoscaling-with-kafka-metrics-88a671497f07&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://medium.com/google-cloud/kubernetes-hpa-autoscaling-with-kafka-metrics-88a671497f07&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;→ Prometheus Adapter를 사용하면, kafka consumer lag을 kubernetes metric으로 등록하여 사용가능하다.&lt;/p&gt;
+&lt;h2 id=&#34;사례조사&#34;&gt;사례조사
+&lt;/h2&gt;&lt;p&gt;진행방향이 문제가 없는지, 구현 가능한지, 먼저 구현한 사례가 있는지 확인하고자 사례 조사를 진행 하였다.&lt;/p&gt;
+&lt;p&gt;다행히 앞서 언급한 &lt;a class=&#34;link&#34; href=&#34;https://medium.com/@ranrubin/horizontal-pod-autoscaling-hpa-triggered-by-kafka-event-f30fe99f3948&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;사례2&lt;/a&gt; 가 있었고, 우리 시스템에 적용가능한지 대략 확인할 수 있었다.&lt;/p&gt;
+&lt;p&gt;차이점을 확인하고, Diagram을 그려 도식화 하였다.&lt;/p&gt;
+&lt;h4 id=&#34;article에서-구성한-diagram&#34;&gt;Article에서 구성한 Diagram
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://s3-us-west-2.amazonaws.com/secure.notion-static.com/72684631-ed3e-4efc-bd83-fab4320d8825/Untitled.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Untitled&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;kafka → burrow → burrow export → prometheus → prometheus adapter → (k8s) Custom Metrics API 이와 같은 순으로 데이터가 흘러가야한다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;실제로-구성한-diagram&#34;&gt;실제로 구성한 Diagram
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fd8eb16c-28c8-4550-9457-ff9fdeb81513/consumer-hpa-diagram.jpeg&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;consumer-hpa-diagram.jpeg&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;del&gt;jp-real에는 burrow, burrow export가 설치되어있지만,
+jp-beta에는 설치되지않았다. kafka설치된 서버에 접근권한만 있으면, 설치가능할 것 같다.&lt;/del&gt;
+→ jp-beta에 exporter가 내려가있던 상태&lt;/li&gt;
+&lt;li&gt;prometheus-promoter가 설치는 되어있지만, burrow data를 제공할 수 있도록 설정되어있지않다.(&lt;a class=&#34;link&#34; href=&#34;https://git.linecorp.com/LCP/k8s-maestro/blob/master/helm/values/lsp/prometheus_adapter_real_values.yaml&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;링크&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;in-progress-1&#34;&gt;In Progress
+&lt;/h2&gt;&lt;h3 id=&#34;prometheus-adapter를-사용한-metric생성&#34;&gt;Prometheus-adapter를 사용한 Metric생성
+&lt;/h3&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.notion.so/metric-516e25aadb724af881d39ec25262a222?pvs=21&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;metric 생성을 위한 삽질&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;외부에서 수집되는 지표이므로, Custom Metric이 아닌 External Metric으로 만들어 주어야한다.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/kubernetes-sigs/prometheus-adapter/blob/master/docs/config-walkthrough.md&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;가이드&lt;/a&gt;를 참고해서 yaml 파일을 작성한다. (아래에 작성한 yaml을 보셔도 됩니다)&lt;/p&gt;
+&lt;p&gt;metric을 생성하는건 쉽지만, namespace 별로 분리가 되어있어 활용하고자하면 따로 생성해줘야한다는 문제점이 발생한다.&lt;/p&gt;
+&lt;p&gt;다행히 0.9.0버전 이상에서 cross-namespace를 지원하여, 하나의 namespace에서만 생성해도 다른 namespace에서 사용가능해졌다.&lt;/p&gt;
+&lt;p&gt;물론 cross-namespace를 적용하여 진행하였다.&lt;/p&gt;
+&lt;p&gt;관련된 issue를 확인하고싶다면 아래의 링크를 참고면 된다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;cross-namespace 개발에 대한 issue&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;→ &lt;a class=&#34;link&#34; href=&#34;https://github.com/kubernetes-sigs/prometheus-adapter/pull/380&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/kubernetes-sigs/prometheus-adapter/pull/380&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;→ 최신 버전에 대해 작성된 글 : &lt;a class=&#34;link&#34; href=&#34;https://github.com/kubernetes-sigs/prometheus-adapter/issues/422&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/kubernetes-sigs/prometheus-adapter/issues/422&lt;/a&gt;
+→ 0.9.0 이상 적용되었다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;resources&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#f92672&#34;&gt;namespaced&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;external&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    - &lt;span style=&#34;color:#f92672&#34;&gt;seriesQuery&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;kafka_burrow_total_lag{group!=&amp;#34;&amp;#34;}&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;seriesFilters&lt;/span&gt;: [ ]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;resources&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;namespaced&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;matches&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;kafka_burrow_total_lag&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;as&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;kafka_burrow_total_lag&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;metricsQuery&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;avg_over_time(kafka_burrow_total_lag{&amp;lt;&amp;lt;.LabelMatchers&amp;gt;&amp;gt;}[1m])&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;위와같이 적용한뒤, 문제없이 배포되었다면 아래의 명령어를 통해 값을 확인 해 볼 수 있다.&lt;/p&gt;
+&lt;p&gt;그전에 앞서, 사용중인 kubernetes cluster id를 알아야한다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;gt; kubectl cluster-info
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Kubernetes control plane is running at https://vks-api-prod.linecorp-dev.com/v1/k8s/xaxx14xxx6xxxxxxxxxx
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;CoreDNS is running at https://vks-api-prod.linecorp-dev.com/v1/k8s/xaxx14xxx6xxxxxxxxxx/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;CoreDNS is running at https://vks-api-prod.linecorp-dev.com/v1/k8s/xaxx14xxx6xxxxxxxxxx/api/v1/namespaces/kube-system/services/vks-dns-upstream:dns/proxy
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;위와같은 명령어를 통해, cluster id를 확인할 수 있다.&lt;/p&gt;
+&lt;p&gt;xaxx14xxx6xxxxxxxxxx 부분이 id값이다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;수집된 external metric 조회 : &lt;code&gt;kubectl get --raw &amp;quot;/v1/k8s/78a44b7c-0f3b-4d5c-91f2-617c66a01147/apis/external.metrics.k8s.io/v1beta1/&amp;quot; | jq&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;kind&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;APIResourceList&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;apiVersion&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;v1&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;groupVersion&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;external.metrics.k8s.io/v1beta1&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;resources&amp;#34;&lt;/span&gt;: [
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;kafka_burrow_total_lag&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;singularName&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;namespaced&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;kind&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ExternalMetricValueList&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;verbs&amp;#34;&lt;/span&gt;: [
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;get&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      ]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  ]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;수집된 external metric 상세 조회 : &lt;code&gt;kubectl get --raw &amp;quot;/v1/k8s/78a44b7c-0f3b-4d5c-91f2-617c66a01147/apis/external.metrics.k8s.io/v1beta1/namespaces/monitoring/kafka_burrow_total_lag&amp;quot; | jq&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;kind&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ExternalMetricValueList&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;apiVersion&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;external.metrics.k8s.io/v1beta1&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;metadata&amp;#34;&lt;/span&gt;: {},
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;items&amp;#34;&lt;/span&gt;: [
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;metricName&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;kafka_burrow_total_lag&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;metricLabels&amp;#34;&lt;/span&gt;: {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;cluster&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;lsp-jp&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;group&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;KMOffsetCache-kafka-manager-vm-54c7f9ccbf-flh7f&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;instance&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;lsp-burrow-exporter-jp.linecorp-beta.com:80&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;job&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;burrow-exporter&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      },
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;timestamp&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2021-12-24T05:50:10Z&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;value&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;0&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    },
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;metricName&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;kafka_burrow_total_lag&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;metricLabels&amp;#34;&lt;/span&gt;: {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;cluster&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;lsp-jp&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;group&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;KMOffsetCache-kafka-manager-vm-69d7c65c64-twdqx&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;instance&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;lsp-burrow-exporter-jp.linecorp-beta.com:80&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;job&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;burrow-exporter&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      },
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;timestamp&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2021-12-24T05:50:10Z&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;value&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;0&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    },
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;metricName&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;kafka_burrow_total_lag&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;metricLabels&amp;#34;&lt;/span&gt;: {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;cluster&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;lsp-jp&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;group&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;_confluent-controlcenter-7-0-0-1&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;instance&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;lsp-burrow-exporter-jp.linecorp-beta.com:80&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;job&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;burrow-exporter&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      },
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;timestamp&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2021-12-24T05:50:10Z&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;value&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;0&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    },
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;...&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  ]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;label을 이용한 external metric조회 : &lt;code&gt;kubectl get --raw &amp;quot;/v1/k8s/78a44b7c-0f3b-4d5c-91f2-617c66a01147/apis/external.metrics.k8s.io/v1beta1/namespaces/monitoring/kafka_burrow_total_lag?labelSelector=group%3Dhpa.test&amp;quot; | jq&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;kind&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ExternalMetricValueList&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;apiVersion&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;external.metrics.k8s.io/v1beta1&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;metadata&amp;#34;&lt;/span&gt;: {},
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;items&amp;#34;&lt;/span&gt;: [
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;metricName&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;kafka_burrow_total_lag&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;metricLabels&amp;#34;&lt;/span&gt;: {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;cluster&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;lsp-jp&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;group&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;hpa.test&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;instance&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;lsp-burrow-exporter-jp.linecorp-beta.com:80&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;job&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;burrow-exporter&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      },
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;timestamp&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2021-12-24T05:50:59Z&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;value&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;0&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  ]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;kubectl에서 제공하는 API를 통해, consumer lag이 kubernetes에 연동되는 것을 확인하였다.&lt;/p&gt;
+&lt;h4 id=&#34;reference&#34;&gt;Reference
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;custom metric api : &lt;a class=&#34;link&#34; href=&#34;https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/custom-metrics-api.md&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/custom-metrics-api.md&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;external metric api :
+&lt;a class=&#34;link&#34; href=&#34;https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/external-metrics-api.md&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/external-metrics-api.md&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;externalmetric doc :
+&lt;a class=&#34;link&#34; href=&#34;https://github.com/kubernetes-sigs/prometheus-adapter/blob/master/docs/externalmetrics.md&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/kubernetes-sigs/prometheus-adapter/blob/master/docs/externalmetrics.md&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;config walkthrough : &lt;a class=&#34;link&#34; href=&#34;https://github.com/kubernetes-sigs/prometheus-adapter/blob/master/docs/config-walkthrough.md&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/kubernetes-sigs/prometheus-adapter/blob/master/docs/config-walkthrough.md&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Metric Discovery and Presentation Configuration : &lt;a class=&#34;link&#34; href=&#34;https://github.com/kubernetes-sigs/prometheus-adapter/blob/master/docs/config.md&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/kubernetes-sigs/prometheus-adapter/blob/master/docs/config.md&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;helm chart community : &lt;a class=&#34;link&#34; href=&#34;https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-adapter&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-adapter&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;prometheus-adapter : &lt;a class=&#34;link&#34; href=&#34;https://github.com/kubernetes-sigs/prometheus-adapter&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/kubernetes-sigs/prometheus-adapter&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;hpa-생성&#34;&gt;HPA 생성
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://s3-us-west-2.amazonaws.com/secure.notion-static.com/43212b7a-2338-4f3d-95c0-550341bbd620/horizontal-pod-autoscaler.svg&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;horizontal-pod-autoscaler.svg&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;HPA는 생성시 사용자가 지정한 Metric값을 사용하여, 알고리즘을 통해 사용자가 지정한 목표값과 일치하도록 replica 개수를 주기적으로 조정한다.&lt;/p&gt;
+&lt;p&gt;사용할 Metric은 앞에서 연동한 kafka consumer lag이며, HPA는 이 값을 사용하여 replica 개수를 조정하게 된다.&lt;/p&gt;
+&lt;aside&gt;
+💡 Custom Control Plane을 만들어 특정조건의 deployment일경우,
+kafka consumer lag을 사용한 HPA를 자동 생성할 수도 있을것 같다.
+&lt;/aside&gt;
+&lt;p&gt;Article에서 사용한 hpa.yaml은 아래와 같이 작성되어 있으며, 일반적인 형태이다.&lt;/p&gt;
+&lt;p&gt;하지만 우리는 다른 namespace에 존재하는 metric을 사용해야하기 때문에, 다르게 작성되어야한다.&lt;/p&gt;
+&lt;p&gt;참고 용도로 첨부하였다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;kind&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;HorizontalPodAutoscaler&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;apiVersion&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;autoscaling/v2beta1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;metadata&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;consumer-hpa&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;spec&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;scaleTargetRef&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;apiVersion&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;apps/v1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;kind&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Deployment&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;kafka-consumer-application&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;minReplicas&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;maxReplicas&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;metrics&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  - &lt;span style=&#34;color:#f92672&#34;&gt;type&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Pods&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;pods&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;metricName&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;kafka_consumergroup_lag&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;targetAverageValue&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;위의 yaml 파일과 우리가 사용할 yaml 파일의 다른점은 사용해야할 metric 정보를 annotation으로 추가했다는 점이다.&lt;/p&gt;
+&lt;p&gt;그 외의 정보는 동일하다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;apiVersion&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;autoscaling/v1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;kind&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;HorizontalPodAutoscaler&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;metadata&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;external-queue-scaler&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;# the HPA and scaleTargetRef must exist in a namespace&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;namespace&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;default&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;annotations&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# The &amp;#34;External&amp;#34; metric below targets a metricName that has namespaced=false&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# and this allows the metric to explicitly query a different&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# namespace than that of the HPA and scaleTargetRef&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;autoscaling.alpha.kubernetes.io/metrics&lt;/span&gt;: |&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      [
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;            &amp;#34;type&amp;#34;: &amp;#34;External&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;            &amp;#34;external&amp;#34;: {
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                &amp;#34;metricName&amp;#34;: &amp;#34;queue_depth&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                &amp;#34;metricSelector&amp;#34;: {
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                    &amp;#34;matchLabels&amp;#34;: {
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                        &amp;#34;namespace&amp;#34;: &amp;#34;queue&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                        &amp;#34;name&amp;#34;: &amp;#34;my-sample-queue&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                    }
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                },
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                &amp;#34;targetAverageValue&amp;#34;: &amp;#34;50&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;            }
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      ]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;spec&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;maxReplicas&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;minReplicas&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;scaleTargetRef&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;apiVersion&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;apps/v1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;kind&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Deployment&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;my-app&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;사용한-config&#34;&gt;사용한 config
+&lt;/h4&gt;&lt;p&gt;테스트 용도로 사용한 Deployment.yaml과 hpa.yaml을 작성하였다.Deployment에 사용한 image는 hpa.test 토픽에 들어간 메시지를 출력하는 spring stream application 이다.HPA는 목표값인 3을 기준으로 auto scale하도록 작성하였다.&lt;/p&gt;
+&lt;p&gt;auto scale에 사용되는 알고리즘은 뒷부분에 작성하였다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;apiVersion&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;apps/v1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;kind&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Deployment&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;metadata&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;consumer-deployment&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;labels&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;app&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;consumer-test&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;spec&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;replicas&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;selector&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;matchLabels&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;app&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;consumer-test&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;template&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;metadata&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;labels&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;app&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;consumer-test&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;spec&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;containers&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;consumer-test&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;image&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;harbor.linecorp.com/line_shopping/hpa_test:0.0.1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;imagePullPolicy&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Always&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;apiVersion&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;autoscaling/v1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;kind&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;HorizontalPodAutoscaler&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;metadata&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;hpa-test-scaler&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;# the HPA and scaleTargetRef must exist in a namespace&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;#namespace: default&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;annotations&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# The &amp;#34;External&amp;#34; metric below targets a metricName that has namespaced=false&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# and this allows the metric to explicitly query a different&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# namespace than that of the HPA and scaleTargetRef&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;autoscaling.alpha.kubernetes.io/metrics&lt;/span&gt;: |&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      [
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;            &amp;#34;type&amp;#34;: &amp;#34;External&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;            &amp;#34;external&amp;#34;: {
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                &amp;#34;metricName&amp;#34;: &amp;#34;kafka_burrow_total_lag&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                &amp;#34;metricSelector&amp;#34;: {
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                    &amp;#34;matchLabels&amp;#34;: {
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                        &amp;#34;group&amp;#34;: &amp;#34;hpa.test&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                    }
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                },
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                &amp;#34;targetAverageValue&amp;#34;: &amp;#34;3&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;            }
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      ]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;spec&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;maxReplicas&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;minReplicas&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;scaleTargetRef&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;apiVersion&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;apps/v1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;kind&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Deployment&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;hpa-test-deployment&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;replica-개수-계산-알고리즘&#34;&gt;Replica 개수 계산 &lt;strong&gt;알고리즘&lt;/strong&gt;
+&lt;/h4&gt;&lt;p&gt;&lt;code&gt;원하는 레플리카 수 = ceil[현재 레플리카 수 * ( 현재 메트릭 값 / 원하는 메트릭 값 )]&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;원하는 레플리카 수 : HPA를 통해 변경될 replica 수&lt;/li&gt;
+&lt;li&gt;현재 레플리카 수 : 현재 운영되고있는 replica 수&lt;/li&gt;
+&lt;li&gt;현재 메트릭 값 : HPA에서 사용할 Metric 값
+&lt;ul&gt;
+&lt;li&gt;원하는 메트릭값의 type이 AverageValue일 경우, &lt;code&gt;현재 메트릭 값 = 측정된 메트릭 값 / 현재 레플리카 수&lt;/code&gt; 로 계산된다&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;원하는 메트릭 값 : HPA의 auto scaling을 통해 Metric이 유지되길 원하는 값&lt;/li&gt;
+&lt;li&gt;( 현재 메트릭 값 / 원하는 메트릭 값 ) 은 1.0에 아깝고 오차 0.1 이내이면 스케일링을 생략한다.
+&lt;code&gt;-horizontal-pod-autoscaler-tolerance&lt;/code&gt; 플래그를 통해 오차값을 제어할 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Ex1&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;2 = ceil(1 * ( 5 / 3))&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;현재 레플리카 수 : 1&lt;/li&gt;
+&lt;li&gt;현재 메트릭 값 : 5
+&lt;ul&gt;
+&lt;li&gt;레플리카가 1개이기때문에 5 / 1 = 5&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;원하는 메트릭 값 : 3&lt;/li&gt;
+&lt;li&gt;원하는 레플리카 수 : 2&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Ex2&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;4 = ceil(2 * ( 5 / 3 ))&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;현재 레플리카수 : 2&lt;/li&gt;
+&lt;li&gt;현재 메트릭 값 : 5
+&lt;ul&gt;
+&lt;li&gt;실제 kafka consumer lag = 10 = 현재 메트릭 값 * 현재 레플리카 수&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;원하는 메트릭 값 : 3&lt;/li&gt;
+&lt;li&gt;원하는 레플리카 수 : 4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Ex3&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;2 = ceil(4 * ( 1 / 3 ) )&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;현재 레플리카수 : 4&lt;/li&gt;
+&lt;li&gt;현재 메트릭값 : 1
+&lt;ul&gt;
+&lt;li&gt;실제 kafka consumer lag = 4 = 현재 메트릭 값 * 현재 레플리카 수&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;원하는 메트릭 값 : 3&lt;/li&gt;
+&lt;li&gt;원하는 레플리카 수 : 2&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;reference-1&#34;&gt;Reference
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;metric 관련 메뉴얼.. : &lt;a class=&#34;link&#34; href=&#34;https://kubernetes.io/ko/docs/tasks/run-application/horizontal-pod-autoscale/#%EB%A9%94%ED%8A%B8%EB%A6%AD-API%EB%A5%BC-%EC%9C%84%ED%95%9C-%EC%A7%80%EC%9B%90&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://kubernetes.io/ko/docs/tasks/run-application/horizontal-pod-autoscale/#메트릭-API를-위한-지원&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;current value가 합으로 계산되는 이유 : &lt;a class=&#34;link&#34; href=&#34;https://kubernetes.io/ko/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8%EC%99%80-%EA%B4%80%EB%A0%A8%EC%9D%B4-%EC%97%86%EB%8A%94-%EB%A9%94%ED%8A%B8%EB%A6%AD%EC%9D%84-%EA%B8%B0%EC%B4%88%EB%A1%9C%ED%95%9C-%EC%98%A4%ED%86%A0%EC%8A%A4%EC%BC%80%EC%9D%BC%EB%A7%81&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://kubernetes.io/ko/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#쿠버네티스-오브젝트와-관련이-없는-메트릭을-기초로한-오토스케일링&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;왜 그동안 labelselector이 안먹혔는지 ? : &lt;a class=&#34;link&#34; href=&#34;https://github.com/kubernetes-sigs/prometheus-adapter/issues/255&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/kubernetes-sigs/prometheus-adapter/issues/255&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;kafka commit 실패이유 : &lt;a class=&#34;link&#34; href=&#34;https://medium.com/@mouli2k5/solution-for-kafka-commitfailedexception-c3a6c9baae51&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://medium.com/@mouli2k5/solution-for-kafka-commitfailedexception-c3a6c9baae51&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;kafka 설정 : &lt;a class=&#34;link&#34; href=&#34;https://dev-jj.tistory.com/entry/Kafka-%EA%B0%99%EC%9D%80%EB%A9%94%EC%8B%9C%EC%A7%80%EB%A5%BC-%EB%B0%98%EB%B3%B5%EC%A0%81%EC%9C%BC%EB%A1%9C-%EC%86%8C%EB%B9%84%ED%96%88%EB%8D%98-%EB%A6%AC%EB%B0%B8%EB%9F%B0%EC%8B%B1-%EC%9D%B4%EC%8A%88-%ED%95%B4%EA%B2%B0-MAX-POLL-RECORDS-CONFIG-maxpollrecord&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://dev-jj.tistory.com/entry/Kafka-같은메시지를-반복적으로-소비했던-리밸런싱-이슈-해결-MAX-POLL-RECORDS-CONFIG-maxpollrecord&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;kafka consumer group에 대한 내용 : &lt;a class=&#34;link&#34; href=&#34;https://www.popit.kr/kafka-consumer-group/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.popit.kr/kafka-consumer-group/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 이미지 태깅&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker tag spring-stream-kafka-demo:0.0.1 harbor.linecorp.com/line_shopping/hpa_test:0.0.1
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 이미지 푸시&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker push harbor.linecorp.com/line_shopping/hpa_test:0.0.1
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 부하 명령어&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;./kafka-verifiable-producer.sh --topic hpaTopic --max-messages -1 --throughput &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt; --bootstrap-server kafka-n-zk001-lsp-jp-jp2v-dev.lineinfra-dev.com:9092,kafka-n-zk002-lsp-jp-jp2v-dev.lineinfra-dev.com:9092,kafka-n-zk003-lsp-jp-jp2v-dev.lineinfra-dev.com:9092
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;auto-scale-default-behavior&#34;&gt;Auto Scale Default Behavior
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;Scale Down
+&lt;ul&gt;
+&lt;li&gt;안정화 윈도우 : 300초&lt;/li&gt;
+&lt;li&gt;정책
+&lt;ul&gt;
+&lt;li&gt;퍼센트
+&lt;ul&gt;
+&lt;li&gt;15초 주기&lt;/li&gt;
+&lt;li&gt;100% replica 제거(minimum replica)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Scale Up
+&lt;ul&gt;
+&lt;li&gt;정책
+&lt;ul&gt;
+&lt;li&gt;Pod
+&lt;ul&gt;
+&lt;li&gt;15초 주기&lt;/li&gt;
+&lt;li&gt;4개 Pod 추가&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;pod
+&lt;ul&gt;
+&lt;li&gt;15초 주기&lt;/li&gt;
+&lt;li&gt;100% replica 추가&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;reference-2&#34;&gt;Reference
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#default-behavior&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#default-behavior&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;hpa-테스트&#34;&gt;HPA 테스트
+&lt;/h3&gt;&lt;p&gt;위에서 작성했던  yaml을 사용하여 Deployment, hpa를 배포하였다&lt;/p&gt;
+&lt;h4 id=&#34;설정값&#34;&gt;설정값
+&lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;apiVersion&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;apps/v1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;kind&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Deployment&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;metadata&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;consumer-deployment&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;labels&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;app&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;consumer-test&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;spec&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;replicas&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;selector&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;matchLabels&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;app&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;consumer-test&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;template&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;metadata&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;labels&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;app&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;consumer-test&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;spec&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;containers&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      - &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;consumer-test&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;image&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;harbor.linecorp.com/line_shopping/hpa_test:0.0.1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;imagePullPolicy&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Always&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;apiVersion&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;autoscaling/v1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;kind&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;HorizontalPodAutoscaler&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;metadata&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;hpa-test-scaler&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;# the HPA and scaleTargetRef must exist in a namespace&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;#namespace: default&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;annotations&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# The &amp;#34;External&amp;#34; metric below targets a metricName that has namespaced=false&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# and this allows the metric to explicitly query a different&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;# namespace than that of the HPA and scaleTargetRef&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;autoscaling.alpha.kubernetes.io/metrics&lt;/span&gt;: |&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      [
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;            &amp;#34;type&amp;#34;: &amp;#34;External&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;            &amp;#34;external&amp;#34;: {
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                &amp;#34;metricName&amp;#34;: &amp;#34;kafka_burrow_total_lag&amp;#34;,
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                &amp;#34;metricSelector&amp;#34;: {
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                    &amp;#34;matchLabels&amp;#34;: {
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                        &amp;#34;group&amp;#34;: &amp;#34;hpa.test&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                    }
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                },
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                &amp;#34;targetAverageValue&amp;#34;: &amp;#34;3&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;            }
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      ]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;spec&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;maxReplicas&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;minReplicas&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;scaleTargetRef&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;apiVersion&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;apps/v1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;kind&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Deployment&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;hpa-test-deployment&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;테스트에 사용한 HPA&lt;/p&gt;
+&lt;p&gt;consumer lag metric을 높이기 위해 kafka에서 제공하는 부하툴을 사용하였고 아래와 같은 옵션을 주었다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;초당 생성하는 메시지 : 3개&lt;/li&gt;
+&lt;li&gt;최대 전송하는 메시지 개수 : 무한&lt;/li&gt;
+&lt;li&gt;전송할 topic : &amp;ldquo;hpaTopic&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;./kafka-verifiable-producer.sh --topic hpaTopic --max-messages -1 -throughput 3 -bootstrap-server ${server}&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;테스트-결과&#34;&gt;테스트 결과
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;kafka consumer lag&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ed25c018-f13e-4086-afec-b69f3bc3ed00/kafka_consumer_lag.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;kafka_consumer_lag.png&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;pod replica&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://s3-us-west-2.amazonaws.com/secure.notion-static.com/54ec1d77-12fd-4289-b492-693081a130e6/hpa_replica.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;hpa_replica.png&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;결과 정리&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;초기설정을 잘못되어있어 scale up이 늦게되었다.&lt;/li&gt;
+&lt;li&gt;scale down은 약 5분정도 뒤에 진행되었다. 이는 kubenetes 공식문서에 작성된 기본값인 5분과 유사하다.&lt;/li&gt;
+&lt;li&gt;정상적으로 된 것을 확인할 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;서비스-적용&#34;&gt;서비스 적용
+&lt;/h2&gt;&lt;h3 id=&#34;환경&#34;&gt;환경
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;kafka topic : &lt;strong&gt;com.linecorp.lsp.processor.stream.catalog.mapping&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;deployment : catalog-mapping&lt;/li&gt;
+&lt;li&gt;hpa : catalog-mapping&lt;/li&gt;
+&lt;li&gt;min replica : 3&lt;/li&gt;
+&lt;li&gt;max replica : 45&lt;/li&gt;
+&lt;li&gt;target value : 10,000&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;적용-결과&#34;&gt;적용 결과
+&lt;/h3&gt;&lt;h4 id=&#34;kafka-consumer-lag&#34;&gt;kafka consumer lag
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9d049b1c-ba8e-4292-a390-04fcc90f7f44/kafka_consumer_lag_real.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;kafka_consumer_lag_real.png&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h4 id=&#34;pod-replica&#34;&gt;pod replica
+&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://s3-us-west-2.amazonaws.com/secure.notion-static.com/94768e30-80a4-4fc1-a5ee-db6e3d73c593/hpa_replica_real.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;hpa_replica_real.png&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h4 id=&#34;요약&#34;&gt;요약
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;테스트환경에서 진행한 것처럼 auto scaling이 진행되었다.&lt;/li&gt;
+&lt;li&gt;target value를 낮게 설정한다면, auto scale이 빈번히 발생할 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;next-step&#34;&gt;Next Step
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; partition개수에 따라 적절한 replica 개수를 설정할 수 있는지 조사
+Ex1) partition = 90, replica = 45
+Ex2) partition = 90, replica = 90
+consumer마다 담당하는 partition 개수가 다르면 밸런스가 무너진다!?
+→ 알고리즘 바꾸는 방법은 따로 존재하지않는것 같다.
+→ kubernetes golang client로&amp;hellip; 코드 짜면 가능할듯 ㅋ(&lt;a class=&#34;link&#34; href=&#34;https://stackoverflow.com/questions/61653702/scale-deployment-replicas-with-kubernetes-go-client/63439093#63439093&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;링크&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; prometheus에서 수집하는 주기 확인하기
+→ yaml파일에는 1분
+→ prometheus에서 관찰했을땐 14초
+→ burrow exporter 30초&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; auto scale 주기 조절
+rebalancing때 시간 손실이 발생할수있기때문에 주기가 길 필요가있다.
+→ kubernetes controller manager?? 여기에서 옵션을 변경해야할꺼같다.
+→ &lt;a class=&#34;link&#34; href=&#34;https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/&lt;/a&gt;
+→ help_vks에 controller manager 어떻게 수정을 진행하면 되는지 문의한다.&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; topic을 넣을지??
+→ total_lag 기준으로 topic정보까지 포함하려면 image를 custom하게 수정해야한다.
+→ 적용해서 잘되면 고민하자.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;metric-server-vs-prometheus-adapter&#34;&gt;Metric Server vs Prometheus-Adapter
+&lt;/h2&gt;&lt;p&gt;→ metric-server : 쿠버네티스 클러스터의 기본적인 지표(pod의 cpu사용량, 메트릭)만 수집한다.&lt;/p&gt;
+&lt;p&gt;→ prometheus-adapter : resource, custom, external metric에 대해 구현이 되어있으며, k8s 1.6+ 에서는 metric server를 대체가능하다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;한글 : &lt;a class=&#34;link&#34; href=&#34;https://arisu1000.tistory.com/27855?category=787056&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://arisu1000.tistory.com/27855?category=787056&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;영어 : &lt;a class=&#34;link&#34; href=&#34;https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/monitoring_architecture.md#architecture&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/monitoring_architecture.md#architecture&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;참고 : &lt;a class=&#34;link&#34; href=&#34;https://blog.naver.com/alice_k106/221521978267&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://blog.naver.com/alice_k106/221521978267&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;reference-3&#34;&gt;Reference
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;prometheus의 지표를 사용한 k8s hpa 방법 : &lt;a class=&#34;link&#34; href=&#34;https://medium.com/@ranrubin/horizontal-pod-autoscaling-hpa-triggered-by-kafka-event-f30fe99f3948&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://medium.com/@ranrubin/horizontal-pod-autoscaling-hpa-triggered-by-kafka-event-f30fe99f3948&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;burrow : &lt;a class=&#34;link&#34; href=&#34;https://github.com/linkedin/Burrow&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/linkedin/Burrow&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;burrow-exporter docker : &lt;a class=&#34;link&#34; href=&#34;https://hub.docker.com/r/vixns/burrow_exporter&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://hub.docker.com/r/vixns/burrow_exporter&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;burrow-exporter : &lt;a class=&#34;link&#34; href=&#34;https://github.com/vixns/burrow_exporter&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/vixns/burrow_exporter&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;prometheus-adapter : &lt;a class=&#34;link&#34; href=&#34;https://github.com/kubernetes-sigs/prometheus-adapter/blob/master/docs/externalmetrics.md&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/kubernetes-sigs/prometheus-adapter/blob/master/docs/externalmetrics.md&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>Twitch Eventsub</title>
+        <link>http://localhost:1313/ko/others/twitch-eventsub/</link>
+        <pubDate>Sun, 09 Apr 2023 14:34:00 +0900</pubDate>
+        
+        <guid>http://localhost:1313/ko/others/twitch-eventsub/</guid>
+        <description>&lt;h2 id=&#34;previous-to-start&#34;&gt;Previous to Start
+&lt;/h2&gt;&lt;p&gt;안녕하세요. 이번 글은 Twitch에서 공식 제공하는 문서인 &lt;a class=&#34;link&#34; href=&#34;https://dev.twitch.tv/docs/eventsub/handling-webhook-events/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Handling Webhook Events&lt;/a&gt;를 참고하여 작성하였습니다.&lt;br&gt;
+지금보니 어떤 문서들보다 상세하게 잘 작성되어있는편이지만, 처음에 사용하고자 했을때 헤매었던 경험이 있어 다른사람들에게 도움이 되었으면 바램으로 간단히 Guide문서를 작성해보게되었습니다.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;인증에 대한 방법은 따로 기술하지않았습니다. 추후에 기회가 된다면 기술할 예정입니다.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview
+&lt;/h2&gt;&lt;p&gt;Event Subscription은 Twitch에서 발생한 Event를 구독할 수 있는 기능을 말합니다.&lt;br&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;여러가지의 형태들의 Event&lt;/a&gt;들이 존재합니다.&lt;br&gt;
+이 중에서 EventSub을 통해 구독받기 원하는 Event를 Twitch 서버에 등록 할 수 있습니다.&lt;br&gt;
+등록해 두었던 Event가 트위치에서 발생하면 Application에 알림을 전송해 줍니다.  &lt;br&gt;
+예를 들면 아래 종류의 notification을 전달받을 수 있습니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;스트리머가 온라인 상태일때&lt;/li&gt;
+&lt;li&gt;스트리머의 새로운 follower가 생겼을때&lt;/li&gt;
+&lt;li&gt;스트리머의 새로운 구독자가 생겼을때&lt;/li&gt;
+&lt;li&gt;시청자가 채널 응원할때&lt;/li&gt;
+&lt;li&gt;시청자가 포인트를 기부했을때?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Twitch는 전송하는데 2가지 방식을 지원합니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Webhook&lt;/li&gt;
+&lt;li&gt;WebSocket&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;이 문서에서 설명하고자 하는 방식은 Webhook에 해당됩니다.&lt;/p&gt;
+&lt;h2 id=&#34;required-3-api&#34;&gt;Required 3 API
+&lt;/h2&gt;&lt;p&gt;Event Subscription을 사용하여 Event를 수신받고 싶다면 3가지 API(Callback)이 필요로 합니다. &lt;br&gt;
+이 Callback들은 무조건 SSL을 사용해야하며, 443 port를 사용합니다.&lt;/p&gt;
+&lt;p&gt;Request Header에 &lt;code&gt;Twitch-Eventsub-Message-Type&lt;/code&gt;가 포함되는데, 아래의 3가지 Notification Type을 Value로 가질 수 있습니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;webhook_callback-verification&lt;/code&gt; : Callback으로 등록한 Event Handler가 구독 요청한 사람의 소유인지 증명하는데 사용합니다. Event 구독을 하면, 처음으로 수신받는 Event 입니다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;notification&lt;/code&gt; : Event 데이터를 포함하고 있습니다. 실제로 Event를 처리하는 부분에 해당합니다.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;revocation&lt;/code&gt; : 어떤 사유로, Twitch 서버에서 구독을 취소하게 되면 사용합니다. 이유를 포함하게 됩니다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;위 3개 Type의 Request가 유입되면, 몇초내에 응답해주어야합니다.&lt;br&gt;
+오랜 시간이 걸리면 Timeout으로 처리합니다. 짧은 시간안에 많은 실패가 발생한다면, Subscription 상태는 &lt;code&gt;notification_failures_exceeded&lt;/code&gt; 으로 바뀌고 Twitch는 Event Subscription을 해지할 것입니다.&lt;/p&gt;
+&lt;p&gt;만약 서버에서 빠른 시간안에 처리가 불가능하다면, 이벤트를 임시저장소에 저장하거나 2XX로 응답한후 처리하는것을 고려해야합니다.&lt;/p&gt;
+&lt;h3 id=&#34;common-verifying-the-event-message&#34;&gt;Common (Verifying the Event Message)
+&lt;/h3&gt;&lt;p&gt;핸들러에게 전송된 메시지로 어떤 작업을 하기 전에, 악의를 가진사람이 메시를 전송한 것일수도 있으므로 해당 메시지가 Twitch에서 보낸 것인지 검증해야 합니다.  &lt;br&gt;
+이벤트에 구독할때 이벤트에 &lt;code&gt;Secret&lt;/code&gt;을 포함하게 되어있습니다. Twitch에서는 HMAC-SHA256(해시 기반 메시지 인증 코드) 서명을 생성할 때 &lt;code&gt;Secret&lt;/code&gt;을 키로 사용합니다. &lt;br&gt;
+Twitch는 &lt;code&gt;Twitch-Eventsub-Message-Signature&lt;/code&gt; 요청 헤더에서 핸들러에게 HMAC 서명을 전달하여, 인증합니다.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Secret&lt;/code&gt;과 &lt;code&gt;Twitch-Eventsub-Message-Id&lt;/code&gt; 헤더, &lt;code&gt;Twitch-Eventsub-Message-Timestamp&lt;/code&gt; 헤더, Request Body의 값을 연결한 메시지를 사용하여 HMAC 서명을 생성합니다.(순서가 중요합니다)&lt;br&gt;
+&lt;code&gt;Twitch-Eventsub-Message-Signature&lt;/code&gt; 헤더에 Twitch가 전송한 HMAC과 내가 만든 HMAC을 비교합니다.&lt;br&gt;
+서명이 일치하지 않으면 4XX 상태 코드를 반환해야합니다.&lt;/p&gt;
+&lt;p&gt;아래는 Twitch에서 공식적으로 제공한 서명 생성코드 예제입니다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-jsx&#34; data-lang=&#34;jsx&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;crypto&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;require&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;crypto&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Notification request headers
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;TWITCH_MESSAGE_ID&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Twitch-Eventsub-Message-Id&amp;#39;&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;toLowerCase&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;TWITCH_MESSAGE_TIMESTAMP&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Twitch-Eventsub-Message-Timestamp&amp;#39;&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;toLowerCase&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;TWITCH_MESSAGE_SIGNATURE&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Twitch-Eventsub-Message-Signature&amp;#39;&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;toLowerCase&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Prepend this string to the HMAC that&amp;#39;s created from the message
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;HMAC_PREFIX&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;sha256=&amp;#39;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;use&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;express&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;raw&lt;/span&gt;({          &lt;span style=&#34;color:#75715e&#34;&gt;// Need the raw message body for signature verification
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;type&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;application/json&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;})) 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;. . .
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;secret&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;getSecret&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;message&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;getHmacMessage&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;req&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;hmac&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;HMAC_PREFIX&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;getHmac&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;secret&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;message&lt;/span&gt;);  &lt;span style=&#34;color:#75715e&#34;&gt;// Signature to compare to Twitch&amp;#39;s
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;===&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;verifyMessage&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;hmac&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;req&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;headers&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;TWITCH_MESSAGE_SIGNATURE&lt;/span&gt;])) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;signatures match&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;// Get JSON object from body, so you can process the message.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;notification&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;JSON&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;parse&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;req&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;body&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;// Handle notification...
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;403&amp;#39;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;res&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;sendStatus&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;403&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;. . .
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;getSecret&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// TODO: Get your secret from secure storage. This is the secret you passed 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// when you subscribed to the event.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;lt;your secret goes here&amp;gt;&amp;#39;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Build the message used to get the HMAC.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;getHmacMessage&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;headers&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;TWITCH_MESSAGE_ID&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;headers&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;TWITCH_MESSAGE_TIMESTAMP&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;body&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Get the HMAC.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;getHmac&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;secret&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;message&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;crypto&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;createHmac&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;sha256&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;secret&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    .&lt;span style=&#34;color:#a6e22e&#34;&gt;update&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;message&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    .&lt;span style=&#34;color:#a6e22e&#34;&gt;digest&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;hex&amp;#39;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Verify whether your signature matches Twitch&amp;#39;s signature.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;verifyMessage&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;hmac&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;verifySignature&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;crypto&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;timingSafeEqual&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;Buffer&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;from&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;hmac&lt;/span&gt;), &lt;span style=&#34;color:#a6e22e&#34;&gt;Buffer&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;from&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;verifySignature&lt;/span&gt;));
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;모든 Request에 대해서 이 검증작업이 수행되어야합니다. 보안상으로 중요한 이슈이기 때문에, 잘 만들어 주는게 좋습니다.&lt;/p&gt;
+&lt;h3 id=&#34;responding-to-challenge-request&#34;&gt;Responding to Challenge Request
+&lt;/h3&gt;&lt;p&gt;이벤트를 정기구독하면 Twitch는 요청에 지정된 이벤트 핸들러를 소유하고 있는지 확인하기 위해 Authentification Challenge를 보냅니다.&lt;br&gt;
+챌린지 메시지는 &lt;code&gt;Twitch-Eventsub-Message-Type&lt;/code&gt; 헤더를 &lt;strong&gt;webhook_callback_verification&lt;/strong&gt;으로 설정합니다.&lt;br&gt;
+예를 들면 아래와 같습니다.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Twitch-Eventsub-Message-Type: webhook_callback_verification
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;요청 본문의 &lt;code&gt;challenge&lt;/code&gt; 필드에는 응답해야 하는 challenge 값이 포함되어 있습니다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;challenge&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;pogchamp-kappa-360noscope-vohiyo&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;subscription&amp;#34;&lt;/span&gt;: {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;f1c2a387-161a-49f9-a165-0f21d7a4e1c4&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;status&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;webhook_callback_verification_pending&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;channel.follow&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;version&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;cost&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;condition&amp;#34;&lt;/span&gt;: {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;broadcaster_user_id&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;12826&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    },
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;transport&amp;#34;&lt;/span&gt;: {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;method&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;webhook&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;callback&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://example.com/webhooks/callback&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    },
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;created_at&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2019-11-16T10:11:12.634234626Z&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;응답은 200 상태 코드를 반환해야 하며, Response Header에 &lt;code&gt;Content-Type: text/plain&lt;/code&gt;이 포함되어야 하고 Response Body는 challenge만 포함해야 합니다. 성공하면 구독이 활성화된 것입니다.&lt;br&gt;
+서버에서 웹 프레임워크를 사용하는 경우 웹 프레임워크가 호환되지 않는 방식으로 응답을 수정하지 않도록 주의하세요.&lt;/p&gt;
+&lt;h3 id=&#34;processing-an-event&#34;&gt;Processing an event
+&lt;/h3&gt;&lt;p&gt;정기구독한 이벤트가 발생하면 Twitch는 이벤트 데이터가 포함된 알림 메시지를 이벤트 처리자에게 보냅니다. 알림 메시지는 &lt;code&gt;Twitch-Eventsub-Message-Type&lt;/code&gt; 헤더를 알림으로 설정합니다. &lt;br&gt;
+예를 들어 &lt;code&gt;Twitch-Eventsub-Message-Type: notification&lt;/code&gt; 로 볼 수 있습니다.&lt;/p&gt;
+&lt;p&gt;Request body에는 subscription와 event에 정보가 포함되어있습니다.&lt;br&gt;
+&lt;code&gt;subscription.type&lt;/code&gt; 필드는 이벤트 유형을 식별할 수 있는 정보를 포함하고 있습니다.&lt;br&gt;
+&lt;code&gt;event&lt;/code&gt; 필드에는 구독한 이벤트 타입에서 실제로 발생한 이벤트의 데이터가 포함됩니다.&lt;/p&gt;
+&lt;p&gt;아래는 예시입니다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;subscription&amp;#34;&lt;/span&gt;: {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;f1c2a387-161a-49f9-a165-0f21d7a4e1c4&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;status&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;enabled&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;channel.follow&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;version&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;cost&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;condition&amp;#34;&lt;/span&gt;: {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;broadcaster_user_id&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;12826&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    },
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;transport&amp;#34;&lt;/span&gt;: {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;method&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;webhook&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;callback&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://example.com/webhooks/callback&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    },
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;created_at&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2019-11-16T10:11:12.634234626Z&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  },
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;event&amp;#34;&lt;/span&gt;: {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;user_id&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1337&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;user_login&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;awesome_user&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;user_name&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Awesome_User&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;broadcaster_user_id&amp;#34;&lt;/span&gt;:     &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;12826&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;broadcaster_user_login&amp;#34;&lt;/span&gt;:  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;twitch&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;broadcaster_user_name&amp;#34;&lt;/span&gt;:   &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Twitch&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;followed_at&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2020-07-15T18:16:11.17106713Z&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;응답은 2XX 상태 코드를 반환해야 합니다.&lt;/p&gt;
+&lt;p&gt;이벤트 처리에 1~2초 이상 걸리는 경우 이벤트를 임시 저장소에 쓰고 2XX로 응답한 후 알림을 처리하는 것이 좋습니다.&lt;br&gt;
+너무 많이 빠르게 응답하지 않으면 정기구독 상태가 &lt;code&gt;notification_failures_exceeded&lt;/code&gt;로 변경되고 Twitch에서 구독을 취소해버립니다.&lt;/p&gt;
+&lt;p&gt;이벤트 발생시 처리하고 싶은 비지니스 로직은 이 부분에 Request를 처리하며 포함하면 됩니다.&lt;/p&gt;
+&lt;h3 id=&#34;revoking-your-subscription&#34;&gt;Revoking your subscription
+&lt;/h3&gt;&lt;p&gt;정기구독은 만료되지 않지만 Twitch는 정기구독을 취소할 수 있습니다. Twitch는 다음과 같은 경우에 정기구독을 취소합니다&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;정기구독에 언급된 유저가 더 이상 존재하지 않는 경우. 알림 상태가 user_removed로 설정된 경우.&lt;/li&gt;
+&lt;li&gt;사용자가 인증 토큰을 해지했거나 단순히 비밀번호를 변경한 경우. 알림의 상태가 authorization_revoked로 설정됩니다.&lt;/li&gt;
+&lt;li&gt;콜백이 적시에 응답하지 않은 횟수가 너무 많습니다. 알림의 상태가 알림_실패_초과로 설정됩니다.&lt;/li&gt;
+&lt;li&gt;구독한 구독 유형 및 버전이 더 이상 지원되지 않습니다. 알림의 상태가 version_removed로 설정되어 있습니다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Twitch는 언제든지 정기구독을 취소할 수 있는 권리를 보유합니다. 해지 메시지는 &lt;code&gt;Twitch-Eventsub-Message-Type&lt;/code&gt; 헤더를 &lt;strong&gt;revocation&lt;/strong&gt;로 설정합니다.&lt;br&gt;
+예를 들어 아래와 같습니다.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Twitch-Eventsub-Message-Type: revocation
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;요청 본문의 &lt;code&gt;status&lt;/code&gt; 필드에는 Twitch가 정기구독을 취소한 이유가 표시됩니다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;subscription&amp;#34;&lt;/span&gt;: {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;f1c2a387-161a-49f9-a165-0f21d7a4e1c4&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;status&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;authorization_revoked&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;channel.follow&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;cost&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;version&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;condition&amp;#34;&lt;/span&gt;: {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;broadcaster_user_id&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;12826&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    },
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;transport&amp;#34;&lt;/span&gt;: {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;method&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;webhook&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;callback&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://example.com/webhooks/callback&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    },
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;created_at&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2019-11-16T10:11:12.634234626Z&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;응답은 2XX 상태 코드를 반환해야 합니다.&lt;/p&gt;
+&lt;h2 id=&#34;testing-your-handler&#34;&gt;Testing your Handler
+&lt;/h2&gt;&lt;p&gt;Twitch의 명령줄 인터페이스(CLI)는 이벤트 핸들러를 테스트하는 데 사용할 수 있는 이벤트 명령을 제공합니다. 이 명령은 SSL이 필요하지 않으며, 손쉽게 테스트할 수 있습니다.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;도전 이벤트(&lt;a class=&#34;link&#34; href=&#34;https://dev.twitch.tv/docs/eventsub/handling-webhook-events/#testing-challenge-events&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Testing Challenge events&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;알림 이벤트(&lt;a class=&#34;link&#34; href=&#34;https://dev.twitch.tv/docs/eventsub/handling-webhook-events/#testing-notification-events&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Testing notification events&lt;/a&gt;)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;testing-challenge-events&#34;&gt;Testing challenge Events
+&lt;/h3&gt;&lt;p&gt;이벤트에 가입하면 Twitch는 요청에 지정된 이벤트 처리자에게 &lt;code&gt;webhook_callback-verification&lt;/code&gt; 알림 이벤트를 보내, Event Handler를 소유하고 있는지 확인합니다.&lt;br&gt;
+다음 CLI 예제는 Challenge Event에 대한 응답을 테스트하는 방법을 보여줍니다.&lt;br&gt;
+실행하기 전에 -F 플래그의 값을 핸들러를 가리키도록 변경하고 -s 플래그의 값을 비밀로 변경하세요.&lt;br&gt;
+비밀 플래그는 선택 사항이지만 항상 지정해야 핸들러에서 메시지가 Twitch에서 왔는지 확인하는 부분이 작동합니다.&lt;/p&gt;
+&lt;p&gt;그런 다음 터미널 창을 열고 명령을 실행합니다.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;twitch event verify-subscription subscribe -F http://localhost:8080/eventsub/ -s 5f1a6e7cd2e7137ccf9e15b2f43fe63949eb84b1db83c1d5a867dc93429de4e4
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;모든 작업을 올바르게 수행했다면 출력은 다음과 같습니다.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;✔ Valid response. Received challenge 5e784545-5a59-a05a-6ae6-cfaf260532f1 in body
+✔ Valid status code. Received status 200
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;verify-subscription&lt;/code&gt; 하위 명령 사용에 대한 자세한 내용은 이벤트 처리기의 챌린지 응답 확인하기를 참조하세요.&lt;/p&gt;
+&lt;h3 id=&#34;testing-notification-events&#34;&gt;Testing notification events
+&lt;/h3&gt;&lt;p&gt;트리거 하위 명령을 사용하여 이벤트 핸들러에 모의 이벤트를 전송합니다. 명령의 인수는 트리거할 이벤트를 식별합니다.&lt;br&gt;
+실행하기 전에 -F 플래그의 값을 핸들러를 가리키도록 변경하고 -s 플래그의 값을 시크릿으로 변경하세요.&lt;br&gt;
+비밀 플래그는 선택 사항이지만 항상 지정해야 핸들러에서 메시지가 Twitch에서 왔는지 확인하는 부분이 작동합니다.&lt;/p&gt;
+&lt;p&gt;그런 다음 터미널 창을 열고 명령을 실행합니다.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;twitch event trigger subscribe -F http://localhost:8080/eventsub/ -s 5f1a6e7cd2e7137ccf9e15b2f43fe63949eb84b1db83c1d5a867dc93429de4e4
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion
+&lt;/h2&gt;&lt;p&gt;Twtich EventSubscription을 어떻게 사용해야하는지, 어떻게 테스트해야하는지에 대해서 살펴보았습니다. &lt;br&gt;
+Twitch 공식문서에 잘 설명 되어있기때문에, 덧붙일 내용이 많진 않았습니다.&lt;br&gt;
+하지만 처음보는 사람으로서 어떤 순서로 사용하는지, 어떤 용도로 사용해야하는건지 파악하기 힘들어 정리해보았습니다. (경험이 부족한것일수도있겠지만요&amp;hellip;)&lt;br&gt;
+다른 분들께 도움이 되면 좋겠습니다.&lt;/p&gt;
+&lt;h2 id=&#34;reference&#34;&gt;Reference
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Twitch Event Subscription 공식문서 : &lt;a class=&#34;link&#34; href=&#34;https://dev.twitch.tv/docs/eventsub/handling-webhook-events/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://dev.twitch.tv/docs/eventsub/handling-webhook-events/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

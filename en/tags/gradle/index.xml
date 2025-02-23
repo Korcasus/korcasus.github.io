@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Gradle on Read Write</title>
-        <link>https://korcasus.github.io/en/tags/gradle/</link>
+        <link>http://localhost:1313/en/tags/gradle/</link>
         <description>Recent content in Gradle on Read Write</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-US</language>
-        <lastBuildDate>Mon, 20 Feb 2023 23:16:51 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/en/tags/gradle/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 20 Feb 2023 23:16:51 +0900</lastBuildDate><atom:link href="http://localhost:1313/en/tags/gradle/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Spring Fat-jar for Spark</title>
-        <link>https://korcasus.github.io/en/p/spring-fat-jar-for-spark/</link>
+        <link>http://localhost:1313/en/post/spark/spring-fatjar-spark/</link>
         <pubDate>Mon, 20 Feb 2023 23:16:51 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/p/spring-fat-jar-for-spark/</guid>
+        <guid>http://localhost:1313/en/post/spark/spring-fatjar-spark/</guid>
         <description>&lt;h2 id=&#34;how-to-build-fat-jar&#34;&gt;How to Build Fat Jar
 &lt;/h2&gt;&lt;p&gt;The method varies depending on the type of build tool you are using.&lt;br&gt;
 For Maven, you should use the &lt;code&gt;maven-assembly-plugin&lt;/code&gt;,&lt;br&gt;
@@ -104,10 +104,10 @@ This prevents issues from arising since different named dependencies are used.&l
 &lt;h3 id=&#34;modify-the-classpath&#34;&gt;Modify the classpath.
 &lt;/h3&gt;&lt;p&gt;In reality, I had hoped that everything would run smoothly up to this point.&lt;br&gt;
 However, when I attempt to execute java -jar project-all.jar, I can detect an anomaly.&lt;br&gt;
-&lt;img src=&#34;https://korcasus.github.io/en/p/spring-fat-jar-for-spark/capture.jpg&#34;
+&lt;img src=&#34;http://localhost:1313/en/post/spark/spring-fatjar-spark/capture.jpg&#34;
 	width=&#34;2556&#34;
 	height=&#34;1130&#34;
-	srcset=&#34;https://korcasus.github.io/en/p/spring-fat-jar-for-spark/capture_hu_121aafb1c62523ec.jpg 480w, https://korcasus.github.io/en/p/spring-fat-jar-for-spark/capture_hu_1df3ed51b58f8c28.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/en/post/spark/spring-fatjar-spark/capture_hu_121aafb1c62523ec.jpg 480w, http://localhost:1313/en/post/spark/spring-fatjar-spark/capture_hu_1df3ed51b58f8c28.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;capture&#34;

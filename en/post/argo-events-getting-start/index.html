@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="ko-KR" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Experiment with Argo Event and Argo Workflow, and execute several examples.">
+<title>Argo Events Getting Start</title>
+
+<link rel='canonical' href='http://localhost:1313/en/post/argo-events-getting-start/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4086051155158500"
+        crossorigin="anonymous"></script>
+<meta property='og:title' content="Argo Events Getting Start">
+<meta property='og:description' content="Experiment with Argo Event and Argo Workflow, and execute several examples.">
+<meta property='og:url' content='http://localhost:1313/en/post/argo-events-getting-start/'>
+<meta property='og:site_name' content='Read Write'>
+<meta property='og:type' content='article'><meta property='article:section' content='En' /><meta property='article:tag' content='Argo-Event' /><meta property='article:tag' content='Argo-workflow' /><meta property='article:published_time' content='2023-09-10T16:46:32&#43;09:00'/><meta property='article:modified_time' content='2023-09-10T16:46:32&#43;09:00'/>
+<meta name="twitter:title" content="Argo Events Getting Start">
+<meta name="twitter:description" content="Experiment with Argo Event and Argo Workflow, and execute several examples.">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSWKN88H77"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-PSWKN88H77');
+        }
+      </script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="메뉴 여닫기">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Read Write</a></h1>
+            <h2 class="site-description">잊지않기위해 기록합니다.</h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/en/page/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/en/page/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/argo/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                
+                <span>Argo</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/blog/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                
+                <span>Blog</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/database/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                
+                <span>Database</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/hive/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                
+                <span>Hive</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/spark/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                
+                <span>Spark</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/synology/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                
+                <span>Synology</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/others/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                
+                <span>Others</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/en/" >English</option>
+                                
+                                    <option value="http://localhost:1313/" selected>Korean</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>다크 모드</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">목차</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#install">Install</a>
+      <ul>
+        <li><a href="#argo-event">Argo-Event</a></li>
+        <li><a href="#argo-workflow">Argo-workflow</a></li>
+      </ul>
+    </li>
+    <li><a href="#concept">Concept</a>
+      <ul>
+        <li><a href="#architecture">Architecture</a></li>
+        <li><a href="#event-source">Event Source</a></li>
+        <li><a href="#sensor">Sensor</a></li>
+        <li><a href="#eventbus">Eventbus</a></li>
+        <li><a href="#trigger">Trigger</a></li>
+      </ul>
+    </li>
+    <li><a href="#feature-tested">Feature tested</a>
+      <ul>
+        <li><a href="#rbac-configuration">RBAC Configuration</a></li>
+        <li><a href="#webhook-workflow">webhook-workflow</a></li>
+        <li><a href="#calendar">calendar</a></li>
+        <li><a href="#webhook-k8s-object">webhook-k8s-object</a></li>
+        <li><a href="#cross-namespace">cross-namespace</a></li>
+        <li><a href="#webhook-auth">webhook-auth</a></li>
+      </ul>
+    </li>
+    <li><a href="#summary">Summary</a></li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/cd/" >
+                CD
+            </a>
+        
+            <a href="/categories/batch/" >
+                Batch
+            </a>
+        
+            <a href="/categories/argo-event/" >
+                Argo-Event
+            </a>
+        
+            <a href="/categories/argo-workflow/" >
+                Argo-Workflow
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/en/post/argo-events-getting-start/">Argo Events Getting Start</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            Experiment with Argo Event and Argo Workflow, and execute several examples.
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">9월 10, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    7 분 정도
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <style type="text/css">.notice{--root-color:#444;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#c33;--warning-content:#fee;--info-title:#fb7;--info-content:#fec;--note-title:#6be;--note-content:#e7f2fa;--tip-title:#5a5;--tip-content:#efe}@media (prefers-color-scheme:dark){.notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}}body.dark .notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:var(--root-color);background:var(--root-background)}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}.notice.warning .notice-title{background:var(--warning-title)}.notice.warning{background:var(--warning-content)}.notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}.notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}.notice.tip .notice-title{background:var(--tip-title)}.notice.tip{background:var(--tip-content)}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}</style>
+<div><svg width="0" height="0" display="none" xmlns="http://www.w3.org/2000/svg"><symbol id="tip-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/></symbol><symbol id="note-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="warning-notice" viewBox="0 0 576 512" preserveAspectRatio="xMidYMid meet"><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="info-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/></symbol></svg></div><div class="notice info" >
+<p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#info-notice"></use></svg></span>알림</p><p>This article was originally written in Korean and has been translated using ChatGPT.</p></div>
+
+<h2 id="introduction">Introduction
+</h2><p>In Kubernetes, batch-type applications are catered for.<br>
+They can be executed as Job or CronJob.<br>
+Yet, the platform lacks features for managing execution histories or setting dependencies among various jobs.<br>
+To ascertain if Argo Workflow and Argo Event fully address these needs, I installed and performed some tests.</p>
+<h2 id="install">Install
+</h2><h3 id="argo-event">Argo-Event
+</h3><p>Considering future usage, the installation is done cluster-wide, rather than at the namespace level.</p>
+<h4 id="namespace-생성">namespace 생성
+</h4><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl create namespace argo-events
+</span></span></code></pre></div><h4 id="deploy-argo-events-sa-clusterroles-sensor-controller-eventbus-controller-and-eventsource-controller">Deploy Argo Events, SA, ClusterRoles, Sensor Controller, EventBus Controller and EventSource Controller.
+</h4><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-events/stable/manifests/install.yaml
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Install with a validating admission controller</span>
+</span></span><span style="display:flex;"><span>kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-events/stable/manifests/install-validating-webhook.yaml
+</span></span></code></pre></div><h4 id="deploy-eventbus">Deploy Eventbus
+</h4><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl apply -n argo-events -f https://raw.githubusercontent.com/argoproj/argo-events/stable/examples/eventbus/native.yaml
+</span></span></code></pre></div><h3 id="argo-workflow">Argo-workflow
+</h3><h4 id="controller-and-server">Controller And Server
+</h4><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl create namespace argo
+</span></span><span style="display:flex;"><span>kubectl apply -n argo -f https://github.com/argoproj/argo-workflows/releases/download/v3.3.0/install.yaml
+</span></span></code></pre></div><p>When you follow the getting-started guide for installation, it gets confined to the namespace.<br>
+Such a setup might hinder the convenience of using argo-event, so it&rsquo;s advisable to opt for a cluster-wide installation unless there&rsquo;s a compelling reason otherwise.</p>
+<h4 id="install-cli">Install CLI
+</h4><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Download the binary</span>
+</span></span><span style="display:flex;"><span>curl -sLO https://github.com/argoproj/argo-workflows/releases/download/v3.3.0/argo-darwin-amd64.gz
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Unzip</span>
+</span></span><span style="display:flex;"><span>gunzip argo-darwin-amd64.gz
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Make binary executable</span>
+</span></span><span style="display:flex;"><span>chmod +x argo-darwin-amd64
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Move binary to path</span>
+</span></span><span style="display:flex;"><span>mv ./argo-darwin-amd64 /usr/local/bin/argo
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Test installation</span>
+</span></span><span style="display:flex;"><span>argo version
+</span></span></code></pre></div><h4 id="port-forwarding-local">Port-Forwarding (local)
+</h4><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl -n argo port-forward deployment/argo-server 2746:2746
+</span></span></code></pre></div><p>For a Remote Cluster setup, configure the Routing by following the instructions in this <a class="link" href="https://argoproj.github.io/argo-workflows/argo-server/#access-the-argo-workflows-ui"  target="_blank" rel="noopener"
+    >link</a>.<br>
+For local setups, opt for the Load Balancer method.</p>
+<h4 id="authorization">Authorization
+</h4><p>By adapting the approach from this <a class="link" href="https://argoproj.github.io/argo-workflows/access-token/#token-creation"  target="_blank" rel="noopener"
+    >link</a>, you can retrieve an existing token and utilize it for login.</p>
+<h2 id="concept">Concept
+</h2><h3 id="architecture">Architecture
+</h3><p><img src="/en/post/argo-events-getting-start/architecture.png"
+	width="8274"
+	height="3378"
+	srcset="/en/post/argo-events-getting-start/architecture_hu_f0f87565f67c8cfd.png 480w, /en/post/argo-events-getting-start/architecture_hu_f6fe1577b32e8182.png 1024w"
+	loading="lazy"
+	
+		alt="architecture"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="244"
+		data-flex-basis="587px"
+	
+></p>
+<h3 id="event-source">Event Source
+</h3><p>It&rsquo;s a resource designed to process external events.</p>
+<h3 id="sensor">Sensor
+</h3><p>The sensor accepts the Event Dependency Set as its input, while the Trigger stipulates the output.<br>
+Functioning as an Event Dependency Manager, it processes events relayed via the EventBus and subsequently initiates the Trigger.</p>
+<h3 id="eventbus">Eventbus
+</h3><p>It serves as the TransportLayer, bridging EventSources and Sensor.<br>
+EventSources are responsible for publishing events, whereas the Sensor subscribes to these events and initiates the Trigger.</p>
+<h3 id="trigger">Trigger
+</h3><p>Once the Sensor resolves the Event Dependencies, it signifies the resource or workload that gets executed.</p>
+<h2 id="feature-tested">Feature tested
+</h2><ul>
+<li><input checked="" disabled="" type="checkbox"> calendar</li>
+<li><input checked="" disabled="" type="checkbox"> webhook-workflow</li>
+<li><input checked="" disabled="" type="checkbox"> webhook-k8s-object</li>
+<li><input checked="" disabled="" type="checkbox"> cross-namespace</li>
+<li><input checked="" disabled="" type="checkbox"> webhook-auth</li>
+</ul>
+<h3 id="rbac-configuration">RBAC Configuration
+</h3><p>Operating on the assumption that we&rsquo;re utilizing argo-workflow and argo-events, let me elucidate.<br>
+For argo-workflow, one must provide permissions to inspect the status and logs of the executed pod.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">rbac.authorization.k8s.io/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Role</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">workflow-role</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">argo-events</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">rules</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">apiGroups</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">resources</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">pods</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">verbs</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">get</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">watch</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">patch</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">apiGroups</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">resources</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">pods/log</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">verbs</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">get</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">watch</span>
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">rbac.authorization.k8s.io/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">RoleBinding</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">workflow-role-binding</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">roleRef</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">apiGroup</span>: <span style="color:#ae81ff">rbac.authorization.k8s.io</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Role</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">workflow-role</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">subjects</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ServiceAccount</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">default</span>
+</span></span></code></pre></div><p>When intending to utilize Argo-Workflow as a Trigger within Argo Events, the following setup is essential.<br>
+Given that the object spawned by the Trigger is a Workflow, requisite permissions are needed to access that specific api-resource.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ServiceAccount</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">operate-workflow-sa</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">argo-events</span>
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">rbac.authorization.k8s.io/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Role</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">operate-workflow-role</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">argo-events</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">rules</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">apiGroups</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">argoproj.io</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">verbs</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;*&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">resources</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">workflows</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">workflowtemplates</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">cronworkflows</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">clusterworkflowtemplates</span>
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">rbac.authorization.k8s.io/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">RoleBinding</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">operate-workflow-role-binding</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">roleRef</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">apiGroup</span>: <span style="color:#ae81ff">rbac.authorization.k8s.io</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Role</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">operate-workflow-role</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">subjects</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ServiceAccount</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">operate-workflow-sa</span>
+</span></span></code></pre></div><h3 id="webhook-workflow">webhook-workflow
+</h3><p>Webhooks are used as EventSources, and the Sensor uses argo-workflow as a Trigger.<br>
+Accordingly, to operate, you need to pre-install argo-workflow cluster wide.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">EventSource</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">webhook</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">service</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">port</span>: <span style="color:#ae81ff">12000</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">12000</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">webhook</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">example</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">port</span>: <span style="color:#e6db74">&#34;12000&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">endpoint</span>: <span style="color:#ae81ff">/example</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">method</span>: <span style="color:#ae81ff">POST</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Sensor</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">webhook</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">template</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">serviceAccountName</span>: <span style="color:#ae81ff">operate-workflow-sa</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">dependencies</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">test-dep</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">eventSourceName</span>: <span style="color:#ae81ff">webhook</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">eventName</span>: <span style="color:#ae81ff">example</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">triggers</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">template</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">name</span>: <span style="color:#ae81ff">webhook-workflow-trigger</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">k8s</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">operation</span>: <span style="color:#ae81ff">create</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">source</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">resource</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">webhook-</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">whalesay</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>                  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">value</span>: <span style="color:#ae81ff">hello world</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>                - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">whalesay</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>                    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">docker/whalesay:latest</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">cowsay]</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;{{inputs.parameters.message}}&#34;</span>]
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">src</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">dependencyName</span>: <span style="color:#ae81ff">test-dep</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">dataKey</span>: <span style="color:#ae81ff">body</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">dest</span>: <span style="color:#ae81ff">spec.arguments.parameters.0.value</span>
+</span></span></code></pre></div><h3 id="calendar">calendar
+</h3><p>This EventSource can execute both Timer and CronJob tasks.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">EventSource</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">calendar</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">calendar</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">example-with-interval</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">interval</span>: <span style="color:#ae81ff">10s</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     schedule: &#34;30 * * * *&#34;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Sensor</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">calendar</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">template</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">serviceAccountName</span>: <span style="color:#ae81ff">operate-workflow-sa</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">dependencies</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">test-dep</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">eventSourceName</span>: <span style="color:#ae81ff">calendar</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">eventName</span>: <span style="color:#ae81ff">example-with-interval</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">triggers</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">template</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">name</span>: <span style="color:#ae81ff">calendar-workflow-trigger</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">k8s</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">operation</span>: <span style="color:#ae81ff">create</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">source</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">resource</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">calendar-workflow-</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">whalesay</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>                  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">value</span>: <span style="color:#ae81ff">hello world</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>                - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">whalesay</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>                    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">docker/whalesay:latest</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">cowsay]</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;{{inputs.parameters.message}}&#34;</span>]
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">src</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">dependencyName</span>: <span style="color:#ae81ff">test-dep</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">dataKey</span>: <span style="color:#ae81ff">eventTime</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">dest</span>: <span style="color:#ae81ff">spec.arguments.parameters.0.value</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">retryStrategy</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">steps</span>: <span style="color:#ae81ff">3</span>
+</span></span></code></pre></div><h3 id="webhook-k8s-object">webhook-k8s-object
+</h3><p>This setup resembles the Webhook-Workflow. However, what distinguishes it is that the Sensor triggers a k8s object.<br>
+It&rsquo;s capable of executing Custom Resources, including Pod, Deployment, Job, and CronJob.<br>
+The available operations are Create, Update, Patch, and Delete.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">EventSource</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">k8s-webhook</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">service</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">port</span>: <span style="color:#ae81ff">12000</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">12000</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">webhook</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">example</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">port</span>: <span style="color:#e6db74">&#34;12000&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">endpoint</span>: <span style="color:#ae81ff">/example</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">method</span>: <span style="color:#ae81ff">POST</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Sensor</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">k8s-webhook</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">template</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">serviceAccountName</span>: <span style="color:#ae81ff">operate-k8s-sa</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">dependencies</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">test-dep</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">eventSourceName</span>: <span style="color:#ae81ff">k8s-webhook</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">eventName</span>: <span style="color:#ae81ff">example</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">triggers</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">template</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">name</span>: <span style="color:#ae81ff">webhook-pod-trigger</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">k8s</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">operation</span>: <span style="color:#ae81ff">create</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">source</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">resource</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Pod</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">hello-world-</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">containers</span>:
+</span></span><span style="display:flex;"><span>                  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hello-container</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">args</span>:
+</span></span><span style="display:flex;"><span>                      - <span style="color:#e6db74">&#34;hello-world&#34;</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">command</span>:
+</span></span><span style="display:flex;"><span>                      - <span style="color:#ae81ff">cowsay</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">image</span>: <span style="color:#e6db74">&#34;docker/whalesay:latest&#34;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">src</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">dependencyName</span>: <span style="color:#ae81ff">test-dep</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">dataKey</span>: <span style="color:#ae81ff">body</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">dest</span>: <span style="color:#ae81ff">spec.containers.0.args.0</span>
+</span></span></code></pre></div><p>To deploy a Kubernetes Object, you&rsquo;ll need supplementary RBAC permissions.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ServiceAccount</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">operate-k8s-sa</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">argo-events</span>
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">rbac.authorization.k8s.io/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Role</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">operate-k8s-role</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">argo-events</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">rules</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">apiGroups</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">verbs</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;*&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">resources</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">pods</span>
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">rbac.authorization.k8s.io/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">RoleBinding</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">operate-k8s-role-binding</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">roleRef</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">apiGroup</span>: <span style="color:#ae81ff">rbac.authorization.k8s.io</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Role</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">operate-k8s-role</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">subjects</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ServiceAccount</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">operate-k8s-sa</span>
+</span></span></code></pre></div><h3 id="cross-namespace">cross-namespace
+</h3><p>The RBAC configurations used until now are restricted to individual namespaces. This poses a challenge as every user needs to be familiar with its usage, potentially causing user inconvenience.<br>
+For cross-namespace functionality, all definitions that were previously set as Role need to be converted to ClusterRole.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ServiceAccount</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">operate-k8s-cluster-sa</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">argo-events</span>
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">rbac.authorization.k8s.io/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ClusterRole</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">operate-k8s-clusterrole</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">argo-events</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">rules</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">apiGroups</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">verbs</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;*&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">resources</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">pods</span>
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">rbac.authorization.k8s.io/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ClusterRoleBinding</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">operate-k8s-clusterrole-binding</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">argo-events</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">roleRef</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">apiGroup</span>: <span style="color:#ae81ff">rbac.authorization.k8s.io</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ClusterRole</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">operate-k8s-clusterrole</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">subjects</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ServiceAccount</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">operate-k8s-cluster-sa</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">argo-events</span>
+</span></span></code></pre></div><p>The provided ClusterRole example is configured solely for pod creation. If other resources are necessary, you can incorporate them and then proceed to use the role.</p>
+<h3 id="webhook-auth">webhook-auth
+</h3><p>For security reasons, it may be necessary to incorporate an authentication token when making a Webhook call.<br>
+This approach entails generating an authentication token and subsequently registering it as a Secret, a type of k8s object.<br>
+By designating the name of the Secret object, it becomes available for authentication purposes within the Webhook.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo -n <span style="color:#e6db74">&#39;af3qqs321f2ddwf1e2e67dfda3fs&#39;</span> &gt; ./token.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>kubectl create secret generic my-webhook-token --from-file<span style="color:#f92672">=</span>my-token<span style="color:#f92672">=</span>./token.txt
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">EventSource</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">secret-webhook</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">webhook</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">example</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">port</span>: <span style="color:#e6db74">&#34;12000&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">endpoint</span>: <span style="color:#ae81ff">/example</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">method</span>: <span style="color:#ae81ff">POST</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">authSecret</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">name</span>: <span style="color:#ae81ff">my-webhook-token</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">key</span>: <span style="color:#ae81ff">my-token</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Sensor</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">k8s-webhook</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">template</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">serviceAccountName</span>: <span style="color:#ae81ff">operate-k8s-sa</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">dependencies</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">test-dep</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">eventSourceName</span>: <span style="color:#ae81ff">secret-webhook</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">eventName</span>: <span style="color:#ae81ff">example</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">triggers</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">template</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">name</span>: <span style="color:#ae81ff">webhook-pod-trigger</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">k8s</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">operation</span>: <span style="color:#ae81ff">create</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">source</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">resource</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Pod</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">hello-world-</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">containers</span>:
+</span></span><span style="display:flex;"><span>                  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hello-container</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">args</span>:
+</span></span><span style="display:flex;"><span>                      - <span style="color:#e6db74">&#34;hello-world&#34;</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">command</span>:
+</span></span><span style="display:flex;"><span>                      - <span style="color:#ae81ff">cowsay</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">image</span>: <span style="color:#e6db74">&#34;docker/whalesay:latest&#34;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">src</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">dependencyName</span>: <span style="color:#ae81ff">test-dep</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">dataKey</span>: <span style="color:#ae81ff">body</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">dest</span>: <span style="color:#ae81ff">spec.containers.0.args.0</span>
+</span></span></code></pre></div><h2 id="summary">Summary
+</h2><p>From the tests we&rsquo;ve conducted, it&rsquo;s evident that the emphasis was placed on assessing functional capabilities rather than operational aspects.<br>
+Given that all necessary resources for Batch can be precisely defined using yaml, it enabled seamless GitOps operations.<br>
+Moreover, with Argo Event&rsquo;s extensive support for various Event Sources, we&rsquo;ve verified that both Webhook and Cron can be utilized to their full potential.<br>
+In the upcoming article, I&rsquo;ll delve into the operational requirements and discuss our approach to evaluating them.</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/argo-event/">Argo-Event</a>
+        
+            <a href="/tags/argo-workflow/">Argo-Workflow</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">관련 글</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/argo/argo-events-getting-start/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Argo Events Getting Start</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/ko/argo/argo-events-getting-start/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Argo Events Getting Start</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="Korcasus/blog-comments"
+        issue-term="title"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 Read Write
+    </section>
+    
+    <section class="powerby">
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>로 만듦 <br />
+        <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>의 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 테마 사용 중
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.290d673c589f2a423c8682fdfc0509ac798b2c4c013780c3ebb5c7d8d8f38e40.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

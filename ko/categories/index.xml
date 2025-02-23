@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Categories on Read Write</title>
+        <link>https://korcasus.github.io/ko/categories/</link>
+        <description>Recent content in Categories on Read Write</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ko-KR</language>
+        <lastBuildDate>Thu, 26 Dec 2024 16:27:19 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/ko/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>MongoDB</title>
+        <link>https://korcasus.github.io/ko/categories/mongodb/</link>
+        <pubDate>Thu, 26 Dec 2024 16:27:19 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/ko/categories/mongodb/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Sharding</title>
+        <link>https://korcasus.github.io/ko/categories/sharding/</link>
+        <pubDate>Thu, 26 Dec 2024 16:27:19 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/ko/categories/sharding/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Certificate</title>
+        <link>https://korcasus.github.io/ko/categories/certificate/</link>
+        <pubDate>Thu, 26 Dec 2024 12:59:23 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/ko/categories/certificate/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Synology</title>
+        <link>https://korcasus.github.io/ko/categories/synology/</link>
+        <pubDate>Thu, 26 Dec 2024 12:59:23 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/ko/categories/synology/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Argo-Workflow</title>
+        <link>https://korcasus.github.io/ko/categories/argo-workflow/</link>
+        <pubDate>Wed, 19 Jun 2024 22:51:31 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/ko/categories/argo-workflow/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Docker</title>
+        <link>https://korcasus.github.io/ko/categories/docker/</link>
+        <pubDate>Mon, 12 Feb 2024 01:57:21 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/ko/categories/docker/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Git</title>
+        <link>https://korcasus.github.io/ko/categories/git/</link>
+        <pubDate>Sat, 02 Dec 2023 15:48:24 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/ko/categories/git/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>ETL</title>
+        <link>https://korcasus.github.io/ko/categories/etl/</link>
+        <pubDate>Sun, 26 Nov 2023 22:26:53 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/ko/categories/etl/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Hadoop</title>
+        <link>https://korcasus.github.io/ko/categories/hadoop/</link>
+        <pubDate>Sun, 26 Nov 2023 22:26:53 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/ko/categories/hadoop/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>CD</title>
+        <link>https://korcasus.github.io/ko/categories/cd/</link>
+        <pubDate>Sun, 10 Sep 2023 17:02:01 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/ko/categories/cd/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Argo-Event</title>
+        <link>https://korcasus.github.io/ko/categories/argo-event/</link>
+        <pubDate>Sun, 10 Sep 2023 16:46:32 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/ko/categories/argo-event/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Batch</title>
+        <link>https://korcasus.github.io/ko/categories/batch/</link>
+        <pubDate>Sun, 10 Sep 2023 16:46:32 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/ko/categories/batch/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Registry</title>
+        <link>https://korcasus.github.io/ko/categories/registry/</link>
+        <pubDate>Sun, 03 Sep 2023 21:42:24 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/ko/categories/registry/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>UI</title>
+        <link>https://korcasus.github.io/ko/categories/ui/</link>
+        <pubDate>Sun, 03 Sep 2023 21:42:24 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/ko/categories/ui/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Jenkins</title>
+        <link>https://korcasus.github.io/ko/categories/jenkins/</link>
+        <pubDate>Sat, 26 Aug 2023 22:30:49 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/ko/categories/jenkins/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Blog</title>
+        <link>https://korcasus.github.io/ko/categories/blog/</link>
+        <pubDate>Tue, 15 Aug 2023 15:03:02 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/ko/categories/blog/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Valutwarden</title>
+        <link>https://korcasus.github.io/ko/categories/valutwarden/</link>
+        <pubDate>Mon, 14 Aug 2023 23:09:01 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/ko/categories/valutwarden/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>ElasticSearch</title>
+        <link>https://korcasus.github.io/ko/categories/elasticsearch/</link>
+        <pubDate>Fri, 11 Aug 2023 00:09:54 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/ko/categories/elasticsearch/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Hive</title>
+        <link>https://korcasus.github.io/ko/categories/hive/</link>
+        <pubDate>Fri, 11 Aug 2023 00:09:54 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/ko/categories/hive/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Spark</title>
+        <link>https://korcasus.github.io/ko/categories/spark/</link>
+        <pubDate>Fri, 11 Aug 2023 00:09:54 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/ko/categories/spark/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>OpenAPI</title>
+        <link>https://korcasus.github.io/ko/categories/openapi/</link>
+        <pubDate>Sun, 09 Apr 2023 14:34:00 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/ko/categories/openapi/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Twitch</title>
+        <link>https://korcasus.github.io/ko/categories/twitch/</link>
+        <pubDate>Sun, 09 Apr 2023 14:34:00 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/ko/categories/twitch/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Gradle</title>
+        <link>https://korcasus.github.io/ko/categories/gradle/</link>
+        <pubDate>Mon, 20 Feb 2023 23:16:51 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/ko/categories/gradle/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Spring</title>
+        <link>https://korcasus.github.io/ko/categories/spring/</link>
+        <pubDate>Mon, 20 Feb 2023 23:16:51 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/ko/categories/spring/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Kafka</title>
+        <link>https://korcasus.github.io/ko/categories/kafka/</link>
+        <pubDate>Thu, 01 Dec 2022 22:45:04 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/ko/categories/kafka/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>CloudFlare</title>
+        <link>https://korcasus.github.io/ko/categories/cloudflare/</link>
+        <pubDate>Mon, 21 Nov 2022 22:23:00 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/ko/categories/cloudflare/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>TLS</title>
+        <link>https://korcasus.github.io/ko/categories/tls/</link>
+        <pubDate>Mon, 21 Nov 2022 22:23:00 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/ko/categories/tls/</guid>
+        <description></description>
+        </item>
+        
+    </channel>
+</rss>

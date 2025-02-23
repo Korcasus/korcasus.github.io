@@ -2,129 +2,129 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Categories on Read Write</title>
-        <link>https://korcasus.github.io/en/categories/</link>
+        <link>http://localhost:1313/en/categories/</link>
         <description>Recent content in Categories on Read Write</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-US</language>
-        <lastBuildDate>Sat, 02 Dec 2023 15:48:24 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/en/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 02 Dec 2023 15:48:24 +0900</lastBuildDate><atom:link href="http://localhost:1313/en/categories/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Git</title>
-        <link>https://korcasus.github.io/en/categories/git/</link>
+        <link>http://localhost:1313/en/categories/git/</link>
         <pubDate>Sat, 02 Dec 2023 15:48:24 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/categories/git/</guid>
+        <guid>http://localhost:1313/en/categories/git/</guid>
         <description></description>
         </item>
         <item>
         <title>ETL</title>
-        <link>https://korcasus.github.io/en/categories/etl/</link>
+        <link>http://localhost:1313/en/categories/etl/</link>
         <pubDate>Sun, 26 Nov 2023 22:26:53 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/categories/etl/</guid>
+        <guid>http://localhost:1313/en/categories/etl/</guid>
         <description></description>
         </item>
         <item>
         <title>Hadoop</title>
-        <link>https://korcasus.github.io/en/categories/hadoop/</link>
+        <link>http://localhost:1313/en/categories/hadoop/</link>
         <pubDate>Sun, 26 Nov 2023 22:26:53 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/categories/hadoop/</guid>
+        <guid>http://localhost:1313/en/categories/hadoop/</guid>
         <description></description>
         </item>
         <item>
         <title>MongoDB</title>
-        <link>https://korcasus.github.io/en/categories/mongodb/</link>
+        <link>http://localhost:1313/en/categories/mongodb/</link>
         <pubDate>Sun, 26 Nov 2023 22:26:53 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/categories/mongodb/</guid>
+        <guid>http://localhost:1313/en/categories/mongodb/</guid>
         <description></description>
         </item>
         <item>
         <title>Argo-Workflow</title>
-        <link>https://korcasus.github.io/en/categories/argo-workflow/</link>
+        <link>http://localhost:1313/en/categories/argo-workflow/</link>
         <pubDate>Sun, 10 Sep 2023 17:02:01 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/categories/argo-workflow/</guid>
+        <guid>http://localhost:1313/en/categories/argo-workflow/</guid>
         <description></description>
         </item>
         <item>
         <title>CD</title>
-        <link>https://korcasus.github.io/en/categories/cd/</link>
+        <link>http://localhost:1313/en/categories/cd/</link>
         <pubDate>Sun, 10 Sep 2023 17:02:01 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/categories/cd/</guid>
+        <guid>http://localhost:1313/en/categories/cd/</guid>
         <description></description>
         </item>
         <item>
         <title>Argo-Event</title>
-        <link>https://korcasus.github.io/en/categories/argo-event/</link>
+        <link>http://localhost:1313/en/categories/argo-event/</link>
         <pubDate>Sun, 10 Sep 2023 16:46:32 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/categories/argo-event/</guid>
+        <guid>http://localhost:1313/en/categories/argo-event/</guid>
         <description></description>
         </item>
         <item>
         <title>Batch</title>
-        <link>https://korcasus.github.io/en/categories/batch/</link>
+        <link>http://localhost:1313/en/categories/batch/</link>
         <pubDate>Sun, 10 Sep 2023 16:46:32 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/categories/batch/</guid>
+        <guid>http://localhost:1313/en/categories/batch/</guid>
         <description></description>
         </item>
         <item>
         <title>ElasticSearch</title>
-        <link>https://korcasus.github.io/en/categories/elasticsearch/</link>
+        <link>http://localhost:1313/en/categories/elasticsearch/</link>
         <pubDate>Fri, 11 Aug 2023 00:09:54 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/categories/elasticsearch/</guid>
+        <guid>http://localhost:1313/en/categories/elasticsearch/</guid>
         <description></description>
         </item>
         <item>
         <title>Hive</title>
-        <link>https://korcasus.github.io/en/categories/hive/</link>
+        <link>http://localhost:1313/en/categories/hive/</link>
         <pubDate>Fri, 11 Aug 2023 00:09:54 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/categories/hive/</guid>
+        <guid>http://localhost:1313/en/categories/hive/</guid>
         <description></description>
         </item>
         <item>
         <title>Spark</title>
-        <link>https://korcasus.github.io/en/categories/spark/</link>
+        <link>http://localhost:1313/en/categories/spark/</link>
         <pubDate>Fri, 11 Aug 2023 00:09:54 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/categories/spark/</guid>
+        <guid>http://localhost:1313/en/categories/spark/</guid>
         <description></description>
         </item>
         <item>
         <title>Gradle</title>
-        <link>https://korcasus.github.io/en/categories/gradle/</link>
+        <link>http://localhost:1313/en/categories/gradle/</link>
         <pubDate>Mon, 20 Feb 2023 23:16:51 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/categories/gradle/</guid>
+        <guid>http://localhost:1313/en/categories/gradle/</guid>
         <description></description>
         </item>
         <item>
         <title>Spring</title>
-        <link>https://korcasus.github.io/en/categories/spring/</link>
+        <link>http://localhost:1313/en/categories/spring/</link>
         <pubDate>Mon, 20 Feb 2023 23:16:51 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/categories/spring/</guid>
+        <guid>http://localhost:1313/en/categories/spring/</guid>
         <description></description>
         </item>
         <item>
         <title>Kafka</title>
-        <link>https://korcasus.github.io/en/categories/kafka/</link>
+        <link>http://localhost:1313/en/categories/kafka/</link>
         <pubDate>Thu, 01 Dec 2022 22:45:04 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/categories/kafka/</guid>
+        <guid>http://localhost:1313/en/categories/kafka/</guid>
         <description></description>
         </item>
         <item>
-        <title>Test</title>
-        <link>https://korcasus.github.io/en/categories/test/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        <title>Tutorial</title>
+        <link>http://localhost:1313/en/categories/tutorial/</link>
+        <pubDate>Mon, 11 Mar 2019 00:00:00 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/categories/test/</guid>
-        <description>&lt;img src="https://korcasus.github.io/en/categories/test/hutomo-abrianto-l2jk-uxb1BY-unsplash.jpg" alt="Featured image of post Test" /&gt;</description>
+        <guid>http://localhost:1313/en/categories/tutorial/</guid>
+        <description></description>
         </item>
         
     </channel>

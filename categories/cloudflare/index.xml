@@ -5,13 +5,13 @@
         <link>https://korcasus.github.io/categories/cloudflare/</link>
         <description>Recent content in CloudFlare on Read Write</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>ko-KR</language>
+        <language>en-US</language>
         <lastBuildDate>Mon, 21 Nov 2022 22:23:00 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/categories/cloudflare/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Automate Synology Let&#39;s Encrypt Certificate</title>
-        <link>https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/</link>
+        <link>https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/</link>
         <pubDate>Mon, 21 Nov 2022 22:23:00 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/</guid>
+        <guid>https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/</guid>
         <description>&lt;h2 id=&#34;들어가기에-앞서&#34;&gt;들어가기에 앞서
 &lt;/h2&gt;&lt;p&gt;안녕하세요.&lt;br&gt;
 Synology DS220+ 구매한 뒤로 Bitwarden, WebDAV, &amp;hellip; 다양한 용도로 사용하고있습니다.&lt;br&gt;
@@ -53,10 +53,10 @@ Let&amp;rsquo;s Encrypt는 비영리 기관으로서 무료로 TLS인증서를 �
 Global Key로도 사용가능하지만, 필요이상의 권한을 가지고 있기때문에 진행하진 않습니다.&lt;/p&gt;
 &lt;p&gt;token을 발급하고자 하는 Domain을 선택하면, 아래의 같은 Home 화면이 나타납니다.&lt;br&gt;
 빨간색 화살표를 클릭합니다.&lt;br&gt;
-&lt;img src=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/cloudflare_home.jpg&#34;
+&lt;img src=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/cloudflare_home.jpg&#34;
 	width=&#34;2696&#34;
 	height=&#34;2966&#34;
-	srcset=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/cloudflare_home_hu_ecaa037df6f71fa1.jpg 480w, https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/cloudflare_home_hu_b230d7032b1c5c16.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/cloudflare_home_hu_ecaa037df6f71fa1.jpg 480w, https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/cloudflare_home_hu_b230d7032b1c5c16.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;cloudflare_home&#34;
@@ -69,10 +69,10 @@ Global Key로도 사용가능하지만, 필요이상의 권한을 가지고 있�
 &gt;&lt;/p&gt;
 &lt;p&gt;API Token 생성 버튼을 누르면, 아래의 같은 페이지가 나타나게됩니다.&lt;br&gt;
 우리는 DNS 관련된 수정 권한을 Token을 발행해야하기 때문에, 빨간색 화살표의 버튼을 누릅니다.&lt;br&gt;
-&lt;img src=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/choose_template.jpg&#34;
+&lt;img src=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/choose_template.jpg&#34;
 	width=&#34;1406&#34;
 	height=&#34;1748&#34;
-	srcset=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/choose_template_hu_10701b5dcd7fa836.jpg 480w, https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/choose_template_hu_db909573f2c3672b.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/choose_template_hu_10701b5dcd7fa836.jpg 480w, https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/choose_template_hu_db909573f2c3672b.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;choose_template&#34;
@@ -85,10 +85,10 @@ Global Key로도 사용가능하지만, 필요이상의 권한을 가지고 있�
 &gt;&lt;/p&gt;
 &lt;p&gt;아래의 이미지에서 1번에 권한이 필요한 Domain을 선택합니다.&lt;br&gt;
 그뒤에는 2번을 선택해 바로 생성하도록 합니다.&lt;br&gt;
-&lt;img src=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/api_token_create.jpg&#34;
+&lt;img src=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/api_token_create.jpg&#34;
 	width=&#34;1708&#34;
 	height=&#34;1892&#34;
-	srcset=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/api_token_create_hu_d221cdd9b028d37e.jpg 480w, https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/api_token_create_hu_8e3f5d76a8f952a1.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/api_token_create_hu_d221cdd9b028d37e.jpg 480w, https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/api_token_create_hu_8e3f5d76a8f952a1.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;api_token_create&#34;
@@ -137,10 +137,10 @@ Global Key로도 사용가능하지만, 필요이상의 권한을 가지고 있�
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ export SYNO_Password&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;관리자 비밀번호&amp;#39;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ export SYNO_Certificate&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;인증서 설명&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ /usr/local/share/acme.sh/acme.sh --deploy --home . -d &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$CERT_DOMAIN&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt; --deploy-hook synology_dsm
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/certificate_success.jpg&#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/certificate_success.jpg&#34;
 	width=&#34;2048&#34;
 	height=&#34;1774&#34;
-	srcset=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/certificate_success_hu_f7af91a4d952d77.jpg 480w, https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/certificate_success_hu_edee2827bc45c940.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/certificate_success_hu_f7af91a4d952d77.jpg 480w, https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/certificate_success_hu_edee2827bc45c940.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;certificate_success&#34;
@@ -174,10 +174,10 @@ Success가 출력된다면, 정상적으로 마무리된 것입니다.&lt;br&gt;
 이 번거로운 일에서 벗어나기 위해 자동화를 하겠습니다.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;제어한 -&amp;gt; 서비스 -&amp;gt; 작업 스케줄러 -&amp;gt; 생성 -&amp;gt; 예약된 작업 -&amp;gt; 사용자 정의 스크립트&lt;/code&gt;를 순서대로 선택합니다.&lt;br&gt;
 이미지로는 아래와 같습니다. 빨간원 숫자 순서대로 진행합니다.&lt;br&gt;
-&lt;img src=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_scheduler.jpg&#34;
+&lt;img src=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_scheduler.jpg&#34;
 	width=&#34;1962&#34;
 	height=&#34;1310&#34;
-	srcset=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_scheduler_hu_39c1277d6546492c.jpg 480w, https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_scheduler_hu_75949bacad0ea5d7.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_scheduler_hu_39c1277d6546492c.jpg 480w, https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_scheduler_hu_75949bacad0ea5d7.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;create_scheduler&#34;
@@ -192,10 +192,10 @@ Success가 출력된다면, 정상적으로 마무리된 것입니다.&lt;br&gt;
 이미지처럼 3가지 값을 확인해줍니다.&lt;br&gt;
 DSM6 버전까지는 &lt;code&gt;root&lt;/code&gt;로 진행해야 인증서 교체가 가능했는데요.&lt;br&gt;
 7 버전에서 다른계정으로 실행해도 되는지 테스트 해보진 않았습니다.&lt;br&gt;
-&lt;img src=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_1.jpg&#34;
+&lt;img src=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_1.jpg&#34;
 	width=&#34;932&#34;
 	height=&#34;510&#34;
-	srcset=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_1_hu_a4252b331331335c.jpg 480w, https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_1_hu_d1c74698a3139e5d.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_1_hu_a4252b331331335c.jpg 480w, https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_1_hu_d1c74698a3139e5d.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;create_1&#34;
@@ -212,10 +212,10 @@ DSM6 버전까지는 &lt;code&gt;root&lt;/code&gt;로 진행해야 인증서 교
 &lt;p&gt;매달 실행할 수 있게 변경 가능하지만, 갱신은 만료 1개월 전부터 가능합니다.&lt;br&gt;
 첫번째이자 마지막 갱신 시도하는 날에 모종의 이유로 실패할 경우, 위에서 진행하셨던걸 다시해주셔야합니다.&lt;br&gt;
 그래서 안전하게 매주 실행하도록 설정했습니다.
-&lt;img src=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_2.jpg&#34;
+&lt;img src=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_2.jpg&#34;
 	width=&#34;874&#34;
 	height=&#34;904&#34;
-	srcset=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_2_hu_f2e5b7982ca38910.jpg 480w, https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_2_hu_47225797165e597a.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_2_hu_f2e5b7982ca38910.jpg 480w, https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_2_hu_47225797165e597a.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;create_2&#34;
@@ -231,10 +231,10 @@ DSM6 버전까지는 &lt;code&gt;root&lt;/code&gt;로 진행해야 인증서 교
 잘 실행되는걸 메일 오는것으로 확인할 수 있을 테니까요.&lt;br&gt;
 저의경우에는 메일 대신에 텔레그램으로 메시지 오도록 변경했습니다. 이와 관련해서는 따로 포스트 하겠습니다.&lt;br&gt;
 사용자 정의 스크립트는 이미지처럼 인증서를 갱신하는 스크립트를 넣어줍니다.&lt;br&gt;
-&lt;img src=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_3.jpg&#34;
+&lt;img src=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_3.jpg&#34;
 	width=&#34;884&#34;
 	height=&#34;732&#34;
-	srcset=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_3_hu_bf76d85ba375fe8.jpg 480w, https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_3_hu_166042c7a5c50290.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_3_hu_bf76d85ba375fe8.jpg 480w, https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_3_hu_166042c7a5c50290.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;create_3&#34;
@@ -248,10 +248,10 @@ DSM6 버전까지는 &lt;code&gt;root&lt;/code&gt;로 진행해야 인증서 교
 &lt;p&gt;간단합니다. 한줄의 커맨드만 입력해주면 됩니다.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;/usr/local/share/acme.sh/acme.sh --cron --home /usr/local/share/acme.sh/
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;이제 설정 완료하시면 아래의 같은 팝업이 출력됩니다.&lt;br&gt;
-&lt;img src=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_warn.jpg&#34;
+&lt;img src=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_warn.jpg&#34;
 	width=&#34;1264&#34;
 	height=&#34;386&#34;
-	srcset=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_warn_hu_4bf3d77652c9b112.jpg 480w, https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_warn_hu_37be3f8d269a4b3a.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_warn_hu_4bf3d77652c9b112.jpg 480w, https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_warn_hu_37be3f8d269a4b3a.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;create_warn&#34;
@@ -265,10 +265,10 @@ DSM6 버전까지는 &lt;code&gt;root&lt;/code&gt;로 진행해야 인증서 교
 사뿐히 확인버튼 눌러주시면 됩니다.&lt;/p&gt;
 &lt;p&gt;알림 외에도 실행한 로그를 확인하고 싶으실수 있는데요.&lt;br&gt;
 아래 이미지처럼 로그 경로를 설정할 수 있습니다. &lt;br&gt;
-&lt;img src=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/scheduler_log.jpg&#34;
+&lt;img src=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/scheduler_log.jpg&#34;
 	width=&#34;1166&#34;
 	height=&#34;636&#34;
-	srcset=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/scheduler_log_hu_acf332d1db7c6d2e.jpg 480w, https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/scheduler_log_hu_9c0b637ce7cd57c9.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/scheduler_log_hu_acf332d1db7c6d2e.jpg 480w, https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/scheduler_log_hu_9c0b637ce7cd57c9.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;scheduler_log&#34;

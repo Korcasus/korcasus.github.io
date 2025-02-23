@@ -2,136 +2,144 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Tags on Read Write</title>
-        <link>https://korcasus.github.io/en/tags/</link>
+        <link>http://localhost:1313/en/tags/</link>
         <description>Recent content in Tags on Read Write</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-US</language>
-        <lastBuildDate>Sat, 02 Dec 2023 15:48:24 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/en/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 02 Dec 2023 15:48:24 +0900</lastBuildDate><atom:link href="http://localhost:1313/en/tags/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Git</title>
-        <link>https://korcasus.github.io/en/tags/git/</link>
+        <link>http://localhost:1313/en/tags/git/</link>
         <pubDate>Sat, 02 Dec 2023 15:48:24 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/tags/git/</guid>
+        <guid>http://localhost:1313/en/tags/git/</guid>
         <description></description>
         </item>
         <item>
         <title>MongoDB</title>
-        <link>https://korcasus.github.io/en/tags/mongodb/</link>
+        <link>http://localhost:1313/en/tags/mongodb/</link>
         <pubDate>Sun, 26 Nov 2023 22:26:53 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/tags/mongodb/</guid>
+        <guid>http://localhost:1313/en/tags/mongodb/</guid>
         <description></description>
         </item>
         <item>
         <title>MongoDB ETL</title>
-        <link>https://korcasus.github.io/en/tags/mongodb-etl/</link>
+        <link>http://localhost:1313/en/tags/mongodb-etl/</link>
         <pubDate>Sun, 26 Nov 2023 22:26:53 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/tags/mongodb-etl/</guid>
+        <guid>http://localhost:1313/en/tags/mongodb-etl/</guid>
         <description></description>
         </item>
         <item>
         <title>MongoDB Hadoop Connector</title>
-        <link>https://korcasus.github.io/en/tags/mongodb-hadoop-connector/</link>
+        <link>http://localhost:1313/en/tags/mongodb-hadoop-connector/</link>
         <pubDate>Sun, 26 Nov 2023 22:26:53 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/tags/mongodb-hadoop-connector/</guid>
+        <guid>http://localhost:1313/en/tags/mongodb-hadoop-connector/</guid>
         <description></description>
         </item>
         <item>
         <title>MongoDB Spark Connector</title>
-        <link>https://korcasus.github.io/en/tags/mongodb-spark-connector/</link>
+        <link>http://localhost:1313/en/tags/mongodb-spark-connector/</link>
         <pubDate>Sun, 26 Nov 2023 22:26:53 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/tags/mongodb-spark-connector/</guid>
+        <guid>http://localhost:1313/en/tags/mongodb-spark-connector/</guid>
         <description></description>
         </item>
         <item>
         <title>MongoDB Sqoop</title>
-        <link>https://korcasus.github.io/en/tags/mongodb-sqoop/</link>
+        <link>http://localhost:1313/en/tags/mongodb-sqoop/</link>
         <pubDate>Sun, 26 Nov 2023 22:26:53 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/tags/mongodb-sqoop/</guid>
+        <guid>http://localhost:1313/en/tags/mongodb-sqoop/</guid>
         <description></description>
         </item>
         <item>
         <title>Argo-Workflow</title>
-        <link>https://korcasus.github.io/en/tags/argo-workflow/</link>
+        <link>http://localhost:1313/en/tags/argo-workflow/</link>
         <pubDate>Sun, 10 Sep 2023 17:02:01 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/tags/argo-workflow/</guid>
+        <guid>http://localhost:1313/en/tags/argo-workflow/</guid>
         <description></description>
         </item>
         <item>
         <title>Argo-Event</title>
-        <link>https://korcasus.github.io/en/tags/argo-event/</link>
+        <link>http://localhost:1313/en/tags/argo-event/</link>
         <pubDate>Sun, 10 Sep 2023 16:46:32 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/tags/argo-event/</guid>
+        <guid>http://localhost:1313/en/tags/argo-event/</guid>
         <description></description>
         </item>
         <item>
         <title>ElasticSearch</title>
-        <link>https://korcasus.github.io/en/tags/elasticsearch/</link>
+        <link>http://localhost:1313/en/tags/elasticsearch/</link>
         <pubDate>Fri, 11 Aug 2023 00:09:54 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/tags/elasticsearch/</guid>
+        <guid>http://localhost:1313/en/tags/elasticsearch/</guid>
         <description></description>
         </item>
         <item>
         <title>Hive</title>
-        <link>https://korcasus.github.io/en/tags/hive/</link>
+        <link>http://localhost:1313/en/tags/hive/</link>
         <pubDate>Fri, 11 Aug 2023 00:09:54 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/tags/hive/</guid>
+        <guid>http://localhost:1313/en/tags/hive/</guid>
         <description></description>
         </item>
         <item>
         <title>Spark</title>
-        <link>https://korcasus.github.io/en/tags/spark/</link>
+        <link>http://localhost:1313/en/tags/spark/</link>
         <pubDate>Fri, 11 Aug 2023 00:09:54 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/tags/spark/</guid>
+        <guid>http://localhost:1313/en/tags/spark/</guid>
         <description></description>
         </item>
         <item>
         <title>Fat-Jar</title>
-        <link>https://korcasus.github.io/en/tags/fat-jar/</link>
+        <link>http://localhost:1313/en/tags/fat-jar/</link>
         <pubDate>Mon, 20 Feb 2023 23:16:51 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/tags/fat-jar/</guid>
+        <guid>http://localhost:1313/en/tags/fat-jar/</guid>
         <description></description>
         </item>
         <item>
         <title>Gradle</title>
-        <link>https://korcasus.github.io/en/tags/gradle/</link>
+        <link>http://localhost:1313/en/tags/gradle/</link>
         <pubDate>Mon, 20 Feb 2023 23:16:51 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/tags/gradle/</guid>
+        <guid>http://localhost:1313/en/tags/gradle/</guid>
         <description></description>
         </item>
         <item>
         <title>Spring</title>
-        <link>https://korcasus.github.io/en/tags/spring/</link>
+        <link>http://localhost:1313/en/tags/spring/</link>
         <pubDate>Mon, 20 Feb 2023 23:16:51 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/tags/spring/</guid>
+        <guid>http://localhost:1313/en/tags/spring/</guid>
         <description></description>
         </item>
         <item>
         <title>Kafka</title>
-        <link>https://korcasus.github.io/en/tags/kafka/</link>
+        <link>http://localhost:1313/en/tags/kafka/</link>
         <pubDate>Thu, 01 Dec 2022 22:45:04 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/tags/kafka/</guid>
+        <guid>http://localhost:1313/en/tags/kafka/</guid>
         <description></description>
         </item>
         <item>
         <title>ETL</title>
-        <link>https://korcasus.github.io/en/tags/etl/</link>
+        <link>http://localhost:1313/en/tags/etl/</link>
         <pubDate>Thu, 01 Dec 2022 22:45:01 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/en/tags/etl/</guid>
+        <guid>http://localhost:1313/en/tags/etl/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Tutorial</title>
+        <link>http://localhost:1313/en/tags/tutorial/</link>
+        <pubDate>Mon, 11 Mar 2019 00:00:00 +0900</pubDate>
+        
+        <guid>http://localhost:1313/en/tags/tutorial/</guid>
         <description></description>
         </item>
         

@@ -5,13 +5,13 @@
         <link>https://korcasus.github.io/tags/twitch/</link>
         <description>Recent content in Twitch on Read Write</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>ko-KR</language>
+        <language>en-US</language>
         <lastBuildDate>Sun, 09 Apr 2023 14:34:00 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/tags/twitch/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Twitch Eventsub</title>
-        <link>https://korcasus.github.io/p/twitch-eventsub/</link>
+        <link>https://korcasus.github.io/ko/post/others/twitch-eventsub/</link>
         <pubDate>Sun, 09 Apr 2023 14:34:00 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/p/twitch-eventsub/</guid>
+        <guid>https://korcasus.github.io/ko/post/others/twitch-eventsub/</guid>
         <description>&lt;h2 id=&#34;previous-to-start&#34;&gt;Previous to Start
 &lt;/h2&gt;&lt;p&gt;안녕하세요. 이번 글은 Twitch에서 공식 제공하는 문서인 &lt;a class=&#34;link&#34; href=&#34;https://dev.twitch.tv/docs/eventsub/handling-webhook-events/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Handling Webhook Events&lt;/a&gt;를 참고하여 작성하였습니다.&lt;br&gt;

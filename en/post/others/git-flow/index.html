@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="This document provides a concise summary of Git flow configuration, strategies, and command examples.">
+<title>Git Flow Summary</title>
+
+<link rel='canonical' href='https://korcasus.github.io/en/post/others/git-flow/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4086051155158500"
+        crossorigin="anonymous"></script>
+<meta property='og:title' content="Git Flow Summary">
+<meta property='og:description' content="This document provides a concise summary of Git flow configuration, strategies, and command examples.">
+<meta property='og:url' content='https://korcasus.github.io/en/post/others/git-flow/'>
+<meta property='og:site_name' content='Read Write'>
+<meta property='og:type' content='article'><meta property='article:section' content='En' /><meta property='article:tag' content='Git' /><meta property='article:published_time' content='2023-12-02T15:48:24&#43;09:00'/><meta property='article:modified_time' content='2023-12-02T15:48:24&#43;09:00'/>
+<meta name="twitter:title" content="Git Flow Summary">
+<meta name="twitter:description" content="This document provides a concise summary of Git flow configuration, strategies, and command examples.">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSWKN88H77"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-PSWKN88H77');
+        }
+      </script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Read Write</a></h1>
+            <h2 class="site-description">Preserving Knowledge: Documenting What I&#39;ve Learned</h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/en/post/argo/' >
+                
+                
+                
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-cube-send"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16 12.5l-5 -3l5 -3l5 3v5.5l-5 3z" /><path d="M11 9.5v5.5l5 3" /><path d="M16 12.545l5 -3.03" /><path d="M7 9h-5" /><path d="M7 12h-3" /><path d="M7 15h-1" /></svg>
+                
+                <span>Argo</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/ko/post/blog/' >
+                
+                
+                
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-blogger"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 21h8a5 5 0 0 0 5 -5v-3a3 3 0 0 0 -3 -3h-1v-2a5 5 0 0 0 -5 -5h-4a5 5 0 0 0 -5 5v8a5 5 0 0 0 5 5z" /><path d="M7 7m0 1.5a1.5 1.5 0 0 1 1.5 -1.5h3a1.5 1.5 0 0 1 1.5 1.5v0a1.5 1.5 0 0 1 -1.5 1.5h-3a1.5 1.5 0 0 1 -1.5 -1.5z" /><path d="M7 14m0 1.5a1.5 1.5 0 0 1 1.5 -1.5h7a1.5 1.5 0 0 1 1.5 1.5v0a1.5 1.5 0 0 1 -1.5 1.5h-7a1.5 1.5 0 0 1 -1.5 -1.5z" /></svg>
+                
+                <span>Blog</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/ko/post/database/' >
+                
+                
+                
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-database-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 6c0 1.657 3.582 3 8 3s8 -1.343 8 -3s-3.582 -3 -8 -3s-8 1.343 -8 3" /><path d="M4 6v6c0 1.657 3.582 3 8 3c.478 0 .947 -.016 1.402 -.046" /><path d="M20 12v-6" /><path d="M4 12v6c0 1.526 3.04 2.786 6.972 2.975" /><path d="M18.42 15.61a2.1 2.1 0 0 1 2.97 2.97l-3.39 3.42h-3v-3l3.42 -3.39z" /></svg>
+                
+                <span>Database</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/en/post/hive/' >
+                
+                
+                
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-cloud"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6.657 18c-2.572 0 -4.657 -2.007 -4.657 -4.483c0 -2.475 2.085 -4.482 4.657 -4.482c.393 -1.762 1.794 -3.2 3.675 -3.773c1.88 -.572 3.956 -.193 5.444 1c1.488 1.19 2.162 3.007 1.77 4.769h.99c1.913 0 3.464 1.56 3.464 3.486c0 1.927 -1.551 3.487 -3.465 3.487h-11.878" /></svg>
+                
+                <span>Hive</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/en/post/spark/' >
+                
+                
+                
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-carambola"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17.286 21.09q -1.69 .001 -5.288 -2.615q -3.596 2.617 -5.288 2.616q -2.726 0 -.495 -6.8q -9.389 -6.775 2.135 -6.775h.076q 1.785 -5.516 3.574 -5.516q 1.785 0 3.574 5.516h.076q 11.525 0 2.133 6.774q 2.23 6.802 -.497 6.8" /></svg>
+                
+                <span>Spark</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/ko/post/synology/' >
+                
+                
+                
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-devices-pc"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 5h6v14h-6z" /><path d="M12 9h10v7h-10z" /><path d="M14 19h6" /><path d="M17 16v3" /><path d="M6 13v.01" /><path d="M6 16v.01" /></svg>
+                
+                <span>Synology</span>
+            </a>
+        </li>
+        
+        
+        <li  class='current' >
+            <a href='/en/post/others/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                
+                <span>Others</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://korcasus.github.io/" selected>English</option>
+                                
+                                    <option value="https://korcasus.github.io/ko/" >Korean</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#prerequsite">Prerequsite</a>
+      <ul>
+        <li><a href="#installing-git">Installing Git</a></li>
+        <li><a href="#git-flow-installation">Git flow Installation</a></li>
+        <li><a href="#setting-up-ssh-for-github">Setting up SSH for GitHub</a></li>
+      </ul>
+    </li>
+    <li><a href="#git-flow-strategy">Git Flow Strategy</a>
+      <ul>
+        <li><a href="#branch-overview">Branch Overview</a></li>
+      </ul>
+    </li>
+    <li><a href="#start-project">Start Project</a>
+      <ul>
+        <li><a href="#clone-project-from-github">Clone Project from github</a></li>
+        <li><a href="#git-flow-init">git flow init</a></li>
+      </ul>
+    </li>
+    <li><a href="#git-flow-commands">Git Flow Commands</a></li>
+    <li><a href="#reference">Reference</a></li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/git/" >
+                Git
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/en/post/others/git-flow/">Git Flow Summary</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            This document provides a concise summary of Git flow configuration, strategies, and command examples.
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Dec 02, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <style type="text/css">.notice{--root-color:#444;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#c33;--warning-content:#fee;--info-title:#fb7;--info-content:#fec;--note-title:#6be;--note-content:#e7f2fa;--tip-title:#5a5;--tip-content:#efe}@media (prefers-color-scheme:dark){.notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}}body.dark .notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:var(--root-color);background:var(--root-background)}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}.notice.warning .notice-title{background:var(--warning-title)}.notice.warning{background:var(--warning-content)}.notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}.notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}.notice.tip .notice-title{background:var(--tip-title)}.notice.tip{background:var(--tip-content)}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}</style>
+<div><svg width="0" height="0" display="none" xmlns="http://www.w3.org/2000/svg"><symbol id="tip-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/></symbol><symbol id="note-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="warning-notice" viewBox="0 0 576 512" preserveAspectRatio="xMidYMid meet"><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="info-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/></symbol></svg></div><div class="notice info" >
+<p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#info-notice"></use></svg></span>Info</p><p>This article was originally written in Korean and has been translated using ChatGPT.</p></div>
+
+<h2 id="prerequsite">Prerequsite
+</h2><h3 id="installing-git">Installing Git
+</h3><ul>
+<li>Command to verify installation: git</li>
+<li>Download Git suitable for your operating system : <a class="link" href="https://git-scm.com/"  target="_blank" rel="noopener"
+    >https://git-scm.com/</a></li>
+</ul>
+<h3 id="git-flow-installation">Git flow Installation
+</h3><ul>
+<li>Git Flow is a utility for supporting branch management in Git.</li>
+<li>Command to verify installation : git flow</li>
+<li>Installation guide: <a class="link" href="https://github.com/petervanderdoes/gitflow-avh/wiki/Installation"  target="_blank" rel="noopener"
+    >https://github.com/petervanderdoes/gitflow-avh/wiki/Installation</a></li>
+<li>For macOS, use : <code>brew install git-flow-avh</code></li>
+</ul>
+<h3 id="setting-up-ssh-for-github">Setting up SSH for GitHub
+</h3><ul>
+<li>GitHub offers support for both HTTPS and SSH protocols.</li>
+<li>Pros and cons exist for each : <a class="link" href="https://git-scm.com/book/ko/v2/Git-%EC%84%9C%EB%B2%84-%ED%94%84%EB%A1%9C%ED%86%A0%EC%BD%9C"  target="_blank" rel="noopener"
+    >https://git-scm.com/book/ko/v2/Git-서버-프로토콜</a></li>
+<li>Run the commands below to add your SSH key to GitHub</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Create an SSH key (omit this step if a key already exists)</span>
+</span></span><span style="display:flex;"><span>mkdir ~/.ssh
+</span></span><span style="display:flex;"><span>ssh-keygen -t rsa -C <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>github_id<span style="color:#e6db74">}</span><span style="color:#e6db74">@github.com&#34;</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Copy the SSH public key</span>
+</span></span><span style="display:flex;"><span>cat ~/.ssh/id_rsa.pub
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Add the copied key to your GitHub account at https://github.com/settings/ssh</span>
+</span></span></code></pre></div><ul>
+<li>If the GitHub SSH port differs, extra configuration is needed.</li>
+<li>Insert the details below into the ~/.ssh/config file. (Create this file if it&rsquo;s not already present)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Host github.com
+</span></span><span style="display:flex;"><span>    User git
+</span></span><span style="display:flex;"><span>    Hostname github.com
+</span></span><span style="display:flex;"><span>    IdentityFile ~/.ssh/id_rsa
+</span></span><span style="display:flex;"><span>    Port 20022
+</span></span></code></pre></div><h2 id="git-flow-strategy">Git Flow Strategy
+</h2><p><img src="/post/others/git-flow/gitflow.png"
+	width="1150"
+	height="1524"
+	srcset="/post/others/git-flow/gitflow_hu_fe54e8d714e3a751.png 480w, /post/others/git-flow/gitflow_hu_b6574526a817a11f.png 1024w"
+	loading="lazy"
+	
+		alt="gitflow"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="75"
+		data-flex-basis="181px"
+	
+></p>
+<h3 id="branch-overview">Branch Overview
+</h3><ul>
+<li>master branch: Houses the source that is <strong>deployed</strong> or awaiting deployment.</li>
+<li>develop branch: Used for <strong>development</strong> in preparation for the next release.
+<ul>
+<li>A collaborative branch for multiple developers.</li>
+<li>Development involves pushing completed code to develop branch or merging after PR review.</li>
+</ul>
+</li>
+<li>feature branch: For <strong>feature-specific development</strong> by individual developers.
+<ul>
+<li>Branch for local development.</li>
+<li>To be merged into the develop branch.</li>
+</ul>
+</li>
+<li>hotfix branch: For <strong>urgent fixes</strong> required in the deployed version.
+<ul>
+<li>Originates from the master branch.</li>
+<li>Merged directly into the master branch and also applied to the develop branch.</li>
+</ul>
+</li>
+<li>release branch: Contains code <strong>ready for internal release.</strong>
+<ul>
+<li>The branch used for QA testing.</li>
+<li>Immediate application of fixes for bugs found during QA, with necessary changes also made to the develop branch.</li>
+<li>Should not be used for additional feature development; such features should be reserved for the next release.&quot;</li>
+</ul>
+</li>
+</ul>
+<h2 id="start-project">Start Project
+</h2><h3 id="clone-project-from-github">Clone Project from github
+</h3><ol>
+<li>Clone the source code using Git</li>
+<li>Navigate to the project directory</li>
+</ol>
+<h3 id="git-flow-init">git flow init
+</h3><ul>
+<li>Ensure that the master and develop branches are already established locally.</li>
+<li>Running &lsquo;git flow init&rsquo; will launch a dialog mode to confirm settings, as shown below.</li>
+<li>Stick to the default settings for all configurations (feature, release, hotfix, &hellip;).</li>
+<li>The bugfix and support branches, recent additions to git flow, may be absent or experimental depending on the git flow edition/version, and therefore are not recommended for use.</li>
+<li>On macOS, generate a popup window using <code>Cmd</code> + <code>Option</code> + <code>f</code>.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ git flow init
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>Which branch should be used <span style="color:#66d9ef">for</span> bringing forth production releases?
+</span></span><span style="display:flex;"><span>   - master
+</span></span><span style="display:flex;"><span>Branch name <span style="color:#66d9ef">for</span> production releases: <span style="color:#f92672">[</span>master<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Branch name <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#34;next release&#34;</span> development: <span style="color:#f92672">[</span>develop<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>How to name your supporting branch prefixes?
+</span></span><span style="display:flex;"><span>Feature branches? <span style="color:#f92672">[</span>feature/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Bugfix branches? <span style="color:#f92672">[</span>bugfix/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Release branches? <span style="color:#f92672">[</span>release/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Hotfix branches? <span style="color:#f92672">[</span>hotfix/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Support branches? <span style="color:#f92672">[</span>support/<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Version tag prefix? <span style="color:#f92672">[]</span>
+</span></span></code></pre></div><h2 id="git-flow-commands">Git Flow Commands
+</h2><div class="notice info" >
+<p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#info-notice"></use></svg></span>Info</p><p>Use MYFEATURE and RELEASE as branch names<br>
+ex) feature/test123 → FEATURE = test123</p></div>
+
+<ul>
+<li>Start a new feature : <code>git flow feature start MYFEATURE</code></li>
+<li>Complete a feature : <code>git flow feature finish MYFEATURE</code></li>
+<li>Publish a feature : <code>git flow feature publish MYFEATURE</code></li>
+<li>Pull a published feature : <code>git flow feature pull origin MYFEATURE</code></li>
+<li>Start a release : <code>git flow release start RELEASE [BASE]</code></li>
+<li>Finish a release : <code>git flow release finish RELEASE</code></li>
+<li>Start a hotfix : <code>git flow hotfix start VERSION [BASENAME]</code></li>
+<li>Finish a hotfix : <code>git flow hotfix finish VERSION</code></li>
+</ul>
+<h2 id="reference">Reference
+</h2><ul>
+<li><a class="link" href="https://jeong-pro.tistory.com/196"  target="_blank" rel="noopener"
+    >https://jeong-pro.tistory.com/196</a></li>
+<li><a class="link" href="https://danielkummer.github.io/git-flow-cheatsheet/index.ko_KR.html"  target="_blank" rel="noopener"
+    >https://danielkummer.github.io/git-flow-cheatsheet/index.ko_KR.html</a></li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/git/">Git</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/post/others/git-flow/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Git Flow Summary</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/ko/post/others/git-flow/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Git Flow 정리</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="Korcasus/blog-comments"
+        issue-term="title"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 Read Write
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

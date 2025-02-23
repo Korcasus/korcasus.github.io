@@ -5,13 +5,13 @@
         <link>https://korcasus.github.io/tags/jenkins/</link>
         <description>Recent content in Jenkins on Read Write</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>ko-KR</language>
+        <language>en-US</language>
         <lastBuildDate>Sat, 26 Aug 2023 22:30:49 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/tags/jenkins/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Use Docker in Jenkins Docker</title>
-        <link>https://korcasus.github.io/p/use-docker-in-jenkins-docker/</link>
+        <link>https://korcasus.github.io/ko/post/synology/use-docker-in-jenkins-docker/</link>
         <pubDate>Sat, 26 Aug 2023 22:30:49 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/p/use-docker-in-jenkins-docker/</guid>
+        <guid>https://korcasus.github.io/ko/post/synology/use-docker-in-jenkins-docker/</guid>
         <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction
 &lt;/h2&gt;&lt;p&gt;Synology에서 여러 응용 프로그램을 설치해서 사용하기 위해서 Docker를 애용합니다.&lt;br&gt;
 Docker로 Jenkins 를 사용중인데, Jenkins에서도 Docker를 사용해야하는 상황이 생겨 진행하게 되었습니다.&lt;br&gt;
@@ -33,10 +33,10 @@ DSM 7.2로 업데이트한 후에 진행한 작업이라, 캡처한 이미지가
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker run -p 8080:8080 -p 50000:50000 -d -v /var/run/docker.sock:/var/run/docker.sock -v /docker/jenkins/home:/var/jenkins_home jenkins/jenkins:lts
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;하지만 Synology에서는 &lt;code&gt;/&lt;/code&gt; directory 설정할 수 없기떄문에, SSH로 접속해서 설정해주어야합니다.&lt;br&gt;
 SSH로 접속해서 Docker command를 사용할 준비를 합니다.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/p/use-docker-in-jenkins-docker/update_command_in_host.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/ko/post/synology/use-docker-in-jenkins-docker/update_command_in_host.jpg&#34;
 	width=&#34;1868&#34;
 	height=&#34;860&#34;
-	srcset=&#34;https://korcasus.github.io/p/use-docker-in-jenkins-docker/update_command_in_host_hu_a127f913902b77e7.jpg 480w, https://korcasus.github.io/p/use-docker-in-jenkins-docker/update_command_in_host_hu_ce09b41752a7248b.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/ko/post/synology/use-docker-in-jenkins-docker/update_command_in_host_hu_a127f913902b77e7.jpg 480w, https://korcasus.github.io/ko/post/synology/use-docker-in-jenkins-docker/update_command_in_host_hu_ce09b41752a7248b.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;update_command_in_host&#34;
@@ -120,10 +120,10 @@ SSH로 접속해서 Docker command를 사용할 준비를 합니다.&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/p/use-docker-in-jenkins-docker/console_job.jpg&#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/ko/post/synology/use-docker-in-jenkins-docker/console_job.jpg&#34;
 	width=&#34;1406&#34;
 	height=&#34;1494&#34;
-	srcset=&#34;https://korcasus.github.io/p/use-docker-in-jenkins-docker/console_job_hu_cc2eb9b2822dca56.jpg 480w, https://korcasus.github.io/p/use-docker-in-jenkins-docker/console_job_hu_60b3703374bbb5a1.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/ko/post/synology/use-docker-in-jenkins-docker/console_job_hu_cc2eb9b2822dca56.jpg 480w, https://korcasus.github.io/ko/post/synology/use-docker-in-jenkins-docker/console_job_hu_60b3703374bbb5a1.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;console_job&#34;

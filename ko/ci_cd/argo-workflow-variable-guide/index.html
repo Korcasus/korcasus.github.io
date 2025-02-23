@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="ko-KR" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Argo Workflow에서 사용하는 Variable 사용 방법에 대해 정리합니다.">
+<title>Argo Workflow Variable Guide</title>
+
+<link rel='canonical' href='http://localhost:1313/ko/ci_cd/argo-workflow-variable-guide/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4086051155158500"
+        crossorigin="anonymous"></script>
+<meta property='og:title' content="Argo Workflow Variable Guide">
+<meta property='og:description' content="Argo Workflow에서 사용하는 Variable 사용 방법에 대해 정리합니다.">
+<meta property='og:url' content='http://localhost:1313/ko/ci_cd/argo-workflow-variable-guide/'>
+<meta property='og:site_name' content='Read Write'>
+<meta property='og:type' content='article'><meta property='article:section' content='Ko' /><meta property='article:tag' content='Argo-Workflow' /><meta property='article:published_time' content='2024-06-19T22:51:31&#43;09:00'/><meta property='article:modified_time' content='2024-06-19T22:51:31&#43;09:00'/>
+<meta name="twitter:title" content="Argo Workflow Variable Guide">
+<meta name="twitter:description" content="Argo Workflow에서 사용하는 Variable 사용 방법에 대해 정리합니다.">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSWKN88H77"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-PSWKN88H77');
+        }
+      </script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="메뉴 여닫기">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Read Write</a></h1>
+            <h2 class="site-description">잊지않기위해 기록합니다.</h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/ci_cd/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                
+                <span>CI / CD</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/hadoop/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                
+                <span>Hadoop</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/ko/page/test/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Test</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/en/page/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/en/page/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/en/" >English</option>
+                                
+                                    <option value="http://localhost:1313/" selected>Korean</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>다크 모드</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">목차</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#workflow-variable">Workflow Variable</a>
+      <ul>
+        <li><a href="#1-simple">1. Simple</a></li>
+        <li><a href="#2-expression">2. Expression</a></li>
+      </ul>
+    </li>
+    <li><a href="#팀원의-테스트-사례-공유">팀원의 테스트 사례 공유</a></li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/argo-workflow/" >
+                Argo-Workflow
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/ko/ci_cd/argo-workflow-variable-guide/">Argo Workflow Variable Guide</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            Argo Workflow에서 사용하는 Variable 사용 방법에 대해 정리합니다.
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">6월 19, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 분 정도
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="introduction">Introduction
+</h2><p>Argo Workflow에서 Workflow Spec을 작성할 때 변수를 사용해야 할 때가 있습니다.<br>
+<a class="link" href="https://pkg.go.dev/text/template"  target="_blank" rel="noopener"
+    >golang template language</a>를 사용하면 변수를 표현할 수 있습니다.<br>
+하지만 작성한 변수가 올바르게 작성된 것인지 확인하기 위해서는 배포를 해보아야 알 수 있습니다.<br>
+번거로운 과정을 해결하기 위해, 간단히 테스트해 볼 수 있는 방법을 공유하고자 합니다.</p>
+<h2 id="workflow-variable">Workflow Variable
+</h2><p><a class="link" href="https://argoproj.github.io/argo-workflows/variables/#template-tag-kinds"  target="_blank" rel="noopener"
+    >공식 문서</a>에서는 크게 두 가지 타입을 지원합니다.</p>
+<ul>
+<li>Simple</li>
+<li>Expression</li>
+</ul>
+<p>Simple은 template language 표현에 맞게 작성했다면, 변수 이름과 일치하는 값으로 대체됩니다.<br>
+Expression은 template language 표현에 맞게 작성했다면, 작성한 식대로 계산한 뒤 대체됩니다.</p>
+<h3 id="1-simple">1. Simple
+</h3><p>사용하는 데 큰 어려움이 없기 때문에, 별도의 설명은 작성하지 않습니다.<br>
+<a class="link" href="https://argoproj.github.io/argo-workflows/variables/#reference"  target="_blank" rel="noopener"
+    >문서</a>를 보고 골라서 사용하면 됩니다.</p>
+<h3 id="2-expression">2. Expression
+</h3><p>변수로 다양하게 사용할 수 있도록 두 개의 라이브러리를 지원합니다.</p>
+<ul>
+<li>Expr</li>
+<li>Sprig</li>
+</ul>
+<p><a class="link" href="https://github.com/antonmedv/expr/blob/master/docs/Language-Definition.md"  target="_blank" rel="noopener"
+    >Expr</a>는 기본 변수 타입에 대해 부족한 기능을 보완해주는 라이브러리입니다.<br>
+사칙연산, 비교 연산, 논리적 연산 기능들을 가지고 있습니다.</p>
+<p><a class="link" href="https://masterminds.github.io/sprig/"  target="_blank" rel="noopener"
+    >Sprig</a>는 Expr보다 확장된 기능을 제공하는 라이브러리입니다.<br>
+Date, UUID 같은 타입을 추가로 제공하며, 타입 변환과 수학 함수도 제공합니다.<br>
+위 두 개의 라이브러리를 사용해서 작성한 template 코드가 올바르게 작성되었는지 확인이 필요합니다.<br>
+이를 위해 손쉽게 테스트하는 방법에 대해 기술합니다.<br>
+링크를 첨부하겠지만, 만약 안 된다면 <a class="link" href="https://go.dev/play/"  target="_blank" rel="noopener"
+    >go playground</a>에 접속하여 코드를 복사한 뒤 사용하면 됩니다.</p>
+<style type="text/css">.notice{--root-color:#444;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#c33;--warning-content:#fee;--info-title:#fb7;--info-content:#fec;--note-title:#6be;--note-content:#e7f2fa;--tip-title:#5a5;--tip-content:#efe}@media (prefers-color-scheme:dark){.notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}}body.dark .notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:var(--root-color);background:var(--root-background)}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}.notice.warning .notice-title{background:var(--warning-title)}.notice.warning{background:var(--warning-content)}.notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}.notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}.notice.tip .notice-title{background:var(--tip-title)}.notice.tip{background:var(--tip-content)}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}</style>
+<div><svg width="0" height="0" display="none" xmlns="http://www.w3.org/2000/svg"><symbol id="tip-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/></symbol><symbol id="note-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="warning-notice" viewBox="0 0 576 512" preserveAspectRatio="xMidYMid meet"><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="info-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/></symbol></svg></div><div class="notice tip" >
+<p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#tip-notice"></use></svg></span>정보</p><p>💡
+<strong>date 사용 시 주의사항</strong><br>
+Go Playground는 임의의 코드를 실행해보는 도구이므로 보안에 문제가 생길 수 있습니다.<br>
+이러한 상황 때문에 몇 가지 장치가 되어있는데, 그중 하나가 Fake Time입니다.<br>
+시간 연산을 하면 임의의 값을 기준으로 연산하기 때문에, 현재 시간 기준과는 다른 결과가 도출됩니다.<br>
+상세한 내용은 <a class="link" href="https://go.dev/blog/playground"  target="_blank" rel="noopener"
+    >https://go.dev/blog/playground</a> 를 참고하십시오.</p></div>
+
+<h4 id="a-sprig만-사용할-경우">A. Sprig만 사용할 경우
+</h4><p><a class="link" href="https://go.dev/play/p/WabFCXYOBTy"  target="_blank" rel="noopener"
+    >https://go.dev/play/p/WabFCXYOBTy</a></p>
+<p><strong>rawString 변수에 테스트하고자 하는 template 코드를 복사해 넣고, 실행해보면 작성한 코드에 문제가 없는지 확인할 수 있습니다.</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;bytes&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;html/template&#34;</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;github.com/Masterminds/sprig&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">buf</span> <span style="color:#a6e22e">bytes</span>.<span style="color:#a6e22e">Buffer</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">rawString</span> = <span style="color:#e6db74">`
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    </span><span style="color:#75715e">{{-</span> <span style="color:#a6e22e">$nowTime</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">(</span><span style="color:#a6e22e">now</span> <span style="color:#f92672">|</span> <span style="color:#a6e22e">date_modify</span> <span style="color:#e6db74">&#34;-9h&#34;</span><span style="color:#f92672">)</span> <span style="color:#75715e">-}}</span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    </span><span style="color:#75715e">{{</span> <span style="color:#a6e22e">now</span> <span style="color:#75715e">}}</span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    </span><span style="color:#75715e">{{</span> <span style="color:#a6e22e">$nowTime</span> <span style="color:#75715e">}}</span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    </span><span style="color:#75715e">{{</span> <span style="color:#a6e22e">dateInZone</span> <span style="color:#e6db74">&#34;20060102&#34;</span> <span style="color:#f92672">(</span><span style="color:#a6e22e">now</span> <span style="color:#f92672">|</span> <span style="color:#a6e22e">date_modify</span> <span style="color:#e6db74">&#34;-24h&#34;</span><span style="color:#f92672">)</span> <span style="color:#e6db74">&#34;JST&#34;</span> <span style="color:#75715e">}}</span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    `</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">tpl</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">template</span>.<span style="color:#a6e22e">Must</span>(<span style="color:#a6e22e">template</span>.<span style="color:#a6e22e">New</span>(<span style="color:#e6db74">&#34;&#34;</span>).<span style="color:#a6e22e">Funcs</span>(<span style="color:#a6e22e">sprig</span>.<span style="color:#a6e22e">FuncMap</span>()).<span style="color:#a6e22e">Parse</span>(<span style="color:#a6e22e">rawString</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">tpl</span>.<span style="color:#a6e22e">Execute</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">buf</span>, <span style="color:#66d9ef">nil</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        panic(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    print(<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">String</span>())
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="b-expr와-sprig를-사용할-경우">B. Expr와 Sprig를 사용할 경우
+</h4><p><a class="link" href="https://go.dev/play/p/xDUvkOHmbYM"  target="_blank" rel="noopener"
+    >https://go.dev/play/p/xDUvkOHmbYM</a></p>
+<p><strong>code 변수에 테스트하고자 하는 template 코드를 복사해 넣고, 실행해보면 작성한 코드에 문제가 없는지 확인할 수 있습니다.</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;github.com/Masterminds/sprig&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;github.com/antonmedv/expr&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//code := `date(&#39;2006-01-02T15:04:05Z0700&#39;, now)`</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//code := `dateModify(&#39;-9h&#39;, now())`</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//code := `dateInZone(&#39;2006-01-02T15:04:05Z0700&#39;, now(), &#39;Asia/Tokyo&#39;)`</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">code</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">`trim(&#39;date(string)=&#39;) + date(&#39;20060102&#39;,dateModify(&#39;-15h&#39;, now()))`</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//code := `date(&#39;20060102&#39;, dateModify(&#39;-15h&#39;, now()))`</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">program</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">expr</span>.<span style="color:#a6e22e">Compile</span>(<span style="color:#a6e22e">code</span>, <span style="color:#a6e22e">expr</span>.<span style="color:#a6e22e">Env</span>(<span style="color:#a6e22e">sprig</span>.<span style="color:#a6e22e">FuncMap</span>()))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        panic(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">output</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">expr</span>.<span style="color:#a6e22e">Run</span>(<span style="color:#a6e22e">program</span>, <span style="color:#a6e22e">sprig</span>.<span style="color:#a6e22e">FuncMap</span>())
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        panic(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">output</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>위 두 개의 예제를 사용해 테스트해보면 문법에 맞게 작성했는지와 의도한 대로 계산되었는지를 확인할 수 있습니다.</p>
+<p>Argo Workflow를 사용하는 데 어려움이 없었으면 합니다.</p>
+<div class="notice tip" >
+<p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#tip-notice"></use></svg></span>정보</p><p>Helm도 golang template을 기준으로 작성하다 보니 문제가 생길 수 있습니다.<br>
+Argo Workflow에서 값이 변환되기를 기대했지만, Helm에서 변환되어버리는 것처럼 말입니다.<br>
+이럴 경우 {{<code>{{ example }}</code>}}처럼 작성해주면 됩니다. <br>
+Helm에서는 바깥의 중괄호만 제거한 뒤, {{ example }}를 입력해줄 것입니다.</p></div>
+
+<h2 id="팀원의-테스트-사례-공유">팀원의 테스트 사례 공유
+</h2><ol>
+<li><code>dateInZone&quot;20060102&quot;&quot;JST&quot;</code>는 형식에 맞지 않습니다.</li>
+</ol>
+<p>예제에 UTC가 적용되어 있어서 JST나 KST도 된다고 생각했는데 실제로는 동작하지 않고 zone을 입력해야 제대로 동작합니다.<br>
+만일 허용하지 않은 zone을 입력할 시엔 기본인 UTC로 동작합니다.</p>
+<ul>
+<li><code>dateInZone&quot;20060102&quot; now``&quot;JST&quot; (X)</code></li>
+<li><code>dateInZone&quot;20060102&quot; now&quot;Asia/Tokyo&quot; (O)</code></li>
+</ul>
+<ol start="2">
+<li><code>dateModify</code>에서 지원하는 시간 단위는 <code>&quot;ns&quot;, &quot;us&quot; (or &quot;µs&quot;), &quot;ms&quot;, &quot;s&quot;, &quot;m&quot;, &quot;h&quot;</code>입니다. 년월일 등은 지원하지 않습니다.</li>
+</ol>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/argo-workflow/">Argo-Workflow</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">관련 글</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/ci_cd/argo-workflow-variable-guide/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Argo Workflow Variable Guide</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/en/post/essential-feature-argo-workflow/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Operating Services with Argo Workflows: Essential Features Guide</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/essential-feature-argo-workflow/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Operating Services with Argo Workflows: Essential Features Guide</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/ko/post/essential-feature-argo-workflow/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Operating Services with Argo Workflows: Essential Features Guide</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="Korcasus/blog-comments"
+        issue-term="title"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 Read Write
+    </section>
+    
+    <section class="powerby">
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>로 만듦 <br />
+        <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>의 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 테마 사용 중
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.290d673c589f2a423c8682fdfc0509ac798b2c4c013780c3ebb5c7d8d8f38e40.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

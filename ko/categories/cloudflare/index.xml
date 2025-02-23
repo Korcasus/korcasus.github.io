@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>CloudFlare on Read Write</title>
+        <link>https://korcasus.github.io/ko/categories/cloudflare/</link>
+        <description>Recent content in CloudFlare on Read Write</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>ko-KR</language>
+        <lastBuildDate>Mon, 21 Nov 2022 22:23:00 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/ko/categories/cloudflare/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Automate Synology Let&#39;s Encrypt Certificate</title>
+        <link>https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/</link>
+        <pubDate>Mon, 21 Nov 2022 22:23:00 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/</guid>
+        <description>&lt;h2 id=&#34;들어가기에-앞서&#34;&gt;들어가기에 앞서
+&lt;/h2&gt;&lt;p&gt;안녕하세요.&lt;br&gt;
+Synology DS220+ 구매한 뒤로 Bitwarden, WebDAV, &amp;hellip; 다양한 용도로 사용하고있습니다.&lt;br&gt;
+이전까지는 DuckDNS와 함께 DSM 6.X 사용중이었습니다만, DSM 업데이트 이후로 만들어두었던 자동화 프로세스가 동작하지 않더라구요. &lt;br&gt;
+이번 기회에 갖고싶던 Domain을 CloudFlare에서 Domain 구매를 한 뒤, 새롭게 프로세스를 정리하였습니다.&lt;br&gt;
+&lt;a class=&#34;link&#34; href=&#34;https://github.com/acmesh-official/acme.sh/wiki/Synology-NAS-Guide&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;공식 가이드&lt;/a&gt; 대로 진행했던 과정을 순차적으로 정리하려고 합니다.&lt;/p&gt;
+&lt;p&gt;Domain 구입과 DDNS 설정에 대한 내용은 기회가 되면 작성하도록 하겠습니다.&lt;/p&gt;
+&lt;h3 id=&#34;사용한-환경&#34;&gt;사용한 환경
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;DSM 7.X&lt;/li&gt;
+&lt;li&gt;Synology DS220+&lt;/li&gt;
+&lt;li&gt;Domain Provider : CloudFlare&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;lets-encrypt란&#34;&gt;Let&amp;rsquo;s Encrypt란?
+&lt;/h3&gt;&lt;p&gt;HTTPS를 사용할 때는 CA(인증기관)에서 제공하는 인증서를 사용합니다.&lt;br&gt;
+원하는 도메인으로 인증서를 발급하고자 할때, 업체마다 다른 가격을 지불해야합니다.   &lt;br&gt;
+Let&amp;rsquo;s Encrypt는 비영리 기관으로서 무료로 TLS인증서를 제공합니다.&lt;/p&gt;
+&lt;p&gt;장점은 무료로 인증서를 제공받을 수 있지만,&lt;br&gt;
+단점으로는 타업체는 유효기간이 1년인데 비해 짧은 3개월이라는 점입니다.&lt;/p&gt;
+&lt;h3 id=&#34;acmesh-는-뭔가요&#34;&gt;acme.sh 는 뭔가요?
+&lt;/h3&gt;&lt;p&gt;Let&amp;rsquo;s Encrypt는 ACME 프로토콜을 사용하여 도메인 소유자인지 확인한 뒤에 인증서를 발급합니다.   &lt;br&gt;
+인증서 발급을 위해서는 ACME 클라이언트 소프트웨어를 선택해야하는데요.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;CertBot&lt;/code&gt; 사용을 권장하지만, 상황에 따라 다른 소프트웨어를 선택할 수 있습니다. &lt;br&gt;
+&lt;code&gt;acme.sh&lt;/code&gt;는 bash를 사용해 인증서를 발급해 줄 수 있는 대체 소프트웨어입니다.&lt;br&gt;
+본인의 선호도에 따라 선택할 수 있습니다.&lt;br&gt;
+상세한 내용은 &lt;a class=&#34;link&#34; href=&#34;https://letsencrypt.org/ko/docs/client-options/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;공식문서&lt;/a&gt;를 참고해주세요.&lt;/p&gt;
+&lt;h2 id=&#34;cloudflare-api-token-발급&#34;&gt;CloudFlare API Token 발급
+&lt;/h2&gt;&lt;p&gt;인증서 발급 절차에 대해 정확하게 알지는 못해도, 파악한 흐름은 아래와 같습니다.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;원하는 Domain의 인증서 발급 요청 (to Let&amp;rsquo;s Encrypt)&lt;/li&gt;
+&lt;li&gt;해당 Domain의 소유자임을 증명하기 위해 TXT Record값을 응답값으로 받음&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://api.cloudflare.com/#dns-records-for-a-zone-create-dns-record&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;CloudFlare API&lt;/a&gt;를 사용하여 TXT Record 값을 등록&lt;/li&gt;
+&lt;li&gt;TXT Record값을 확인한 후, 인증서 발급&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;위 과정에서 사용되는 CloudFlare API를 사용하기위해 Token 발급을 진행합니다.&lt;br&gt;
+Global Key로도 사용가능하지만, 필요이상의 권한을 가지고 있기때문에 진행하진 않습니다.&lt;/p&gt;
+&lt;p&gt;token을 발급하고자 하는 Domain을 선택하면, 아래의 같은 Home 화면이 나타납니다.&lt;br&gt;
+빨간색 화살표를 클릭합니다.&lt;br&gt;
+&lt;img src=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/cloudflare_home.jpg&#34;
+	width=&#34;2696&#34;
+	height=&#34;2966&#34;
+	srcset=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/cloudflare_home_hu_ecaa037df6f71fa1.jpg 480w, https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/cloudflare_home_hu_b230d7032b1c5c16.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;cloudflare_home&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;90&#34;
+		data-flex-basis=&#34;218px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;API Token 생성 버튼을 누르면, 아래의 같은 페이지가 나타나게됩니다.&lt;br&gt;
+우리는 DNS 관련된 수정 권한을 Token을 발행해야하기 때문에, 빨간색 화살표의 버튼을 누릅니다.&lt;br&gt;
+&lt;img src=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/choose_template.jpg&#34;
+	width=&#34;1406&#34;
+	height=&#34;1748&#34;
+	srcset=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/choose_template_hu_10701b5dcd7fa836.jpg 480w, https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/choose_template_hu_db909573f2c3672b.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;choose_template&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;80&#34;
+		data-flex-basis=&#34;193px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;아래의 이미지에서 1번에 권한이 필요한 Domain을 선택합니다.&lt;br&gt;
+그뒤에는 2번을 선택해 바로 생성하도록 합니다.&lt;br&gt;
+&lt;img src=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/api_token_create.jpg&#34;
+	width=&#34;1708&#34;
+	height=&#34;1892&#34;
+	srcset=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/api_token_create_hu_d221cdd9b028d37e.jpg 480w, https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/api_token_create_hu_8e3f5d76a8f952a1.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;api_token_create&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;90&#34;
+		data-flex-basis=&#34;216px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;정상적으로 진행되었다면, Token값을 확인할 수 있습니다.&lt;br&gt;
+이 값은 더이상 볼 수 없기 때문에 잘 기억해주시기 바랍니다.&lt;/p&gt;
+&lt;h2 id=&#34;acme-설치-및-인증서-발급&#34;&gt;ACME 설치 및 인증서 발급
+&lt;/h2&gt;&lt;p&gt;인증서 발급을 진행해줄 Client를 설치하도록 하겠습니다.&lt;br&gt;
+아래의 명령어대로 설치를 진행하도록 합니다.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;계정은 root로 진행합니다.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ sudo su
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ cd ~
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ wget https://github.com/acmesh-official/acme.sh/archive/master.tar.gz
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ tar xvf master.tar.gz
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ cd acme.sh-master/
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ ./acme.sh --install --nocron --home /usr/local/share/acme.sh --accountemail &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;email@gmailcom&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ source ~/.profile
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;이제 인증서 생성을 진행해 볼텐데요.&lt;br&gt;
+아래의 환경 변수들을 만들어 줍니다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 발급해둔 API Token&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;export CF_Token&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;MY_SECRET_TOKEN_SUCH_SECRET&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# CloudFlare Email&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;export CF_Email&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;myemail@example.com&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;아래의 명령어들을 실행해서 인증서를 생성해보겠습니다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ cd /usr/local/share/acme.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 여기에 사용할 Domain을 지정 해줍니다.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Ex) *.my-domain.com&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ export CERT_DOMAIN&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;your-domain.tld&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ export CERT_DNS&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dns_cf&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ /usr/local/share/acme.sh/acme.sh --issue --home . -d &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$CERT_DOMAIN&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt; --dns &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$CERT_DNS&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;위의 마지막 명렁어를 실행했을때, 에러없이 마무리되었다면 정상적으로 된 것입니다.&lt;br&gt;
+만약 email을 update하라는 문구가 출력된다면 아래처럼 진행해주세요.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ /usr/local/share/acme.sh//usr/local/share/acme.sh/acme.sh --register-account -m 이메일 --issue --home . -d &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;*.도메인&amp;#39;&lt;/span&gt; --dns &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$CERT_DNS&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;혹여나 문제가 생긴다면 댓글로 문의주세요.&lt;/p&gt;
+&lt;h2 id=&#34;기본-인증서-교체&#34;&gt;기본 인증서 교체
+&lt;/h2&gt;&lt;p&gt;신규로 생성한 인증서를 기본 인증서로 교체해보겠습니다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ cd /usr/local/share/acme.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ export SYNO_Username&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;관리자 계정&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ export SYNO_Password&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;관리자 비밀번호&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ export SYNO_Certificate&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;인증서 설명&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ /usr/local/share/acme.sh/acme.sh --deploy --home . -d &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$CERT_DOMAIN&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt; --deploy-hook synology_dsm
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/certificate_success.jpg&#34;
+	width=&#34;2048&#34;
+	height=&#34;1774&#34;
+	srcset=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/certificate_success_hu_f7af91a4d952d77.jpg 480w, https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/certificate_success_hu_edee2827bc45c940.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;certificate_success&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;115&#34;
+		data-flex-basis=&#34;277px&#34;
+	
+&gt;
+Success가 출력된다면, 정상적으로 마무리된 것입니다.&lt;br&gt;
+&lt;code&gt;시놀로지 제어판-&amp;gt; 보안 -&amp;gt; 인증서&lt;/code&gt;로 들어가서 잘 등록되었는지 확인해봅니다.&lt;br&gt;
+또는 브라우저에서 DSM에 접속한 뒤 새로고침해서 인증서 정보를 확인해주세요.&lt;/p&gt;
+&lt;p&gt;만약 OTP를 설정해두셨다면, 위 과정을 진행하면서 &lt;code&gt;SYNO_TOTP_SECRET&lt;/code&gt; 값을 설정해주라는 출력과 함께 에러가 발생할 것입니다.&lt;br&gt;
+관리자 계정으로 로그인 할때, OTP 인증을 거치게 설정을 해두었기때문에 당연하다고 볼 수 있습니다.
+출력된 메시지대로 값을 지정해주는 것도 방법이겠지만, 중요한 정보이기 때문에 선뜻 작성하기엔 내키지 않습니다. (관리자 뚫리면 어차피 소용없지만, 괜히 그렇더라구요..;;)&lt;br&gt;
+이를 대체할 수 있는 값이 있는데, &lt;code&gt;SYNO_DID&lt;/code&gt; 입니다.&lt;/p&gt;
+&lt;p&gt;DeviceID값을 의미합니다. 이 값을 얻기위해서는 DSM에 로그인시 &lt;code&gt;Remember this device&lt;/code&gt;에 체크한 후, 관리자 계정으로 로그인하면 Cookie로 저장됩니다.&lt;br&gt;
+개발자 모드로 들어가서 이 값을 복사한뒤, 환경변수로 지정해 줍니다.&lt;/p&gt;
+&lt;p&gt;위의 설명한 방식은 http 프로토콜을 사용하여 localhost에 인증서 교체 요청을 합니다.&lt;br&gt;
+특별히 문제될건 없지만, 혹~~~~~시나 무조건 https 프로토콜을 사용해야한다!!! 라고 생각하시는 분이 계시다면&lt;br&gt;
+아래의 2개 환경변수를 지정해준뒤, &lt;code&gt;--insecure&lt;/code&gt; argument를 추가한뒤 실행해주면 https 프로토콜을 사용하게 됩니다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 앞서 지정한 환경변수도 필요로 합니다.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ export SYNO_Scheme&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ export SYNO_Port&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;5001&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ /usr/local/share/acme.sh/acme.sh --deploy --insecure --home . -d &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$CERT_DOMAIN&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt; --deploy-hook synology_dsm
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;인증서-갱신-스케줄러-설정&#34;&gt;인증서 갱신 스케줄러 설정
+&lt;/h2&gt;&lt;p&gt;인증서 유효기간이 3개월이기 때문에, 3개월마다 갱신작업을 해주어야합니다.&lt;br&gt;
+하지만 이 작업을 매번 수행하기엔&amp;hellip; 놀랍도록 귀찮습니다.&lt;br&gt;
+만료일에 가까워지면 갱신해야되는 초조함은 덤 입니다.&lt;br&gt;
+이 번거로운 일에서 벗어나기 위해 자동화를 하겠습니다.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;제어한 -&amp;gt; 서비스 -&amp;gt; 작업 스케줄러 -&amp;gt; 생성 -&amp;gt; 예약된 작업 -&amp;gt; 사용자 정의 스크립트&lt;/code&gt;를 순서대로 선택합니다.&lt;br&gt;
+이미지로는 아래와 같습니다. 빨간원 숫자 순서대로 진행합니다.&lt;br&gt;
+&lt;img src=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_scheduler.jpg&#34;
+	width=&#34;1962&#34;
+	height=&#34;1310&#34;
+	srcset=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_scheduler_hu_39c1277d6546492c.jpg 480w, https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_scheduler_hu_75949bacad0ea5d7.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;create_scheduler&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;149&#34;
+		data-flex-basis=&#34;359px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;하나의 팝업창 나타날텐데요.&lt;br&gt;
+이미지처럼 3가지 값을 확인해줍니다.&lt;br&gt;
+DSM6 버전까지는 &lt;code&gt;root&lt;/code&gt;로 진행해야 인증서 교체가 가능했는데요.&lt;br&gt;
+7 버전에서 다른계정으로 실행해도 되는지 테스트 해보진 않았습니다.&lt;br&gt;
+&lt;img src=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_1.jpg&#34;
+	width=&#34;932&#34;
+	height=&#34;510&#34;
+	srcset=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_1_hu_a4252b331331335c.jpg 480w, https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_1_hu_d1c74698a3139e5d.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;create_1&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;182&#34;
+		data-flex-basis=&#34;438px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;다음으로는 언제실행할지 스케줄을 지정할 차례입니다.&lt;br&gt;
+이미지처럼 설정할 경우 매주 토요일 오전 1시에 갱신을 시도하려고 할겁니다.&lt;br&gt;
+선호하는 요일, 시간을 지정해주세요.&lt;/p&gt;
+&lt;p&gt;매달 실행할 수 있게 변경 가능하지만, 갱신은 만료 1개월 전부터 가능합니다.&lt;br&gt;
+첫번째이자 마지막 갱신 시도하는 날에 모종의 이유로 실패할 경우, 위에서 진행하셨던걸 다시해주셔야합니다.&lt;br&gt;
+그래서 안전하게 매주 실행하도록 설정했습니다.
+&lt;img src=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_2.jpg&#34;
+	width=&#34;874&#34;
+	height=&#34;904&#34;
+	srcset=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_2_hu_f2e5b7982ca38910.jpg 480w, https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_2_hu_47225797165e597a.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;create_2&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;96&#34;
+		data-flex-basis=&#34;232px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;다음으로는 실행할 스크립트를 지정하는 단계입니다.&lt;br&gt;
+알림 설정해두신 분이라면, &lt;code&gt;실행 상세정보를 이메일로 보내기&lt;/code&gt;를 체크해주면 좋습니다.&lt;br&gt;
+잘 실행되는걸 메일 오는것으로 확인할 수 있을 테니까요.&lt;br&gt;
+저의경우에는 메일 대신에 텔레그램으로 메시지 오도록 변경했습니다. 이와 관련해서는 따로 포스트 하겠습니다.&lt;br&gt;
+사용자 정의 스크립트는 이미지처럼 인증서를 갱신하는 스크립트를 넣어줍니다.&lt;br&gt;
+&lt;img src=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_3.jpg&#34;
+	width=&#34;884&#34;
+	height=&#34;732&#34;
+	srcset=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_3_hu_bf76d85ba375fe8.jpg 480w, https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_3_hu_166042c7a5c50290.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;create_3&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;120&#34;
+		data-flex-basis=&#34;289px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;간단합니다. 한줄의 커맨드만 입력해주면 됩니다.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;/usr/local/share/acme.sh/acme.sh --cron --home /usr/local/share/acme.sh/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;이제 설정 완료하시면 아래의 같은 팝업이 출력됩니다.&lt;br&gt;
+&lt;img src=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_warn.jpg&#34;
+	width=&#34;1264&#34;
+	height=&#34;386&#34;
+	srcset=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_warn_hu_4bf3d77652c9b112.jpg 480w, https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/create_warn_hu_37be3f8d269a4b3a.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;create_warn&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;327&#34;
+		data-flex-basis=&#34;785px&#34;
+	
+&gt;
+사뿐히 확인버튼 눌러주시면 됩니다.&lt;/p&gt;
+&lt;p&gt;알림 외에도 실행한 로그를 확인하고 싶으실수 있는데요.&lt;br&gt;
+아래 이미지처럼 로그 경로를 설정할 수 있습니다. &lt;br&gt;
+&lt;img src=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/scheduler_log.jpg&#34;
+	width=&#34;1166&#34;
+	height=&#34;636&#34;
+	srcset=&#34;https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/scheduler_log_hu_acf332d1db7c6d2e.jpg 480w, https://korcasus.github.io/ko/post/synology/synology-lets-encrypt/scheduler_log_hu_9c0b637ce7cd57c9.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;scheduler_log&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;183&#34;
+		data-flex-basis=&#34;440px&#34;
+	
+&gt;
+저의경우에 &lt;code&gt;log&lt;/code&gt; 디렉토리로 지정했습니다.&lt;br&gt;
+이와같이 지정했을 경우 스케줄러 로그는 &lt;code&gt;/volume1/log/synoscheduler&lt;/code&gt; 경로에 저장됩니다.&lt;br&gt;
+우리가 실행한 작업의 로그는 &lt;code&gt;/volume1/log/synoscheduler/${task_number}/${실행시간}&lt;/code&gt; 경로에서 확인하실수 있습니다.&lt;br&gt;
+&lt;code&gt;task_number&lt;/code&gt;는 스케줄러가 몇번째로 만들어졌는지 의미하는 값으로 보입니다.&lt;br&gt;
+&lt;code&gt;output.log&lt;/code&gt;는 실행하며 출력된 결과이고, &lt;code&gt;script.log&lt;/code&gt;는 실행한 스크립트를 볼 수 있습니다.&lt;/p&gt;
+&lt;h2 id=&#34;정리&#34;&gt;정리
+&lt;/h2&gt;&lt;p&gt;왜 이렇게 까지 해야되나 궁금해 하실수도 있습니다.&lt;br&gt;
+집에서만 사용하도록 하신경우라면 이 과정 전혀 필요없습니다. 왜냐하면 외부에서 접근이 불가능하니까요.&lt;/p&gt;
+&lt;p&gt;하지만 외부에서 접근을 허용하는 경우라면 이야기가 달라집니다.&lt;br&gt;
+설정을 해두신 시점 이후로, 수시로 타국가에서 접근을 시도합니다. 보안 허점을 찾으려고 하는 거죠.
+http 통신은 보안상 문제가 있기 때문에, 이 상황에서 http를 사용해서 외부에서 접근하면&amp;hellip; 더 이야기 안해도 아실거라 생각합니다.&lt;br&gt;
+이러한 이유로 https를 사용하게된거고, 최소한의 방어수단을 갖춘 셈입니다.&lt;/p&gt;
+&lt;p&gt;여튼 여기까지 진행하셨다면, CloudFlare의 Domain에 TLS인증서 기반의 https를 사용할 수 있는 환경을 만드신 겁니다. &lt;br&gt;
+진행하느라 고생 많으셨습니다.👏👏&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;저도 이번에 새롭게 설정하다보니, 자동 갱신이 잘 되는지는 확인하진 못했습니다.&lt;br&gt;
+2개월 뒤에 내용을 보충 하도록 하겠습니다.&lt;/p&gt;&lt;/blockquote&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

@@ -5,16 +5,16 @@
         <link>https://korcasus.github.io/categories/docker/</link>
         <description>Recent content in Docker on Read Write</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>ko-KR</language>
+        <language>en-US</language>
         <lastBuildDate>Mon, 12 Feb 2024 01:57:21 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/categories/docker/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Switching from Docker Desktop to Rancher Desktop</title>
-        <link>https://korcasus.github.io/p/switching-docker-rancher/</link>
+        <link>https://korcasus.github.io/ko/post/others/switching-docker-rancher/</link>
         <pubDate>Mon, 12 Feb 2024 01:57:21 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/p/switching-docker-rancher/</guid>
+        <guid>https://korcasus.github.io/ko/post/others/switching-docker-rancher/</guid>
         <description>&lt;style type=&#34;text/css&#34;&gt;.notice{--root-color:#444;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#c33;--warning-content:#fee;--info-title:#fb7;--info-content:#fec;--note-title:#6be;--note-content:#e7f2fa;--tip-title:#5a5;--tip-content:#efe}@media (prefers-color-scheme:dark){.notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}}body.dark .notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:var(--root-color);background:var(--root-background)}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}.notice.warning .notice-title{background:var(--warning-title)}.notice.warning{background:var(--warning-content)}.notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}.notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}.notice.tip .notice-title{background:var(--tip-title)}.notice.tip{background:var(--tip-content)}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}&lt;/style&gt;
 &lt;div&gt;&lt;svg width=&#34;0&#34; height=&#34;0&#34; display=&#34;none&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;&lt;symbol id=&#34;tip-notice&#34; viewBox=&#34;0 0 512 512&#34; preserveAspectRatio=&#34;xMidYMid meet&#34;&gt;&lt;path d=&#34;M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z&#34;/&gt;&lt;/symbol&gt;&lt;symbol id=&#34;note-notice&#34; viewBox=&#34;0 0 512 512&#34; preserveAspectRatio=&#34;xMidYMid meet&#34;&gt;&lt;path d=&#34;M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z&#34;/&gt;&lt;/symbol&gt;&lt;symbol id=&#34;warning-notice&#34; viewBox=&#34;0 0 576 512&#34; preserveAspectRatio=&#34;xMidYMid meet&#34;&gt;&lt;path d=&#34;M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z&#34;/&gt;&lt;/symbol&gt;&lt;symbol id=&#34;info-notice&#34; viewBox=&#34;0 0 512 512&#34; preserveAspectRatio=&#34;xMidYMid meet&#34;&gt;&lt;path d=&#34;M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z&#34;/&gt;&lt;/symbol&gt;&lt;/svg&gt;&lt;/div&gt;&lt;div class=&#34;notice info&#34; &gt;
-&lt;p class=&#34;first notice-title&#34;&gt;&lt;span class=&#34;icon-notice baseline&#34;&gt;&lt;svg&gt;&lt;use href=&#34;#info-notice&#34;&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/span&gt;알림&lt;/p&gt;&lt;p&gt;Mac 기준으로 설명합니다.&lt;/p&gt;&lt;/div&gt;
+&lt;p class=&#34;first notice-title&#34;&gt;&lt;span class=&#34;icon-notice baseline&#34;&gt;&lt;svg&gt;&lt;use href=&#34;#info-notice&#34;&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/span&gt;Info&lt;/p&gt;&lt;p&gt;Mac 기준으로 설명합니다.&lt;/p&gt;&lt;/div&gt;
 
 &lt;h2 id=&#34;uninstall-docker-desktop-and-install-rancher-desktop&#34;&gt;Uninstall Docker Desktop And Install Rancher Desktop
 &lt;/h2&gt;&lt;p&gt;Docker Desktop사용하다가 Rancher Desktop을 사용전환해야 하는 상황이었습니다.&lt;br&gt;
@@ -44,10 +44,10 @@ unix:///var/run/docker.sock 를 연결할수 없다는 문제가 출력되며, �
         </item>
         <item>
         <title>Install Docker Registry Ui for Synology</title>
-        <link>https://korcasus.github.io/p/install-docker-registry-ui/</link>
+        <link>https://korcasus.github.io/ko/post/synology/install-docker-registry-ui/</link>
         <pubDate>Sun, 03 Sep 2023 21:42:24 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/p/install-docker-registry-ui/</guid>
+        <guid>https://korcasus.github.io/ko/post/synology/install-docker-registry-ui/</guid>
         <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction
 &lt;/h2&gt;&lt;p&gt;Synology에 Docker Registry를 Container로 사용하고 있었습니다.&lt;br&gt;
 개인 용도로 만든 이미지를 자유롭게 저장할 수 있게 되어 편하게 사용하고있었습니다.&lt;br&gt;
@@ -133,10 +133,10 @@ unix:///var/run/docker.sock 를 연결할수 없다는 문제가 출력되며, �
         </item>
         <item>
         <title>Use Docker in Jenkins Docker</title>
-        <link>https://korcasus.github.io/p/use-docker-in-jenkins-docker/</link>
+        <link>https://korcasus.github.io/ko/post/synology/use-docker-in-jenkins-docker/</link>
         <pubDate>Sat, 26 Aug 2023 22:30:49 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/p/use-docker-in-jenkins-docker/</guid>
+        <guid>https://korcasus.github.io/ko/post/synology/use-docker-in-jenkins-docker/</guid>
         <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction
 &lt;/h2&gt;&lt;p&gt;Synology에서 여러 응용 프로그램을 설치해서 사용하기 위해서 Docker를 애용합니다.&lt;br&gt;
 Docker로 Jenkins 를 사용중인데, Jenkins에서도 Docker를 사용해야하는 상황이 생겨 진행하게 되었습니다.&lt;br&gt;
@@ -158,10 +158,10 @@ DSM 7.2로 업데이트한 후에 진행한 작업이라, 캡처한 이미지가
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;docker run -p 8080:8080 -p 50000:50000 -d -v /var/run/docker.sock:/var/run/docker.sock -v /docker/jenkins/home:/var/jenkins_home jenkins/jenkins:lts
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;하지만 Synology에서는 &lt;code&gt;/&lt;/code&gt; directory 설정할 수 없기떄문에, SSH로 접속해서 설정해주어야합니다.&lt;br&gt;
 SSH로 접속해서 Docker command를 사용할 준비를 합니다.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/p/use-docker-in-jenkins-docker/update_command_in_host.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/ko/post/synology/use-docker-in-jenkins-docker/update_command_in_host.jpg&#34;
 	width=&#34;1868&#34;
 	height=&#34;860&#34;
-	srcset=&#34;https://korcasus.github.io/p/use-docker-in-jenkins-docker/update_command_in_host_hu_a127f913902b77e7.jpg 480w, https://korcasus.github.io/p/use-docker-in-jenkins-docker/update_command_in_host_hu_ce09b41752a7248b.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/ko/post/synology/use-docker-in-jenkins-docker/update_command_in_host_hu_a127f913902b77e7.jpg 480w, https://korcasus.github.io/ko/post/synology/use-docker-in-jenkins-docker/update_command_in_host_hu_ce09b41752a7248b.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;update_command_in_host&#34;
@@ -245,10 +245,10 @@ SSH로 접속해서 Docker command를 사용할 준비를 합니다.&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/p/use-docker-in-jenkins-docker/console_job.jpg&#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/ko/post/synology/use-docker-in-jenkins-docker/console_job.jpg&#34;
 	width=&#34;1406&#34;
 	height=&#34;1494&#34;
-	srcset=&#34;https://korcasus.github.io/p/use-docker-in-jenkins-docker/console_job_hu_cc2eb9b2822dca56.jpg 480w, https://korcasus.github.io/p/use-docker-in-jenkins-docker/console_job_hu_60b3703374bbb5a1.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/ko/post/synology/use-docker-in-jenkins-docker/console_job_hu_cc2eb9b2822dca56.jpg 480w, https://korcasus.github.io/ko/post/synology/use-docker-in-jenkins-docker/console_job_hu_60b3703374bbb5a1.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;console_job&#34;

@@ -2,39 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Pages on Read Write</title>
-        <link>https://korcasus.github.io/page/</link>
+        <link>http://localhost:1313/page/</link>
         <description>Recent content in Pages on Read Write</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>ko-KR</language>
-        <lastBuildDate>Sat, 19 Nov 2022 00:00:00 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/page/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>About</title>
-        <link>https://korcasus.github.io/about/</link>
-        <pubDate>Sun, 13 Nov 2022 00:00:00 +0900</pubDate>
-        
-        <guid>https://korcasus.github.io/about/</guid>
-        <description>&lt;p&gt;안녕하세요.&lt;br&gt;
-Backend Position의 개발자 입니다.&lt;br&gt;
-DevOps, BigData에 주된 관심을 가지고있고 이외에 다른 분야도 가리지않고 학습하려고 노력합니다.&lt;br&gt;
-학습하였던 내용들이 기억하기 쉽지 않아, 기록하려고 노력합니다.&lt;/p&gt;
-&lt;p&gt;잘못된 내용이 있거나, 궁금한점이 있다면 언제든 댓글로 남겨주시면 좋겠습니다.&lt;br&gt;
-개인적인 연락이 필요한 경우 왼쪽에 있는 이메일 아이콘을 클릭해 주시면 되겠습니다.&lt;br&gt;
-감사합니다.&lt;/p&gt;
-</description>
-        </item>
-        <item>
+        <lastBuildDate>Sun, 13 Nov 2022 00:00:00 +0900</lastBuildDate><atom:link href="http://localhost:1313/page/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Archives</title>
-        <link>https://korcasus.github.io/archives/</link>
+        <link>http://localhost:1313/archives/</link>
         <pubDate>Sun, 13 Nov 2022 00:00:00 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/archives/</guid>
+        <guid>http://localhost:1313/archives/</guid>
         <description></description>
         </item>
         <item>
         <title>Search</title>
-        <link>https://korcasus.github.io/search/</link>
+        <link>http://localhost:1313/search/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://korcasus.github.io/search/</guid>
+        <guid>http://localhost:1313/search/</guid>
         <description></description>
         </item>
         
