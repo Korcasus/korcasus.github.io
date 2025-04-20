@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="ko-KR" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Hugo를 사용해 blog를 만들어보고, 댓글 시스템연동까지 진행합니다.">
+<title>Hugo Blog 만들기-1</title>
+
+<link rel='canonical' href='https://korcasus.github.io/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-1/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4086051155158500"
+        crossorigin="anonymous"></script>
+<meta property='og:title' content="Hugo Blog 만들기-1">
+<meta property='og:description' content="Hugo를 사용해 blog를 만들어보고, 댓글 시스템연동까지 진행합니다.">
+<meta property='og:url' content='https://korcasus.github.io/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-1/'>
+<meta property='og:site_name' content='Read Write'>
+<meta property='og:type' content='article'><meta property='article:section' content='Page' /><meta property='article:tag' content='hugo' /><meta property='article:published_time' content='2022-11-14T23:11:35&#43;09:00'/><meta property='article:modified_time' content='2022-11-14T23:11:35&#43;09:00'/>
+<meta name="twitter:title" content="Hugo Blog 만들기-1">
+<meta name="twitter:description" content="Hugo를 사용해 blog를 만들어보고, 댓글 시스템연동까지 진행합니다.">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSWKN88H77"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-PSWKN88H77');
+        }
+      </script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "dark");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="메뉴 여닫기">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Read Write</a></h1>
+            <h2 class="site-description">잊지않기위해 기록합니다.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Korcasus'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.linkedin.com/in/seongdo-kim-34bab9148/'
+                        target="_blank"
+                        title="LinkedIn"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-linkedin" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="4" y="4" width="16" height="16" rx="2" />
+  <line x1="8" y1="11" x2="8" y2="16" />
+  <line x1="8" y1="8" x2="8" y2="8.01" />
+  <line x1="12" y1="16" x2="12" y2="11" />
+  <path d="M16 16v-3a2 2 0 0 0 -4 0" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:korcasus@gmail.com'
+                        target="_blank"
+                        title="Mail"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="3" y="5" width="18" height="14" rx="2" />
+  <polyline points="3 7 12 13 21 7" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/cicd/' >
+                
+                
+                
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-cube-send"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16 12.5l-5 -3l5 -3l5 3v5.5l-5 3z" /><path d="M11 9.5v5.5l5 3" /><path d="M16 12.545l5 -3.03" /><path d="M7 9h-5" /><path d="M7 12h-3" /><path d="M7 15h-1" /></svg>
+                
+                <span>CI/CD</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/db/' >
+                
+                
+                
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-database"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6m-8 0a8 3 0 1 0 16 0a8 3 0 1 0 -16 0" /><path d="M4 6v6a8 3 0 0 0 16 0v-6" /><path d="M4 12v6a8 3 0 0 0 16 0v-6" /></svg>
+                
+                <span>Database</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/hadoop/' >
+                
+                
+                
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-table-dashed"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M3 10h18" /><path d="M10 3v18" /></svg>
+                
+                <span>Hadoop</span>
+            </a>
+        </li>
+        
+        
+        <li  class='current' >
+            <a href='/page/etc/' >
+                
+                
+                
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-packages"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 16.5l-5 -3l5 -3l5 3v5.5l-5 3z" /><path d="M2 13.5v5.5l5 3" /><path d="M7 16.545l5 -3.03" /><path d="M17 16.5l-5 -3l5 -3l5 3v5.5l-5 3z" /><path d="M12 19l5 3" /><path d="M17 16.5l5 -3" /><path d="M12 13.5v-5.5l-5 -3l5 -3l5 3v5.5" /><path d="M7 5.03v5.455" /><path d="M12 8l5 -3" /></svg>
+                
+                <span>Etc</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://korcasus.github.io/en/" >English</option>
+                                
+                                    <option value="https://korcasus.github.io/" selected>Korean</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>다크 모드</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">목차</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#hugo란">Hugo란?</a></li>
+    <li><a href="#hugo-설치">Hugo 설치</a>
+      <ol>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+      </ol>
+    </li>
+    <li><a href="#github-repository-2개-생성">Github repository 2개 생성</a></li>
+    <li><a href="#hugo로-프로젝트-만들기">Hugo로 프로젝트 만들기</a></li>
+    <li><a href="#git-repo-연결-및-shellscipt-작성">Git Repo 연결 및 ShellScipt 작성</a></li>
+    <li><a href="#post-작성">Post 작성</a></li>
+    <li><a href="#utterencesgithub-댓글-위젯-연동">Utterences(Github 댓글 위젯) 연동</a></li>
+    <li><a href="#정리">정리</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/blog/" >
+                Blog
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-1/">Hugo Blog 만들기-1</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            Hugo를 사용해 blog를 만들어보고, 댓글 시스템연동까지 진행합니다.
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">11월 14, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    6 분 정도
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="hugo-blog-만들기-1">Hugo Blog 만들기-1
+</h1><h2 id="hugo란">Hugo란?
+</h2><p>Go로 구현된 빠르고 현대적인 Static Site Generator입니다.<br>
+Visitor Request가 발생할때마다 동적으로 페이지를 생성하는 시스템과는 다르게, Content를 만들거나 업데이트할때 Build가 됩니다.
+사전에 Build된 Page를 보여주기 때문에, viewer에게 최적의 경험을 제공해줄 수 있습니다. <br>
+Hosting에도 제약이 없으며, CDN에도 문제없이 동작합니다.</p>
+<p>Hugo는 Database가 필요없고 Ruby, Python or PHP와 같은 Expensive Runtime에 Dependency가 없습니다.<br>
+특징을 정리해보면 아래와 같습니다.</p>
+<ul>
+<li>Build가 극단적으로 빠르다. (페이지마다 1ms 이하)</li>
+<li>cross platform 지원</li>
+<li>liveReload지원</li>
+<li>강력한 테마</li>
+<li>어디서든 Hosting할 수 있다.</li>
+<li><a class="link" href="https://gohugo.io/about/features/"  target="_blank" rel="noopener"
+    >…</a></li>
+</ul>
+<p>상세한 내용은 <a class="link" href="https://gohugo.io/about/features/"  target="_blank" rel="noopener"
+    >Hugo 문서</a>를 참고해주세요.</p>
+<h2 id="hugo-설치">Hugo 설치
+</h2><p>Mac을 주력으로 사용하기 때문에, Mac 기준으로 설명하겠습니다.<br>
+타 운영체제를 사용한다면, <a class="link" href="https://gohugo.io/installation/macos/"  target="_blank" rel="noopener"
+    >Reference</a>를 참고해서 설치를 진행해주세요.</p>
+<h3 id="prerequisites">Prerequisites
+</h3><ul>
+<li>Git
+<ul>
+<li>Hugo module
+<ul>
+<li>Git submodule</li>
+<li>…</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>GoLang ≥ 1.18</li>
+</ul>
+<p>Go를 사용하며, Git을 통해 Submodule을 관리하기때문에 위의 2개를 사전에 설치해주어야합니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Hombrew Package manager 사용</span>
+</span></span><span class="line"><span class="cl">$ brew install hugo
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 정상적으로 설치되었는지 확인</span>
+</span></span><span class="line"><span class="cl">$ hugo version
+</span></span><span class="line"><span class="cl">hugo v0.104.3+extended darwin/arm64 <span class="nv">BuildDate</span><span class="o">=</span>unknown
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Apple Silicon을 사용중이라면, 위처럼 darwin/arm64로 나타나는지 확인해줍니다.</p>
+<h2 id="github-repository-2개-생성">Github repository 2개 생성
+</h2><p>User Github Page로 사용할 Repository와 Markdown을 기록할 Repository를 구분하기 위한 용도로 나누어 사용하기 위해서 입니다.</p>
+<p>1개의 Repository로 통합해도 되지만, 작성해둔 content를 쉽게 copy해갈 수 있으므로 사전에 방지하기 위해 구분하여 사용하려 합니다.</p>
+<p>저의 경우에는 아래의 2개의 respository를 생성했습니다.</p>
+<ul>
+<li>technical-blog</li>
+<li><USERNAME>.github.io (ex. korcasus.github.io)</li>
+</ul>
+<h2 id="hugo로-프로젝트-만들기">Hugo로 프로젝트 만들기
+</h2><p>Hugo를 사용해서 default project를 만들어줍니다.<br>
+생성되는 프로젝트는 아래처럼 구성됩니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ hugo new site technical-blog
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ tree
+</span></span><span class="line"><span class="cl">.
+</span></span><span class="line"><span class="cl">├── archetypes
+</span></span><span class="line"><span class="cl">├── config.toml
+</span></span><span class="line"><span class="cl">├── content
+</span></span><span class="line"><span class="cl">├── data
+</span></span><span class="line"><span class="cl">├── layouts
+</span></span><span class="line"><span class="cl">├── public
+</span></span><span class="line"><span class="cl">├── static
+</span></span><span class="line"><span class="cl">└── themes
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>자세하게 알아보고 사용하고 싶다면 <a class="link" href="https://gohugo.io/getting-started/directory-structure/"  target="_blank" rel="noopener"
+    >Reference</a>를 한번 읽어보는걸 권장합니다.</p>
+<p>블로그에 이쁜 옷을 입혀줄 차례입니다.<br>
+본인이 직접 테마를 만들것이 아니라면, 공개된 테마를 사용하는게 좋습니다.<br>
+다양한 테마가 존재하므로, <a class="link" href="https://themes.gohugo.io"  target="_blank" rel="noopener"
+    >문서</a>에서 찾아보고 본인에 맞는 테마를 사용하도록 합니다.</p>
+<p>저의 경우에는 <a class="link" href="https://stack.jimmycai.com"  target="_blank" rel="noopener"
+    >Stack</a>이 가장 이쁘고, 문서화가 잘 되어있다고 생각했습니다.<br>
+그래서 Stack을 기준으로 블로그 구현한 것을 설명하겠습니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">cd</span> technical-blog
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 다른 테마의 경우</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># git submodule add https://github.com/${테마Repository}.git themes/${테마이름}</span>
+</span></span><span class="line"><span class="cl">$ git submodule add https://github.com/CaiJimmy/hugo-theme-stack/ themes/hugo-theme-stack
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>위에처럼 Submodule로 추가해둔다면, 추후 테마 업데이트 하기가 쉬워집니다.<br>
+Hugo에 Module이라는 것도 있는데, 이 방법으로도 대체 가능합니다. 관심있다면 적용해보는것도 좋아보입니다.</p>
+<p>테마가 정상적으로 설치되었다면, 테마의 설정파일을 사용하기 위해 기본 config file을 복사해와야 합니다.<br>
+<code>${project}/themes/hugo-theme-stack/exampleSite/config.yaml</code> 파일을 복사해 <code>${project}/config.yaml</code> 에 옮겨줍니다.</p>
+<p>Github Page로 사용하기위해서는 <code>config.yaml</code>의 일부를 변경해주어야 합니다.<br>
+아래의 예시에 주석에 해당되는 부분을 변경해주도록 합니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># Github page로 사용할 URL로 변경해주어야합니다.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">baseurl</span><span class="p">:</span><span class="w"> </span><span class="l">https://korcasus.github.io/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">languageCode</span><span class="p">:</span><span class="w"> </span><span class="l">en-us</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">theme</span><span class="p">:</span><span class="w"> </span><span class="l">hugo-theme-stack</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">paginate</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l">Read Write</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">languages</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">en</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">languageName</span><span class="p">:</span><span class="w"> </span><span class="l">English</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l">Read Write</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">weight</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">disqusShortname</span><span class="p">:</span><span class="w"> </span><span class="l">hugo-theme-stack</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">...</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>추가한 테마가 정상적으로 동작하는지 project 디렉토리에서 build 및 서버 실행을 해보도록 하겠습니다.</p>
+<p>이미 어느정도 blog를 만든뒤에 작성하는거라, 완전 아래와 동일하게 나오진 않지만 비슷하게 출력되었던 것으로 기억합니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ hugo server -D
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Start building sites …
+</span></span><span class="line"><span class="cl">hugo v0.104.3+extended darwin/arm64 <span class="nv">BuildDate</span><span class="o">=</span>unknown
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                   <span class="p">|</span> EN
+</span></span><span class="line"><span class="cl">-------------------+-----
+</span></span><span class="line"><span class="cl">  Pages            <span class="p">|</span> <span class="m">41</span>
+</span></span><span class="line"><span class="cl">  Paginator pages  <span class="p">|</span>  <span class="m">2</span>
+</span></span><span class="line"><span class="cl">  Non-page files   <span class="p">|</span>  <span class="m">4</span>
+</span></span><span class="line"><span class="cl">  Static files     <span class="p">|</span>  <span class="m">0</span>
+</span></span><span class="line"><span class="cl">  Processed images <span class="p">|</span> <span class="m">18</span>
+</span></span><span class="line"><span class="cl">  Aliases          <span class="p">|</span> <span class="m">18</span>
+</span></span><span class="line"><span class="cl">  Sitemaps         <span class="p">|</span>  <span class="m">1</span>
+</span></span><span class="line"><span class="cl">  Cleaned          <span class="p">|</span>  <span class="m">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Built in <span class="m">1494</span> ms
+</span></span><span class="line"><span class="cl">Watching <span class="k">for</span> changes in /Users/user/Workspace/technical-blog/<span class="o">{</span>archetypes,assets,content,data,layouts,static,themes<span class="o">}</span>
+</span></span><span class="line"><span class="cl">Watching <span class="k">for</span> config changes in /Users/user/Workspace/technical-blog/config.yaml, /Users/user/Workspace/technical-blog/themes/hugo-theme-stack/config.yaml
+</span></span><span class="line"><span class="cl">Environment: <span class="s2">&#34;development&#34;</span>
+</span></span><span class="line"><span class="cl">Serving pages from memory
+</span></span><span class="line"><span class="cl">Running in Fast Render Mode. For full rebuilds on change: hugo server --disableFastRender
+</span></span><span class="line"><span class="cl">Web Server is available at http://localhost:1313/ <span class="o">(</span><span class="nb">bind</span> address 127.0.0.1<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Press Ctrl+C to stop
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Build된 결과를 보기 위해 <code>http://localhost:1313</code> 으로 접속했을때 페이지가 보인다면, 여기까지는 잘 진행되었다고 판단하시면 됩니다.</p>
+<h2 id="git-repo-연결-및-shellscipt-작성">Git Repo 연결 및 ShellScipt 작성
+</h2><p>Hugo로 만들어진 Project를 개인(Privarte) Repository에 등록하고, Hugo로 Build된 결과를 Github Page로 연동하는 작업입니다.<br>
+그 뒤로는 배포에 사용하기 위한 ShellScript에 대해 설명하겠습니다.</p>
+<p>아래의 명령어들을 실행하면, 처음에 만들어둔 2개 Repository에 용도에 맞게 사용하게 됩니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 현재 위치 확인</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">pwd</span>
+</span></span><span class="line"><span class="cl">/Users/user/Workspaces/blog
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># blog -&gt; blog 레포지토리 연결</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># git remote add origin http://github.com/&lt;username&gt;/technical-blog.git</span>
+</span></span><span class="line"><span class="cl">$ git remote add origin http://github.com/korcasus/technical-blog.git
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># blog/public -&gt; &lt;username&gt;.github.io 연결</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># git submodule add -b master http://github.com/&lt;username&gt;/&lt;username&gt;.github.io.git public</span>
+</span></span><span class="line"><span class="cl">$ git submodule add -b master http://github.com/korcasus/korcasus.github.io.git public
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>발행할 Contents를 작성을 완료한 후, Hugo로 Build해주는 과정이 필요로 합니다.<br>
+Build된 결과물은 <code>public</code> 디렉토리에 생성됩니다. 이를 Github Page에 반영해주는 과정이 필요로 합니다.<br>
+매번 따로 수행하기보다는 배포 스크립트로 만들어 실행하는것이 운영하기 쉽습니다.</p>
+<p>저의 경우에는 아래의 스크립트를 통해, 배포를 합니다. (<a class="link" href="https://gurumee92.github.io/2020/08/%eb%b8%94%eb%a1%9c%ea%b7%b8-%ea%b5%ac%ec%b6%95%ea%b8%b0-1-hugo-github%ec%9c%bc%eb%a1%9c-%ea%b0%9c%ec%9d%b8-%eb%b8%94%eb%a1%9c%ea%b7%b8-%eb%a7%8c%eb%93%a4%ea%b8%b0/"  target="_blank" rel="noopener"
+    >Reference</a>)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;\033[0;32mDeploying updates to GitHub...\033[0m&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Build the project.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># hugo -t &lt;여러분의 테마&gt;</span>
+</span></span><span class="line"><span class="cl">hugo -t hugo-tranquilpeak-theme
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Go To Public folder, sub module commit</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> public
+</span></span><span class="line"><span class="cl"><span class="c1"># Add changes to git.</span>
+</span></span><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Commit changes.</span>
+</span></span><span class="line"><span class="cl"><span class="nv">msg</span><span class="o">=</span><span class="s2">&#34;rebuilding site `date`&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="nv">$#</span> -eq <span class="m">1</span> <span class="o">]</span>
+</span></span><span class="line"><span class="cl">  <span class="k">then</span> <span class="nv">msg</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;</span><span class="nv">$msg</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Push source and build repos.</span>
+</span></span><span class="line"><span class="cl">git push origin master
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Come Back up to the Project Root</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ..
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># blog 저장소 Commit &amp; Push</span>
+</span></span><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">msg</span><span class="o">=</span><span class="s2">&#34;rebuilding site `date`&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="nv">$#</span> -eq <span class="m">1</span> <span class="o">]</span>
+</span></span><span class="line"><span class="cl">  <span class="k">then</span> <span class="nv">msg</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;</span><span class="nv">$msg</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git push origin master
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># deploy.sh 실행 파일 권한 부여</span>
+</span></span><span class="line"><span class="cl">$ chmod <span class="m">777</span> deploy.sh
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 배포 실행</span>
+</span></span><span class="line"><span class="cl">$ ./deploy.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="post-작성">Post 작성
+</h2><p>발행할 글을 작성할때 아래처럼 명령어를 입력하면 Hugo에서 Markdown을 생성해줍니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">cd</span> <span class="nv">$project</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># hugo new ${content내 directory}/${사용할 파일명}.md</span>
+</span></span><span class="line"><span class="cl">$ hugo new post/hugo-blog-2/index.md
+</span></span><span class="line"><span class="cl">Content <span class="s2">&#34;/Users/user/Workspace/technical-blog/content/post/hugo-blog-2/index.md&#34;</span> created
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ cat content/post/hugo-blog-2/index.md
+</span></span><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">title: <span class="s2">&#34;Hugo Blog 2&#34;</span>
+</span></span><span class="line"><span class="cl">date: 2022-11-14T23:58:09+09:00
+</span></span><span class="line"><span class="cl">draft: <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">---
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>주의해야할 점이 2가지 있습니다.</p>
+<ol>
+<li>content directory내에 생성된다는 점입니다.</li>
+<li>확장자를 md로 해야합니다.</li>
+</ol>
+<p>첫번째는 생성되는 경로를 정확히 파악하기 위해 주의해주는 것이 좋습니다.<br>
+두번째는 확장자를 md로 하지않을 경우, 명령어로 post생성할때 에러가 발생합니다.</p>
+<p>Hugo에서 <code>archetypes</code> 디렉토리를 포함하고있는데, <code>default.md</code> 파일이 존재합니다.<br>
+명령어를 통해 확장자 md파일을 만들때, 기본값으로 사용됩니다.<br>
+하지만 여기에 포함되지않은 확장자 파일을 만들경우, 기본값으로 사용할 파일이 존재하지않으므로 에러가 발생합니다.
+<code>default.md</code> 파일을 확인해보면 아래와 같습니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="o">---</span>
+</span></span><span class="line"><span class="cl"><span class="nx">title</span><span class="p">:</span> <span class="s">&#34;{{ replace .Name &#34;</span><span class="o">-</span><span class="s">&#34; &#34;</span> <span class="s">&#34; | title }}&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">date</span><span class="p">:</span> <span class="p">{{</span> <span class="p">.</span><span class="nx">Date</span> <span class="p">}}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">draft</span><span class="p">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl"><span class="o">---</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="utterencesgithub-댓글-위젯-연동">Utterences(Github 댓글 위젯) 연동
+</h2><p>Stack 테마에서는 아래와 같은 댓글 시스템들을 지원합니다. (<a class="link" href="https://stack.jimmycai.com/config/comments"  target="_blank" rel="noopener"
+    >참고</a>)</p>
+<ul>
+<li>Cactus</li>
+<li>Cusdis</li>
+<li>Disqus</li>
+<li>DisqusJS</li>
+<li>Giscus</li>
+<li>Gitalk</li>
+<li>Remark42</li>
+<li>Twikoo</li>
+<li>utterances</li>
+<li>Vssue</li>
+<li>Waline</li>
+</ul>
+<p>이 중에 OpenSource이고, github과 연동하여 쉽게 사용가능한 Utterences를 사용합니다.<br>
+사용하기 위해서는 별도의 Repository가 추가로 필요합니다. 여기서 사용한 Repo이름은 <code>blog-comments</code> 입니다.</p>
+<p><img src="/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-1/comment.gif"
+	width="800"
+	height="570"
+	srcset="/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-1/comment_hu_ed451e28e72623fa.gif 480w, /hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-1/comment_hu_cf43b6fe9de2a63d.gif 1024w"
+	loading="lazy"
+	
+		alt="comment"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="140"
+		data-flex-basis="336px"
+	
+></p>
+<p>첨부한 GIF대로 진행하시면 됩니다. 잊지말고 <a class="link" href="https://github.com/apps/utterances"  target="_blank" rel="noopener"
+    >utterances app</a>연동 진행해주세요!<br>
+Blog Post와 Issue Mapping 방식을 다르게 하고싶다면, 선호하시는 것으로 선택하시면 됩니다.
+만들어진 Script를 테마에 적용해보도록 하겠습니다.</p>
+<p><code>blog/themes/${테마}/layouts/partials/comments/provider</code> 경로에 사용하고자 하는 댓글 시스템에 직접 수정방법도 있습니다.<br>
+하지만 이는 추후 테마 업데이트 하는데 문제가 발생할 수 있으므로 제외합니다.</p>
+<p>테마에서 제공하는 config.yaml를 수정해서 댓글 시스템에 적용해보겠습니다.<br>
+프로젝트 루트 디렉토리에 복사해둔 config.yaml을 사용합니다.
+아래처럼 comments를 사용할건지, 사용할 provider를 지정해줄 수 있습니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">params</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">comments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l">disqus</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">disqusjs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">shortname</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">apiUrl</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">apiKey</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">admin</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">adminLabel</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">utterances</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">repo</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">issueTerm</span><span class="p">:</span><span class="w"> </span><span class="l">pathname</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">label</span><span class="p">:</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>추출한 Script를 적용하면 아래처럼 됩니다.<br>
+만약 Issue Mapping을 설명한 방법과 다르게 하셨다면 <code>blog/themes/${테마}/layouts/partials/comments/provider/utterances.html</code> 를 확인해서 Script에 맞게끔 값을 입력해주세요.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">params</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">comments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l">utterances</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">utterances</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l">Korcasus/blog-comments</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">issueTerm</span><span class="p">:</span><span class="w"> </span><span class="l">title</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>정상적으로 만들어졌다면 게시글 하단에 아래와 같이 추가되어있는것을 보실 수 있습니다.<br>
+<img src="/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-1/comment_apply.jpg"
+	width="1324"
+	height="524"
+	srcset="/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-1/comment_apply_hu_eba8bdd26130c41e.jpg 480w, /hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-1/comment_apply_hu_74d568c28c1c19b9.jpg 1024w"
+	loading="lazy"
+	
+		alt="comment_apply"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="252"
+		data-flex-basis="606px"
+	
+></p>
+<p>댓글이 잘 작성되는지 확인해보겠습니다.<br>
+로그인후 테스트 댓글을 작성해보았습니다.</p>
+<p><img src="/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-1/comment_test.jpg"
+	width="2138"
+	height="738"
+	srcset="/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-1/comment_test_hu_2c8773ef31ad2744.jpg 480w, /hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-1/comment_test_hu_de9524f3206f70ec.jpg 1024w"
+	loading="lazy"
+	
+		alt="comment_test"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="289"
+		data-flex-basis="695px"
+	
+></p>
+<p>작성된 댓글이 Github Issue로 잘 등록되었습니다.<br>
+<img src="/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-1/comment_in_issue.jpg"
+	width="720"
+	height="306"
+	srcset="/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-1/comment_in_issue_hu_7f2064b011c93bfb.jpg 480w, /hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-1/comment_in_issue_hu_51aa1b00a123534.jpg 1024w"
+	loading="lazy"
+	
+		alt="comment_in_issue"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="235"
+		data-flex-basis="564px"
+	
+></p>
+<h2 id="정리">정리
+</h2><p>여기까지 Hugo로 Static Site Generate, 테마적용, 댓글 시스템 연동까지 진행해보았습니다.<br>
+다음에는 만든 블로그를 고도화(Custom 방법, 구글 검색노출, 구글 analytics) 해보겠습니다.<br>
+감사합니다.</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/hugo/">Hugo</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">관련 글</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/hugo-exclude-pages/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Hugo Exclude Pages</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/hugo-blog-customize/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Hugo Blog Customize하기</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="Korcasus/blog-comments"
+        issue-term="title"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 Read Write
+    </section>
+    
+    <section class="powerby">
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>로 만듦 <br />
+        <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>의 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 테마 사용 중
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

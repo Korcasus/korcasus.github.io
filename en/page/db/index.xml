@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Database on Read Write</title>
+        <link>https://korcasus.github.io/en/page/db/</link>
+        <description>Recent content in Database on Read Write</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-US</language>
+        <lastBuildDate>Sun, 26 Nov 2023 22:26:53 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/en/page/db/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Phasing Out the Mongo Hadoop Connector, Introducing the Mongo Spark Connector</title>
+        <link>https://korcasus.github.io/en/mongodb-spark-connector/</link>
+        <pubDate>Sun, 26 Nov 2023 22:26:53 +0900</pubDate>
+        
+        <guid>https://korcasus.github.io/en/mongodb-spark-connector/</guid>
+        <description>&lt;style type=&#34;text/css&#34;&gt;
+     
+    .notice {
+        --title-color: #fff;
+        --title-background-color: #6be;
+        --content-color: #444;
+        --content-background-color: #e7f2fa;
+    }
+
+    .notice.info {
+        --title-background-color: #fb7;
+        --content-background-color: #fec;
+    }
+
+    .notice.tip {
+        --title-background-color: #5a5;
+        --content-background-color: #efe;
+    }
+
+    .notice.warning {
+        --title-background-color: #c33;
+        --content-background-color: #fee;
+    }
+
+     
+    @media (prefers-color-scheme:dark) {
+        .notice {
+            --title-color: #fff;
+            --title-background-color: #069;
+            --content-color: #ddd;
+            --content-background-color: #023;
+        }
+
+        .notice.info {
+            --title-background-color: #a50;
+            --content-background-color: #420;
+        }
+
+        .notice.tip {
+            --title-background-color: #363;
+            --content-background-color: #121;
+        }
+
+        .notice.warning {
+            --title-background-color: #800;
+            --content-background-color: #400;
+        }
+    }
+
+    body.dark .notice {
+        --title-color: #fff;
+        --title-background-color: #069;
+        --content-color: #ddd;
+        --content-background-color: #023;
+    }
+
+    body.dark .notice.info {
+        --title-background-color: #a50;
+        --content-background-color: #420;
+    }
+
+    body.dark .notice.tip {
+        --title-background-color: #363;
+        --content-background-color: #121;
+    }
+
+    body.dark .notice.warning {
+        --title-background-color: #800;
+        --content-background-color: #400;
+    }
+
+     
+    .notice {
+        padding: 18px;
+        line-height: 24px;
+        margin-bottom: 24px;
+        border-radius: 4px;
+        color: var(--content-color);
+        background: var(--content-background-color);
+    }
+
+    .notice p:last-child {
+        margin-bottom: 0
+    }
+
+     
+    .notice-title {
+        margin: -18px -18px 12px;
+        padding: 4px 18px;
+        border-radius: 4px 4px 0 0;
+        font-weight: 700;
+        color: var(--title-color);
+        background: var(--title-background-color);
+    }
+
+     
+    .icon-notice {
+        display: inline-flex;
+        align-self: center;
+        margin-right: 8px;
+    }
+
+    .icon-notice img,
+    .icon-notice svg {
+        height: 1em;
+        width: 1em;
+        fill: currentColor;
+    }
+
+    .icon-notice img,
+    .icon-notice.baseline svg {
+        top: .125em;
+        position: relative;
+    }
+&lt;/style&gt;&lt;div class=&#34;notice info&#34; &gt;
+    &lt;p class=&#34;notice-title&#34;&gt;
+        &lt;span class=&#34;icon-notice baseline&#34;&gt;
+            &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;92 59.5 300 300&#34;&gt;
+  &lt;path d=&#34;M292 303.25V272c0-3.516-2.734-6.25-6.25-6.25H267v-100c0-3.516-2.734-6.25-6.25-6.25h-62.5c-3.516 0-6.25 2.734-6.25 6.25V197c0 3.516 2.734 6.25 6.25 6.25H217v62.5h-18.75c-3.516 0-6.25 2.734-6.25 6.25v31.25c0 3.516 2.734 6.25 6.25 6.25h87.5c3.516 0 6.25-2.734 6.25-6.25Zm-25-175V97c0-3.516-2.734-6.25-6.25-6.25h-37.5c-3.516 0-6.25 2.734-6.25 6.25v31.25c0 3.516 2.734 6.25 6.25 6.25h37.5c3.516 0 6.25-2.734 6.25-6.25Zm125 81.25c0 82.813-67.188 150-150 150-82.813 0-150-67.188-150-150 0-82.813 67.188-150 150-150 82.813 0 150 67.188 150 150Z&#34;/&gt;
+&lt;/svg&gt;
+
+        &lt;/span&gt;Info&lt;/p&gt;&lt;p&gt;This article was originally written in Korean and has been translated using ChatGPT.&lt;/p&gt;&lt;/div&gt;
+
+&lt;p&gt;Sqoop is commonly employed for transferring data from a database to Hadoop via ETL processes.&lt;br&gt;
+For this connection in Sqoop, a specific Connector is required.&lt;br&gt;
+In search of a Connector compatible with MongoDB, I visited &lt;a class=&#34;link&#34; href=&#34;https://github.com/mongodb/mongo-hadoop&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Github&lt;/a&gt; only to find that it has reached its End-of-Life (EOL) status.&lt;/p&gt;
+&lt;p&gt;This doesn&amp;rsquo;t mean MongoDB will cease to support ETL moving forward! Thus, I explored alternative methods.&lt;br&gt;
+The solution was discovered within the MongoDB Community.&lt;br&gt;
+According to their &lt;a class=&#34;link&#34; href=&#34;https://www.mongodb.com/community/forums/t/mongo-hadoop-connector/114577&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;page&lt;/a&gt;, support is provided through the Spark Connector.&lt;/p&gt;
+&lt;p&gt;In summary, the shift to using a Spark Connector is attributed to the growing interest in Spark over Hadoop.&lt;br&gt;
+I strongly recommend reading the detailed explanation.&lt;/p&gt;
+&lt;p&gt;For information on the MongoDB Spark Connector, you can refer to the &lt;a class=&#34;link&#34; href=&#34;https://www.mongodb.com/docs/spark-connector/current/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;link&lt;/a&gt; provided.&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

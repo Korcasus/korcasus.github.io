@@ -8,21 +8,140 @@
         <language>ko-KR</language>
         <lastBuildDate>Thu, 26 Dec 2024 12:59:23 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/categories/certificate/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Deploy certificate synology with otp</title>
-        <link>https://korcasus.github.io/p/deploy-certificate-synology-with-otp/</link>
+        <link>https://korcasus.github.io/deploy-certificate-synology-with-otp/</link>
         <pubDate>Thu, 26 Dec 2024 12:59:23 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/p/deploy-certificate-synology-with-otp/</guid>
-        <description>&lt;h2 id=&#34;개요&#34;&gt;개요&lt;/h2&gt;
-&lt;p&gt;Synology DS220+ 구매한 뒤로 Bitwarden, WebDAV, &amp;hellip; 다양한 용도로 사용하고있습니다.&lt;br&gt;
+        <guid>https://korcasus.github.io/deploy-certificate-synology-with-otp/</guid>
+        <description>&lt;h2 id=&#34;개요&#34;&gt;개요
+&lt;/h2&gt;&lt;p&gt;Synology DS220+ 구매한 뒤로 Bitwarden, WebDAV, &amp;hellip; 다양한 용도로 사용하고있습니다.&lt;br&gt;
 lets encrypt를 사용하여 인증서를 생성한뒤, 작업 스케쥴러의 기능을 사용해서 3개월마다 갱신해서 사용하려 했으나 OTP 인증을 걸어놨던터라 매번 인증이 실패해서 제대로 갱신이 되지않았습니다.&lt;br&gt;
 DSM7과 최근 버전의 acme.sh에서 이러한 회피하여 인증서를 갱신할수 있게 되었습니다.&lt;br&gt;
 이 과정을 간단히 정리해보겠습니다.&lt;/p&gt;
-&lt;style type=&#34;text/css&#34;&gt;.notice{--root-color:#444;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#c33;--warning-content:#fee;--info-title:#fb7;--info-content:#fec;--note-title:#6be;--note-content:#e7f2fa;--tip-title:#5a5;--tip-content:#efe}@media (prefers-color-scheme:dark){.notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}}body.dark .notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:var(--root-color);background:var(--root-background)}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}.notice.warning .notice-title{background:var(--warning-title)}.notice.warning{background:var(--warning-content)}.notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}.notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}.notice.tip .notice-title{background:var(--tip-title)}.notice.tip{background:var(--tip-content)}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}&lt;/style&gt;
-&lt;div&gt;&lt;svg width=&#34;0&#34; height=&#34;0&#34; display=&#34;none&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;&lt;symbol id=&#34;tip-notice&#34; viewBox=&#34;0 0 512 512&#34; preserveAspectRatio=&#34;xMidYMid meet&#34;&gt;&lt;path d=&#34;M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z&#34;/&gt;&lt;/symbol&gt;&lt;symbol id=&#34;note-notice&#34; viewBox=&#34;0 0 512 512&#34; preserveAspectRatio=&#34;xMidYMid meet&#34;&gt;&lt;path d=&#34;M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z&#34;/&gt;&lt;/symbol&gt;&lt;symbol id=&#34;warning-notice&#34; viewBox=&#34;0 0 576 512&#34; preserveAspectRatio=&#34;xMidYMid meet&#34;&gt;&lt;path d=&#34;M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z&#34;/&gt;&lt;/symbol&gt;&lt;symbol id=&#34;info-notice&#34; viewBox=&#34;0 0 512 512&#34; preserveAspectRatio=&#34;xMidYMid meet&#34;&gt;&lt;path d=&#34;M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z&#34;/&gt;&lt;/symbol&gt;&lt;/svg&gt;&lt;/div&gt;&lt;div class=&#34;notice info&#34; &gt;
-&lt;p class=&#34;first notice-title&#34;&gt;&lt;span class=&#34;icon-notice baseline&#34;&gt;&lt;svg&gt;&lt;use href=&#34;#info-notice&#34;&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/span&gt;알림&lt;/p&gt;&lt;p&gt;OTP를 사용하는 admin 계정에 한해서 입니다.&lt;/p&gt;&lt;/div&gt;
+&lt;style type=&#34;text/css&#34;&gt;
+     
+    .notice {
+        --title-color: #fff;
+        --title-background-color: #6be;
+        --content-color: #444;
+        --content-background-color: #e7f2fa;
+    }
 
-&lt;h2 id=&#34;acmesh-업그레이드&#34;&gt;ACME.sh 업그레이드&lt;/h2&gt;
-&lt;p&gt;그동안 사용해 오시던 acme.sh를 업그레이드 해야합니다.&lt;br&gt;
+    .notice.info {
+        --title-background-color: #fb7;
+        --content-background-color: #fec;
+    }
+
+    .notice.tip {
+        --title-background-color: #5a5;
+        --content-background-color: #efe;
+    }
+
+    .notice.warning {
+        --title-background-color: #c33;
+        --content-background-color: #fee;
+    }
+
+     
+    @media (prefers-color-scheme:dark) {
+        .notice {
+            --title-color: #fff;
+            --title-background-color: #069;
+            --content-color: #ddd;
+            --content-background-color: #023;
+        }
+
+        .notice.info {
+            --title-background-color: #a50;
+            --content-background-color: #420;
+        }
+
+        .notice.tip {
+            --title-background-color: #363;
+            --content-background-color: #121;
+        }
+
+        .notice.warning {
+            --title-background-color: #800;
+            --content-background-color: #400;
+        }
+    }
+
+    body.dark .notice {
+        --title-color: #fff;
+        --title-background-color: #069;
+        --content-color: #ddd;
+        --content-background-color: #023;
+    }
+
+    body.dark .notice.info {
+        --title-background-color: #a50;
+        --content-background-color: #420;
+    }
+
+    body.dark .notice.tip {
+        --title-background-color: #363;
+        --content-background-color: #121;
+    }
+
+    body.dark .notice.warning {
+        --title-background-color: #800;
+        --content-background-color: #400;
+    }
+
+     
+    .notice {
+        padding: 18px;
+        line-height: 24px;
+        margin-bottom: 24px;
+        border-radius: 4px;
+        color: var(--content-color);
+        background: var(--content-background-color);
+    }
+
+    .notice p:last-child {
+        margin-bottom: 0
+    }
+
+     
+    .notice-title {
+        margin: -18px -18px 12px;
+        padding: 4px 18px;
+        border-radius: 4px 4px 0 0;
+        font-weight: 700;
+        color: var(--title-color);
+        background: var(--title-background-color);
+    }
+
+     
+    .icon-notice {
+        display: inline-flex;
+        align-self: center;
+        margin-right: 8px;
+    }
+
+    .icon-notice img,
+    .icon-notice svg {
+        height: 1em;
+        width: 1em;
+        fill: currentColor;
+    }
+
+    .icon-notice img,
+    .icon-notice.baseline svg {
+        top: .125em;
+        position: relative;
+    }
+&lt;/style&gt;&lt;div class=&#34;notice info&#34; &gt;
+    &lt;p class=&#34;notice-title&#34;&gt;
+        &lt;span class=&#34;icon-notice baseline&#34;&gt;
+            &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;92 59.5 300 300&#34;&gt;
+  &lt;path d=&#34;M292 303.25V272c0-3.516-2.734-6.25-6.25-6.25H267v-100c0-3.516-2.734-6.25-6.25-6.25h-62.5c-3.516 0-6.25 2.734-6.25 6.25V197c0 3.516 2.734 6.25 6.25 6.25H217v62.5h-18.75c-3.516 0-6.25 2.734-6.25 6.25v31.25c0 3.516 2.734 6.25 6.25 6.25h87.5c3.516 0 6.25-2.734 6.25-6.25Zm-25-175V97c0-3.516-2.734-6.25-6.25-6.25h-37.5c-3.516 0-6.25 2.734-6.25 6.25v31.25c0 3.516 2.734 6.25 6.25 6.25h37.5c3.516 0 6.25-2.734 6.25-6.25Zm125 81.25c0 82.813-67.188 150-150 150-82.813 0-150-67.188-150-150 0-82.813 67.188-150 150-150 82.813 0 150 67.188 150 150Z&#34;/&gt;
+&lt;/svg&gt;
+
+        &lt;/span&gt;알림&lt;/p&gt;&lt;p&gt;OTP를 사용하는 admin 계정에 한해서 입니다.&lt;/p&gt;&lt;/div&gt;
+
+&lt;h2 id=&#34;acmesh-업그레이드&#34;&gt;ACME.sh 업그레이드
+&lt;/h2&gt;&lt;p&gt;그동안 사용해 오시던 acme.sh를 업그레이드 해야합니다.&lt;br&gt;
 &lt;a class=&#34;link&#34; href=&#34;%eb%a7%81%ed%81%ac&#34; &gt;https://github.com/acmesh-official/acme.sh?tab=readme-ov-file#14-how-to-upgrade-acmesh&lt;/a&gt;를 참고해서 진행하도록 합니다.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -39,8 +158,8 @@ DSM7과 최근 버전의 acme.sh에서 이러한 회피하여 인증서를 갱�
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;별다른 에러 없이 업그레이드가 되었다면, 다음 단계로 진행합니다.&lt;/p&gt;
-&lt;h2 id=&#34;synology-deployhook-달라진점&#34;&gt;Synology deployhook 달라진점&lt;/h2&gt;
-&lt;p&gt;그동안 ACME.sh에서는 synology 인증서 갱신을 할때, OTP를 사용하는 경우에 대해서는 다음과 같은 환경 변수들을 사용했습니다.&lt;/p&gt;
+&lt;h2 id=&#34;synology-deployhook-달라진점&#34;&gt;Synology deployhook 달라진점
+&lt;/h2&gt;&lt;p&gt;그동안 ACME.sh에서는 synology 인증서 갱신을 할때, OTP를 사용하는 경우에 대해서는 다음과 같은 환경 변수들을 사용했습니다.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;SYNO_DEVICE_NAME&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;SYNO_DEVICE_ID&lt;/code&gt;&lt;/li&gt;
@@ -51,8 +170,8 @@ DSM7과 최근 버전의 acme.sh에서 이러한 회피하여 인증서를 갱�
 &lt;p&gt;다행히도 최근 버전에서는 &lt;code&gt;SYNO_USE_TEMP_ADMIN&lt;/code&gt;이라는 환경변수를 만들어서 사용할 수 있게 되었습니다.
 동작하면서 출력되는 메시지를 보면 TOTP 인증을 일시적으로 해제한뒤, synology deploy hook을 호출한뒤 다시 TOTP 인증을 설정합니다.
 일시적으로 해제된다는 점에서 걱정될 수도있겠지만, 실 해제 시간은 5~10초 정도밖에 되지않는다는 점에서 걱정할 필요는 없어 보입니다.&lt;/p&gt;
-&lt;h2 id=&#34;요약&#34;&gt;요약&lt;/h2&gt;
-&lt;ol&gt;
+&lt;h2 id=&#34;요약&#34;&gt;요약
+&lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;ACME.sh 업그레이드&lt;/li&gt;
 &lt;li&gt;작업 스케줄러에 추가한 인증서 갱신 스크립트에 &lt;code&gt;export SYNO_USE_TEMP_ADMIN=1&lt;/code&gt;추가&lt;/li&gt;
 &lt;/ol&gt;

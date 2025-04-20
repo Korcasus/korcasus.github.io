@@ -8,16 +8,135 @@
         <language>ko-KR</language>
         <lastBuildDate>Mon, 12 Feb 2024 01:57:21 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Switching from Docker Desktop to Rancher Desktop</title>
-        <link>https://korcasus.github.io/p/switching-docker-rancher/</link>
+        <link>https://korcasus.github.io/switching-docker-rancher/</link>
         <pubDate>Mon, 12 Feb 2024 01:57:21 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/p/switching-docker-rancher/</guid>
-        <description>&lt;style type=&#34;text/css&#34;&gt;.notice{--root-color:#444;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#c33;--warning-content:#fee;--info-title:#fb7;--info-content:#fec;--note-title:#6be;--note-content:#e7f2fa;--tip-title:#5a5;--tip-content:#efe}@media (prefers-color-scheme:dark){.notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}}body.dark .notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:var(--root-color);background:var(--root-background)}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}.notice.warning .notice-title{background:var(--warning-title)}.notice.warning{background:var(--warning-content)}.notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}.notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}.notice.tip .notice-title{background:var(--tip-title)}.notice.tip{background:var(--tip-content)}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}&lt;/style&gt;
-&lt;div&gt;&lt;svg width=&#34;0&#34; height=&#34;0&#34; display=&#34;none&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;&lt;symbol id=&#34;tip-notice&#34; viewBox=&#34;0 0 512 512&#34; preserveAspectRatio=&#34;xMidYMid meet&#34;&gt;&lt;path d=&#34;M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z&#34;/&gt;&lt;/symbol&gt;&lt;symbol id=&#34;note-notice&#34; viewBox=&#34;0 0 512 512&#34; preserveAspectRatio=&#34;xMidYMid meet&#34;&gt;&lt;path d=&#34;M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z&#34;/&gt;&lt;/symbol&gt;&lt;symbol id=&#34;warning-notice&#34; viewBox=&#34;0 0 576 512&#34; preserveAspectRatio=&#34;xMidYMid meet&#34;&gt;&lt;path d=&#34;M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z&#34;/&gt;&lt;/symbol&gt;&lt;symbol id=&#34;info-notice&#34; viewBox=&#34;0 0 512 512&#34; preserveAspectRatio=&#34;xMidYMid meet&#34;&gt;&lt;path d=&#34;M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z&#34;/&gt;&lt;/symbol&gt;&lt;/svg&gt;&lt;/div&gt;&lt;div class=&#34;notice info&#34; &gt;
-&lt;p class=&#34;first notice-title&#34;&gt;&lt;span class=&#34;icon-notice baseline&#34;&gt;&lt;svg&gt;&lt;use href=&#34;#info-notice&#34;&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/span&gt;알림&lt;/p&gt;&lt;p&gt;Mac 기준으로 설명합니다.&lt;/p&gt;&lt;/div&gt;
+        <guid>https://korcasus.github.io/switching-docker-rancher/</guid>
+        <description>&lt;style type=&#34;text/css&#34;&gt;
+     
+    .notice {
+        --title-color: #fff;
+        --title-background-color: #6be;
+        --content-color: #444;
+        --content-background-color: #e7f2fa;
+    }
 
-&lt;h2 id=&#34;uninstall-docker-desktop-and-install-rancher-desktop&#34;&gt;Uninstall Docker Desktop And Install Rancher Desktop&lt;/h2&gt;
-&lt;p&gt;Docker Desktop사용하다가 Rancher Desktop을 사용전환해야 하는 상황이었습니다.&lt;br&gt;
+    .notice.info {
+        --title-background-color: #fb7;
+        --content-background-color: #fec;
+    }
+
+    .notice.tip {
+        --title-background-color: #5a5;
+        --content-background-color: #efe;
+    }
+
+    .notice.warning {
+        --title-background-color: #c33;
+        --content-background-color: #fee;
+    }
+
+     
+    @media (prefers-color-scheme:dark) {
+        .notice {
+            --title-color: #fff;
+            --title-background-color: #069;
+            --content-color: #ddd;
+            --content-background-color: #023;
+        }
+
+        .notice.info {
+            --title-background-color: #a50;
+            --content-background-color: #420;
+        }
+
+        .notice.tip {
+            --title-background-color: #363;
+            --content-background-color: #121;
+        }
+
+        .notice.warning {
+            --title-background-color: #800;
+            --content-background-color: #400;
+        }
+    }
+
+    body.dark .notice {
+        --title-color: #fff;
+        --title-background-color: #069;
+        --content-color: #ddd;
+        --content-background-color: #023;
+    }
+
+    body.dark .notice.info {
+        --title-background-color: #a50;
+        --content-background-color: #420;
+    }
+
+    body.dark .notice.tip {
+        --title-background-color: #363;
+        --content-background-color: #121;
+    }
+
+    body.dark .notice.warning {
+        --title-background-color: #800;
+        --content-background-color: #400;
+    }
+
+     
+    .notice {
+        padding: 18px;
+        line-height: 24px;
+        margin-bottom: 24px;
+        border-radius: 4px;
+        color: var(--content-color);
+        background: var(--content-background-color);
+    }
+
+    .notice p:last-child {
+        margin-bottom: 0
+    }
+
+     
+    .notice-title {
+        margin: -18px -18px 12px;
+        padding: 4px 18px;
+        border-radius: 4px 4px 0 0;
+        font-weight: 700;
+        color: var(--title-color);
+        background: var(--title-background-color);
+    }
+
+     
+    .icon-notice {
+        display: inline-flex;
+        align-self: center;
+        margin-right: 8px;
+    }
+
+    .icon-notice img,
+    .icon-notice svg {
+        height: 1em;
+        width: 1em;
+        fill: currentColor;
+    }
+
+    .icon-notice img,
+    .icon-notice.baseline svg {
+        top: .125em;
+        position: relative;
+    }
+&lt;/style&gt;&lt;div class=&#34;notice info&#34; &gt;
+    &lt;p class=&#34;notice-title&#34;&gt;
+        &lt;span class=&#34;icon-notice baseline&#34;&gt;
+            &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;92 59.5 300 300&#34;&gt;
+  &lt;path d=&#34;M292 303.25V272c0-3.516-2.734-6.25-6.25-6.25H267v-100c0-3.516-2.734-6.25-6.25-6.25h-62.5c-3.516 0-6.25 2.734-6.25 6.25V197c0 3.516 2.734 6.25 6.25 6.25H217v62.5h-18.75c-3.516 0-6.25 2.734-6.25 6.25v31.25c0 3.516 2.734 6.25 6.25 6.25h87.5c3.516 0 6.25-2.734 6.25-6.25Zm-25-175V97c0-3.516-2.734-6.25-6.25-6.25h-37.5c-3.516 0-6.25 2.734-6.25 6.25v31.25c0 3.516 2.734 6.25 6.25 6.25h37.5c3.516 0 6.25-2.734 6.25-6.25Zm125 81.25c0 82.813-67.188 150-150 150-82.813 0-150-67.188-150-150 0-82.813 67.188-150 150-150 82.813 0 150 67.188 150 150Z&#34;/&gt;
+&lt;/svg&gt;
+
+        &lt;/span&gt;알림&lt;/p&gt;&lt;p&gt;Mac 기준으로 설명합니다.&lt;/p&gt;&lt;/div&gt;
+
+&lt;h2 id=&#34;uninstall-docker-desktop-and-install-rancher-desktop&#34;&gt;Uninstall Docker Desktop And Install Rancher Desktop
+&lt;/h2&gt;&lt;p&gt;Docker Desktop사용하다가 Rancher Desktop을 사용전환해야 하는 상황이었습니다.&lt;br&gt;
 Docker Desktop을 제거한뒤, Rancher Desktop을 설치한뒤 Docker의 기본기능들을 실행해 보았는데 아래와 같은 문제가 발생했습니다.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -36,8 +155,8 @@ Docker Desktop을 제거한뒤, Rancher Desktop을 설치한뒤 Docker의 기본
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir -p /Applications/Docker.app/Contents/Resources/cli-plugins
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h2 id=&#34;troubleshooting-dive&#34;&gt;Troubleshooting dive&lt;/h2&gt;
-&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/wagoodman/dive&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+&lt;/div&gt;&lt;h2 id=&#34;troubleshooting-dive&#34;&gt;Troubleshooting dive
+&lt;/h2&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/wagoodman/dive&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;dive&lt;/a&gt;는 Docker Image가 잘 만들어졌는지, 분석을 도와주는 tool인데요.&lt;br&gt;
 unix:///var/run/docker.sock 를 연결할수 없다는 문제가 출력되며, 에러가 발생합니다.&lt;/p&gt;
 &lt;p&gt;비슷한 문제가 발생한 사례가 있는지 issue를 살펴보았습니다.&lt;/p&gt;
@@ -65,18 +184,18 @@ unix:///var/run/docker.sock 를 연결할수 없다는 문제가 출력되며, �
         </item>
         <item>
         <title>Install Docker Registry Ui for Synology</title>
-        <link>https://korcasus.github.io/p/install-docker-registry-ui/</link>
+        <link>https://korcasus.github.io/install-docker-registry-ui/</link>
         <pubDate>Sun, 03 Sep 2023 21:42:24 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/p/install-docker-registry-ui/</guid>
-        <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;Synology에 Docker Registry를 Container로 사용하고 있었습니다.&lt;br&gt;
+        <guid>https://korcasus.github.io/install-docker-registry-ui/</guid>
+        <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction
+&lt;/h2&gt;&lt;p&gt;Synology에 Docker Registry를 Container로 사용하고 있었습니다.&lt;br&gt;
 개인 용도로 만든 이미지를 자유롭게 저장할 수 있게 되어 편하게 사용하고있었습니다.&lt;br&gt;
 하지만 어떤 이미지를 저장하고있는지, tag가 어떤게 있는지를 보기가 어렵더라구요.&lt;br&gt;
 물론 API를 사용해서 조회하면 볼수야 있겠지만, 저에게는 불편하게 다가왔습니다.&lt;br&gt;
 그래서 WebUI를 설치하는 방안을 찾아보았습니다.&lt;/p&gt;
-&lt;h2 id=&#34;candidate&#34;&gt;Candidate&lt;/h2&gt;
-&lt;p&gt;검색해보기도 하고, &lt;a class=&#34;link&#34; href=&#34;https://zetawiki.com/wiki/%EB%8F%84%EC%BB%A4_%EB%A0%88%EC%A7%80%EC%8A%A4%ED%8A%B8%EB%A6%AC_%EC%9B%B9UI&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+&lt;h2 id=&#34;candidate&#34;&gt;Candidate
+&lt;/h2&gt;&lt;p&gt;검색해보기도 하고, &lt;a class=&#34;link&#34; href=&#34;https://zetawiki.com/wiki/%EB%8F%84%EC%BB%A4_%EB%A0%88%EC%A7%80%EC%8A%A4%ED%8A%B8%EB%A6%AC_%EC%9B%B9UI&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;참고&lt;/a&gt;했을때, 아래의 2개가 적합해보였습니다.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/Joxit/docker-registry-ui&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -86,8 +205,8 @@ unix:///var/run/docker.sock 를 연결할수 없다는 문제가 출력되며, �
 &lt;/ul&gt;
 &lt;p&gt;harbor는 기능이 풍부하고 CNCF로 관리되다보니, 더 좋긴합니다.&lt;br&gt;
 하지만 Registry를 이미 설치해두었고, web-ui만 사용하면 되는거라 Joxit docker regisry ui가 낫겠다 생각했습니다.&lt;/p&gt;
-&lt;h2 id=&#34;install&#34;&gt;Install&lt;/h2&gt;
-&lt;p&gt;내부망에서만 사용가능하게끔 설정하였습니다.&lt;br&gt;
+&lt;h2 id=&#34;install&#34;&gt;Install
+&lt;/h2&gt;&lt;p&gt;내부망에서만 사용가능하게끔 설정하였습니다.&lt;br&gt;
 외부망에서는 다른 설정이 추가될 수 있으며, 보안이 취약할 수 있습니다. &lt;br&gt;
 (이때는 harbor를 사용하는게 더 나을겁니다.)&lt;/p&gt;
 &lt;p&gt;공식문서에서는 &lt;a class=&#34;link&#34; href=&#34;https://github.com/Joxit/docker-registry-ui#recommended-docker-registry-usage&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -135,8 +254,8 @@ unix:///var/run/docker.sock 를 연결할수 없다는 문제가 출력되며, �
 &lt;/div&gt;&lt;p&gt;여기까지 설정하니, 특별히 문제없이 web-ui가 문제없기 실행되었습니다.&lt;br&gt;
 정상 동작하는지 들어가보니, 메인 페이지는 Image 리스트를 잘 보여주었습니다.&lt;br&gt;
 하지만 이미지 상세정보 페이지에 들어가니, CORS 문제가 발생하고 있었습니다.&lt;/p&gt;
-&lt;h3 id=&#34;cors-troubleshooting&#34;&gt;CORS TroubleShooting&lt;/h3&gt;
-&lt;p&gt;Console에 출력되는 에러메시지를 보니, Preflight가 웹 브라우저에 의해 거절되어 실패하던 것이었습니다.&lt;br&gt;
+&lt;h3 id=&#34;cors-troubleshooting&#34;&gt;CORS TroubleShooting
+&lt;/h3&gt;&lt;p&gt;Console에 출력되는 에러메시지를 보니, Preflight가 웹 브라우저에 의해 거절되어 실패하던 것이었습니다.&lt;br&gt;
 생각해볼 수 있는 원인은 CORS였는데, 설정이 잘못되었다면 메인페이지에서도 에러가 발생해야 했었습니다.&lt;br&gt;
 다른 원인이 있을 수 있겠다 싶어, 공식 문서를 확인해보니 &lt;a class=&#34;link&#34; href=&#34;https://github.com/Joxit/docker-registry-ui#faq&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;FAQ&lt;/a&gt;에 등록되어있었습니다.&lt;/p&gt;
@@ -191,32 +310,32 @@ unix:///var/run/docker.sock 를 연결할수 없다는 문제가 출력되며, �
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;이렇게하니 더 이상의 CORS 문제가 발생하지않고, 정상동작하였습니다.&lt;/p&gt;
-&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;NAS에 개인용도로 사용할 registry web-ui를 설치하였습니다.&lt;br&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion
+&lt;/h2&gt;&lt;p&gt;NAS에 개인용도로 사용할 registry web-ui를 설치하였습니다.&lt;br&gt;
 간단하게 Registry에 저장된 도커이미지를 관리하기에는 충분해 보입니다.&lt;br&gt;
 저처럼 사적으로 Registry에 저장해둔 도커 이미지를 관리할 니즈가 있으신 분들에게는 추천 드립니다.&lt;/p&gt;
 </description>
         </item>
         <item>
         <title>Use Docker in Jenkins Docker</title>
-        <link>https://korcasus.github.io/p/use-docker-in-jenkins-docker/</link>
+        <link>https://korcasus.github.io/use-docker-in-jenkins-docker/</link>
         <pubDate>Sat, 26 Aug 2023 22:30:49 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/p/use-docker-in-jenkins-docker/</guid>
-        <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;Synology에서 여러 응용 프로그램을 설치해서 사용하기 위해서 Docker를 애용합니다.&lt;br&gt;
+        <guid>https://korcasus.github.io/use-docker-in-jenkins-docker/</guid>
+        <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction
+&lt;/h2&gt;&lt;p&gt;Synology에서 여러 응용 프로그램을 설치해서 사용하기 위해서 Docker를 애용합니다.&lt;br&gt;
 Docker로 Jenkins 를 사용중인데, Jenkins에서도 Docker를 사용해야하는 상황이 생겨 진행하게 되었습니다.&lt;br&gt;
 Synology가 아닌 다른 Machine에서도 비슷하게 진행되지만, 이번 설명은 Synology를 기준으로 설명하겠습니다.&lt;/p&gt;
 &lt;p&gt;설명한 방법은 Host의 docker sock을 공유하는 방법입니다.&lt;/p&gt;
-&lt;h2 id=&#34;prerequisite&#34;&gt;Prerequisite&lt;/h2&gt;
-&lt;ul&gt;
+&lt;h2 id=&#34;prerequisite&#34;&gt;Prerequisite
+&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;Jenkins Container Using Official Image&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;progress&#34;&gt;Progress&lt;/h2&gt;
-&lt;p&gt;생각보다 어렵지 않습니다. 차근차근히 진행하면 쉽습니다.&lt;br&gt;
+&lt;h2 id=&#34;progress&#34;&gt;Progress
+&lt;/h2&gt;&lt;p&gt;생각보다 어렵지 않습니다. 차근차근히 진행하면 쉽습니다.&lt;br&gt;
 DSM 7.2로 업데이트한 후에 진행한 작업이라, 캡처한 이미지가 차이가 있을 수 있습니다.&lt;/p&gt;
-&lt;h3 id=&#34;1-docker-sock-공유&#34;&gt;1. Docker sock 공유&lt;/h3&gt;
-&lt;p&gt;Synology에 설치해준 Docker sock과 container에서 사용할 Docker sock을 binding 하는 작업을 해야합니다. &lt;br&gt;
+&lt;h3 id=&#34;1-docker-sock-공유&#34;&gt;1. Docker sock 공유
+&lt;/h3&gt;&lt;p&gt;Synology에 설치해준 Docker sock과 container에서 사용할 Docker sock을 binding 하는 작업을 해야합니다. &lt;br&gt;
 아래의 명령어대로 설정해 주면 됩니다.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -234,10 +353,10 @@ DSM 7.2로 업데이트한 후에 진행한 작업이라, 캡처한 이미지가
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;하지만 Synology에서는 &lt;code&gt;/&lt;/code&gt; directory 설정할 수 없기떄문에, SSH로 접속해서 설정해주어야합니다.&lt;br&gt;
 SSH로 접속해서 Docker command를 사용할 준비를 합니다.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/p/use-docker-in-jenkins-docker/update_command_in_host.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/use-docker-in-jenkins-docker/update_command_in_host.jpg&#34;
 	width=&#34;1868&#34;
 	height=&#34;860&#34;
-	srcset=&#34;https://korcasus.github.io/p/use-docker-in-jenkins-docker/update_command_in_host_hucdd27cc99166e43e175b379001281f77_320576_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/use-docker-in-jenkins-docker/update_command_in_host_hucdd27cc99166e43e175b379001281f77_320576_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/use-docker-in-jenkins-docker/update_command_in_host_hu_a127f913902b77e7.jpg 480w, https://korcasus.github.io/use-docker-in-jenkins-docker/update_command_in_host_hu_ce09b41752a7248b.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;update_command_in_host&#34;
@@ -331,8 +450,8 @@ SSH로 접속해서 Docker command를 사용할 준비를 합니다.&lt;/p&gt;
 &lt;/div&gt;&lt;p&gt;항상 재시작 하는 옵션을 &lt;a class=&#34;link&#34; href=&#34;https://docs.docker.com/engine/reference/run/#restart-policies---restart&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;공식문서&lt;/a&gt;를 참고하였습니다.&lt;br&gt;
 본인의 필요에 따라 설정해주세요.&lt;/p&gt;
-&lt;h3 id=&#34;2-jenkins에-docker-설치&#34;&gt;2. Jenkins에 Docker 설치&lt;/h3&gt;
-&lt;p&gt;Dockerfile을 새로 만들어, Docker를 설치하는 스크립트를 입력해주는 방법도 있습니다.
+&lt;h3 id=&#34;2-jenkins에-docker-설치&#34;&gt;2. Jenkins에 Docker 설치
+&lt;/h3&gt;&lt;p&gt;Dockerfile을 새로 만들어, Docker를 설치하는 스크립트를 입력해주는 방법도 있습니다.
 하지만 새로 이미지를 만들고 관리하는건 번거롭기도하고, volume binding을 해서 데이터가 유지되는 상황이니 설치 스크립트를 저장해두는게 좋다고 생각이 들었습니다.&lt;br&gt;
 (Jenkins를 업그레이드하거나 Container가 삭제된다면, 설치스크립트를 새로 실행해주긴 해야하지만요.)&lt;/p&gt;
 &lt;p&gt;아래의 내용의 스크립트를 host의 &lt;code&gt;/docker/jenkins/home/install_jenkins.sh&lt;/code&gt;로 만들어 주었습니다.&lt;/p&gt;
@@ -349,8 +468,8 @@ SSH로 접속해서 Docker command를 사용할 준비를 합니다.&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;설치하는데 조금 시간이 걸리긴합니다. 기다리면, 설치가 완료된것을 보실 수 있습니다.&lt;/p&gt;
-&lt;h3 id=&#34;3-동작-확인&#34;&gt;3. 동작 확인&lt;/h3&gt;
-&lt;p&gt;Jenkins Container와 Web UI에서 Docker command가 잘 되는지 확인해보겠습니다. &lt;br&gt;
+&lt;h3 id=&#34;3-동작-확인&#34;&gt;3. 동작 확인
+&lt;/h3&gt;&lt;p&gt;Jenkins Container와 Web UI에서 Docker command가 잘 되는지 확인해보겠습니다. &lt;br&gt;
 우선은 Container에서 확인해보겠습니다.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -408,10 +527,10 @@ SSH로 접속해서 Docker command를 사용할 준비를 합니다.&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/p/use-docker-in-jenkins-docker/console_job.jpg&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/use-docker-in-jenkins-docker/console_job.jpg&#34;
 	width=&#34;1406&#34;
 	height=&#34;1494&#34;
-	srcset=&#34;https://korcasus.github.io/p/use-docker-in-jenkins-docker/console_job_hud49da568400d9062178718c4e59fe2d3_194182_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/use-docker-in-jenkins-docker/console_job_hud49da568400d9062178718c4e59fe2d3_194182_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/use-docker-in-jenkins-docker/console_job_hu_cc2eb9b2822dca56.jpg 480w, https://korcasus.github.io/use-docker-in-jenkins-docker/console_job_hu_60b3703374bbb5a1.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;console_job&#34;
@@ -423,13 +542,13 @@ SSH로 접속해서 Docker command를 사용할 준비를 합니다.&lt;/p&gt;
 	
 &gt;
 위의 결과까지 나오면, jenkins에서도 docker를 마음껏 사용하실 수 있습니다.&lt;/p&gt;
-&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;Docker로 구동한 Jenkins에서 Docker를 실행할 수 있도록 해보았습니다. &lt;br&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion
+&lt;/h2&gt;&lt;p&gt;Docker로 구동한 Jenkins에서 Docker를 실행할 수 있도록 해보았습니다. &lt;br&gt;
 Container로 만들어진 Jenkins에서 Host의 Docker에 접근할 수 있게 만든다는게, 편리하긴 하지만 보안상으로는 좋지않아 보입니다.   &lt;br&gt;
 사용하신다면 Container와 Host의 보안을 좀 더 신경 써서 사용해주시면, 안전할 것 같습니다.&lt;/p&gt;
 &lt;p&gt;다른 분들에게 도움이 되면 좋겠네요. 감사합니다.&lt;/p&gt;
-&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
-&lt;ul&gt;
+&lt;h2 id=&#34;reference&#34;&gt;Reference
+&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://faun.pub/how-to-install-docker-in-jenkins-container-4c49ba40b373&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://faun.pub/how-to-install-docker-in-jenkins-container-4c49ba40b373&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/jenkinsci/docker/blob/master/README.md&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;

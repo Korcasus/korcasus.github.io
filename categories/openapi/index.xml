@@ -8,19 +8,18 @@
         <language>ko-KR</language>
         <lastBuildDate>Sun, 09 Apr 2023 14:34:00 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/categories/openapi/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Twitch Eventsub</title>
-        <link>https://korcasus.github.io/p/twitch-eventsub/</link>
+        <link>https://korcasus.github.io/twitch-eventsub/</link>
         <pubDate>Sun, 09 Apr 2023 14:34:00 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/p/twitch-eventsub/</guid>
-        <description>&lt;h2 id=&#34;previous-to-start&#34;&gt;Previous to Start&lt;/h2&gt;
-&lt;p&gt;안녕하세요. 이번 글은 Twitch에서 공식 제공하는 문서인 &lt;a class=&#34;link&#34; href=&#34;https://dev.twitch.tv/docs/eventsub/handling-webhook-events/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>https://korcasus.github.io/twitch-eventsub/</guid>
+        <description>&lt;h2 id=&#34;previous-to-start&#34;&gt;Previous to Start
+&lt;/h2&gt;&lt;p&gt;안녕하세요. 이번 글은 Twitch에서 공식 제공하는 문서인 &lt;a class=&#34;link&#34; href=&#34;https://dev.twitch.tv/docs/eventsub/handling-webhook-events/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Handling Webhook Events&lt;/a&gt;를 참고하여 작성하였습니다.&lt;br&gt;
 지금보니 어떤 문서들보다 상세하게 잘 작성되어있는편이지만, 처음에 사용하고자 했을때 헤매었던 경험이 있어 다른사람들에게 도움이 되었으면 바램으로 간단히 Guide문서를 작성해보게되었습니다.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;인증에 대한 방법은 따로 기술하지않았습니다. 추후에 기회가 된다면 기술할 예정입니다.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
-&lt;p&gt;Event Subscription은 Twitch에서 발생한 Event를 구독할 수 있는 기능을 말합니다.&lt;br&gt;
+&lt;p&gt;인증에 대한 방법은 따로 기술하지않았습니다. 추후에 기회가 된다면 기술할 예정입니다.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview
+&lt;/h2&gt;&lt;p&gt;Event Subscription은 Twitch에서 발생한 Event를 구독할 수 있는 기능을 말합니다.&lt;br&gt;
 &lt;a class=&#34;link&#34; href=&#34;https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;여러가지의 형태들의 Event&lt;/a&gt;들이 존재합니다.&lt;br&gt;
 이 중에서 EventSub을 통해 구독받기 원하는 Event를 Twitch 서버에 등록 할 수 있습니다.&lt;br&gt;
@@ -39,8 +38,8 @@
 &lt;li&gt;WebSocket&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;이 문서에서 설명하고자 하는 방식은 Webhook에 해당됩니다.&lt;/p&gt;
-&lt;h2 id=&#34;required-3-api&#34;&gt;Required 3 API&lt;/h2&gt;
-&lt;p&gt;Event Subscription을 사용하여 Event를 수신받고 싶다면 3가지 API(Callback)이 필요로 합니다. &lt;br&gt;
+&lt;h2 id=&#34;required-3-api&#34;&gt;Required 3 API
+&lt;/h2&gt;&lt;p&gt;Event Subscription을 사용하여 Event를 수신받고 싶다면 3가지 API(Callback)이 필요로 합니다. &lt;br&gt;
 이 Callback들은 무조건 SSL을 사용해야하며, 443 port를 사용합니다.&lt;/p&gt;
 &lt;p&gt;Request Header에 &lt;code&gt;Twitch-Eventsub-Message-Type&lt;/code&gt;가 포함되는데, 아래의 3가지 Notification Type을 Value로 가질 수 있습니다.&lt;/p&gt;
 &lt;ul&gt;
@@ -51,8 +50,8 @@
 &lt;p&gt;위 3개 Type의 Request가 유입되면, 몇초내에 응답해주어야합니다.&lt;br&gt;
 오랜 시간이 걸리면 Timeout으로 처리합니다. 짧은 시간안에 많은 실패가 발생한다면, Subscription 상태는 &lt;code&gt;notification_failures_exceeded&lt;/code&gt; 으로 바뀌고 Twitch는 Event Subscription을 해지할 것입니다.&lt;/p&gt;
 &lt;p&gt;만약 서버에서 빠른 시간안에 처리가 불가능하다면, 이벤트를 임시저장소에 저장하거나 2XX로 응답한후 처리하는것을 고려해야합니다.&lt;/p&gt;
-&lt;h3 id=&#34;common-verifying-the-event-message&#34;&gt;Common (Verifying the Event Message)&lt;/h3&gt;
-&lt;p&gt;핸들러에게 전송된 메시지로 어떤 작업을 하기 전에, 악의를 가진사람이 메시를 전송한 것일수도 있으므로 해당 메시지가 Twitch에서 보낸 것인지 검증해야 합니다.  &lt;br&gt;
+&lt;h3 id=&#34;common-verifying-the-event-message&#34;&gt;Common (Verifying the Event Message)
+&lt;/h3&gt;&lt;p&gt;핸들러에게 전송된 메시지로 어떤 작업을 하기 전에, 악의를 가진사람이 메시를 전송한 것일수도 있으므로 해당 메시지가 Twitch에서 보낸 것인지 검증해야 합니다.  &lt;br&gt;
 이벤트에 구독할때 이벤트에 &lt;code&gt;Secret&lt;/code&gt;을 포함하게 되어있습니다. Twitch에서는 HMAC-SHA256(해시 기반 메시지 인증 코드) 서명을 생성할 때 &lt;code&gt;Secret&lt;/code&gt;을 키로 사용합니다. &lt;br&gt;
 Twitch는 &lt;code&gt;Twitch-Eventsub-Message-Signature&lt;/code&gt; 요청 헤더에서 핸들러에게 HMAC 서명을 전달하여, 인증합니다.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;Secret&lt;/code&gt;과 &lt;code&gt;Twitch-Eventsub-Message-Id&lt;/code&gt; 헤더, &lt;code&gt;Twitch-Eventsub-Message-Timestamp&lt;/code&gt; 헤더, Request Body의 값을 연결한 메시지를 사용하여 HMAC 서명을 생성합니다.(순서가 중요합니다)&lt;br&gt;
@@ -184,8 +183,8 @@ Twitch는 &lt;code&gt;Twitch-Eventsub-Message-Signature&lt;/code&gt; 요청 헤�
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;모든 Request에 대해서 이 검증작업이 수행되어야합니다. 보안상으로 중요한 이슈이기 때문에, 잘 만들어 주는게 좋습니다.&lt;/p&gt;
-&lt;h3 id=&#34;responding-to-challenge-request&#34;&gt;Responding to Challenge Request&lt;/h3&gt;
-&lt;p&gt;이벤트를 정기구독하면 Twitch는 요청에 지정된 이벤트 핸들러를 소유하고 있는지 확인하기 위해 Authentification Challenge를 보냅니다.&lt;br&gt;
+&lt;h3 id=&#34;responding-to-challenge-request&#34;&gt;Responding to Challenge Request
+&lt;/h3&gt;&lt;p&gt;이벤트를 정기구독하면 Twitch는 요청에 지정된 이벤트 핸들러를 소유하고 있는지 확인하기 위해 Authentification Challenge를 보냅니다.&lt;br&gt;
 챌린지 메시지는 &lt;code&gt;Twitch-Eventsub-Message-Type&lt;/code&gt; 헤더를 &lt;strong&gt;webhook_callback_verification&lt;/strong&gt;으로 설정합니다.&lt;br&gt;
 예를 들면 아래와 같습니다.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -241,8 +240,8 @@ Twitch는 &lt;code&gt;Twitch-Eventsub-Message-Signature&lt;/code&gt; 요청 헤�
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;응답은 200 상태 코드를 반환해야 하며, Response Header에 &lt;code&gt;Content-Type: text/plain&lt;/code&gt;이 포함되어야 하고 Response Body는 challenge만 포함해야 합니다. 성공하면 구독이 활성화된 것입니다.&lt;br&gt;
 서버에서 웹 프레임워크를 사용하는 경우 웹 프레임워크가 호환되지 않는 방식으로 응답을 수정하지 않도록 주의하세요.&lt;/p&gt;
-&lt;h3 id=&#34;processing-an-event&#34;&gt;Processing an event&lt;/h3&gt;
-&lt;p&gt;정기구독한 이벤트가 발생하면 Twitch는 이벤트 데이터가 포함된 알림 메시지를 이벤트 처리자에게 보냅니다. 알림 메시지는 &lt;code&gt;Twitch-Eventsub-Message-Type&lt;/code&gt; 헤더를 알림으로 설정합니다. &lt;br&gt;
+&lt;h3 id=&#34;processing-an-event&#34;&gt;Processing an event
+&lt;/h3&gt;&lt;p&gt;정기구독한 이벤트가 발생하면 Twitch는 이벤트 데이터가 포함된 알림 메시지를 이벤트 처리자에게 보냅니다. 알림 메시지는 &lt;code&gt;Twitch-Eventsub-Message-Type&lt;/code&gt; 헤더를 알림으로 설정합니다. &lt;br&gt;
 예를 들어 &lt;code&gt;Twitch-Eventsub-Message-Type: notification&lt;/code&gt; 로 볼 수 있습니다.&lt;/p&gt;
 &lt;p&gt;Request body에는 subscription와 event에 정보가 포함되어있습니다.&lt;br&gt;
 &lt;code&gt;subscription.type&lt;/code&gt; 필드는 이벤트 유형을 식별할 수 있는 정보를 포함하고 있습니다.&lt;br&gt;
@@ -310,8 +309,8 @@ Twitch는 &lt;code&gt;Twitch-Eventsub-Message-Signature&lt;/code&gt; 요청 헤�
 &lt;p&gt;이벤트 처리에 1~2초 이상 걸리는 경우 이벤트를 임시 저장소에 쓰고 2XX로 응답한 후 알림을 처리하는 것이 좋습니다.&lt;br&gt;
 너무 많이 빠르게 응답하지 않으면 정기구독 상태가 &lt;code&gt;notification_failures_exceeded&lt;/code&gt;로 변경되고 Twitch에서 구독을 취소해버립니다.&lt;/p&gt;
 &lt;p&gt;이벤트 발생시 처리하고 싶은 비지니스 로직은 이 부분에 Request를 처리하며 포함하면 됩니다.&lt;/p&gt;
-&lt;h3 id=&#34;revoking-your-subscription&#34;&gt;Revoking your subscription&lt;/h3&gt;
-&lt;p&gt;정기구독은 만료되지 않지만 Twitch는 정기구독을 취소할 수 있습니다. Twitch는 다음과 같은 경우에 정기구독을 취소합니다&lt;/p&gt;
+&lt;h3 id=&#34;revoking-your-subscription&#34;&gt;Revoking your subscription
+&lt;/h3&gt;&lt;p&gt;정기구독은 만료되지 않지만 Twitch는 정기구독을 취소할 수 있습니다. Twitch는 다음과 같은 경우에 정기구독을 취소합니다&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;정기구독에 언급된 유저가 더 이상 존재하지 않는 경우. 알림 상태가 user_removed로 설정된 경우.&lt;/li&gt;
 &lt;li&gt;사용자가 인증 토큰을 해지했거나 단순히 비밀번호를 변경한 경우. 알림의 상태가 authorization_revoked로 설정됩니다.&lt;/li&gt;
@@ -370,16 +369,16 @@ Twitch는 &lt;code&gt;Twitch-Eventsub-Message-Signature&lt;/code&gt; 요청 헤�
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;응답은 2XX 상태 코드를 반환해야 합니다.&lt;/p&gt;
-&lt;h2 id=&#34;testing-your-handler&#34;&gt;Testing your Handler&lt;/h2&gt;
-&lt;p&gt;Twitch의 명령줄 인터페이스(CLI)는 이벤트 핸들러를 테스트하는 데 사용할 수 있는 이벤트 명령을 제공합니다. 이 명령은 SSL이 필요하지 않으며, 손쉽게 테스트할 수 있습니다.&lt;/p&gt;
+&lt;h2 id=&#34;testing-your-handler&#34;&gt;Testing your Handler
+&lt;/h2&gt;&lt;p&gt;Twitch의 명령줄 인터페이스(CLI)는 이벤트 핸들러를 테스트하는 데 사용할 수 있는 이벤트 명령을 제공합니다. 이 명령은 SSL이 필요하지 않으며, 손쉽게 테스트할 수 있습니다.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;도전 이벤트(&lt;a class=&#34;link&#34; href=&#34;https://dev.twitch.tv/docs/eventsub/handling-webhook-events/#testing-challenge-events&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Testing Challenge events&lt;/a&gt;)&lt;/li&gt;
 &lt;li&gt;알림 이벤트(&lt;a class=&#34;link&#34; href=&#34;https://dev.twitch.tv/docs/eventsub/handling-webhook-events/#testing-notification-events&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Testing notification events&lt;/a&gt;)&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;testing-challenge-events&#34;&gt;Testing challenge Events&lt;/h3&gt;
-&lt;p&gt;이벤트에 가입하면 Twitch는 요청에 지정된 이벤트 처리자에게 &lt;code&gt;webhook_callback-verification&lt;/code&gt; 알림 이벤트를 보내, Event Handler를 소유하고 있는지 확인합니다.&lt;br&gt;
+&lt;h3 id=&#34;testing-challenge-events&#34;&gt;Testing challenge Events
+&lt;/h3&gt;&lt;p&gt;이벤트에 가입하면 Twitch는 요청에 지정된 이벤트 처리자에게 &lt;code&gt;webhook_callback-verification&lt;/code&gt; 알림 이벤트를 보내, Event Handler를 소유하고 있는지 확인합니다.&lt;br&gt;
 다음 CLI 예제는 Challenge Event에 대한 응답을 테스트하는 방법을 보여줍니다.&lt;br&gt;
 실행하기 전에 -F 플래그의 값을 핸들러를 가리키도록 변경하고 -s 플래그의 값을 비밀로 변경하세요.&lt;br&gt;
 비밀 플래그는 선택 사항이지만 항상 지정해야 핸들러에서 메시지가 Twitch에서 왔는지 확인하는 부분이 작동합니다.&lt;/p&gt;
@@ -404,8 +403,8 @@ Twitch는 &lt;code&gt;Twitch-Eventsub-Message-Signature&lt;/code&gt; 요청 헤�
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;&lt;code&gt;verify-subscription&lt;/code&gt; 하위 명령 사용에 대한 자세한 내용은 이벤트 처리기의 챌린지 응답 확인하기를 참조하세요.&lt;/p&gt;
-&lt;h3 id=&#34;testing-notification-events&#34;&gt;Testing notification events&lt;/h3&gt;
-&lt;p&gt;트리거 하위 명령을 사용하여 이벤트 핸들러에 모의 이벤트를 전송합니다. 명령의 인수는 트리거할 이벤트를 식별합니다.&lt;br&gt;
+&lt;h3 id=&#34;testing-notification-events&#34;&gt;Testing notification events
+&lt;/h3&gt;&lt;p&gt;트리거 하위 명령을 사용하여 이벤트 핸들러에 모의 이벤트를 전송합니다. 명령의 인수는 트리거할 이벤트를 식별합니다.&lt;br&gt;
 실행하기 전에 -F 플래그의 값을 핸들러를 가리키도록 변경하고 -s 플래그의 값을 시크릿으로 변경하세요.&lt;br&gt;
 비밀 플래그는 선택 사항이지만 항상 지정해야 핸들러에서 메시지가 Twitch에서 왔는지 확인하는 부분이 작동합니다.&lt;/p&gt;
 &lt;p&gt;그런 다음 터미널 창을 열고 명령을 실행합니다.&lt;/p&gt;
@@ -417,13 +416,13 @@ Twitch는 &lt;code&gt;Twitch-Eventsub-Message-Signature&lt;/code&gt; 요청 헤�
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;twitch event trigger subscribe -F http://localhost:8080/eventsub/ -s 5f1a6e7cd2e7137ccf9e15b2f43fe63949eb84b1db83c1d5a867dc93429de4e4
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;Twtich EventSubscription을 어떻게 사용해야하는지, 어떻게 테스트해야하는지에 대해서 살펴보았습니다. &lt;br&gt;
+&lt;/div&gt;&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion
+&lt;/h2&gt;&lt;p&gt;Twtich EventSubscription을 어떻게 사용해야하는지, 어떻게 테스트해야하는지에 대해서 살펴보았습니다. &lt;br&gt;
 Twitch 공식문서에 잘 설명 되어있기때문에, 덧붙일 내용이 많진 않았습니다.&lt;br&gt;
 하지만 처음보는 사람으로서 어떤 순서로 사용하는지, 어떤 용도로 사용해야하는건지 파악하기 힘들어 정리해보았습니다. (경험이 부족한것일수도있겠지만요&amp;hellip;)&lt;br&gt;
 다른 분들께 도움이 되면 좋겠습니다.&lt;/p&gt;
-&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
-&lt;ul&gt;
+&lt;h2 id=&#34;reference&#34;&gt;Reference
+&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;Twitch Event Subscription 공식문서 : &lt;a class=&#34;link&#34; href=&#34;https://dev.twitch.tv/docs/eventsub/handling-webhook-events/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://dev.twitch.tv/docs/eventsub/handling-webhook-events/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;

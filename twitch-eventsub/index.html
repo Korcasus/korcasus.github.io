@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="ko-KR" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Twitch EventSubscription 사용방법에 대해 정리합니다.">
+<title>Twitch Eventsub</title>
+
+<link rel='canonical' href='https://korcasus.github.io/twitch-eventsub/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4086051155158500"
+        crossorigin="anonymous"></script>
+<meta property='og:title' content="Twitch Eventsub">
+<meta property='og:description' content="Twitch EventSubscription 사용방법에 대해 정리합니다.">
+<meta property='og:url' content='https://korcasus.github.io/twitch-eventsub/'>
+<meta property='og:site_name' content='Read Write'>
+<meta property='og:type' content='article'><meta property='article:section' content='Page' /><meta property='article:tag' content='Twitch' /><meta property='article:tag' content='OpenAPI' /><meta property='article:published_time' content='2023-04-09T14:34:00&#43;09:00'/><meta property='article:modified_time' content='2023-04-09T14:34:00&#43;09:00'/>
+<meta name="twitter:title" content="Twitch Eventsub">
+<meta name="twitter:description" content="Twitch EventSubscription 사용방법에 대해 정리합니다.">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSWKN88H77"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-PSWKN88H77');
+        }
+      </script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "dark");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="메뉴 여닫기">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Read Write</a></h1>
+            <h2 class="site-description">잊지않기위해 기록합니다.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Korcasus'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.linkedin.com/in/seongdo-kim-34bab9148/'
+                        target="_blank"
+                        title="LinkedIn"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-linkedin" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="4" y="4" width="16" height="16" rx="2" />
+  <line x1="8" y1="11" x2="8" y2="16" />
+  <line x1="8" y1="8" x2="8" y2="8.01" />
+  <line x1="12" y1="16" x2="12" y2="11" />
+  <path d="M16 16v-3a2 2 0 0 0 -4 0" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:korcasus@gmail.com'
+                        target="_blank"
+                        title="Mail"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="3" y="5" width="18" height="14" rx="2" />
+  <polyline points="3 7 12 13 21 7" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/cicd/' >
+                
+                
+                
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-cube-send"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16 12.5l-5 -3l5 -3l5 3v5.5l-5 3z" /><path d="M11 9.5v5.5l5 3" /><path d="M16 12.545l5 -3.03" /><path d="M7 9h-5" /><path d="M7 12h-3" /><path d="M7 15h-1" /></svg>
+                
+                <span>CI/CD</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/db/' >
+                
+                
+                
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-database"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6m-8 0a8 3 0 1 0 16 0a8 3 0 1 0 -16 0" /><path d="M4 6v6a8 3 0 0 0 16 0v-6" /><path d="M4 12v6a8 3 0 0 0 16 0v-6" /></svg>
+                
+                <span>Database</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/hadoop/' >
+                
+                
+                
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-table-dashed"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M3 10h18" /><path d="M10 3v18" /></svg>
+                
+                <span>Hadoop</span>
+            </a>
+        </li>
+        
+        
+        <li  class='current' >
+            <a href='/page/etc/' >
+                
+                
+                
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-packages"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 16.5l-5 -3l5 -3l5 3v5.5l-5 3z" /><path d="M2 13.5v5.5l5 3" /><path d="M7 16.545l5 -3.03" /><path d="M17 16.5l-5 -3l5 -3l5 3v5.5l-5 3z" /><path d="M12 19l5 3" /><path d="M17 16.5l5 -3" /><path d="M12 13.5v-5.5l-5 -3l5 -3l5 3v5.5" /><path d="M7 5.03v5.455" /><path d="M12 8l5 -3" /></svg>
+                
+                <span>Etc</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://korcasus.github.io/en/" >English</option>
+                                
+                                    <option value="https://korcasus.github.io/" selected>Korean</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>다크 모드</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">목차</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#previous-to-start">Previous to Start</a></li>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#required-3-api">Required 3 API</a>
+      <ol>
+        <li><a href="#common-verifying-the-event-message">Common (Verifying the Event Message)</a></li>
+        <li><a href="#responding-to-challenge-request">Responding to Challenge Request</a></li>
+        <li><a href="#processing-an-event">Processing an event</a></li>
+        <li><a href="#revoking-your-subscription">Revoking your subscription</a></li>
+      </ol>
+    </li>
+    <li><a href="#testing-your-handler">Testing your Handler</a>
+      <ol>
+        <li><a href="#testing-challenge-events">Testing challenge Events</a></li>
+        <li><a href="#testing-notification-events">Testing notification events</a></li>
+      </ol>
+    </li>
+    <li><a href="#conclusion">Conclusion</a></li>
+    <li><a href="#reference">Reference</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/twitch/" >
+                Twitch
+            </a>
+        
+            <a href="/categories/openapi/" >
+                OpenAPI
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/twitch-eventsub/">Twitch Eventsub</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            Twitch EventSubscription 사용방법에 대해 정리합니다.
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">4월 09, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    7 분 정도
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="previous-to-start">Previous to Start
+</h2><p>안녕하세요. 이번 글은 Twitch에서 공식 제공하는 문서인 <a class="link" href="https://dev.twitch.tv/docs/eventsub/handling-webhook-events/"  target="_blank" rel="noopener"
+    >Handling Webhook Events</a>를 참고하여 작성하였습니다.<br>
+지금보니 어떤 문서들보다 상세하게 잘 작성되어있는편이지만, 처음에 사용하고자 했을때 헤매었던 경험이 있어 다른사람들에게 도움이 되었으면 바램으로 간단히 Guide문서를 작성해보게되었습니다.</p>
+<blockquote>
+<p>인증에 대한 방법은 따로 기술하지않았습니다. 추후에 기회가 된다면 기술할 예정입니다.</p></blockquote>
+<h2 id="overview">Overview
+</h2><p>Event Subscription은 Twitch에서 발생한 Event를 구독할 수 있는 기능을 말합니다.<br>
+<a class="link" href="https://dev.twitch.tv/docs/eventsub/eventsub-subscription-types/"  target="_blank" rel="noopener"
+    >여러가지의 형태들의 Event</a>들이 존재합니다.<br>
+이 중에서 EventSub을 통해 구독받기 원하는 Event를 Twitch 서버에 등록 할 수 있습니다.<br>
+등록해 두었던 Event가 트위치에서 발생하면 Application에 알림을 전송해 줍니다.  <br>
+예를 들면 아래 종류의 notification을 전달받을 수 있습니다.</p>
+<ul>
+<li>스트리머가 온라인 상태일때</li>
+<li>스트리머의 새로운 follower가 생겼을때</li>
+<li>스트리머의 새로운 구독자가 생겼을때</li>
+<li>시청자가 채널 응원할때</li>
+<li>시청자가 포인트를 기부했을때?</li>
+</ul>
+<p>Twitch는 전송하는데 2가지 방식을 지원합니다.</p>
+<ul>
+<li>Webhook</li>
+<li>WebSocket</li>
+</ul>
+<p>이 문서에서 설명하고자 하는 방식은 Webhook에 해당됩니다.</p>
+<h2 id="required-3-api">Required 3 API
+</h2><p>Event Subscription을 사용하여 Event를 수신받고 싶다면 3가지 API(Callback)이 필요로 합니다. <br>
+이 Callback들은 무조건 SSL을 사용해야하며, 443 port를 사용합니다.</p>
+<p>Request Header에 <code>Twitch-Eventsub-Message-Type</code>가 포함되는데, 아래의 3가지 Notification Type을 Value로 가질 수 있습니다.</p>
+<ul>
+<li><code>webhook_callback-verification</code> : Callback으로 등록한 Event Handler가 구독 요청한 사람의 소유인지 증명하는데 사용합니다. Event 구독을 하면, 처음으로 수신받는 Event 입니다.</li>
+<li><code>notification</code> : Event 데이터를 포함하고 있습니다. 실제로 Event를 처리하는 부분에 해당합니다.</li>
+<li><code>revocation</code> : 어떤 사유로, Twitch 서버에서 구독을 취소하게 되면 사용합니다. 이유를 포함하게 됩니다.</li>
+</ul>
+<p>위 3개 Type의 Request가 유입되면, 몇초내에 응답해주어야합니다.<br>
+오랜 시간이 걸리면 Timeout으로 처리합니다. 짧은 시간안에 많은 실패가 발생한다면, Subscription 상태는 <code>notification_failures_exceeded</code> 으로 바뀌고 Twitch는 Event Subscription을 해지할 것입니다.</p>
+<p>만약 서버에서 빠른 시간안에 처리가 불가능하다면, 이벤트를 임시저장소에 저장하거나 2XX로 응답한후 처리하는것을 고려해야합니다.</p>
+<h3 id="common-verifying-the-event-message">Common (Verifying the Event Message)
+</h3><p>핸들러에게 전송된 메시지로 어떤 작업을 하기 전에, 악의를 가진사람이 메시를 전송한 것일수도 있으므로 해당 메시지가 Twitch에서 보낸 것인지 검증해야 합니다.  <br>
+이벤트에 구독할때 이벤트에 <code>Secret</code>을 포함하게 되어있습니다. Twitch에서는 HMAC-SHA256(해시 기반 메시지 인증 코드) 서명을 생성할 때 <code>Secret</code>을 키로 사용합니다. <br>
+Twitch는 <code>Twitch-Eventsub-Message-Signature</code> 요청 헤더에서 핸들러에게 HMAC 서명을 전달하여, 인증합니다.</p>
+<p><code>Secret</code>과 <code>Twitch-Eventsub-Message-Id</code> 헤더, <code>Twitch-Eventsub-Message-Timestamp</code> 헤더, Request Body의 값을 연결한 메시지를 사용하여 HMAC 서명을 생성합니다.(순서가 중요합니다)<br>
+<code>Twitch-Eventsub-Message-Signature</code> 헤더에 Twitch가 전송한 HMAC과 내가 만든 HMAC을 비교합니다.<br>
+서명이 일치하지 않으면 4XX 상태 코드를 반환해야합니다.</p>
+<p>아래는 Twitch에서 공식적으로 제공한 서명 생성코드 예제입니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">crypto</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;crypto&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Notification request headers
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">TWITCH_MESSAGE_ID</span> <span class="o">=</span> <span class="s1">&#39;Twitch-Eventsub-Message-Id&#39;</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">TWITCH_MESSAGE_TIMESTAMP</span> <span class="o">=</span> <span class="s1">&#39;Twitch-Eventsub-Message-Timestamp&#39;</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">TWITCH_MESSAGE_SIGNATURE</span> <span class="o">=</span> <span class="s1">&#39;Twitch-Eventsub-Message-Signature&#39;</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Prepend this string to the HMAC that&#39;s created from the message
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">HMAC_PREFIX</span> <span class="o">=</span> <span class="s1">&#39;sha256=&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">raw</span><span class="p">({</span>          <span class="c1">// Need the raw message body for signature verification
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;application/json&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}))</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">.</span> <span class="p">.</span> <span class="p">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">secret</span> <span class="o">=</span> <span class="nx">getSecret</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">message</span> <span class="o">=</span> <span class="nx">getHmacMessage</span><span class="p">(</span><span class="nx">req</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">hmac</span> <span class="o">=</span> <span class="nx">HMAC_PREFIX</span> <span class="o">+</span> <span class="nx">getHmac</span><span class="p">(</span><span class="nx">secret</span><span class="p">,</span> <span class="nx">message</span><span class="p">);</span>  <span class="c1">// Signature to compare to Twitch&#39;s
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="kc">true</span> <span class="o">===</span> <span class="nx">verifyMessage</span><span class="p">(</span><span class="nx">hmac</span><span class="p">,</span> <span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="nx">TWITCH_MESSAGE_SIGNATURE</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;signatures match&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Get JSON object from body, so you can process the message.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kd">let</span> <span class="nx">notification</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Handle notification...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;403&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">res</span><span class="p">.</span><span class="nx">sendStatus</span><span class="p">(</span><span class="mi">403</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">.</span> <span class="p">.</span> <span class="p">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">getSecret</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// TODO: Get your secret from secure storage. This is the secret you passed 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// when you subscribed to the event.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="s1">&#39;&lt;your secret goes here&gt;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Build the message used to get the HMAC.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">getHmacMessage</span><span class="p">(</span><span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="nx">TWITCH_MESSAGE_ID</span><span class="p">]</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">        <span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="nx">TWITCH_MESSAGE_TIMESTAMP</span><span class="p">]</span> <span class="o">+</span> 
+</span></span><span class="line"><span class="cl">        <span class="nx">request</span><span class="p">.</span><span class="nx">body</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Get the HMAC.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">getHmac</span><span class="p">(</span><span class="nx">secret</span><span class="p">,</span> <span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">createHmac</span><span class="p">(</span><span class="s1">&#39;sha256&#39;</span><span class="p">,</span> <span class="nx">secret</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="nx">digest</span><span class="p">(</span><span class="s1">&#39;hex&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Verify whether your signature matches Twitch&#39;s signature.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">verifyMessage</span><span class="p">(</span><span class="nx">hmac</span><span class="p">,</span> <span class="nx">verifySignature</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">timingSafeEqual</span><span class="p">(</span><span class="nx">Buffer</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="nx">hmac</span><span class="p">),</span> <span class="nx">Buffer</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="nx">verifySignature</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>모든 Request에 대해서 이 검증작업이 수행되어야합니다. 보안상으로 중요한 이슈이기 때문에, 잘 만들어 주는게 좋습니다.</p>
+<h3 id="responding-to-challenge-request">Responding to Challenge Request
+</h3><p>이벤트를 정기구독하면 Twitch는 요청에 지정된 이벤트 핸들러를 소유하고 있는지 확인하기 위해 Authentification Challenge를 보냅니다.<br>
+챌린지 메시지는 <code>Twitch-Eventsub-Message-Type</code> 헤더를 <strong>webhook_callback_verification</strong>으로 설정합니다.<br>
+예를 들면 아래와 같습니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Twitch-Eventsub-Message-Type: webhook_callback_verification
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>요청 본문의 <code>challenge</code> 필드에는 응답해야 하는 challenge 값이 포함되어 있습니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;challenge&#34;</span><span class="p">:</span> <span class="s2">&#34;pogchamp-kappa-360noscope-vohiyo&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;subscription&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;f1c2a387-161a-49f9-a165-0f21d7a4e1c4&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;status&#34;</span><span class="p">:</span> <span class="s2">&#34;webhook_callback_verification_pending&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;channel.follow&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;version&#34;</span><span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;cost&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;condition&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;broadcaster_user_id&#34;</span><span class="p">:</span> <span class="s2">&#34;12826&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;transport&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;method&#34;</span><span class="p">:</span> <span class="s2">&#34;webhook&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;callback&#34;</span><span class="p">:</span> <span class="s2">&#34;https://example.com/webhooks/callback&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;created_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2019-11-16T10:11:12.634234626Z&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>응답은 200 상태 코드를 반환해야 하며, Response Header에 <code>Content-Type: text/plain</code>이 포함되어야 하고 Response Body는 challenge만 포함해야 합니다. 성공하면 구독이 활성화된 것입니다.<br>
+서버에서 웹 프레임워크를 사용하는 경우 웹 프레임워크가 호환되지 않는 방식으로 응답을 수정하지 않도록 주의하세요.</p>
+<h3 id="processing-an-event">Processing an event
+</h3><p>정기구독한 이벤트가 발생하면 Twitch는 이벤트 데이터가 포함된 알림 메시지를 이벤트 처리자에게 보냅니다. 알림 메시지는 <code>Twitch-Eventsub-Message-Type</code> 헤더를 알림으로 설정합니다. <br>
+예를 들어 <code>Twitch-Eventsub-Message-Type: notification</code> 로 볼 수 있습니다.</p>
+<p>Request body에는 subscription와 event에 정보가 포함되어있습니다.<br>
+<code>subscription.type</code> 필드는 이벤트 유형을 식별할 수 있는 정보를 포함하고 있습니다.<br>
+<code>event</code> 필드에는 구독한 이벤트 타입에서 실제로 발생한 이벤트의 데이터가 포함됩니다.</p>
+<p>아래는 예시입니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;subscription&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;f1c2a387-161a-49f9-a165-0f21d7a4e1c4&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;status&#34;</span><span class="p">:</span> <span class="s2">&#34;enabled&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;channel.follow&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;version&#34;</span><span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;cost&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;condition&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;broadcaster_user_id&#34;</span><span class="p">:</span> <span class="s2">&#34;12826&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;transport&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;method&#34;</span><span class="p">:</span> <span class="s2">&#34;webhook&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;callback&#34;</span><span class="p">:</span> <span class="s2">&#34;https://example.com/webhooks/callback&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;created_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2019-11-16T10:11:12.634234626Z&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;event&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;user_id&#34;</span><span class="p">:</span> <span class="s2">&#34;1337&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;user_login&#34;</span><span class="p">:</span> <span class="s2">&#34;awesome_user&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;user_name&#34;</span><span class="p">:</span> <span class="s2">&#34;Awesome_User&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;broadcaster_user_id&#34;</span><span class="p">:</span>     <span class="s2">&#34;12826&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;broadcaster_user_login&#34;</span><span class="p">:</span>  <span class="s2">&#34;twitch&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;broadcaster_user_name&#34;</span><span class="p">:</span>   <span class="s2">&#34;Twitch&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;followed_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2020-07-15T18:16:11.17106713Z&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>응답은 2XX 상태 코드를 반환해야 합니다.</p>
+<p>이벤트 처리에 1~2초 이상 걸리는 경우 이벤트를 임시 저장소에 쓰고 2XX로 응답한 후 알림을 처리하는 것이 좋습니다.<br>
+너무 많이 빠르게 응답하지 않으면 정기구독 상태가 <code>notification_failures_exceeded</code>로 변경되고 Twitch에서 구독을 취소해버립니다.</p>
+<p>이벤트 발생시 처리하고 싶은 비지니스 로직은 이 부분에 Request를 처리하며 포함하면 됩니다.</p>
+<h3 id="revoking-your-subscription">Revoking your subscription
+</h3><p>정기구독은 만료되지 않지만 Twitch는 정기구독을 취소할 수 있습니다. Twitch는 다음과 같은 경우에 정기구독을 취소합니다</p>
+<ul>
+<li>정기구독에 언급된 유저가 더 이상 존재하지 않는 경우. 알림 상태가 user_removed로 설정된 경우.</li>
+<li>사용자가 인증 토큰을 해지했거나 단순히 비밀번호를 변경한 경우. 알림의 상태가 authorization_revoked로 설정됩니다.</li>
+<li>콜백이 적시에 응답하지 않은 횟수가 너무 많습니다. 알림의 상태가 알림_실패_초과로 설정됩니다.</li>
+<li>구독한 구독 유형 및 버전이 더 이상 지원되지 않습니다. 알림의 상태가 version_removed로 설정되어 있습니다.</li>
+</ul>
+<p>Twitch는 언제든지 정기구독을 취소할 수 있는 권리를 보유합니다. 해지 메시지는 <code>Twitch-Eventsub-Message-Type</code> 헤더를 <strong>revocation</strong>로 설정합니다.<br>
+예를 들어 아래와 같습니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Twitch-Eventsub-Message-Type: revocation
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>요청 본문의 <code>status</code> 필드에는 Twitch가 정기구독을 취소한 이유가 표시됩니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;subscription&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;f1c2a387-161a-49f9-a165-0f21d7a4e1c4&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;status&#34;</span><span class="p">:</span> <span class="s2">&#34;authorization_revoked&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;channel.follow&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;cost&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;version&#34;</span><span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;condition&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;broadcaster_user_id&#34;</span><span class="p">:</span> <span class="s2">&#34;12826&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;transport&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;method&#34;</span><span class="p">:</span> <span class="s2">&#34;webhook&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;callback&#34;</span><span class="p">:</span> <span class="s2">&#34;https://example.com/webhooks/callback&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;created_at&#34;</span><span class="p">:</span> <span class="s2">&#34;2019-11-16T10:11:12.634234626Z&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>응답은 2XX 상태 코드를 반환해야 합니다.</p>
+<h2 id="testing-your-handler">Testing your Handler
+</h2><p>Twitch의 명령줄 인터페이스(CLI)는 이벤트 핸들러를 테스트하는 데 사용할 수 있는 이벤트 명령을 제공합니다. 이 명령은 SSL이 필요하지 않으며, 손쉽게 테스트할 수 있습니다.</p>
+<ol>
+<li>도전 이벤트(<a class="link" href="https://dev.twitch.tv/docs/eventsub/handling-webhook-events/#testing-challenge-events"  target="_blank" rel="noopener"
+    >Testing Challenge events</a>)</li>
+<li>알림 이벤트(<a class="link" href="https://dev.twitch.tv/docs/eventsub/handling-webhook-events/#testing-notification-events"  target="_blank" rel="noopener"
+    >Testing notification events</a>)</li>
+</ol>
+<h3 id="testing-challenge-events">Testing challenge Events
+</h3><p>이벤트에 가입하면 Twitch는 요청에 지정된 이벤트 처리자에게 <code>webhook_callback-verification</code> 알림 이벤트를 보내, Event Handler를 소유하고 있는지 확인합니다.<br>
+다음 CLI 예제는 Challenge Event에 대한 응답을 테스트하는 방법을 보여줍니다.<br>
+실행하기 전에 -F 플래그의 값을 핸들러를 가리키도록 변경하고 -s 플래그의 값을 비밀로 변경하세요.<br>
+비밀 플래그는 선택 사항이지만 항상 지정해야 핸들러에서 메시지가 Twitch에서 왔는지 확인하는 부분이 작동합니다.</p>
+<p>그런 다음 터미널 창을 열고 명령을 실행합니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">twitch event verify-subscription subscribe -F http://localhost:8080/eventsub/ -s 5f1a6e7cd2e7137ccf9e15b2f43fe63949eb84b1db83c1d5a867dc93429de4e4
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>모든 작업을 올바르게 수행했다면 출력은 다음과 같습니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">✔ Valid response. Received challenge 5e784545-5a59-a05a-6ae6-cfaf260532f1 in body
+</span></span><span class="line"><span class="cl">✔ Valid status code. Received status 200
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>verify-subscription</code> 하위 명령 사용에 대한 자세한 내용은 이벤트 처리기의 챌린지 응답 확인하기를 참조하세요.</p>
+<h3 id="testing-notification-events">Testing notification events
+</h3><p>트리거 하위 명령을 사용하여 이벤트 핸들러에 모의 이벤트를 전송합니다. 명령의 인수는 트리거할 이벤트를 식별합니다.<br>
+실행하기 전에 -F 플래그의 값을 핸들러를 가리키도록 변경하고 -s 플래그의 값을 시크릿으로 변경하세요.<br>
+비밀 플래그는 선택 사항이지만 항상 지정해야 핸들러에서 메시지가 Twitch에서 왔는지 확인하는 부분이 작동합니다.</p>
+<p>그런 다음 터미널 창을 열고 명령을 실행합니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">twitch event trigger subscribe -F http://localhost:8080/eventsub/ -s 5f1a6e7cd2e7137ccf9e15b2f43fe63949eb84b1db83c1d5a867dc93429de4e4
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="conclusion">Conclusion
+</h2><p>Twtich EventSubscription을 어떻게 사용해야하는지, 어떻게 테스트해야하는지에 대해서 살펴보았습니다. <br>
+Twitch 공식문서에 잘 설명 되어있기때문에, 덧붙일 내용이 많진 않았습니다.<br>
+하지만 처음보는 사람으로서 어떤 순서로 사용하는지, 어떤 용도로 사용해야하는건지 파악하기 힘들어 정리해보았습니다. (경험이 부족한것일수도있겠지만요&hellip;)<br>
+다른 분들께 도움이 되면 좋겠습니다.</p>
+<h2 id="reference">Reference
+</h2><ul>
+<li>Twitch Event Subscription 공식문서 : <a class="link" href="https://dev.twitch.tv/docs/eventsub/handling-webhook-events/"  target="_blank" rel="noopener"
+    >https://dev.twitch.tv/docs/eventsub/handling-webhook-events/</a></li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/twitch/">Twitch</a>
+        
+            <a href="/tags/openapi/">OpenAPI</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="Korcasus/blog-comments"
+        issue-term="title"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 Read Write
+    </section>
+    
+    <section class="powerby">
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>로 만듦 <br />
+        <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>의 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 테마 사용 중
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

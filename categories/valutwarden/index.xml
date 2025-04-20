@@ -8,21 +8,21 @@
         <language>ko-KR</language>
         <lastBuildDate>Mon, 14 Aug 2023 23:09:01 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/categories/valutwarden/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Upgrade Vaultwarden 1.29.1</title>
-        <link>https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/</link>
+        <link>https://korcasus.github.io/upgrade-vaultwarden-1.29.1/</link>
         <pubDate>Mon, 14 Aug 2023 23:09:01 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/</guid>
-        <description>&lt;h2 id=&#34;before-to-start&#34;&gt;Before to start&lt;/h2&gt;
-&lt;p&gt;맥을 사용하시는분이라면 Keychain에 익숙하실겁니다. 비밀번호를 저장하고 관리해주는 어플리케이션이죠.&lt;br&gt;
+        <guid>https://korcasus.github.io/upgrade-vaultwarden-1.29.1/</guid>
+        <description>&lt;h2 id=&#34;before-to-start&#34;&gt;Before to start
+&lt;/h2&gt;&lt;p&gt;맥을 사용하시는분이라면 Keychain에 익숙하실겁니다. 비밀번호를 저장하고 관리해주는 어플리케이션이죠.&lt;br&gt;
 요즘에는 크롬이나 엣지 브라우저에서도 제공하고있습니다.&lt;br&gt;
 저는 웹 뿐만이 아니라, 맥에서도 편하게 사용할수 있는것을 원했기 때문에 다른 툴을 사용하고있습니다.&lt;br&gt;
 더 자세히 이야기하면 길어지기 때문에, 짧게 이야기하면 Valutwarden이라는 Bitwarden의 Compact버전을 synology에 설치해서 사용하고있습니다.&lt;/p&gt;
 &lt;p&gt;이번에 Valutwarden이 1.29.0 버전으로 업그레이드 되면서 실시간 동기화가 가능해졌다는 소식에 업그레이드를 결심하였습니다.&lt;/p&gt;
-&lt;h2 id=&#34;objective&#34;&gt;Objective&lt;/h2&gt;
-&lt;p&gt;Valutwarden을 1.29.1로 업그레이드하면서, 필요한 설정(ex. 실시간 동기화)들을 추가한다.&lt;/p&gt;
-&lt;h2 id=&#34;upgrade&#34;&gt;Upgrade&lt;/h2&gt;
-&lt;h3 id=&#34;upgrade-guide-찾기&#34;&gt;Upgrade Guide 찾기&lt;/h3&gt;
-&lt;p&gt;업그레이드 하기전까지 사용하던 docker image를 latest를 사용했기 때문에, 몇버전을 사용하고 있었는지는 모르겠습니다. &lt;br&gt;
+&lt;h2 id=&#34;objective&#34;&gt;Objective
+&lt;/h2&gt;&lt;p&gt;Valutwarden을 1.29.1로 업그레이드하면서, 필요한 설정(ex. 실시간 동기화)들을 추가한다.&lt;/p&gt;
+&lt;h2 id=&#34;upgrade&#34;&gt;Upgrade
+&lt;/h2&gt;&lt;h3 id=&#34;upgrade-guide-찾기&#34;&gt;Upgrade Guide 찾기
+&lt;/h3&gt;&lt;p&gt;업그레이드 하기전까지 사용하던 docker image를 latest를 사용했기 때문에, 몇버전을 사용하고 있었는지는 모르겠습니다. &lt;br&gt;
 하지만 최신버전이 1.29.x버전이기 때문에 minor 버전만 신경써주면 될것으로 생각했습니다.&lt;/p&gt;
 &lt;p&gt;공식 Github에 들어가보면 &lt;a class=&#34;link&#34; href=&#34;https://github.com/dani-garcia/vaultwarden/wiki/Updating-the-vaultwarden-image&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Updating valutwarden image&lt;/a&gt; Wiki가 존재합니다.
@@ -63,18 +63,18 @@
 &lt;p&gt;&lt;code&gt;3번&lt;/code&gt;은 Passkey에 관한 내용입니다. 애플과 구글에서 지원하기 시작한 보안 방법중 하나인데, 고도화된 보안환경을 제공한다고 합니다. &lt;br&gt;
 저도 자세히 살펴보진 않아서,&amp;hellip; 설명은 넘어가겠습니다.&lt;br&gt;
 보안에 신경은 항상 써야하기때문에, 지원가능해지면 사용해보고싶네요.&lt;/p&gt;
-&lt;h3 id=&#34;추가할-configuration-보기&#34;&gt;추가할 Configuration 보기&lt;/h3&gt;
-&lt;p&gt;비밀번호 관리 프로그램을 개인 서버에 올려서 사용한다는건, 책임도 본인이 진다는 뜻입니다.&lt;br&gt;
+&lt;h3 id=&#34;추가할-configuration-보기&#34;&gt;추가할 Configuration 보기
+&lt;/h3&gt;&lt;p&gt;비밀번호 관리 프로그램을 개인 서버에 올려서 사용한다는건, 책임도 본인이 진다는 뜻입니다.&lt;br&gt;
 따라서 해킹당하지않도록 문제의 소지가 될수 있는 기능은 닫아두는게 좋습니다. (기본은 닫혀있을겁니다.) &lt;br&gt;
 그래서 사용하지 않을 기능과 사용할 기능들을 살펴보기 위해서 문서를 읽어보기 시작했습니다.&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/dani-garcia/vaultwarden/wiki/Configuration-overview&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Github wiki&lt;/a&gt;를 읽어보면 자세하게 나와있습니다. &lt;br&gt;
 config.json보다는 환경변수를 사용하는 방법을 권고하네요.&lt;/p&gt;
 &lt;p&gt;리스트는 아래와 같습니다.&lt;br&gt;
-&lt;img src=&#34;https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/config.jpg&#34;
+&lt;img src=&#34;https://korcasus.github.io/upgrade-vaultwarden-1.29.1/config.jpg&#34;
 	width=&#34;578&#34;
 	height=&#34;1122&#34;
-	srcset=&#34;https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/config_hucdd27cc99166e43e175b379001281f77_147088_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/config_hucdd27cc99166e43e175b379001281f77_147088_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/upgrade-vaultwarden-1.29.1/config_hu_bae651f1344b3c1d.jpg 480w, https://korcasus.github.io/upgrade-vaultwarden-1.29.1/config_hu_f134163e5cdd8a38.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;config&#34;
@@ -125,10 +125,10 @@ config.json보다는 환경변수를 사용하는 방법을 권고하네요.&lt;
 &lt;/div&gt;&lt;p&gt;ID와 KEY는 &lt;a class=&#34;link&#34; href=&#34;https://bitwarden.com/host/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bitwarden 홈페이지&lt;/a&gt;에서 발급받으라고 합니다.&lt;br&gt;
 Self Hosting은 지원하지 않는건가? 싶었는데, 다행히 지원하네요.&lt;br&gt;
-&lt;img src=&#34;https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/auto-sync-request.jpg&#34;
+&lt;img src=&#34;https://korcasus.github.io/upgrade-vaultwarden-1.29.1/auto-sync-request.jpg&#34;
 	width=&#34;1870&#34;
 	height=&#34;1154&#34;
-	srcset=&#34;https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/auto-sync-request_hucdd27cc99166e43e175b379001281f77_211109_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/auto-sync-request_hucdd27cc99166e43e175b379001281f77_211109_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/upgrade-vaultwarden-1.29.1/auto-sync-request_hu_b7075ec0e719c5e8.jpg 480w, https://korcasus.github.io/upgrade-vaultwarden-1.29.1/auto-sync-request_hu_6dc3a91c96303e71.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;auto-sync-request&#34;
@@ -143,12 +143,12 @@ Self Hosting에서 이용중인 이메일과 Data Region을 설정해줍니다.&
 Data Region은 뭔가싶겠지만, Wiki에 US로 두고 쓰라고 적혀있네요. Europe은 안될수도있다고&amp;hellip;
 그리고 업그레이드 직후에 App에서 실시간 동기화가 안될경우 재설치하라고 가이드하고있습니다.&lt;br&gt;
 업그레이드 완료한 후에, 한번 실시간 동기화 해보시는걸 추천합니다. (저는 직후에 바로해봤는데 잘되더라구요)&lt;/p&gt;
-&lt;h3 id=&#34;upgrade-하기&#34;&gt;Upgrade 하기&lt;/h3&gt;
-&lt;p&gt;본인 Synology에 Valutwarden을 설치하신 분이라면, 업그레이드 하는 과정은 다 아실거라 판단해서 과정은 생략했습니다.&lt;br&gt;
-&lt;img src=&#34;https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/container.jpg&#34;
+&lt;h3 id=&#34;upgrade-하기&#34;&gt;Upgrade 하기
+&lt;/h3&gt;&lt;p&gt;본인 Synology에 Valutwarden을 설치하신 분이라면, 업그레이드 하는 과정은 다 아실거라 판단해서 과정은 생략했습니다.&lt;br&gt;
+&lt;img src=&#34;https://korcasus.github.io/upgrade-vaultwarden-1.29.1/container.jpg&#34;
 	width=&#34;2342&#34;
 	height=&#34;1242&#34;
-	srcset=&#34;https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/container_hud49da568400d9062178718c4e59fe2d3_197488_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/container_hud49da568400d9062178718c4e59fe2d3_197488_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/upgrade-vaultwarden-1.29.1/container_hu_f1a0447f945d57fc.jpg 480w, https://korcasus.github.io/upgrade-vaultwarden-1.29.1/container_hu_16fb7a4a2b565b77.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;container info&#34;
@@ -166,8 +166,8 @@ log에는 서버를 실행하는데 문제없었고, web에 접속해보니 에�
 Web에서 변경한 내용은 App에서 별도의 액션 없이 잘 반영되었는데, App에서 변경한 내용은 Web에서 새롭게 로딩해주어야 했습니다. &lt;br&gt;
 (새로고침했다가 다시 비밀번호 입력했습니다 -ㅅ-)&lt;br&gt;
 큰 이슈까진 아니기 때문에, 업그레이드 잘 되었다고 판단하였습니다.&lt;/p&gt;
-&lt;h2 id=&#34;후기&#34;&gt;후기&lt;/h2&gt;
-&lt;p&gt;Valutwarden은 Bitwarden의 Compact를 추구하는 만큼 꼭 필요한 기능들만 가지고 있습니다.
+&lt;h2 id=&#34;후기&#34;&gt;후기
+&lt;/h2&gt;&lt;p&gt;Valutwarden은 Bitwarden의 Compact를 추구하는 만큼 꼭 필요한 기능들만 가지고 있습니다.
 이런 이유때문에 업그레이드 하더라도 많이 변경하지않아도 되는것이 좋게 느껴졌습니다.&lt;/p&gt;
 &lt;p&gt;별도로 운영되기 때문에 업그레이드를 하는데 개인의 노력이 필요할겁니다. 후원을 받긴하지만 오픈소스 환경에서 자발적으로 해주시는 분들에게 감사할 따름이네요.&lt;br&gt;
 저도 언젠가 필요한 기능을 추가하기 위해 Contribute하는 순간이 오겠죠?? 곧 올거라 믿습니다.&lt;/p&gt;

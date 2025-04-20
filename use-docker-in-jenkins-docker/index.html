@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="ko-KR" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Docker로 기동한 Jenkins에서 Docker를 실행하는 방법을 정리합니다.">
+<title>Use Docker in Jenkins Docker</title>
+
+<link rel='canonical' href='https://korcasus.github.io/use-docker-in-jenkins-docker/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4086051155158500"
+        crossorigin="anonymous"></script>
+<meta property='og:title' content="Use Docker in Jenkins Docker">
+<meta property='og:description' content="Docker로 기동한 Jenkins에서 Docker를 실행하는 방법을 정리합니다.">
+<meta property='og:url' content='https://korcasus.github.io/use-docker-in-jenkins-docker/'>
+<meta property='og:site_name' content='Read Write'>
+<meta property='og:type' content='article'><meta property='article:section' content='Page' /><meta property='article:tag' content='Synology' /><meta property='article:tag' content='Jenkins' /><meta property='article:tag' content='Docker' /><meta property='article:published_time' content='2023-08-26T22:30:49&#43;09:00'/><meta property='article:modified_time' content='2023-08-26T22:30:49&#43;09:00'/>
+<meta name="twitter:title" content="Use Docker in Jenkins Docker">
+<meta name="twitter:description" content="Docker로 기동한 Jenkins에서 Docker를 실행하는 방법을 정리합니다.">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSWKN88H77"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-PSWKN88H77');
+        }
+      </script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "dark");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="메뉴 여닫기">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Read Write</a></h1>
+            <h2 class="site-description">잊지않기위해 기록합니다.</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Korcasus'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.linkedin.com/in/seongdo-kim-34bab9148/'
+                        target="_blank"
+                        title="LinkedIn"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-linkedin" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="4" y="4" width="16" height="16" rx="2" />
+  <line x1="8" y1="11" x2="8" y2="16" />
+  <line x1="8" y1="8" x2="8" y2="8.01" />
+  <line x1="12" y1="16" x2="12" y2="11" />
+  <path d="M16 16v-3a2 2 0 0 0 -4 0" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:korcasus@gmail.com'
+                        target="_blank"
+                        title="Mail"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="3" y="5" width="18" height="14" rx="2" />
+  <polyline points="3 7 12 13 21 7" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/cicd/' >
+                
+                
+                
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-cube-send"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16 12.5l-5 -3l5 -3l5 3v5.5l-5 3z" /><path d="M11 9.5v5.5l5 3" /><path d="M16 12.545l5 -3.03" /><path d="M7 9h-5" /><path d="M7 12h-3" /><path d="M7 15h-1" /></svg>
+                
+                <span>CI/CD</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/db/' >
+                
+                
+                
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-database"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6m-8 0a8 3 0 1 0 16 0a8 3 0 1 0 -16 0" /><path d="M4 6v6a8 3 0 0 0 16 0v-6" /><path d="M4 12v6a8 3 0 0 0 16 0v-6" /></svg>
+                
+                <span>Database</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/hadoop/' >
+                
+                
+                
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-table-dashed"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M3 10h18" /><path d="M10 3v18" /></svg>
+                
+                <span>Hadoop</span>
+            </a>
+        </li>
+        
+        
+        <li  class='current' >
+            <a href='/page/etc/' >
+                
+                
+                
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-packages"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 16.5l-5 -3l5 -3l5 3v5.5l-5 3z" /><path d="M2 13.5v5.5l5 3" /><path d="M7 16.545l5 -3.03" /><path d="M17 16.5l-5 -3l5 -3l5 3v5.5l-5 3z" /><path d="M12 19l5 3" /><path d="M17 16.5l5 -3" /><path d="M12 13.5v-5.5l-5 -3l5 -3l5 3v5.5" /><path d="M7 5.03v5.455" /><path d="M12 8l5 -3" /></svg>
+                
+                <span>Etc</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://korcasus.github.io/en/" >English</option>
+                                
+                                    <option value="https://korcasus.github.io/" selected>Korean</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>다크 모드</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">목차</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#prerequisite">Prerequisite</a></li>
+    <li><a href="#progress">Progress</a>
+      <ol>
+        <li><a href="#1-docker-sock-공유">1. Docker sock 공유</a></li>
+        <li><a href="#2-jenkins에-docker-설치">2. Jenkins에 Docker 설치</a></li>
+        <li><a href="#3-동작-확인">3. 동작 확인</a></li>
+      </ol>
+    </li>
+    <li><a href="#conclusion">Conclusion</a></li>
+    <li><a href="#reference">Reference</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/synology/" >
+                Synology
+            </a>
+        
+            <a href="/categories/jenkins/" >
+                Jenkins
+            </a>
+        
+            <a href="/categories/docker/" >
+                Docker
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/use-docker-in-jenkins-docker/">Use Docker in Jenkins Docker</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            Docker로 기동한 Jenkins에서 Docker를 실행하는 방법을 정리합니다.
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">8월 26, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 분 정도
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="introduction">Introduction
+</h2><p>Synology에서 여러 응용 프로그램을 설치해서 사용하기 위해서 Docker를 애용합니다.<br>
+Docker로 Jenkins 를 사용중인데, Jenkins에서도 Docker를 사용해야하는 상황이 생겨 진행하게 되었습니다.<br>
+Synology가 아닌 다른 Machine에서도 비슷하게 진행되지만, 이번 설명은 Synology를 기준으로 설명하겠습니다.</p>
+<p>설명한 방법은 Host의 docker sock을 공유하는 방법입니다.</p>
+<h2 id="prerequisite">Prerequisite
+</h2><ul>
+<li>Jenkins Container Using Official Image</li>
+</ul>
+<h2 id="progress">Progress
+</h2><p>생각보다 어렵지 않습니다. 차근차근히 진행하면 쉽습니다.<br>
+DSM 7.2로 업데이트한 후에 진행한 작업이라, 캡처한 이미지가 차이가 있을 수 있습니다.</p>
+<h3 id="1-docker-sock-공유">1. Docker sock 공유
+</h3><p>Synology에 설치해준 Docker sock과 container에서 사용할 Docker sock을 binding 하는 작업을 해야합니다. <br>
+아래의 명령어대로 설정해 주면 됩니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker run -p <span class="si">${</span><span class="nv">webPort</span><span class="si">}</span>:8080 -p <span class="si">${</span><span class="nv">agentPort</span><span class="si">}</span>:50000 -d -v /var/run/docker.sock:/var/run/docker.sock -v <span class="si">${</span><span class="nv">hostJenkinsDir</span><span class="si">}</span>:/var/jenkins_home jenkins/jenkins:lts
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 예시로 들면 아래와 같습니다.</span>
+</span></span><span class="line"><span class="cl">docker run -p 8080:8080 -p 50000:50000 -d -v /var/run/docker.sock:/var/run/docker.sock -v /docker/jenkins/home:/var/jenkins_home jenkins/jenkins:lts
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>하지만 Synology에서는 <code>/</code> directory 설정할 수 없기떄문에, SSH로 접속해서 설정해주어야합니다.<br>
+SSH로 접속해서 Docker command를 사용할 준비를 합니다.</p>
+<p><img src="/use-docker-in-jenkins-docker/update_command_in_host.jpg"
+	width="1868"
+	height="860"
+	srcset="/use-docker-in-jenkins-docker/update_command_in_host_hu_a127f913902b77e7.jpg 480w, /use-docker-in-jenkins-docker/update_command_in_host_hu_ce09b41752a7248b.jpg 1024w"
+	loading="lazy"
+	
+		alt="update_command_in_host"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="217"
+		data-flex-basis="521px"
+	
+></p>
+<p>저의 경우에는 위의 이미지처럼 container의 volume을 update할 수 있는 설정이 있습니다.<br>
+그래서 아래의 명령어를 사용해서 volume binding 하였습니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker container update -v /var/run/docker.sock:/var/run/docker.sock -v /docker/jenkins/home:/var/jenkins_home <span class="si">${</span><span class="nv">containerId</span><span class="si">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>이렇게 변경한 volume binding은 synology web ui상에서는 보이지 않기 때문에, 명령어를 통해 잘 변경되었는지 확인해야합니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker container inspect <span class="si">${</span><span class="nv">containerId</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">{</span>
+</span></span><span class="line"><span class="cl">          ...,
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;Mounts&#34;</span>: <span class="o">[</span>
+</span></span><span class="line"><span class="cl">            <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;Type&#34;</span>: <span class="s2">&#34;bind&#34;</span>,
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;Source&#34;</span>: <span class="s2">&#34;/volume1/docker/jenkins/home&#34;</span>,
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;Destination&#34;</span>: <span class="s2">&#34;/var/jenkins_home&#34;</span>,
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;Mode&#34;</span>: <span class="s2">&#34;rw&#34;</span>,
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;RW&#34;</span>: true,
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;Propagation&#34;</span>: <span class="s2">&#34;rprivate&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>,
+</span></span><span class="line"><span class="cl">            <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;Type&#34;</span>: <span class="s2">&#34;bind&#34;</span>,
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;Source&#34;</span>: <span class="s2">&#34;/var/run/docker.sock&#34;</span>,
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;Destination&#34;</span>: <span class="s2">&#34;/var/run/docker.sock&#34;</span>,
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;Mode&#34;</span>: <span class="s2">&#34;rw&#34;</span>,
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;RW&#34;</span>: true,
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;Propagation&#34;</span>: <span class="s2">&#34;rprivate&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">]</span>,
+</span></span><span class="line"><span class="cl">        ...
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>위처럼 <code>docker.sock</code>이 추가되었다면, 정상적으로 된 것입니다.<br>
+혹시 docker container update 명령어를 통해 volume binding을 할 수 없다면, 새로 container를 만드는것이 편하겠습니다.<br>
+직접 하진않았지만 아래의 명령어처럼 입력하면 되지않을까 싶습니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker run --restart <span class="si">${</span><span class="nv">policy</span><span class="si">}</span> --name <span class="si">${</span><span class="nv">jenkins</span><span class="si">}</span> -p <span class="si">${</span><span class="nv">webPort</span><span class="si">}</span>:8080 -p <span class="si">${</span><span class="nv">agentPort</span><span class="si">}</span>:50000 -d -v /var/run/docker.sock:/var/run/docker.sock -v <span class="si">${</span><span class="nv">hostJenkinsDir</span><span class="si">}</span>:/var/jenkins_home jenkins/jenkins:lts
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 예시로 들면 아래와 같습니다.</span>
+</span></span><span class="line"><span class="cl">docker run --restart always --name jenkins -p 8080:8080 -p 50000:50000 -d -v /var/run/docker.sock:/var/run/docker.sock -v /docker/jenkins/home:/var/jenkins_home jenkins/jenkins:lts
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>항상 재시작 하는 옵션을 <a class="link" href="https://docs.docker.com/engine/reference/run/#restart-policies---restart"  target="_blank" rel="noopener"
+    >공식문서</a>를 참고하였습니다.<br>
+본인의 필요에 따라 설정해주세요.</p>
+<h3 id="2-jenkins에-docker-설치">2. Jenkins에 Docker 설치
+</h3><p>Dockerfile을 새로 만들어, Docker를 설치하는 스크립트를 입력해주는 방법도 있습니다.
+하지만 새로 이미지를 만들고 관리하는건 번거롭기도하고, volume binding을 해서 데이터가 유지되는 상황이니 설치 스크립트를 저장해두는게 좋다고 생각이 들었습니다.<br>
+(Jenkins를 업그레이드하거나 Container가 삭제된다면, 설치스크립트를 새로 실행해주긴 해야하지만요.)</p>
+<p>아래의 내용의 스크립트를 host의 <code>/docker/jenkins/home/install_jenkins.sh</code>로 만들어 주었습니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>curl https://get.docker.com/ &gt; dockerinstall <span class="o">&amp;&amp;</span> chmod <span class="m">777</span> dockerinstall <span class="o">&amp;&amp;</span> ./dockerinstall
+</span></span><span class="line"><span class="cl">chmod <span class="m">666</span> /var/run/docker.sock
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>설치하는데 조금 시간이 걸리긴합니다. 기다리면, 설치가 완료된것을 보실 수 있습니다.</p>
+<h3 id="3-동작-확인">3. 동작 확인
+</h3><p>Jenkins Container와 Web UI에서 Docker command가 잘 되는지 확인해보겠습니다. <br>
+우선은 Container에서 확인해보겠습니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker <span class="nb">exec</span> -it <span class="si">${</span><span class="nv">containerId</span><span class="si">}</span> /bin/bash
+</span></span><span class="line"><span class="cl"><span class="c1"># 예시</span>
+</span></span><span class="line"><span class="cl">docker <span class="nb">exec</span> -it f0f5398c9a62 /bin/bash
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">docker container ls --all
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>위의 명령어들을 실행하면 Container에 접속하였고, 시놀로지에서 구동중인 Container 리스트를 확인할 수 있게됩니다. <br>
+구동중인 Container가 없을 수는 없지만, 에러는 발생해서는 안됩니다.</p>
+<p>위에까지만 확인해도 문제는 없을텐데, 저는 혹시나 싶어 더 확인해보았습니다.<br>
+아래처럼 Jenkins pipeline으로 실행해보았습니다.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">pipeline <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    agent any
+</span></span><span class="line"><span class="cl">    stages <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        stage<span class="o">(</span><span class="s1">&#39;Run Container&#39;</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            steps <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                script <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                    // Docker 컨테이너 실행
+</span></span><span class="line"><span class="cl">                    docker.image<span class="o">(</span><span class="s2">&#34;hello-world:latest&#34;</span><span class="o">)</span>.run<span class="o">()</span>
+</span></span><span class="line"><span class="cl">                <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/use-docker-in-jenkins-docker/console_job.jpg"
+	width="1406"
+	height="1494"
+	srcset="/use-docker-in-jenkins-docker/console_job_hu_cc2eb9b2822dca56.jpg 480w, /use-docker-in-jenkins-docker/console_job_hu_60b3703374bbb5a1.jpg 1024w"
+	loading="lazy"
+	
+		alt="console_job"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="94"
+		data-flex-basis="225px"
+	
+>
+위의 결과까지 나오면, jenkins에서도 docker를 마음껏 사용하실 수 있습니다.</p>
+<h2 id="conclusion">Conclusion
+</h2><p>Docker로 구동한 Jenkins에서 Docker를 실행할 수 있도록 해보았습니다. <br>
+Container로 만들어진 Jenkins에서 Host의 Docker에 접근할 수 있게 만든다는게, 편리하긴 하지만 보안상으로는 좋지않아 보입니다.   <br>
+사용하신다면 Container와 Host의 보안을 좀 더 신경 써서 사용해주시면, 안전할 것 같습니다.</p>
+<p>다른 분들에게 도움이 되면 좋겠네요. 감사합니다.</p>
+<h2 id="reference">Reference
+</h2><ul>
+<li><a class="link" href="https://faun.pub/how-to-install-docker-in-jenkins-container-4c49ba40b373"  target="_blank" rel="noopener"
+    >https://faun.pub/how-to-install-docker-in-jenkins-container-4c49ba40b373</a></li>
+<li><a class="link" href="https://github.com/jenkinsci/docker/blob/master/README.md"  target="_blank" rel="noopener"
+    >https://github.com/jenkinsci/docker/blob/master/README.md</a></li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/synology/">Synology</a>
+        
+            <a href="/tags/jenkins/">Jenkins</a>
+        
+            <a href="/tags/docker/">Docker</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">관련 글</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/install-docker-registry-ui/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Install Docker Registry Ui for Synology</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/deploy-certificate-synology-with-otp/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Deploy certificate synology with otp</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/switching-docker-rancher/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Switching from Docker Desktop to Rancher Desktop</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/upgrade-vaultwarden-1.29.1/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Upgrade Vaultwarden 1.29.1</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/automate-synology-lets-encrypt-certificate/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Automate Synology Let&#39;s Encrypt Certificate</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="Korcasus/blog-comments"
+        issue-term="title"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 Read Write
+    </section>
+    
+    <section class="powerby">
+        <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>로 만듦 <br />
+        <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>의 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 테마 사용 중
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

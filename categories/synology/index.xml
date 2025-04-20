@@ -8,21 +8,140 @@
         <language>ko-KR</language>
         <lastBuildDate>Thu, 26 Dec 2024 12:59:23 +0900</lastBuildDate><atom:link href="https://korcasus.github.io/categories/synology/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Deploy certificate synology with otp</title>
-        <link>https://korcasus.github.io/p/deploy-certificate-synology-with-otp/</link>
+        <link>https://korcasus.github.io/deploy-certificate-synology-with-otp/</link>
         <pubDate>Thu, 26 Dec 2024 12:59:23 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/p/deploy-certificate-synology-with-otp/</guid>
-        <description>&lt;h2 id=&#34;개요&#34;&gt;개요&lt;/h2&gt;
-&lt;p&gt;Synology DS220+ 구매한 뒤로 Bitwarden, WebDAV, &amp;hellip; 다양한 용도로 사용하고있습니다.&lt;br&gt;
+        <guid>https://korcasus.github.io/deploy-certificate-synology-with-otp/</guid>
+        <description>&lt;h2 id=&#34;개요&#34;&gt;개요
+&lt;/h2&gt;&lt;p&gt;Synology DS220+ 구매한 뒤로 Bitwarden, WebDAV, &amp;hellip; 다양한 용도로 사용하고있습니다.&lt;br&gt;
 lets encrypt를 사용하여 인증서를 생성한뒤, 작업 스케쥴러의 기능을 사용해서 3개월마다 갱신해서 사용하려 했으나 OTP 인증을 걸어놨던터라 매번 인증이 실패해서 제대로 갱신이 되지않았습니다.&lt;br&gt;
 DSM7과 최근 버전의 acme.sh에서 이러한 회피하여 인증서를 갱신할수 있게 되었습니다.&lt;br&gt;
 이 과정을 간단히 정리해보겠습니다.&lt;/p&gt;
-&lt;style type=&#34;text/css&#34;&gt;.notice{--root-color:#444;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#c33;--warning-content:#fee;--info-title:#fb7;--info-content:#fec;--note-title:#6be;--note-content:#e7f2fa;--tip-title:#5a5;--tip-content:#efe}@media (prefers-color-scheme:dark){.notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}}body.dark .notice{--root-color:#ddd;--root-background:#eff;--title-color:#fff;--title-background:#7bd;--warning-title:#800;--warning-content:#400;--info-title:#a50;--info-content:#420;--note-title:#069;--note-content:#023;--tip-title:#363;--tip-content:#121}.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:var(--root-color);background:var(--root-background)}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:var(--title-color);background:var(--title-background)}.notice.warning .notice-title{background:var(--warning-title)}.notice.warning{background:var(--warning-content)}.notice.info .notice-title{background:var(--info-title)}.notice.info{background:var(--info-content)}.notice.note .notice-title{background:var(--note-title)}.notice.note{background:var(--note-content)}.notice.tip .notice-title{background:var(--tip-title)}.notice.tip{background:var(--tip-content)}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}&lt;/style&gt;
-&lt;div&gt;&lt;svg width=&#34;0&#34; height=&#34;0&#34; display=&#34;none&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;&lt;symbol id=&#34;tip-notice&#34; viewBox=&#34;0 0 512 512&#34; preserveAspectRatio=&#34;xMidYMid meet&#34;&gt;&lt;path d=&#34;M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z&#34;/&gt;&lt;/symbol&gt;&lt;symbol id=&#34;note-notice&#34; viewBox=&#34;0 0 512 512&#34; preserveAspectRatio=&#34;xMidYMid meet&#34;&gt;&lt;path d=&#34;M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z&#34;/&gt;&lt;/symbol&gt;&lt;symbol id=&#34;warning-notice&#34; viewBox=&#34;0 0 576 512&#34; preserveAspectRatio=&#34;xMidYMid meet&#34;&gt;&lt;path d=&#34;M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z&#34;/&gt;&lt;/symbol&gt;&lt;symbol id=&#34;info-notice&#34; viewBox=&#34;0 0 512 512&#34; preserveAspectRatio=&#34;xMidYMid meet&#34;&gt;&lt;path d=&#34;M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z&#34;/&gt;&lt;/symbol&gt;&lt;/svg&gt;&lt;/div&gt;&lt;div class=&#34;notice info&#34; &gt;
-&lt;p class=&#34;first notice-title&#34;&gt;&lt;span class=&#34;icon-notice baseline&#34;&gt;&lt;svg&gt;&lt;use href=&#34;#info-notice&#34;&gt;&lt;/use&gt;&lt;/svg&gt;&lt;/span&gt;알림&lt;/p&gt;&lt;p&gt;OTP를 사용하는 admin 계정에 한해서 입니다.&lt;/p&gt;&lt;/div&gt;
+&lt;style type=&#34;text/css&#34;&gt;
+     
+    .notice {
+        --title-color: #fff;
+        --title-background-color: #6be;
+        --content-color: #444;
+        --content-background-color: #e7f2fa;
+    }
 
-&lt;h2 id=&#34;acmesh-업그레이드&#34;&gt;ACME.sh 업그레이드&lt;/h2&gt;
-&lt;p&gt;그동안 사용해 오시던 acme.sh를 업그레이드 해야합니다.&lt;br&gt;
+    .notice.info {
+        --title-background-color: #fb7;
+        --content-background-color: #fec;
+    }
+
+    .notice.tip {
+        --title-background-color: #5a5;
+        --content-background-color: #efe;
+    }
+
+    .notice.warning {
+        --title-background-color: #c33;
+        --content-background-color: #fee;
+    }
+
+     
+    @media (prefers-color-scheme:dark) {
+        .notice {
+            --title-color: #fff;
+            --title-background-color: #069;
+            --content-color: #ddd;
+            --content-background-color: #023;
+        }
+
+        .notice.info {
+            --title-background-color: #a50;
+            --content-background-color: #420;
+        }
+
+        .notice.tip {
+            --title-background-color: #363;
+            --content-background-color: #121;
+        }
+
+        .notice.warning {
+            --title-background-color: #800;
+            --content-background-color: #400;
+        }
+    }
+
+    body.dark .notice {
+        --title-color: #fff;
+        --title-background-color: #069;
+        --content-color: #ddd;
+        --content-background-color: #023;
+    }
+
+    body.dark .notice.info {
+        --title-background-color: #a50;
+        --content-background-color: #420;
+    }
+
+    body.dark .notice.tip {
+        --title-background-color: #363;
+        --content-background-color: #121;
+    }
+
+    body.dark .notice.warning {
+        --title-background-color: #800;
+        --content-background-color: #400;
+    }
+
+     
+    .notice {
+        padding: 18px;
+        line-height: 24px;
+        margin-bottom: 24px;
+        border-radius: 4px;
+        color: var(--content-color);
+        background: var(--content-background-color);
+    }
+
+    .notice p:last-child {
+        margin-bottom: 0
+    }
+
+     
+    .notice-title {
+        margin: -18px -18px 12px;
+        padding: 4px 18px;
+        border-radius: 4px 4px 0 0;
+        font-weight: 700;
+        color: var(--title-color);
+        background: var(--title-background-color);
+    }
+
+     
+    .icon-notice {
+        display: inline-flex;
+        align-self: center;
+        margin-right: 8px;
+    }
+
+    .icon-notice img,
+    .icon-notice svg {
+        height: 1em;
+        width: 1em;
+        fill: currentColor;
+    }
+
+    .icon-notice img,
+    .icon-notice.baseline svg {
+        top: .125em;
+        position: relative;
+    }
+&lt;/style&gt;&lt;div class=&#34;notice info&#34; &gt;
+    &lt;p class=&#34;notice-title&#34;&gt;
+        &lt;span class=&#34;icon-notice baseline&#34;&gt;
+            &lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;92 59.5 300 300&#34;&gt;
+  &lt;path d=&#34;M292 303.25V272c0-3.516-2.734-6.25-6.25-6.25H267v-100c0-3.516-2.734-6.25-6.25-6.25h-62.5c-3.516 0-6.25 2.734-6.25 6.25V197c0 3.516 2.734 6.25 6.25 6.25H217v62.5h-18.75c-3.516 0-6.25 2.734-6.25 6.25v31.25c0 3.516 2.734 6.25 6.25 6.25h87.5c3.516 0 6.25-2.734 6.25-6.25Zm-25-175V97c0-3.516-2.734-6.25-6.25-6.25h-37.5c-3.516 0-6.25 2.734-6.25 6.25v31.25c0 3.516 2.734 6.25 6.25 6.25h37.5c3.516 0 6.25-2.734 6.25-6.25Zm125 81.25c0 82.813-67.188 150-150 150-82.813 0-150-67.188-150-150 0-82.813 67.188-150 150-150 82.813 0 150 67.188 150 150Z&#34;/&gt;
+&lt;/svg&gt;
+
+        &lt;/span&gt;알림&lt;/p&gt;&lt;p&gt;OTP를 사용하는 admin 계정에 한해서 입니다.&lt;/p&gt;&lt;/div&gt;
+
+&lt;h2 id=&#34;acmesh-업그레이드&#34;&gt;ACME.sh 업그레이드
+&lt;/h2&gt;&lt;p&gt;그동안 사용해 오시던 acme.sh를 업그레이드 해야합니다.&lt;br&gt;
 &lt;a class=&#34;link&#34; href=&#34;%eb%a7%81%ed%81%ac&#34; &gt;https://github.com/acmesh-official/acme.sh?tab=readme-ov-file#14-how-to-upgrade-acmesh&lt;/a&gt;를 참고해서 진행하도록 합니다.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -39,8 +158,8 @@ DSM7과 최근 버전의 acme.sh에서 이러한 회피하여 인증서를 갱�
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;별다른 에러 없이 업그레이드가 되었다면, 다음 단계로 진행합니다.&lt;/p&gt;
-&lt;h2 id=&#34;synology-deployhook-달라진점&#34;&gt;Synology deployhook 달라진점&lt;/h2&gt;
-&lt;p&gt;그동안 ACME.sh에서는 synology 인증서 갱신을 할때, OTP를 사용하는 경우에 대해서는 다음과 같은 환경 변수들을 사용했습니다.&lt;/p&gt;
+&lt;h2 id=&#34;synology-deployhook-달라진점&#34;&gt;Synology deployhook 달라진점
+&lt;/h2&gt;&lt;p&gt;그동안 ACME.sh에서는 synology 인증서 갱신을 할때, OTP를 사용하는 경우에 대해서는 다음과 같은 환경 변수들을 사용했습니다.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;SYNO_DEVICE_NAME&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;SYNO_DEVICE_ID&lt;/code&gt;&lt;/li&gt;
@@ -51,8 +170,8 @@ DSM7과 최근 버전의 acme.sh에서 이러한 회피하여 인증서를 갱�
 &lt;p&gt;다행히도 최근 버전에서는 &lt;code&gt;SYNO_USE_TEMP_ADMIN&lt;/code&gt;이라는 환경변수를 만들어서 사용할 수 있게 되었습니다.
 동작하면서 출력되는 메시지를 보면 TOTP 인증을 일시적으로 해제한뒤, synology deploy hook을 호출한뒤 다시 TOTP 인증을 설정합니다.
 일시적으로 해제된다는 점에서 걱정될 수도있겠지만, 실 해제 시간은 5~10초 정도밖에 되지않는다는 점에서 걱정할 필요는 없어 보입니다.&lt;/p&gt;
-&lt;h2 id=&#34;요약&#34;&gt;요약&lt;/h2&gt;
-&lt;ol&gt;
+&lt;h2 id=&#34;요약&#34;&gt;요약
+&lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;ACME.sh 업그레이드&lt;/li&gt;
 &lt;li&gt;작업 스케줄러에 추가한 인증서 갱신 스크립트에 &lt;code&gt;export SYNO_USE_TEMP_ADMIN=1&lt;/code&gt;추가&lt;/li&gt;
 &lt;/ol&gt;
@@ -60,18 +179,18 @@ DSM7과 최근 버전의 acme.sh에서 이러한 회피하여 인증서를 갱�
         </item>
         <item>
         <title>Install Docker Registry Ui for Synology</title>
-        <link>https://korcasus.github.io/p/install-docker-registry-ui/</link>
+        <link>https://korcasus.github.io/install-docker-registry-ui/</link>
         <pubDate>Sun, 03 Sep 2023 21:42:24 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/p/install-docker-registry-ui/</guid>
-        <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;Synology에 Docker Registry를 Container로 사용하고 있었습니다.&lt;br&gt;
+        <guid>https://korcasus.github.io/install-docker-registry-ui/</guid>
+        <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction
+&lt;/h2&gt;&lt;p&gt;Synology에 Docker Registry를 Container로 사용하고 있었습니다.&lt;br&gt;
 개인 용도로 만든 이미지를 자유롭게 저장할 수 있게 되어 편하게 사용하고있었습니다.&lt;br&gt;
 하지만 어떤 이미지를 저장하고있는지, tag가 어떤게 있는지를 보기가 어렵더라구요.&lt;br&gt;
 물론 API를 사용해서 조회하면 볼수야 있겠지만, 저에게는 불편하게 다가왔습니다.&lt;br&gt;
 그래서 WebUI를 설치하는 방안을 찾아보았습니다.&lt;/p&gt;
-&lt;h2 id=&#34;candidate&#34;&gt;Candidate&lt;/h2&gt;
-&lt;p&gt;검색해보기도 하고, &lt;a class=&#34;link&#34; href=&#34;https://zetawiki.com/wiki/%EB%8F%84%EC%BB%A4_%EB%A0%88%EC%A7%80%EC%8A%A4%ED%8A%B8%EB%A6%AC_%EC%9B%B9UI&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+&lt;h2 id=&#34;candidate&#34;&gt;Candidate
+&lt;/h2&gt;&lt;p&gt;검색해보기도 하고, &lt;a class=&#34;link&#34; href=&#34;https://zetawiki.com/wiki/%EB%8F%84%EC%BB%A4_%EB%A0%88%EC%A7%80%EC%8A%A4%ED%8A%B8%EB%A6%AC_%EC%9B%B9UI&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;참고&lt;/a&gt;했을때, 아래의 2개가 적합해보였습니다.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/Joxit/docker-registry-ui&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -81,8 +200,8 @@ DSM7과 최근 버전의 acme.sh에서 이러한 회피하여 인증서를 갱�
 &lt;/ul&gt;
 &lt;p&gt;harbor는 기능이 풍부하고 CNCF로 관리되다보니, 더 좋긴합니다.&lt;br&gt;
 하지만 Registry를 이미 설치해두었고, web-ui만 사용하면 되는거라 Joxit docker regisry ui가 낫겠다 생각했습니다.&lt;/p&gt;
-&lt;h2 id=&#34;install&#34;&gt;Install&lt;/h2&gt;
-&lt;p&gt;내부망에서만 사용가능하게끔 설정하였습니다.&lt;br&gt;
+&lt;h2 id=&#34;install&#34;&gt;Install
+&lt;/h2&gt;&lt;p&gt;내부망에서만 사용가능하게끔 설정하였습니다.&lt;br&gt;
 외부망에서는 다른 설정이 추가될 수 있으며, 보안이 취약할 수 있습니다. &lt;br&gt;
 (이때는 harbor를 사용하는게 더 나을겁니다.)&lt;/p&gt;
 &lt;p&gt;공식문서에서는 &lt;a class=&#34;link&#34; href=&#34;https://github.com/Joxit/docker-registry-ui#recommended-docker-registry-usage&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -130,8 +249,8 @@ DSM7과 최근 버전의 acme.sh에서 이러한 회피하여 인증서를 갱�
 &lt;/div&gt;&lt;p&gt;여기까지 설정하니, 특별히 문제없이 web-ui가 문제없기 실행되었습니다.&lt;br&gt;
 정상 동작하는지 들어가보니, 메인 페이지는 Image 리스트를 잘 보여주었습니다.&lt;br&gt;
 하지만 이미지 상세정보 페이지에 들어가니, CORS 문제가 발생하고 있었습니다.&lt;/p&gt;
-&lt;h3 id=&#34;cors-troubleshooting&#34;&gt;CORS TroubleShooting&lt;/h3&gt;
-&lt;p&gt;Console에 출력되는 에러메시지를 보니, Preflight가 웹 브라우저에 의해 거절되어 실패하던 것이었습니다.&lt;br&gt;
+&lt;h3 id=&#34;cors-troubleshooting&#34;&gt;CORS TroubleShooting
+&lt;/h3&gt;&lt;p&gt;Console에 출력되는 에러메시지를 보니, Preflight가 웹 브라우저에 의해 거절되어 실패하던 것이었습니다.&lt;br&gt;
 생각해볼 수 있는 원인은 CORS였는데, 설정이 잘못되었다면 메인페이지에서도 에러가 발생해야 했었습니다.&lt;br&gt;
 다른 원인이 있을 수 있겠다 싶어, 공식 문서를 확인해보니 &lt;a class=&#34;link&#34; href=&#34;https://github.com/Joxit/docker-registry-ui#faq&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;FAQ&lt;/a&gt;에 등록되어있었습니다.&lt;/p&gt;
@@ -186,32 +305,32 @@ DSM7과 최근 버전의 acme.sh에서 이러한 회피하여 인증서를 갱�
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;이렇게하니 더 이상의 CORS 문제가 발생하지않고, 정상동작하였습니다.&lt;/p&gt;
-&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;NAS에 개인용도로 사용할 registry web-ui를 설치하였습니다.&lt;br&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion
+&lt;/h2&gt;&lt;p&gt;NAS에 개인용도로 사용할 registry web-ui를 설치하였습니다.&lt;br&gt;
 간단하게 Registry에 저장된 도커이미지를 관리하기에는 충분해 보입니다.&lt;br&gt;
 저처럼 사적으로 Registry에 저장해둔 도커 이미지를 관리할 니즈가 있으신 분들에게는 추천 드립니다.&lt;/p&gt;
 </description>
         </item>
         <item>
         <title>Use Docker in Jenkins Docker</title>
-        <link>https://korcasus.github.io/p/use-docker-in-jenkins-docker/</link>
+        <link>https://korcasus.github.io/use-docker-in-jenkins-docker/</link>
         <pubDate>Sat, 26 Aug 2023 22:30:49 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/p/use-docker-in-jenkins-docker/</guid>
-        <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;Synology에서 여러 응용 프로그램을 설치해서 사용하기 위해서 Docker를 애용합니다.&lt;br&gt;
+        <guid>https://korcasus.github.io/use-docker-in-jenkins-docker/</guid>
+        <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction
+&lt;/h2&gt;&lt;p&gt;Synology에서 여러 응용 프로그램을 설치해서 사용하기 위해서 Docker를 애용합니다.&lt;br&gt;
 Docker로 Jenkins 를 사용중인데, Jenkins에서도 Docker를 사용해야하는 상황이 생겨 진행하게 되었습니다.&lt;br&gt;
 Synology가 아닌 다른 Machine에서도 비슷하게 진행되지만, 이번 설명은 Synology를 기준으로 설명하겠습니다.&lt;/p&gt;
 &lt;p&gt;설명한 방법은 Host의 docker sock을 공유하는 방법입니다.&lt;/p&gt;
-&lt;h2 id=&#34;prerequisite&#34;&gt;Prerequisite&lt;/h2&gt;
-&lt;ul&gt;
+&lt;h2 id=&#34;prerequisite&#34;&gt;Prerequisite
+&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;Jenkins Container Using Official Image&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;progress&#34;&gt;Progress&lt;/h2&gt;
-&lt;p&gt;생각보다 어렵지 않습니다. 차근차근히 진행하면 쉽습니다.&lt;br&gt;
+&lt;h2 id=&#34;progress&#34;&gt;Progress
+&lt;/h2&gt;&lt;p&gt;생각보다 어렵지 않습니다. 차근차근히 진행하면 쉽습니다.&lt;br&gt;
 DSM 7.2로 업데이트한 후에 진행한 작업이라, 캡처한 이미지가 차이가 있을 수 있습니다.&lt;/p&gt;
-&lt;h3 id=&#34;1-docker-sock-공유&#34;&gt;1. Docker sock 공유&lt;/h3&gt;
-&lt;p&gt;Synology에 설치해준 Docker sock과 container에서 사용할 Docker sock을 binding 하는 작업을 해야합니다. &lt;br&gt;
+&lt;h3 id=&#34;1-docker-sock-공유&#34;&gt;1. Docker sock 공유
+&lt;/h3&gt;&lt;p&gt;Synology에 설치해준 Docker sock과 container에서 사용할 Docker sock을 binding 하는 작업을 해야합니다. &lt;br&gt;
 아래의 명령어대로 설정해 주면 됩니다.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -229,10 +348,10 @@ DSM 7.2로 업데이트한 후에 진행한 작업이라, 캡처한 이미지가
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;하지만 Synology에서는 &lt;code&gt;/&lt;/code&gt; directory 설정할 수 없기떄문에, SSH로 접속해서 설정해주어야합니다.&lt;br&gt;
 SSH로 접속해서 Docker command를 사용할 준비를 합니다.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/p/use-docker-in-jenkins-docker/update_command_in_host.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/use-docker-in-jenkins-docker/update_command_in_host.jpg&#34;
 	width=&#34;1868&#34;
 	height=&#34;860&#34;
-	srcset=&#34;https://korcasus.github.io/p/use-docker-in-jenkins-docker/update_command_in_host_hucdd27cc99166e43e175b379001281f77_320576_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/use-docker-in-jenkins-docker/update_command_in_host_hucdd27cc99166e43e175b379001281f77_320576_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/use-docker-in-jenkins-docker/update_command_in_host_hu_a127f913902b77e7.jpg 480w, https://korcasus.github.io/use-docker-in-jenkins-docker/update_command_in_host_hu_ce09b41752a7248b.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;update_command_in_host&#34;
@@ -326,8 +445,8 @@ SSH로 접속해서 Docker command를 사용할 준비를 합니다.&lt;/p&gt;
 &lt;/div&gt;&lt;p&gt;항상 재시작 하는 옵션을 &lt;a class=&#34;link&#34; href=&#34;https://docs.docker.com/engine/reference/run/#restart-policies---restart&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;공식문서&lt;/a&gt;를 참고하였습니다.&lt;br&gt;
 본인의 필요에 따라 설정해주세요.&lt;/p&gt;
-&lt;h3 id=&#34;2-jenkins에-docker-설치&#34;&gt;2. Jenkins에 Docker 설치&lt;/h3&gt;
-&lt;p&gt;Dockerfile을 새로 만들어, Docker를 설치하는 스크립트를 입력해주는 방법도 있습니다.
+&lt;h3 id=&#34;2-jenkins에-docker-설치&#34;&gt;2. Jenkins에 Docker 설치
+&lt;/h3&gt;&lt;p&gt;Dockerfile을 새로 만들어, Docker를 설치하는 스크립트를 입력해주는 방법도 있습니다.
 하지만 새로 이미지를 만들고 관리하는건 번거롭기도하고, volume binding을 해서 데이터가 유지되는 상황이니 설치 스크립트를 저장해두는게 좋다고 생각이 들었습니다.&lt;br&gt;
 (Jenkins를 업그레이드하거나 Container가 삭제된다면, 설치스크립트를 새로 실행해주긴 해야하지만요.)&lt;/p&gt;
 &lt;p&gt;아래의 내용의 스크립트를 host의 &lt;code&gt;/docker/jenkins/home/install_jenkins.sh&lt;/code&gt;로 만들어 주었습니다.&lt;/p&gt;
@@ -344,8 +463,8 @@ SSH로 접속해서 Docker command를 사용할 준비를 합니다.&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;설치하는데 조금 시간이 걸리긴합니다. 기다리면, 설치가 완료된것을 보실 수 있습니다.&lt;/p&gt;
-&lt;h3 id=&#34;3-동작-확인&#34;&gt;3. 동작 확인&lt;/h3&gt;
-&lt;p&gt;Jenkins Container와 Web UI에서 Docker command가 잘 되는지 확인해보겠습니다. &lt;br&gt;
+&lt;h3 id=&#34;3-동작-확인&#34;&gt;3. 동작 확인
+&lt;/h3&gt;&lt;p&gt;Jenkins Container와 Web UI에서 Docker command가 잘 되는지 확인해보겠습니다. &lt;br&gt;
 우선은 Container에서 확인해보겠습니다.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -403,10 +522,10 @@ SSH로 접속해서 Docker command를 사용할 준비를 합니다.&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/p/use-docker-in-jenkins-docker/console_job.jpg&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/use-docker-in-jenkins-docker/console_job.jpg&#34;
 	width=&#34;1406&#34;
 	height=&#34;1494&#34;
-	srcset=&#34;https://korcasus.github.io/p/use-docker-in-jenkins-docker/console_job_hud49da568400d9062178718c4e59fe2d3_194182_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/use-docker-in-jenkins-docker/console_job_hud49da568400d9062178718c4e59fe2d3_194182_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/use-docker-in-jenkins-docker/console_job_hu_cc2eb9b2822dca56.jpg 480w, https://korcasus.github.io/use-docker-in-jenkins-docker/console_job_hu_60b3703374bbb5a1.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;console_job&#34;
@@ -418,13 +537,13 @@ SSH로 접속해서 Docker command를 사용할 준비를 합니다.&lt;/p&gt;
 	
 &gt;
 위의 결과까지 나오면, jenkins에서도 docker를 마음껏 사용하실 수 있습니다.&lt;/p&gt;
-&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;Docker로 구동한 Jenkins에서 Docker를 실행할 수 있도록 해보았습니다. &lt;br&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion
+&lt;/h2&gt;&lt;p&gt;Docker로 구동한 Jenkins에서 Docker를 실행할 수 있도록 해보았습니다. &lt;br&gt;
 Container로 만들어진 Jenkins에서 Host의 Docker에 접근할 수 있게 만든다는게, 편리하긴 하지만 보안상으로는 좋지않아 보입니다.   &lt;br&gt;
 사용하신다면 Container와 Host의 보안을 좀 더 신경 써서 사용해주시면, 안전할 것 같습니다.&lt;/p&gt;
 &lt;p&gt;다른 분들에게 도움이 되면 좋겠네요. 감사합니다.&lt;/p&gt;
-&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
-&lt;ul&gt;
+&lt;h2 id=&#34;reference&#34;&gt;Reference
+&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://faun.pub/how-to-install-docker-in-jenkins-container-4c49ba40b373&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://faun.pub/how-to-install-docker-in-jenkins-container-4c49ba40b373&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/jenkinsci/docker/blob/master/README.md&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -434,21 +553,21 @@ Container로 만들어진 Jenkins에서 Host의 Docker에 접근할 수 있게 �
         </item>
         <item>
         <title>Upgrade Vaultwarden 1.29.1</title>
-        <link>https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/</link>
+        <link>https://korcasus.github.io/upgrade-vaultwarden-1.29.1/</link>
         <pubDate>Mon, 14 Aug 2023 23:09:01 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/</guid>
-        <description>&lt;h2 id=&#34;before-to-start&#34;&gt;Before to start&lt;/h2&gt;
-&lt;p&gt;맥을 사용하시는분이라면 Keychain에 익숙하실겁니다. 비밀번호를 저장하고 관리해주는 어플리케이션이죠.&lt;br&gt;
+        <guid>https://korcasus.github.io/upgrade-vaultwarden-1.29.1/</guid>
+        <description>&lt;h2 id=&#34;before-to-start&#34;&gt;Before to start
+&lt;/h2&gt;&lt;p&gt;맥을 사용하시는분이라면 Keychain에 익숙하실겁니다. 비밀번호를 저장하고 관리해주는 어플리케이션이죠.&lt;br&gt;
 요즘에는 크롬이나 엣지 브라우저에서도 제공하고있습니다.&lt;br&gt;
 저는 웹 뿐만이 아니라, 맥에서도 편하게 사용할수 있는것을 원했기 때문에 다른 툴을 사용하고있습니다.&lt;br&gt;
 더 자세히 이야기하면 길어지기 때문에, 짧게 이야기하면 Valutwarden이라는 Bitwarden의 Compact버전을 synology에 설치해서 사용하고있습니다.&lt;/p&gt;
 &lt;p&gt;이번에 Valutwarden이 1.29.0 버전으로 업그레이드 되면서 실시간 동기화가 가능해졌다는 소식에 업그레이드를 결심하였습니다.&lt;/p&gt;
-&lt;h2 id=&#34;objective&#34;&gt;Objective&lt;/h2&gt;
-&lt;p&gt;Valutwarden을 1.29.1로 업그레이드하면서, 필요한 설정(ex. 실시간 동기화)들을 추가한다.&lt;/p&gt;
-&lt;h2 id=&#34;upgrade&#34;&gt;Upgrade&lt;/h2&gt;
-&lt;h3 id=&#34;upgrade-guide-찾기&#34;&gt;Upgrade Guide 찾기&lt;/h3&gt;
-&lt;p&gt;업그레이드 하기전까지 사용하던 docker image를 latest를 사용했기 때문에, 몇버전을 사용하고 있었는지는 모르겠습니다. &lt;br&gt;
+&lt;h2 id=&#34;objective&#34;&gt;Objective
+&lt;/h2&gt;&lt;p&gt;Valutwarden을 1.29.1로 업그레이드하면서, 필요한 설정(ex. 실시간 동기화)들을 추가한다.&lt;/p&gt;
+&lt;h2 id=&#34;upgrade&#34;&gt;Upgrade
+&lt;/h2&gt;&lt;h3 id=&#34;upgrade-guide-찾기&#34;&gt;Upgrade Guide 찾기
+&lt;/h3&gt;&lt;p&gt;업그레이드 하기전까지 사용하던 docker image를 latest를 사용했기 때문에, 몇버전을 사용하고 있었는지는 모르겠습니다. &lt;br&gt;
 하지만 최신버전이 1.29.x버전이기 때문에 minor 버전만 신경써주면 될것으로 생각했습니다.&lt;/p&gt;
 &lt;p&gt;공식 Github에 들어가보면 &lt;a class=&#34;link&#34; href=&#34;https://github.com/dani-garcia/vaultwarden/wiki/Updating-the-vaultwarden-image&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Updating valutwarden image&lt;/a&gt; Wiki가 존재합니다.
@@ -489,18 +608,18 @@ Container로 만들어진 Jenkins에서 Host의 Docker에 접근할 수 있게 �
 &lt;p&gt;&lt;code&gt;3번&lt;/code&gt;은 Passkey에 관한 내용입니다. 애플과 구글에서 지원하기 시작한 보안 방법중 하나인데, 고도화된 보안환경을 제공한다고 합니다. &lt;br&gt;
 저도 자세히 살펴보진 않아서,&amp;hellip; 설명은 넘어가겠습니다.&lt;br&gt;
 보안에 신경은 항상 써야하기때문에, 지원가능해지면 사용해보고싶네요.&lt;/p&gt;
-&lt;h3 id=&#34;추가할-configuration-보기&#34;&gt;추가할 Configuration 보기&lt;/h3&gt;
-&lt;p&gt;비밀번호 관리 프로그램을 개인 서버에 올려서 사용한다는건, 책임도 본인이 진다는 뜻입니다.&lt;br&gt;
+&lt;h3 id=&#34;추가할-configuration-보기&#34;&gt;추가할 Configuration 보기
+&lt;/h3&gt;&lt;p&gt;비밀번호 관리 프로그램을 개인 서버에 올려서 사용한다는건, 책임도 본인이 진다는 뜻입니다.&lt;br&gt;
 따라서 해킹당하지않도록 문제의 소지가 될수 있는 기능은 닫아두는게 좋습니다. (기본은 닫혀있을겁니다.) &lt;br&gt;
 그래서 사용하지 않을 기능과 사용할 기능들을 살펴보기 위해서 문서를 읽어보기 시작했습니다.&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/dani-garcia/vaultwarden/wiki/Configuration-overview&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Github wiki&lt;/a&gt;를 읽어보면 자세하게 나와있습니다. &lt;br&gt;
 config.json보다는 환경변수를 사용하는 방법을 권고하네요.&lt;/p&gt;
 &lt;p&gt;리스트는 아래와 같습니다.&lt;br&gt;
-&lt;img src=&#34;https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/config.jpg&#34;
+&lt;img src=&#34;https://korcasus.github.io/upgrade-vaultwarden-1.29.1/config.jpg&#34;
 	width=&#34;578&#34;
 	height=&#34;1122&#34;
-	srcset=&#34;https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/config_hucdd27cc99166e43e175b379001281f77_147088_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/config_hucdd27cc99166e43e175b379001281f77_147088_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/upgrade-vaultwarden-1.29.1/config_hu_bae651f1344b3c1d.jpg 480w, https://korcasus.github.io/upgrade-vaultwarden-1.29.1/config_hu_f134163e5cdd8a38.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;config&#34;
@@ -551,10 +670,10 @@ config.json보다는 환경변수를 사용하는 방법을 권고하네요.&lt;
 &lt;/div&gt;&lt;p&gt;ID와 KEY는 &lt;a class=&#34;link&#34; href=&#34;https://bitwarden.com/host/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bitwarden 홈페이지&lt;/a&gt;에서 발급받으라고 합니다.&lt;br&gt;
 Self Hosting은 지원하지 않는건가? 싶었는데, 다행히 지원하네요.&lt;br&gt;
-&lt;img src=&#34;https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/auto-sync-request.jpg&#34;
+&lt;img src=&#34;https://korcasus.github.io/upgrade-vaultwarden-1.29.1/auto-sync-request.jpg&#34;
 	width=&#34;1870&#34;
 	height=&#34;1154&#34;
-	srcset=&#34;https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/auto-sync-request_hucdd27cc99166e43e175b379001281f77_211109_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/auto-sync-request_hucdd27cc99166e43e175b379001281f77_211109_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/upgrade-vaultwarden-1.29.1/auto-sync-request_hu_b7075ec0e719c5e8.jpg 480w, https://korcasus.github.io/upgrade-vaultwarden-1.29.1/auto-sync-request_hu_6dc3a91c96303e71.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;auto-sync-request&#34;
@@ -569,12 +688,12 @@ Self Hosting에서 이용중인 이메일과 Data Region을 설정해줍니다.&
 Data Region은 뭔가싶겠지만, Wiki에 US로 두고 쓰라고 적혀있네요. Europe은 안될수도있다고&amp;hellip;
 그리고 업그레이드 직후에 App에서 실시간 동기화가 안될경우 재설치하라고 가이드하고있습니다.&lt;br&gt;
 업그레이드 완료한 후에, 한번 실시간 동기화 해보시는걸 추천합니다. (저는 직후에 바로해봤는데 잘되더라구요)&lt;/p&gt;
-&lt;h3 id=&#34;upgrade-하기&#34;&gt;Upgrade 하기&lt;/h3&gt;
-&lt;p&gt;본인 Synology에 Valutwarden을 설치하신 분이라면, 업그레이드 하는 과정은 다 아실거라 판단해서 과정은 생략했습니다.&lt;br&gt;
-&lt;img src=&#34;https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/container.jpg&#34;
+&lt;h3 id=&#34;upgrade-하기&#34;&gt;Upgrade 하기
+&lt;/h3&gt;&lt;p&gt;본인 Synology에 Valutwarden을 설치하신 분이라면, 업그레이드 하는 과정은 다 아실거라 판단해서 과정은 생략했습니다.&lt;br&gt;
+&lt;img src=&#34;https://korcasus.github.io/upgrade-vaultwarden-1.29.1/container.jpg&#34;
 	width=&#34;2342&#34;
 	height=&#34;1242&#34;
-	srcset=&#34;https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/container_hud49da568400d9062178718c4e59fe2d3_197488_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/container_hud49da568400d9062178718c4e59fe2d3_197488_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/upgrade-vaultwarden-1.29.1/container_hu_f1a0447f945d57fc.jpg 480w, https://korcasus.github.io/upgrade-vaultwarden-1.29.1/container_hu_16fb7a4a2b565b77.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;container info&#34;
@@ -592,8 +711,8 @@ log에는 서버를 실행하는데 문제없었고, web에 접속해보니 에�
 Web에서 변경한 내용은 App에서 별도의 액션 없이 잘 반영되었는데, App에서 변경한 내용은 Web에서 새롭게 로딩해주어야 했습니다. &lt;br&gt;
 (새로고침했다가 다시 비밀번호 입력했습니다 -ㅅ-)&lt;br&gt;
 큰 이슈까진 아니기 때문에, 업그레이드 잘 되었다고 판단하였습니다.&lt;/p&gt;
-&lt;h2 id=&#34;후기&#34;&gt;후기&lt;/h2&gt;
-&lt;p&gt;Valutwarden은 Bitwarden의 Compact를 추구하는 만큼 꼭 필요한 기능들만 가지고 있습니다.
+&lt;h2 id=&#34;후기&#34;&gt;후기
+&lt;/h2&gt;&lt;p&gt;Valutwarden은 Bitwarden의 Compact를 추구하는 만큼 꼭 필요한 기능들만 가지고 있습니다.
 이런 이유때문에 업그레이드 하더라도 많이 변경하지않아도 되는것이 좋게 느껴졌습니다.&lt;/p&gt;
 &lt;p&gt;별도로 운영되기 때문에 업그레이드를 하는데 개인의 노력이 필요할겁니다. 후원을 받긴하지만 오픈소스 환경에서 자발적으로 해주시는 분들에게 감사할 따름이네요.&lt;br&gt;
 저도 언젠가 필요한 기능을 추가하기 위해 Contribute하는 순간이 오겠죠?? 곧 올거라 믿습니다.&lt;/p&gt;
@@ -602,40 +721,40 @@ Web에서 변경한 내용은 App에서 별도의 액션 없이 잘 반영되었
         </item>
         <item>
         <title>Automate Synology Let&#39;s Encrypt Certificate</title>
-        <link>https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/</link>
+        <link>https://korcasus.github.io/automate-synology-lets-encrypt-certificate/</link>
         <pubDate>Mon, 21 Nov 2022 22:23:00 +0900</pubDate>
         
-        <guid>https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/</guid>
-        <description>&lt;h2 id=&#34;들어가기에-앞서&#34;&gt;들어가기에 앞서&lt;/h2&gt;
-&lt;p&gt;안녕하세요.&lt;br&gt;
+        <guid>https://korcasus.github.io/automate-synology-lets-encrypt-certificate/</guid>
+        <description>&lt;h2 id=&#34;들어가기에-앞서&#34;&gt;들어가기에 앞서
+&lt;/h2&gt;&lt;p&gt;안녕하세요.&lt;br&gt;
 Synology DS220+ 구매한 뒤로 Bitwarden, WebDAV, &amp;hellip; 다양한 용도로 사용하고있습니다.&lt;br&gt;
 이전까지는 DuckDNS와 함께 DSM 6.X 사용중이었습니다만, DSM 업데이트 이후로 만들어두었던 자동화 프로세스가 동작하지 않더라구요. &lt;br&gt;
 이번 기회에 갖고싶던 Domain을 CloudFlare에서 Domain 구매를 한 뒤, 새롭게 프로세스를 정리하였습니다.&lt;br&gt;
 &lt;a class=&#34;link&#34; href=&#34;https://github.com/acmesh-official/acme.sh/wiki/Synology-NAS-Guide&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;공식 가이드&lt;/a&gt; 대로 진행했던 과정을 순차적으로 정리하려고 합니다.&lt;/p&gt;
 &lt;p&gt;Domain 구입과 DDNS 설정에 대한 내용은 기회가 되면 작성하도록 하겠습니다.&lt;/p&gt;
-&lt;h3 id=&#34;사용한-환경&#34;&gt;사용한 환경&lt;/h3&gt;
-&lt;ul&gt;
+&lt;h3 id=&#34;사용한-환경&#34;&gt;사용한 환경
+&lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;DSM 7.X&lt;/li&gt;
 &lt;li&gt;Synology DS220+&lt;/li&gt;
 &lt;li&gt;Domain Provider : CloudFlare&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;lets-encrypt란&#34;&gt;Let&amp;rsquo;s Encrypt란?&lt;/h3&gt;
-&lt;p&gt;HTTPS를 사용할 때는 CA(인증기관)에서 제공하는 인증서를 사용합니다.&lt;br&gt;
+&lt;h3 id=&#34;lets-encrypt란&#34;&gt;Let&amp;rsquo;s Encrypt란?
+&lt;/h3&gt;&lt;p&gt;HTTPS를 사용할 때는 CA(인증기관)에서 제공하는 인증서를 사용합니다.&lt;br&gt;
 원하는 도메인으로 인증서를 발급하고자 할때, 업체마다 다른 가격을 지불해야합니다.   &lt;br&gt;
 Let&amp;rsquo;s Encrypt는 비영리 기관으로서 무료로 TLS인증서를 제공합니다.&lt;/p&gt;
 &lt;p&gt;장점은 무료로 인증서를 제공받을 수 있지만,&lt;br&gt;
 단점으로는 타업체는 유효기간이 1년인데 비해 짧은 3개월이라는 점입니다.&lt;/p&gt;
-&lt;h3 id=&#34;acmesh-는-뭔가요&#34;&gt;acme.sh 는 뭔가요?&lt;/h3&gt;
-&lt;p&gt;Let&amp;rsquo;s Encrypt는 ACME 프로토콜을 사용하여 도메인 소유자인지 확인한 뒤에 인증서를 발급합니다.   &lt;br&gt;
+&lt;h3 id=&#34;acmesh-는-뭔가요&#34;&gt;acme.sh 는 뭔가요?
+&lt;/h3&gt;&lt;p&gt;Let&amp;rsquo;s Encrypt는 ACME 프로토콜을 사용하여 도메인 소유자인지 확인한 뒤에 인증서를 발급합니다.   &lt;br&gt;
 인증서 발급을 위해서는 ACME 클라이언트 소프트웨어를 선택해야하는데요.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;CertBot&lt;/code&gt; 사용을 권장하지만, 상황에 따라 다른 소프트웨어를 선택할 수 있습니다. &lt;br&gt;
 &lt;code&gt;acme.sh&lt;/code&gt;는 bash를 사용해 인증서를 발급해 줄 수 있는 대체 소프트웨어입니다.&lt;br&gt;
 본인의 선호도에 따라 선택할 수 있습니다.&lt;br&gt;
 상세한 내용은 &lt;a class=&#34;link&#34; href=&#34;https://letsencrypt.org/ko/docs/client-options/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;공식문서&lt;/a&gt;를 참고해주세요.&lt;/p&gt;
-&lt;h2 id=&#34;cloudflare-api-token-발급&#34;&gt;CloudFlare API Token 발급&lt;/h2&gt;
-&lt;p&gt;인증서 발급 절차에 대해 정확하게 알지는 못해도, 파악한 흐름은 아래와 같습니다.&lt;/p&gt;
+&lt;h2 id=&#34;cloudflare-api-token-발급&#34;&gt;CloudFlare API Token 발급
+&lt;/h2&gt;&lt;p&gt;인증서 발급 절차에 대해 정확하게 알지는 못해도, 파악한 흐름은 아래와 같습니다.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;원하는 Domain의 인증서 발급 요청 (to Let&amp;rsquo;s Encrypt)&lt;/li&gt;
 &lt;li&gt;해당 Domain의 소유자임을 증명하기 위해 TXT Record값을 응답값으로 받음&lt;/li&gt;
@@ -647,10 +766,10 @@ Let&amp;rsquo;s Encrypt는 비영리 기관으로서 무료로 TLS인증서를 �
 Global Key로도 사용가능하지만, 필요이상의 권한을 가지고 있기때문에 진행하진 않습니다.&lt;/p&gt;
 &lt;p&gt;token을 발급하고자 하는 Domain을 선택하면, 아래의 같은 Home 화면이 나타납니다.&lt;br&gt;
 빨간색 화살표를 클릭합니다.&lt;br&gt;
-&lt;img src=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/cloudflare_home.jpg&#34;
+&lt;img src=&#34;https://korcasus.github.io/automate-synology-lets-encrypt-certificate/cloudflare_home.jpg&#34;
 	width=&#34;2696&#34;
 	height=&#34;2966&#34;
-	srcset=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/cloudflare_home_hud49da568400d9062178718c4e59fe2d3_651351_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/cloudflare_home_hud49da568400d9062178718c4e59fe2d3_651351_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/automate-synology-lets-encrypt-certificate/cloudflare_home_hu_ecaa037df6f71fa1.jpg 480w, https://korcasus.github.io/automate-synology-lets-encrypt-certificate/cloudflare_home_hu_b230d7032b1c5c16.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;cloudflare_home&#34;
@@ -663,10 +782,10 @@ Global Key로도 사용가능하지만, 필요이상의 권한을 가지고 있�
 &gt;&lt;/p&gt;
 &lt;p&gt;API Token 생성 버튼을 누르면, 아래의 같은 페이지가 나타나게됩니다.&lt;br&gt;
 우리는 DNS 관련된 수정 권한을 Token을 발행해야하기 때문에, 빨간색 화살표의 버튼을 누릅니다.&lt;br&gt;
-&lt;img src=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/choose_template.jpg&#34;
+&lt;img src=&#34;https://korcasus.github.io/automate-synology-lets-encrypt-certificate/choose_template.jpg&#34;
 	width=&#34;1406&#34;
 	height=&#34;1748&#34;
-	srcset=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/choose_template_hud49da568400d9062178718c4e59fe2d3_271736_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/choose_template_hud49da568400d9062178718c4e59fe2d3_271736_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/automate-synology-lets-encrypt-certificate/choose_template_hu_10701b5dcd7fa836.jpg 480w, https://korcasus.github.io/automate-synology-lets-encrypt-certificate/choose_template_hu_db909573f2c3672b.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;choose_template&#34;
@@ -679,10 +798,10 @@ Global Key로도 사용가능하지만, 필요이상의 권한을 가지고 있�
 &gt;&lt;/p&gt;
 &lt;p&gt;아래의 이미지에서 1번에 권한이 필요한 Domain을 선택합니다.&lt;br&gt;
 그뒤에는 2번을 선택해 바로 생성하도록 합니다.&lt;br&gt;
-&lt;img src=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/api_token_create.jpg&#34;
+&lt;img src=&#34;https://korcasus.github.io/automate-synology-lets-encrypt-certificate/api_token_create.jpg&#34;
 	width=&#34;1708&#34;
 	height=&#34;1892&#34;
-	srcset=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/api_token_create_hud49da568400d9062178718c4e59fe2d3_233114_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/api_token_create_hud49da568400d9062178718c4e59fe2d3_233114_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/automate-synology-lets-encrypt-certificate/api_token_create_hu_d221cdd9b028d37e.jpg 480w, https://korcasus.github.io/automate-synology-lets-encrypt-certificate/api_token_create_hu_8e3f5d76a8f952a1.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;api_token_create&#34;
@@ -695,12 +814,11 @@ Global Key로도 사용가능하지만, 필요이상의 권한을 가지고 있�
 &gt;&lt;/p&gt;
 &lt;p&gt;정상적으로 진행되었다면, Token값을 확인할 수 있습니다.&lt;br&gt;
 이 값은 더이상 볼 수 없기 때문에 잘 기억해주시기 바랍니다.&lt;/p&gt;
-&lt;h2 id=&#34;acme-설치-및-인증서-발급&#34;&gt;ACME 설치 및 인증서 발급&lt;/h2&gt;
-&lt;p&gt;인증서 발급을 진행해줄 Client를 설치하도록 하겠습니다.&lt;br&gt;
+&lt;h2 id=&#34;acme-설치-및-인증서-발급&#34;&gt;ACME 설치 및 인증서 발급
+&lt;/h2&gt;&lt;p&gt;인증서 발급을 진행해줄 Client를 설치하도록 하겠습니다.&lt;br&gt;
 아래의 명령어대로 설치를 진행하도록 합니다.&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;계정은 root로 진행합니다.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;계정은 root로 진행합니다.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -767,8 +885,8 @@ Global Key로도 사용가능하지만, 필요이상의 권한을 가지고 있�
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;혹여나 문제가 생긴다면 댓글로 문의주세요.&lt;/p&gt;
-&lt;h2 id=&#34;기본-인증서-교체&#34;&gt;기본 인증서 교체&lt;/h2&gt;
-&lt;p&gt;신규로 생성한 인증서를 기본 인증서로 교체해보겠습니다.&lt;/p&gt;
+&lt;h2 id=&#34;기본-인증서-교체&#34;&gt;기본 인증서 교체
+&lt;/h2&gt;&lt;p&gt;신규로 생성한 인증서를 기본 인증서로 교체해보겠습니다.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -785,10 +903,10 @@ Global Key로도 사용가능하지만, 필요이상의 권한을 가지고 있�
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ /usr/local/share/acme.sh/acme.sh --deploy --home . -d &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$CERT_DOMAIN&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; --deploy-hook synology_dsm
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/certificate_success.jpg&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://korcasus.github.io/automate-synology-lets-encrypt-certificate/certificate_success.jpg&#34;
 	width=&#34;2048&#34;
 	height=&#34;1774&#34;
-	srcset=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/certificate_success_hud49da568400d9062178718c4e59fe2d3_402785_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/certificate_success_hud49da568400d9062178718c4e59fe2d3_402785_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/automate-synology-lets-encrypt-certificate/certificate_success_hu_f7af91a4d952d77.jpg 480w, https://korcasus.github.io/automate-synology-lets-encrypt-certificate/certificate_success_hu_edee2827bc45c940.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;certificate_success&#34;
@@ -825,17 +943,17 @@ Success가 출력된다면, 정상적으로 마무리된 것입니다.&lt;br&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ /usr/local/share/acme.sh/acme.sh --deploy --insecure --home . -d &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$CERT_DOMAIN&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; --deploy-hook synology_dsm
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h2 id=&#34;인증서-갱신-스케줄러-설정&#34;&gt;인증서 갱신 스케줄러 설정&lt;/h2&gt;
-&lt;p&gt;인증서 유효기간이 3개월이기 때문에, 3개월마다 갱신작업을 해주어야합니다.&lt;br&gt;
+&lt;/div&gt;&lt;h2 id=&#34;인증서-갱신-스케줄러-설정&#34;&gt;인증서 갱신 스케줄러 설정
+&lt;/h2&gt;&lt;p&gt;인증서 유효기간이 3개월이기 때문에, 3개월마다 갱신작업을 해주어야합니다.&lt;br&gt;
 하지만 이 작업을 매번 수행하기엔&amp;hellip; 놀랍도록 귀찮습니다.&lt;br&gt;
 만료일에 가까워지면 갱신해야되는 초조함은 덤 입니다.&lt;br&gt;
 이 번거로운 일에서 벗어나기 위해 자동화를 하겠습니다.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;제어한 -&amp;gt; 서비스 -&amp;gt; 작업 스케줄러 -&amp;gt; 생성 -&amp;gt; 예약된 작업 -&amp;gt; 사용자 정의 스크립트&lt;/code&gt;를 순서대로 선택합니다.&lt;br&gt;
 이미지로는 아래와 같습니다. 빨간원 숫자 순서대로 진행합니다.&lt;br&gt;
-&lt;img src=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_scheduler.jpg&#34;
+&lt;img src=&#34;https://korcasus.github.io/automate-synology-lets-encrypt-certificate/create_scheduler.jpg&#34;
 	width=&#34;1962&#34;
 	height=&#34;1310&#34;
-	srcset=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_scheduler_hud49da568400d9062178718c4e59fe2d3_179432_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_scheduler_hud49da568400d9062178718c4e59fe2d3_179432_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/automate-synology-lets-encrypt-certificate/create_scheduler_hu_39c1277d6546492c.jpg 480w, https://korcasus.github.io/automate-synology-lets-encrypt-certificate/create_scheduler_hu_75949bacad0ea5d7.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;create_scheduler&#34;
@@ -850,10 +968,10 @@ Success가 출력된다면, 정상적으로 마무리된 것입니다.&lt;br&gt;
 이미지처럼 3가지 값을 확인해줍니다.&lt;br&gt;
 DSM6 버전까지는 &lt;code&gt;root&lt;/code&gt;로 진행해야 인증서 교체가 가능했는데요.&lt;br&gt;
 7 버전에서 다른계정으로 실행해도 되는지 테스트 해보진 않았습니다.&lt;br&gt;
-&lt;img src=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_1.jpg&#34;
+&lt;img src=&#34;https://korcasus.github.io/automate-synology-lets-encrypt-certificate/create_1.jpg&#34;
 	width=&#34;932&#34;
 	height=&#34;510&#34;
-	srcset=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_1_hud49da568400d9062178718c4e59fe2d3_53297_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_1_hud49da568400d9062178718c4e59fe2d3_53297_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/automate-synology-lets-encrypt-certificate/create_1_hu_a4252b331331335c.jpg 480w, https://korcasus.github.io/automate-synology-lets-encrypt-certificate/create_1_hu_d1c74698a3139e5d.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;create_1&#34;
@@ -870,10 +988,10 @@ DSM6 버전까지는 &lt;code&gt;root&lt;/code&gt;로 진행해야 인증서 교
 &lt;p&gt;매달 실행할 수 있게 변경 가능하지만, 갱신은 만료 1개월 전부터 가능합니다.&lt;br&gt;
 첫번째이자 마지막 갱신 시도하는 날에 모종의 이유로 실패할 경우, 위에서 진행하셨던걸 다시해주셔야합니다.&lt;br&gt;
 그래서 안전하게 매주 실행하도록 설정했습니다.
-&lt;img src=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_2.jpg&#34;
+&lt;img src=&#34;https://korcasus.github.io/automate-synology-lets-encrypt-certificate/create_2.jpg&#34;
 	width=&#34;874&#34;
 	height=&#34;904&#34;
-	srcset=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_2_hucdd27cc99166e43e175b379001281f77_65336_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_2_hucdd27cc99166e43e175b379001281f77_65336_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/automate-synology-lets-encrypt-certificate/create_2_hu_f2e5b7982ca38910.jpg 480w, https://korcasus.github.io/automate-synology-lets-encrypt-certificate/create_2_hu_47225797165e597a.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;create_2&#34;
@@ -889,10 +1007,10 @@ DSM6 버전까지는 &lt;code&gt;root&lt;/code&gt;로 진행해야 인증서 교
 잘 실행되는걸 메일 오는것으로 확인할 수 있을 테니까요.&lt;br&gt;
 저의경우에는 메일 대신에 텔레그램으로 메시지 오도록 변경했습니다. 이와 관련해서는 따로 포스트 하겠습니다.&lt;br&gt;
 사용자 정의 스크립트는 이미지처럼 인증서를 갱신하는 스크립트를 넣어줍니다.&lt;br&gt;
-&lt;img src=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_3.jpg&#34;
+&lt;img src=&#34;https://korcasus.github.io/automate-synology-lets-encrypt-certificate/create_3.jpg&#34;
 	width=&#34;884&#34;
 	height=&#34;732&#34;
-	srcset=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_3_hucdd27cc99166e43e175b379001281f77_72087_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_3_hucdd27cc99166e43e175b379001281f77_72087_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/automate-synology-lets-encrypt-certificate/create_3_hu_bf76d85ba375fe8.jpg 480w, https://korcasus.github.io/automate-synology-lets-encrypt-certificate/create_3_hu_166042c7a5c50290.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;create_3&#34;
@@ -913,10 +1031,10 @@ DSM6 버전까지는 &lt;code&gt;root&lt;/code&gt;로 진행해야 인증서 교
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;이제 설정 완료하시면 아래의 같은 팝업이 출력됩니다.&lt;br&gt;
-&lt;img src=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_warn.jpg&#34;
+&lt;img src=&#34;https://korcasus.github.io/automate-synology-lets-encrypt-certificate/create_warn.jpg&#34;
 	width=&#34;1264&#34;
 	height=&#34;386&#34;
-	srcset=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_warn_hucdd27cc99166e43e175b379001281f77_60486_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/create_warn_hucdd27cc99166e43e175b379001281f77_60486_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/automate-synology-lets-encrypt-certificate/create_warn_hu_4bf3d77652c9b112.jpg 480w, https://korcasus.github.io/automate-synology-lets-encrypt-certificate/create_warn_hu_37be3f8d269a4b3a.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;create_warn&#34;
@@ -930,10 +1048,10 @@ DSM6 버전까지는 &lt;code&gt;root&lt;/code&gt;로 진행해야 인증서 교
 사뿐히 확인버튼 눌러주시면 됩니다.&lt;/p&gt;
 &lt;p&gt;알림 외에도 실행한 로그를 확인하고 싶으실수 있는데요.&lt;br&gt;
 아래 이미지처럼 로그 경로를 설정할 수 있습니다. &lt;br&gt;
-&lt;img src=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/scheduler_log.jpg&#34;
+&lt;img src=&#34;https://korcasus.github.io/automate-synology-lets-encrypt-certificate/scheduler_log.jpg&#34;
 	width=&#34;1166&#34;
 	height=&#34;636&#34;
-	srcset=&#34;https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/scheduler_log_hud49da568400d9062178718c4e59fe2d3_73433_480x0_resize_q75_box.jpg 480w, https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/scheduler_log_hud49da568400d9062178718c4e59fe2d3_73433_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://korcasus.github.io/automate-synology-lets-encrypt-certificate/scheduler_log_hu_acf332d1db7c6d2e.jpg 480w, https://korcasus.github.io/automate-synology-lets-encrypt-certificate/scheduler_log_hu_9c0b637ce7cd57c9.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;scheduler_log&#34;
@@ -949,8 +1067,8 @@ DSM6 버전까지는 &lt;code&gt;root&lt;/code&gt;로 진행해야 인증서 교
 우리가 실행한 작업의 로그는 &lt;code&gt;/volume1/log/synoscheduler/${task_number}/${실행시간}&lt;/code&gt; 경로에서 확인하실수 있습니다.&lt;br&gt;
 &lt;code&gt;task_number&lt;/code&gt;는 스케줄러가 몇번째로 만들어졌는지 의미하는 값으로 보입니다.&lt;br&gt;
 &lt;code&gt;output.log&lt;/code&gt;는 실행하며 출력된 결과이고, &lt;code&gt;script.log&lt;/code&gt;는 실행한 스크립트를 볼 수 있습니다.&lt;/p&gt;
-&lt;h2 id=&#34;정리&#34;&gt;정리&lt;/h2&gt;
-&lt;p&gt;왜 이렇게 까지 해야되나 궁금해 하실수도 있습니다.&lt;br&gt;
+&lt;h2 id=&#34;정리&#34;&gt;정리
+&lt;/h2&gt;&lt;p&gt;왜 이렇게 까지 해야되나 궁금해 하실수도 있습니다.&lt;br&gt;
 집에서만 사용하도록 하신경우라면 이 과정 전혀 필요없습니다. 왜냐하면 외부에서 접근이 불가능하니까요.&lt;/p&gt;
 &lt;p&gt;하지만 외부에서 접근을 허용하는 경우라면 이야기가 달라집니다.&lt;br&gt;
 설정을 해두신 시점 이후로, 수시로 타국가에서 접근을 시도합니다. 보안 허점을 찾으려고 하는 거죠.
@@ -960,8 +1078,7 @@ http 통신은 보안상 문제가 있기 때문에, 이 상황에서 http를 �
 진행하느라 고생 많으셨습니다.👏👏&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;저도 이번에 새롭게 설정하다보니, 자동 갱신이 잘 되는지는 확인하진 못했습니다.&lt;br&gt;
-2개월 뒤에 내용을 보충 하도록 하겠습니다.&lt;/p&gt;
-&lt;/blockquote&gt;
+2개월 뒤에 내용을 보충 하도록 하겠습니다.&lt;/p&gt;&lt;/blockquote&gt;
 </description>
         </item>
         

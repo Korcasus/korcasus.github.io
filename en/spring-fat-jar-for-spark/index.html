@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="How to Build a Fat Jar to Execute Spring in Spark.">
+<title>Spring Fat-jar for Spark</title>
+
+<link rel='canonical' href='https://korcasus.github.io/en/spring-fat-jar-for-spark/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4086051155158500"
+        crossorigin="anonymous"></script>
+<meta property='og:title' content="Spring Fat-jar for Spark">
+<meta property='og:description' content="How to Build a Fat Jar to Execute Spring in Spark.">
+<meta property='og:url' content='https://korcasus.github.io/en/spring-fat-jar-for-spark/'>
+<meta property='og:site_name' content='Read Write'>
+<meta property='og:type' content='article'><meta property='article:section' content='Page' /><meta property='article:tag' content='Spring' /><meta property='article:tag' content='Spark' /><meta property='article:tag' content='Fat-Jar' /><meta property='article:tag' content='Gradle' /><meta property='article:published_time' content='2023-02-20T23:16:51&#43;09:00'/><meta property='article:modified_time' content='2023-02-20T23:16:51&#43;09:00'/>
+<meta name="twitter:title" content="Spring Fat-jar for Spark">
+<meta name="twitter:description" content="How to Build a Fat Jar to Execute Spring in Spark.">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSWKN88H77"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-PSWKN88H77');
+        }
+      </script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "dark");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/en">Read Write</a></h1>
+            <h2 class="site-description">Preserving Knowledge: Documenting What I&#39;ve Learned</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Korcasus'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://www.linkedin.com/in/seongdo-kim-34bab9148/'
+                        target="_blank"
+                        title="LinkedIn"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-linkedin" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="4" y="4" width="16" height="16" rx="2" />
+  <line x1="8" y1="11" x2="8" y2="16" />
+  <line x1="8" y1="8" x2="8" y2="8.01" />
+  <line x1="12" y1="16" x2="12" y2="11" />
+  <path d="M16 16v-3a2 2 0 0 0 -4 0" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:korcasus@gmail.com'
+                        target="_blank"
+                        title="Mail"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="3" y="5" width="18" height="14" rx="2" />
+  <polyline points="3 7 12 13 21 7" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/en/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/en/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/en/page/cicd/' >
+                
+                
+                
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-cube-send"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16 12.5l-5 -3l5 -3l5 3v5.5l-5 3z" /><path d="M11 9.5v5.5l5 3" /><path d="M16 12.545l5 -3.03" /><path d="M7 9h-5" /><path d="M7 12h-3" /><path d="M7 15h-1" /></svg>
+                
+                <span>CI/CD</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/en/page/db/' >
+                
+                
+                
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-database"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6m-8 0a8 3 0 1 0 16 0a8 3 0 1 0 -16 0" /><path d="M4 6v6a8 3 0 0 0 16 0v-6" /><path d="M4 12v6a8 3 0 0 0 16 0v-6" /></svg>
+                
+                <span>Database</span>
+            </a>
+        </li>
+        
+        
+        <li  class='current' >
+            <a href='/en/page/hadoop/' >
+                
+                
+                
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-table-dashed"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M3 10h18" /><path d="M10 3v18" /></svg>
+                
+                <span>Hadoop</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/en/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/en/page/etc/' >
+                
+                
+                
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-packages"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 16.5l-5 -3l5 -3l5 3v5.5l-5 3z" /><path d="M2 13.5v5.5l5 3" /><path d="M7 16.545l5 -3.03" /><path d="M17 16.5l-5 -3l5 -3l5 3v5.5l-5 3z" /><path d="M12 19l5 3" /><path d="M17 16.5l5 -3" /><path d="M12 13.5v-5.5l-5 -3l5 -3l5 3v5.5" /><path d="M7 5.03v5.455" /><path d="M12 8l5 -3" /></svg>
+                
+                <span>Etc</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://korcasus.github.io/en/" selected>English</option>
+                                
+                                    <option value="https://korcasus.github.io/" >Korean</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#how-to-build-fat-jar">How to Build Fat Jar</a></li>
+    <li><a href="#boot-jar">Boot-Jar</a>
+      <ol>
+        <li><a href="#configuration">Configuration</a>
+          <ol>
+            <li><a href="#1-adding-modules">1. Adding Modules</a></li>
+            <li><a href="#2-modify-manifest">2. Modify Manifest</a></li>
+          </ol>
+        </li>
+        <li><a href="#issues">Issues</a></li>
+      </ol>
+    </li>
+    <li><a href="#shadow-plugin">Shadow Plugin</a>
+      <ol>
+        <li><a href="#add-option-for-spring">Add Option For Spring</a></li>
+        <li><a href="#relocating-packages">Relocating Packages</a></li>
+        <li><a href="#modify-the-classpath">Modify the classpath.</a></li>
+      </ol>
+    </li>
+    <li><a href="#conclusion">Conclusion</a></li>
+    <li><a href="#reference">Reference</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/en/categories/spring/" >
+                Spring
+            </a>
+        
+            <a href="/en/categories/spark/" >
+                Spark
+            </a>
+        
+            <a href="/en/categories/gradle/" >
+                Gradle
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/en/spring-fat-jar-for-spark/">Spring Fat-jar for Spark</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            How to Build a Fat Jar to Execute Spring in Spark.
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Feb 20, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    5 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+        <footer class="article-translations">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+            <div>
+                
+                    <a href="https://korcasus.github.io/spring-fat-jar-for-spark/" class="link">Korean</a>
+                
+            </div>
+        </footer>
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="how-to-build-fat-jar">How to Build Fat Jar
+</h2><p>The method varies depending on the type of build tool you are using.<br>
+For Maven, you should use the <code>maven-assembly-plugin</code>,<br>
+while for Gradle, you need to use the <code>Shadow Plugin</code>.<br>
+In most cases, using one of these two plugins will solve the problem. However, Spring Boot requires additional handling due to its different execution method.</p>
+<h2 id="boot-jar">Boot-Jar
+</h2><p>This is the officially recommended approach in Spring.</p>
+<p>According to the explanation, Java does not provide a method to load nested JAR files, which can be a problem in environments where you need to run without extracting them.<br>
+Therefore, you should use a Shaded Jar (Fat Jar). It collects all classes from all JAR files, packages them into a single JAR file.<br>
+However, as it becomes challenging to see the libraries that exist in the actual application, Spring provides an alternative method.</p>
+<p>If you&rsquo;re curious about how this is implemented in detail, please refer to the official documentation.</p>
+<h3 id="configuration">Configuration
+</h3><h4 id="1-adding-modules">1. Adding Modules
+</h4><p><code>implementation 'org.springframework.boot:spring-boot-loader'</code><br>
+The mentioned modules help in creating Spring Boot as an Executable Jar or War.</p>
+<h4 id="2-modify-manifest">2. Modify Manifest
+</h4><p>Because it should be executed through JarLauncher, Manifest needs to be modified.<br>
+The contents should exist in <code>META-INF/MANIFEST.MF</code> and should be recorded during the build.</p>
+<p>The official documentation provides the following guidance:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">Main</span><span class="o">-</span><span class="nl">Class:</span> <span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">.</span><span class="na">boot</span><span class="o">.</span><span class="na">loader</span><span class="o">.</span><span class="na">JarLauncher</span>
+</span></span><span class="line"><span class="cl"><span class="n">Start</span><span class="o">-</span><span class="nl">Class:</span> <span class="n">com</span><span class="o">.</span><span class="na">mycompany</span><span class="o">.</span><span class="na">project</span><span class="o">.</span><span class="na">MyApplication</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>In my case, I applied it as follows:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">jar</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">manifest</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">attributes</span> <span class="s2">&#34;Main-Class&#34;</span><span class="o">:</span> <span class="s2">&#34;org.springframework.boot.loader.JarLauncher&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">attributes</span> <span class="s2">&#34;Start-Class&#34;</span><span class="o">:</span> <span class="s2">&#34;com.mycompany.team.batch.SparkSpringBatchClient&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="issues">Issues
+</h3><p>When executed using the <code>java -jar xxx.jar</code> command, it works as expected.<br>
+However, problems occur when running it within Spark.</p>
+<p>The issue stemmed from a dependency version mismatch.<br>
+At my current workplace, we&rsquo;re running Spark version 2.4, and the bundled Gson version was older than what the application required.<br>
+Consequently, the application failed to run due to the utilization of the outdated Gson library.</p>
+<p>I explored options for forcibly using the latest version of Gson.<br>
+The initial approach involved specifying the dependency version to use.<br>
+(For your information, we are already using a relatively up-to-date Gson version without employing this method.)<br>
+However, it didn&rsquo;t work due to Spark&rsquo;s preference for its embedded libraries.</p>
+<p>The second method is outlined in the <a class="link" href="https://spark.apache.org/docs/latest/configuration.html#runtime-environment"  target="_blank" rel="noopener"
+    >official Spark documentation</a>. <br>
+<code>spark.driver.userClassPathFirst</code><br>
+<code>spark.executor.userClassPathFirst</code><br>
+Both of these variables have a default value of False.</p>
+<p>The documentation specifies that the user-provided <code>--jars</code> option is given higher priority.<br>
+This can result in added complexity, particularly when managing an increasing number of jars, and it might introduce issues with experimental functionality.<br>
+Since it didn&rsquo;t deliver the intended behavior, and it wasn&rsquo;t our original intent, we have ceased its usage.</p>
+<p>To resolve this issue, you should utilize relocation (renaming) of dependencies, which is supported by the Shadow Plugin.</p>
+<h2 id="shadow-plugin">Shadow Plugin
+</h2><p>It consolidates the project&rsquo;s dependency classes and resources into a single JAR.<br>
+This offers two distinct advantages:</p>
+<ol>
+<li>It generates a deployable executable JAR.</li>
+<li>It bundles and relocates common dependencies from the library to prevent classpath conflicts.</li>
+</ol>
+<p>Referring to a more comprehensive description of the <a class="link" href="https://wonyong-jang.github.io/spark/2021/07/08/Spark-override-dependency.html"  target="_blank" rel="noopener"
+    >benefits would be beneficial(written in korean)</a>.</p>
+<h3 id="add-option-for-spring">Add Option For Spring
+</h3><p>To build a Spring Application with the Shadow Plugin, you need additional options.</p>
+<p>The following content is being added.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.github.jengelman.gradle.plugins.shadow.transformers.*</span>
+</span></span><span class="line"><span class="cl"><span class="n">shadowJar</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Required for Spring
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">mergeServiceFiles</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">append</span> <span class="s1">&#39;META-INF/spring.handlers&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">append</span> <span class="s1">&#39;META-INF/spring.schemas&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">append</span> <span class="s1">&#39;META-INF/spring.tooling&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">transform</span><span class="o">(</span><span class="n">PropertiesFileTransformer</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">paths</span> <span class="o">=</span> <span class="o">[</span><span class="s1">&#39;META-INF/spring.factories&#39;</span> <span class="o">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mergeStrategy</span> <span class="o">=</span> <span class="s2">&#34;append&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Detailed information can be found in the <a class="link" href="https://github.com/spring-projects/spring-boot/issues/1828#issuecomment-231104288"  target="_blank" rel="noopener"
+    >Git Issue</a>.</p>
+<h3 id="relocating-packages">Relocating Packages
+</h3><p>This is a feature used when duplicate dependencies exist in the classpath, preventing the intended version from being used. It is a common occurrence in Hadoop and Spark.</p>
+<p>This idea is simple. It involves identifying conflicting dependencies within the project and then changing their names (paths).<br>
+This prevents issues from arising since different named dependencies are used.</p>
+<p>The implementation method is simple.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="c1">// Relocating a Package
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">shadowJar</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">   <span class="n">relocate</span> <span class="s1">&#39;junit.framework&#39;</span><span class="o">,</span> <span class="s1">&#39;shadow.junit&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Change <code>junit.framework</code> to <code>shadow.junit</code> and apply it as follows, as needed.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">relocate</span> <span class="s1">&#39;com.google.gson&#39;</span><span class="o">,</span> <span class="s1">&#39;shadow.google.gson&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">relocate</span> <span class="s1">&#39;com.fasterxml.jackson&#39;</span><span class="o">,</span> <span class="s1">&#39;shadow.fasterxml.jackson&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>If you wish to examine relocation in the Shadow Plugin, please refer to the <a class="link" href="https://imperceptiblethoughts.com/shadow/configuration/relocation/"  target="_blank" rel="noopener"
+    >link</a>.</p>
+<h3 id="modify-the-classpath">Modify the classpath.
+</h3><p>In reality, I had hoped that everything would run smoothly up to this point.<br>
+However, when I attempt to execute java -jar project-all.jar, I can detect an anomaly.<br>
+<img src="/en/spring-fat-jar-for-spark/capture.jpg"
+	width="2556"
+	height="1130"
+	srcset="/en/spring-fat-jar-for-spark/capture_hu_121aafb1c62523ec.jpg 480w, /en/spring-fat-jar-for-spark/capture_hu_1df3ed51b58f8c28.jpg 1024w"
+	loading="lazy"
+	
+		alt="capture"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="226"
+		data-flex-basis="542px"
+	
+></p>
+<p>Although Spring itself started, I observed that the Main Application did not execute.<br>
+When I investigated, the root cause was not immediately apparent.</p>
+<p>Fortunately, through a process of trial and error, I was able to identify the issue, and it was related to the following <a class="link" href="https://imperceptiblethoughts.com/shadow/configuration/dependencies/"  target="_blank" rel="noopener"
+    >link</a></p>
+<p>At first, it was built with only the runtimeClassPath by default, but when I included the compileClassPath as follows, the problem was resolved.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">configurations</span> <span class="o">=</span> <span class="o">[</span><span class="n">project</span><span class="o">.</span><span class="na">configurations</span><span class="o">.</span><span class="na">compileClasspath</span><span class="o">,</span> <span class="n">project</span><span class="o">.</span><span class="na">configurations</span><span class="o">.</span><span class="na">productionRuntimeClasspath</span><span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>As problem resolution was the primary focus, I didn&rsquo;t investigate why including compileClassPath was necessary for it to function correctly.</p></blockquote>
+<h2 id="conclusion">Conclusion
+</h2><p>I&rsquo;ve explored how to build a Fat Jar (Shaded Jar) when using Spring.<br>
+While Boot Jar is the recommended method by Spring and offers the advantage of simplicity, it can be challenging to resolve Dependency conflicts in situations like using a Hadoop cluster.</p>
+<p>The usage of the Shadow Plugin is a commonly employed method.<br>
+However, when applying it to Spring, you will need to write additional scripts. Nevertheless, this approach can help avoid the problems experienced with Boot Jar.</p>
+<p>When dealing with Spark or Hadoop clusters, it is advisable to use the Shadow Plugin.<br>
+However, if you do not encounter these issues, it is recommended to use it based on your specific circumstances.</p>
+<h2 id="reference">Reference
+</h2><ul>
+<li>Spring Official Guide : <a class="link" href="https://docs.spring.io/spring-boot/docs/current/reference/html/executable-jar.html#appendix.executable-jar.alternatives"  target="_blank" rel="noopener"
+    >https://docs.spring.io/spring-boot/docs/current/reference/html/executable-jar.html#appendix.executable-jar.alternatives</a></li>
+<li>offical document translated in korean Article : <a class="link" href="https://wordbe.tistory.com/entry/Spring-Boot-2-Executable-JAR-%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B6%80%ED%8A%B8-%EC%8B%A4%ED%96%89"  target="_blank" rel="noopener"
+    >https://wordbe.tistory.com/entry/Spring-Boot-2-Executable-JAR-스프링-부트-실행</a></li>
+<li>Spring fat jar Git Issue for shadow plugin : <a class="link" href="https://github.com/spring-projects/spring-boot/issues/1828#issuecomment-231104288"  target="_blank" rel="noopener"
+    >https://github.com/spring-projects/spring-boot/issues/1828#issuecomment-231104288</a></li>
+<li>StackOverflow, which was helpful for gaining an overall understanding : <a class="link" href="https://stackoverflow.com/questions/51206959/classnotfound-when-submit-a-spring-boot-fat-jar-to-spark"  target="_blank" rel="noopener"
+    >https://stackoverflow.com/questions/51206959/classnotfound-when-submit-a-spring-boot-fat-jar-to-spark</a></li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/en/tags/spring/">Spring</a>
+        
+            <a href="/en/tags/spark/">Spark</a>
+        
+            <a href="/en/tags/fat-jar/">Fat-Jar</a>
+        
+            <a href="/en/tags/gradle/">Gradle</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/en/elasticsearch-spark/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Elasticsearch Spark</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="Korcasus/blog-comments"
+        issue-term="title"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 Read Write
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

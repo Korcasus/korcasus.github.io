@@ -2,164 +2,188 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <url>
-        <loc>https://korcasus.github.io/p/mongodb-sharding/</loc>
-        <lastmod>2024-12-26T16:27:19+09:00</lastmod>
-        <changefreq>daily</changefreq>
+        <loc>https://korcasus.github.io/page/etc/</loc>
+        <lastmod>2025-04-20T21:44:21+09:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://korcasus.github.io/page/</loc>
+        <lastmod>2025-04-20T21:44:21+09:00</lastmod>
+        <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
         <loc>https://korcasus.github.io/post/</loc>
-        <lastmod>2024-12-26T16:27:19+09:00</lastmod>
-        <changefreq>daily</changefreq>
+        <lastmod>2025-04-20T21:44:21+09:00</lastmod>
+        <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
         <loc>https://korcasus.github.io/</loc>
+        <lastmod>2025-04-20T21:44:21+09:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://korcasus.github.io/page/db/</loc>
         <lastmod>2024-12-26T16:27:19+09:00</lastmod>
-        <changefreq>daily</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://korcasus.github.io/p/deploy-certificate-synology-with-otp/</loc>
+        <loc>https://korcasus.github.io/mongodb-sharding/</loc>
+        <lastmod>2024-12-26T16:27:19+09:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://korcasus.github.io/deploy-certificate-synology-with-otp/</loc>
         <lastmod>2024-12-26T12:59:23+09:00</lastmod>
-        <changefreq>daily</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://korcasus.github.io/p/argo-workflow-variable-guide/</loc>
+        <loc>https://korcasus.github.io/argo-workflow-variable-guide/</loc>
         <lastmod>2024-06-19T22:51:31+09:00</lastmod>
-        <changefreq>daily</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://korcasus.github.io/p/switching-docker-rancher/</loc>
+        <loc>https://korcasus.github.io/page/cicd/</loc>
+        <lastmod>2024-06-19T22:51:31+09:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://korcasus.github.io/switching-docker-rancher/</loc>
         <lastmod>2024-02-12T01:57:21+09:00</lastmod>
-        <changefreq>daily</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://korcasus.github.io/p/git-flow/</loc>
+        <loc>https://korcasus.github.io/git-flow/</loc>
         <lastmod>2023-12-02T15:48:24+09:00</lastmod>
-        <changefreq>daily</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://korcasus.github.io/p/mongodb-spark-connector/</loc>
+        <loc>https://korcasus.github.io/mongodb-spark-connector/</loc>
         <lastmod>2023-11-26T22:26:53+09:00</lastmod>
-        <changefreq>daily</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://korcasus.github.io/p/essential-feature-argo-workflow/</loc>
+        <loc>https://korcasus.github.io/essential-feature-argo-workflow/</loc>
         <lastmod>2023-09-10T17:02:01+09:00</lastmod>
-        <changefreq>daily</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://korcasus.github.io/p/argo-events-getting-start/</loc>
+        <loc>https://korcasus.github.io/argo-events-getting-start/</loc>
         <lastmod>2023-09-10T16:46:32+09:00</lastmod>
-        <changefreq>daily</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://korcasus.github.io/p/install-docker-registry-ui/</loc>
+        <loc>https://korcasus.github.io/install-docker-registry-ui/</loc>
         <lastmod>2023-09-03T21:42:24+09:00</lastmod>
-        <changefreq>daily</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://korcasus.github.io/p/use-docker-in-jenkins-docker/</loc>
+        <loc>https://korcasus.github.io/use-docker-in-jenkins-docker/</loc>
         <lastmod>2023-08-26T22:30:49+09:00</lastmod>
-        <changefreq>daily</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://korcasus.github.io/p/hugo-exclude-pages/</loc>
+        <loc>https://korcasus.github.io/hugo-exclude-pages/</loc>
         <lastmod>2023-08-15T15:03:02+09:00</lastmod>
-        <changefreq>daily</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://korcasus.github.io/p/upgrade-vaultwarden-1.29.1/</loc>
+        <loc>https://korcasus.github.io/upgrade-vaultwarden-1.29.1/</loc>
         <lastmod>2023-08-14T23:09:01+09:00</lastmod>
-        <changefreq>daily</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://korcasus.github.io/p/elasticsearch-spark/</loc>
+        <loc>https://korcasus.github.io/elasticsearch-spark/</loc>
         <lastmod>2023-08-11T00:09:54+09:00</lastmod>
-        <changefreq>daily</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://korcasus.github.io/p/twitch-eventsub/</loc>
+        <loc>https://korcasus.github.io/page/hadoop/</loc>
+        <lastmod>2023-08-11T00:09:54+09:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://korcasus.github.io/twitch-eventsub/</loc>
         <lastmod>2023-04-09T14:34:00+09:00</lastmod>
-        <changefreq>daily</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://korcasus.github.io/p/spring-fat-jar-for-spark/</loc>
+        <loc>https://korcasus.github.io/spring-fat-jar-for-spark/</loc>
         <lastmod>2023-02-20T23:16:51+09:00</lastmod>
-        <changefreq>daily</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://korcasus.github.io/p/hive-kafka-integration3/</loc>
+        <loc>https://korcasus.github.io/hive-kafka-integration3/</loc>
         <lastmod>2022-12-01T22:45:04+09:00</lastmod>
-        <changefreq>daily</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://korcasus.github.io/p/hive-kafka-integration2/</loc>
+        <loc>https://korcasus.github.io/hive-kafka-integration2/</loc>
         <lastmod>2022-12-01T22:45:01+09:00</lastmod>
-        <changefreq>daily</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://korcasus.github.io/p/hive-kafka-integration1/</loc>
+        <loc>https://korcasus.github.io/hive-kafka-integration1/</loc>
         <lastmod>2022-12-01T22:44:01+09:00</lastmod>
-        <changefreq>daily</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://korcasus.github.io/p/automate-synology-lets-encrypt-certificate/</loc>
+        <loc>https://korcasus.github.io/automate-synology-lets-encrypt-certificate/</loc>
         <lastmod>2022-11-21T22:23:00+09:00</lastmod>
-        <changefreq>daily</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://korcasus.github.io/p/hugo-blog-customize/</loc>
+        <loc>https://korcasus.github.io/hugo-blog-customize/</loc>
         <lastmod>2022-11-15T20:23:45+09:00</lastmod>
-        <changefreq>daily</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://korcasus.github.io/p/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-1/</loc>
+        <loc>https://korcasus.github.io/hugo-blog-%EB%A7%8C%EB%93%A4%EA%B8%B0-1/</loc>
         <lastmod>2022-11-14T23:11:35+09:00</lastmod>
-        <changefreq>daily</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
         <loc>https://korcasus.github.io/about/</loc>
         <lastmod>2022-11-19T00:00:00+09:00</lastmod>
-        <changefreq>daily</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
         <loc>https://korcasus.github.io/archives/</loc>
         <lastmod>2022-11-13T00:00:00+09:00</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>https://korcasus.github.io/page/</loc>
-        <lastmod>2022-11-19T00:00:00+09:00</lastmod>
-        <changefreq>daily</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
         <loc>https://korcasus.github.io/search/</loc>
-        <changefreq>daily</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
 </urlset>
